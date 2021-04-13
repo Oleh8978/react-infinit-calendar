@@ -1,13 +1,42 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import {Provider} from "react-redux";
+import {ConnectedRouter} from "connected-react-router";
+
+// SCSS
+import 'Asset/scss/main.scss';
+
+// Vitals
 import reportWebVitals from './reportWebVitals';
 
+//Config
+import {Config} from "./Config/API";
+
+//Components
+import Routing from './Routing';
+
+//Store
+import store from './Controller/store';
+
+//History
+import history from "./historyApi";
+
+
+Config.init({
+  MAIN_SERVICE_HOST: process.env.REACT_APP_MAIN_SERVICE_HOST || "",
+  AUTH_SERVICE_HOST: process.env.REACT_APP_AUTH_SERVICE_HOST || "",
+  WS_API_HOST: process.env.REACT_APP_WS_API_HOST || ""
+});
+
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <React.StrictMode>
+        <Routing/>
+      </React.StrictMode>
+    </ConnectedRouter>
+  </Provider>,
   document.getElementById('root')
 );
 
