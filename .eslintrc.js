@@ -1,15 +1,22 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
-  parserOptions: {
-    project: 'tsconfig.json',
-    sourceType: 'module',
-  },
+  // parserOptions: {
+  //   project: './tsconfig.json',
+  //   sourceType: 'module',
+  // },
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      parserOptions: {
+        project: ['./tsconfig.json'],
+      },
+    }
+  ],
   plugins: ['@typescript-eslint/eslint-plugin', 'prettier'],
   extends: [
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     'prettier',
-    'prettier/@typescript-eslint',
   ],
   root: true,
   env: {
@@ -20,6 +27,7 @@ module.exports = {
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
-    'prettier/prettier': 'error',
+    '@typescript-eslint/no-empty-interface': 'warn',
+    'prettier/prettier': 'warn',
   },
 };

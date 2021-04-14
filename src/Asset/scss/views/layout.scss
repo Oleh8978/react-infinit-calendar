@@ -1,0 +1,12 @@
+body{
+  background: #E3E3E3;
+}
+
+.main-layout{
+  background: #FFFFFF;
+  max-width: 860px;
+  margin: 0 auto;
+  width: 100%;
+  height: 100vh;
+  max-height: calc(var(--vh, 1vh) * 100);
+}

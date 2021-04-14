@@ -1,9 +1,9 @@
-import { ComponentType, ComponentProps } from "react";
-import ProtectedRoute from "Routing/ProtectedRoute";
-import { RouteComponentProps } from "react-router-dom";
+import { ComponentType, ComponentProps } from 'react';
+import ProtectedRoute from 'Routing/ProtectedRoute';
+import { RouteComponentProps } from 'react-router-dom';
 
 //Views
-import Discovery from 'View/Discovery'
+import Discovery from 'View/Discovery';
 import NotFound from '../View/Static/NotFound';
 
 // Interfaces
@@ -11,35 +11,31 @@ interface IRoute {
   readonly name: Pages;
   readonly path: string;
   readonly isExact: boolean;
-  readonly component: ComponentType<RouteComponentProps<any> & ComponentProps<any> & { opacity: number}>;
+  readonly component: ComponentType<
+    RouteComponentProps<any> & ComponentProps<any> & { opacity: number }
+  >;
 }
 
-export type Pages =
-  "discovery"
-  | "account"
-  | "schedule"
-
-  | "notFound";
+export type Pages = 'discovery' | 'account' | 'schedule' | 'notFound';
 
 class RoutingSchema {
   private schema: IRoute[] = [
     {
-      name: "discovery",
-      path: "/discovery",
+      name: 'discovery',
+      path: '/discovery',
       isExact: true,
-      component: ProtectedRoute(Discovery, "ANONYMOUS_USERS")
+      component: ProtectedRoute(Discovery, 'ANONYMOUS_USERS'),
     },
     // {
     //   name: "payment",
     //   path: "/dedications/:id/buy"
     // },
-    // @ts-ignore
     {
-      name: "notFound",
-      path: "*",
+      name: 'notFound',
+      path: '*',
       isExact: true,
-      component: ProtectedRoute(NotFound, "ANONYMOUS_USERS")
-    }
+      component: ProtectedRoute(NotFound, 'ANONYMOUS_USERS'),
+    },
   ];
   private findRouteByPath(path: string): IRoute | undefined {
     return this.schema.find(({ path: routePath }) => routePath === path);
@@ -58,7 +54,7 @@ class RoutingSchema {
     if (route && route.path) {
       return route.path;
     } else {
-      return "/error";
+      return '/error';
     }
   }
   public getName(path: string): Pages | false {

@@ -6,9 +6,9 @@ import { IState } from '../model';
 
 export interface IAuthState {
   error?: IAuthException;
-  token?: string,
+  token?: string;
   isAuthenticated?: boolean;
-  state: IState
+  state: IState;
 }
 
 export interface IAuthException {
@@ -22,17 +22,16 @@ export interface ISetAuthenticatedStatus {
 }
 
 export interface ISignedData {
-  id?: string,
-  firstName?: string,
-  lastName?: string,
-  image?: string,
-  picture?: string,
-  email?: string,
-  type: loginType,
-  accessToken?: string,
-  expiresIn?: number,
-  hash?:string,
+  id?: string;
+  firstName?: string;
+  lastName?: string;
+  image?: string;
+  picture?: string;
+  email?: string;
+  type: loginType;
+  accessToken?: string;
+  expiresIn?: number;
 
-  FCMToken?: string,
-  platform?: DevicePlatformEnum
+  FCMToken?: string;
+  platform?: DevicePlatformEnum;
 }

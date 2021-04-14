@@ -16,21 +16,22 @@ export class Config {
   public static AUTH_SERVICE_HOST: string;
   public static WS_API_HOST: string;
 
-  public static API_PREFIX = "api/v1";
+  public static API_PREFIX = 'api/v1';
 
   public static get MAIN_SERVICE_ENDPOINT() {
     return `${this.MAIN_SERVICE_HOST}/${this.API_PREFIX}/`;
-  };
+  }
 
   public static get AUTH_SERVICE_ENDPOINT() {
     return `${this.AUTH_SERVICE_HOST}/${this.API_PREFIX}/auth/`;
-  };
-  public static get WS_ENDPOINT() { return `${Config.WS_API_HOST}`; };
+  }
+  public static get WS_ENDPOINT() {
+    return `${Config.WS_API_HOST}`;
+  }
 }
 
-export enum SocketEventEnum {
-  // UpdateEvent = 'UpdateEvent',
-}
+export enum SocketEventEnum {}
+// UpdateEvent = 'UpdateEvent',
 
 export enum DevicePlatformEnum {
   IOS = 'ios',
