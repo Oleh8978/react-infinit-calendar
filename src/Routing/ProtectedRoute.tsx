@@ -42,6 +42,7 @@ export const ProtectedRoute = (
       };
 
       componentDidMount() {
+        console.log('mount');
         let component = <ProtectedRoute {...this.props} />;
         if (
           !this.props.isAuthenticated &&

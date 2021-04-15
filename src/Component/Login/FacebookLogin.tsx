@@ -2,7 +2,7 @@ import React from 'react';
 import FacebookLogin, { ReactFacebookFailureResponse, ReactFacebookLoginInfo } from 'react-facebook-login';
 import { facebookAppId, loginType } from 'Config';
 import { ISignedData } from 'Controller/auth/model';
-import FacebookIcon from 'Asset/icon/FacebookIcon';
+import FacebookIcon from 'Component/icon/FacebookIcon';
 
 type Props = {
   signIn: (state: ISignedData) => void;

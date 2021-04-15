@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactGoogleLogin from 'react-google-login';
-import GoogleIcon from 'Asset/icon/GoogleIcon';
+import GoogleIcon from 'Component/icon/GoogleIcon';
 import { ISignedData } from 'Controller/auth/model';
 import { googleClientId } from 'Config';
 

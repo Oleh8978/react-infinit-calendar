@@ -1,7 +1,7 @@
 import { PayloadAction } from "typesafe-actions/dist/type-helpers";
 import { RouterState } from "connected-react-router";
 
-import { IError, ILoader } from "../Models";
+import { IError, ILoader } from "../Model";
 import { IAuthState } from './auth/model';
 
 export interface IStore {

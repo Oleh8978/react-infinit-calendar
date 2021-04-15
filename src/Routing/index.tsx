@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
 import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
-
-import { Transition, animated } from 'react-spring';
+import { useTransition, animated } from 'react-spring';
 
 import { IStore } from 'Controller/model';
 import { ISetAuthenticatedStatus } from 'Controller/auth/model';
@@ -14,6 +13,7 @@ import { setAuthenticatedStatus, loginByToken } from 'Controller/auth/actions';
 // Routing schema
 import RoutingSchema from './schema';
 import Login from '../View/Login';
+import Menu from '../Component/Menu';
 
 // Render all routes
 const Routes = RoutingSchema.getSchema.map(
@@ -30,45 +30,40 @@ interface Props {
   loginByToken: (token: string) => void;
 }
 
-const Routing: React.FC<Props> = ({ location, authStatus, ...props }) => {
-  if ((window as any).FirebasePlugin) {
-    (window as any).FirebasePlugin.onMessageReceived(
-      (message: any) => {
-        (window as any).FirebasePlugin.setBadgeNumber(0);
-        props.push(message.link);
-      },
-      (error: Error) => {
-        console.error(error);
-      },
-    );
-  }
-
-  useEffect(() => {
-    if (localStorage.token) {
-      props.loginByToken(localStorage.token);
-    } else {
-      props.setAuthenticatedStatus({ status: false });
-    }
-  }, []);
+const Routing: React.FC<Props> = ({ authStatus, ...props }) => {
+  const location = useLocation();
+  // useEffect(() => {
+  //   if (localStorage.token) {
+  //     props.loginByToken(localStorage.token);
+  //   } else {
+  //     props.setAuthenticatedStatus({ status: false });
+  //   }
+  // }, []);
 
   if (!authStatus) return <Login />;
 
+  const transition = useTransition(location, {
+    from: { opacity: 0, left: 0, top: 0 },
+    enter: { opacity: 1, left: 0, top: 0 },
+    leave: { opacity: 0, left: 0, top: 0 },
+  });
+
   return (
-    <Transition
-      from={{ opacity: 0, position: 'relative', left: 0, top: 0 }}
-      enter={{ opacity: 1, position: 'relative', left: 0, top: 0 }}
-      leave={{ opacity: 0, position: 'absolute', left: 0, top: 0 }}
-      items={location}
-      keys={(location: any) => location.pathname}>
-      {(item: any) => (props: any) => (
-        <animated.div style={props} className="main" id={'main'}>
+    <>
+      {transition((style, item) => (
+        <animated.div
+          key={String(item)}
+          style={style}
+          className="main"
+          id={'main'}>
           <Switch location={item}>
             {Routes}
             <Redirect to={RoutingSchema.getLink('discovery')} />
           </Switch>
         </animated.div>
-      )}
-    </Transition>
+      ))}
+      <Menu/>
+    </>
   );
 };
 

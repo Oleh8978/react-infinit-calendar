@@ -5,6 +5,8 @@ import { RouteComponentProps } from 'react-router-dom';
 //Views
 import Discovery from 'View/Discovery';
 import NotFound from '../View/Static/NotFound';
+import Schedule from '../View/Schedule';
+import Account from '../View/Account';
 
 // Interfaces
 interface IRoute {
@@ -16,7 +18,27 @@ interface IRoute {
   >;
 }
 
-export type Pages = 'discovery' | 'account' | 'schedule' | 'notFound';
+export type Pages =
+  | 'discovery'
+  | 'schedule'
+  | 'module'
+  | 'module-tasks'
+  | 'module-help'
+  | 'module-notes'
+  | 'journey'
+  | 'checkout'
+  | 'article'
+  | 'faq-form'
+  | 'task'
+  | 'expert'
+  | 'account'
+  | 'account-settings'
+  | 'account-edit'
+  | 'account-connected-socials'
+  | 'account-notes'
+  | 'about'
+  | 'privacy-policy'
+  | 'notFound';
 
 class RoutingSchema {
   private schema: IRoute[] = [
@@ -25,6 +47,18 @@ class RoutingSchema {
       path: '/discovery',
       isExact: true,
       component: ProtectedRoute(Discovery, 'ANONYMOUS_USERS'),
+    },
+    {
+      name: 'schedule',
+      path: '/schedule',
+      isExact: true,
+      component: ProtectedRoute(Schedule, 'ANONYMOUS_USERS'),
+    },
+    {
+      name: 'account',
+      path: '/account',
+      isExact: true,
+      component: ProtectedRoute(Account, 'ANONYMOUS_USERS'),
     },
     // {
     //   name: "payment",

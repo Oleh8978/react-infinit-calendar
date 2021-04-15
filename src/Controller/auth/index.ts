@@ -13,6 +13,7 @@ export const authSaga = function* () {
 };
 
 const initialState: IAuthState = {
+  isAuthenticated: true,
   state: {
     loaders: [],
     errors: [],
