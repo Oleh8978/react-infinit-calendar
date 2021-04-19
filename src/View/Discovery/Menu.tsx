@@ -1,20 +1,45 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { topics } from './FakeData/hardcodedData';
 
-import { Topic } from './Models/DiscoveryModels';
+import { ITopic } from './Models/DiscoveryModels';
 
-interface IProps {}
+interface IProps {
+  marginAdder: (isSmall: boolean) => void;
+}
 
-const Menu: React.FC<IProps> = () => {
-  const ItemsRender = (arr: Topic[]) => {
+const Menu: React.FC<IProps> = ({ marginAdder }) => {
+  const [smallMenu, setSmallMenu] = useState<boolean>(false);
+
+  const scrollTracker = () => {
+    if (document.getElementById('main').scrollTop > 400) {
+      setSmallMenu(true);
+      marginAdder(true);
+    } else {
+      setSmallMenu(false);
+      marginAdder(false);
+    }
+  };
+
+  const scrollToTop = () => {
+    document.getElementById('main').scrollTo(0, 0);
+  };
+  useEffect(() => {
+    document
+      .getElementById('main')
+      .addEventListener('scroll', () => scrollTracker());
+    return () => {
+      document
+        .getElementById('main')
+        .removeEventListener('scroll', () => scrollTracker());
+    };
+  }, []);
+  const bigMenuRender = (arr: ITopic[]) => {
     const arrSorted = [];
     for (let i = 0; i < arr.length; i += 2) {
       if (arr[i] && arr[i + 1]) {
         arrSorted.push(
-          <div
-            className={'topic-items-container'}
-            onClick={() => console.log('window.scrollY ', window.scrollY)}>
+          <div className={'topic-items-container'}>
             <div
               className={'topic-item__top'}
               style={{ backgroundColor: arr[i].color }}>
@@ -59,10 +84,29 @@ const Menu: React.FC<IProps> = () => {
     return arrSorted;
   };
 
+  const smallMenuRender = (items: ITopic[]) => {
+    return (
+      <div className="discovery-menu-small">
+        <div className="discovery-menu-small-btn" onClick={() => scrollToTop()}>
+          All
+        </div>
+        {items.map((element) => {
+          return (
+            <div className="discovery-menu-small-item">{element.title}</div>
+          );
+        })}
+      </div>
+    );
+  };
+
   return (
-    <div className={'discovery-menu'}>
+    <div
+      className={'discovery-menu'}
+      style={{ position: smallMenu ? 'fixed' : 'unset' }}>
       <span className={'discovery-select'}>Select your topic interest</span>
-      <div className={'discovery-menu-wrapper'}>{ItemsRender(topics)}</div>
+      <div className={'discovery-menu-wrapper'}>
+        {smallMenu ? smallMenuRender(topics) : bigMenuRender(topics)}
+      </div>
     </div>
   );
 };

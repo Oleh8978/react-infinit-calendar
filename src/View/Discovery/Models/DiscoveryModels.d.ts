@@ -1,4 +1,4 @@
-export interface Topic {
+export interface ITopic {
   image: string,
   color: string,
   title: string,

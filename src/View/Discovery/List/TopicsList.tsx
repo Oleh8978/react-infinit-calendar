@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 
 import { dataList } from '../FakeData/list/List';
 
-interface IProps {}
+interface IProps {
+  margin: number;
+}
 
-const DiscoveryTopicList: React.FC<IProps> = () => {
+const DiscoveryTopicList: React.FC<IProps> = ({ margin }) => {
   return (
-    <div className={'discovery-list'}>
+    <div className={'discovery-list'} style={{ marginTop: `${margin}` + 'px' }}>
       <span className="discovery-list-title">Full list</span>
       <div className="discovery-list-holder">
         {dataList.map((item) => {

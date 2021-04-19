@@ -1,6 +1,9 @@
 .discovery {
   overflow-y: hidden;
   &-menu {
+    opacity: 1;
+    transition: all 1s;
+    max-width: 860px;
     width: 100%;
     max-height: 393px;
     margin: 0px;
@@ -9,6 +12,8 @@
 
     &-wrapper {
       background-color: $white;
+      margin-left: 0px;
+      margin-right: 0px;
       max-height: 355px;
       max-width: 100%;
       display: flex;
@@ -16,6 +21,36 @@
       overflow-y: hidden;
       overflow-x: scroll;
       box-sizing: content-box;
+    }
+
+    &-small {
+      opacity: 1;
+      transition: all 1s;
+      display: flex;
+      flex-flow: row;
+      max-width: 860px;
+      height: 90px;
+      margin-left:5px;
+
+      &-item {
+        @include card-list-text-style;
+        min-width: 120px;
+        height: 50px;
+        display: flex;
+        margin-top: 20px;
+        margin-left: 10px;
+        border-radius: 15px;
+        border: 1px solid $yellow-color;
+        background-color: $white;
+        align-items: center;
+        justify-content: center;
+      }
+
+      &-btn {
+        @extend .discovery-menu-small-item;
+        color: $white;
+        background-color: $empty-title-color;
+      }
     }
   }
   &-select {
@@ -37,6 +72,7 @@
     @extend .discovery-select;
     margin: 20px 20px 60px;
     &-holder {
+      width: 100%;
       margin-top: 20px;
     }
 
@@ -51,21 +87,25 @@
         &__half {
           @extend .discovery-list-item-holder;
           border-radius: 14px;
-          overflow:hidden;
+          overflow: hidden;
           border: 1px solid $yellow-color;
         }
       }
       &-img {
         border-radius: 14px 0px 0px 14px;
-        max-width: 384px;
-        max-height: 384px;
+        display: flex;
+        flex-flow: column;
+        max-width: 100%;
+        max-height: 100%;
       }
       &-description {
         @include card-list-text-style;
         border-radius: 0px 14px 14px 0px;
         border-left: 1px solid $white;
+        display: flex;
         width: 100%;
-        height: 384px;
+        height: auto;
+        max-height: 384px;
       }
     }
   }
