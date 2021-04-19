@@ -9,10 +9,12 @@
 }
 
 html {
-  padding: constant(safe-area-inset-top) constant(safe-area-inset-right) constant(safe-area-inset-bottom) constant(safe-area-inset-left);
+  padding: constant(safe-area-inset-top) constant(safe-area-inset-right)
+    constant(safe-area-inset-bottom) constant(safe-area-inset-left);
 }
 
-html, body {
+html,
+body {
   overflow: hidden;
   margin: 0;
 }
@@ -38,7 +40,7 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 /* Firefox */
-input[type=number] {
+input[type='number'] {
   -moz-appearance: textfield;
 }
 
@@ -52,4 +54,14 @@ input[type=number] {
   max-height: 100vh;
   position: relative;
   z-index: 2;
+}
+
+::-webkit-scrollbar {
+  width: 0; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+  width: 0px;
+  background: transparent;
 }
