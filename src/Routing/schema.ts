@@ -60,10 +60,6 @@ class RoutingSchema {
       isExact: true,
       component: ProtectedRoute(Account, 'ANONYMOUS_USERS'),
     },
-    // {
-    //   name: "payment",
-    //   path: "/dedications/:id/buy"
-    // },
     {
       name: 'notFound',
       path: '*',

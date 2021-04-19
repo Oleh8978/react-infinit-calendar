@@ -16,13 +16,25 @@ interface ILinkProps {
   style?: CSSProperties;
 }
 
-export const InternalLink: React.FC<ILinkProps> = ({ to, id, slug, orderNumber, children, className, onClick, query, style}) => {
-
-  let link: string = id || orderNumber || slug ? generatePath(schema.getLink(to), {
-    id,
-    orderNumber,
-    slug,
-  }) : schema.getLink(to) || '/error';
+export const InternalLink: React.FC<ILinkProps> = ({
+  to,
+  id,
+  slug,
+  orderNumber,
+  children,
+  className,
+  onClick,
+  query,
+  style,
+}) => {
+  let link: string =
+    id || orderNumber || slug
+      ? generatePath(schema.getLink(to), {
+          id,
+          orderNumber,
+          slug,
+        })
+      : schema.getLink(to) || '/error';
 
   if (query) {
     link = link + '?' + query;
