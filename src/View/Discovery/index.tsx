@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { RouteComponentProps } from 'react-router-dom';
 // components
-import Menu from './Menu';
+import Menu from './TopicMenu';
 import DiscoveryTopicList from './List/TopicsList';
 
 interface IProps extends RouteComponentProps {}

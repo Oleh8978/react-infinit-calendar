@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import { dataList } from '../FakeData/list/List';
 
+import AnswerNotFound from '../AnswerNotFound/AnswerNotFound';
+
 interface IProps {
   margin: number;
 }
@@ -27,8 +29,11 @@ const DiscoveryTopicList: React.FC<IProps> = ({ margin }) => {
                     backgroundColor: item.backgroundColor,
                   }}>
                   <span className="card-text-wrapper">
-                    <h1 className="card-text-header">{item.title}</h1>
-                    {item.description}
+                    <div className="text-wrapper">
+                      <h1 className="card-text-header">{item.title}</h1>
+                      {item.description}
+                    </div>
+                    <div className="card-text-start-btn">{item.link}</div>
                   </span>
                 </div>
               </div>
@@ -54,6 +59,7 @@ const DiscoveryTopicList: React.FC<IProps> = ({ margin }) => {
             );
           }
         })}
+        <AnswerNotFound />
       </div>
     </div>
   );

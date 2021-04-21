@@ -1,0 +1,22 @@
+@media screen and (max-width: 560px) {
+    .discovery-list-item-holder {
+        border-radius: 14px 14px 0px 0px;
+    }
+    .discovery-list-item-description {
+        border-radius: 0px 0px 14px 14px;
+        display: flex;
+        flex-flow: row;
+    }
+    .discovery-list-item-holder {
+        display: flex;
+        flex-flow: column;
+    }
+    .card-text-wrapper {
+        display: flex;
+        flex-flow: row;
+    }
+    .card-text-start-btn{
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+}

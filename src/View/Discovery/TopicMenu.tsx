@@ -4,11 +4,14 @@ import { topics } from './FakeData/hardcodedData';
 
 import { ITopic } from './Models/DiscoveryModels';
 
+// searchbar component
+import SearchBar from '../../Component/SearchBar/SearchBar';
+
 interface IProps {
   marginAdder: (isSmall: boolean) => void;
 }
 
-const Menu: React.FC<IProps> = ({ marginAdder }) => {
+const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
   const [smallMenu, setSmallMenu] = useState<boolean>(false);
 
   const scrollTracker = () => {
@@ -103,6 +106,7 @@ const Menu: React.FC<IProps> = ({ marginAdder }) => {
     <div
       className={'discovery-menu'}
       style={{ position: smallMenu ? 'fixed' : 'unset' }}>
+      <SearchBar />
       <span className={'discovery-select'}>Select your topic interest</span>
       <div className={'discovery-menu-wrapper'}>
         {smallMenu ? smallMenuRender(topics) : bigMenuRender(topics)}
@@ -111,4 +115,4 @@ const Menu: React.FC<IProps> = ({ marginAdder }) => {
   );
 };
 
-export default Menu;
+export default TopicMenu;

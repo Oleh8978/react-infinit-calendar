@@ -30,7 +30,7 @@
       flex-flow: row;
       max-width: 860px;
       height: 90px;
-      margin-left:5px;
+      margin-left: 5px;
 
       &-item {
         @include card-list-text-style;
@@ -59,7 +59,7 @@
     display: block;
     margin-right: auto;
     margin-left: 15px;
-    margin-top: 20px;
+    margin-top: 80px;
     margin-bottom: 20px;
     font: Noto Sans SC;
     color: $secondary-grey-text-color;
@@ -184,6 +184,22 @@
         margin: 0px 15px auto;
       }
     }
+    &-start {
+      &-btn {
+        @include card-list-text-style;
+        height: 31px;
+        width: 74px;
+        margin-left: 15px;
+        margin-top: 30px;
+        margin-right: auto;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $white;
+        background-color: $empty-title-color;
+      }
+    }
     &-link {
       @include link-style-remover;
       color: $secondary-purple-text-color;
@@ -193,6 +209,65 @@
       font-size: 12px;
       line-height: 17px;
       margin-top: 20px;
+    }
+  }
+}
+
+.text {
+  &-wrapper {
+    margin: 0px;
+    padding: 0px;
+    height: fit-content;
+    width: fit-content;
+  }
+}
+
+.answer {
+  &-notfound {
+    margin-top: 60px;
+    margin-bottom: 90px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-flow: column;
+
+    &-header {
+      &__top {
+        @include card-list-header;
+        color: $empty-title-color;
+        text-align: center;
+      }
+    }
+
+    &-description {
+      @include card-list-text-style;
+      margin-top: 10px;
+      font-size: 14px;
+      line-height: 18px;
+      text-align: center;
+    }
+
+    &-img {
+      display: block;
+      width: 279px;
+      height: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    &-btn {
+      @include card-list-text-style;
+      width: 102px;
+      height: 38px;
+      border-radius: 4px;
+      margin: 41px auto 40px;
+      font-size: 14px;
+      line-height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $primary-action-color;
+      color: $white;
     }
   }
 }
