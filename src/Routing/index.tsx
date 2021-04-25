@@ -62,7 +62,7 @@ const Routing: React.FC<Props> = ({ authStatus, ...props }) => {
           </Switch>
         </animated.div>
       ))}
-      <Menu/>
+      <Menu />
     </>
   );
 };

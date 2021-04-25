@@ -1,9 +1,9 @@
 .searchbar {
   &__top {
-    position: fixed;
+    position: absolute;
     padding-right: 100px;
     top: 0px;
-    max-width: 860px;
+    max-width: 640px;
     width: 100%;
     height: 55px;
     border-bottom: 1px solid $divider-color;
@@ -33,6 +33,7 @@
     right: 18px;
     top: 23px;
     margin-bottom: auto;
+    cursor:pointer;
 
     &__input {
         width: 19px;
@@ -50,6 +51,7 @@
     position: absolute;
     right: 21px;
     top: 23px;
+    cursor:pointer;
 
     &-left {
         height: 15px;

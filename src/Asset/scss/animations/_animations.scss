@@ -1,0 +1,13 @@
+.menu {
+  &-animated {
+    animation: gropDown;
+    animation-duration: 1s;  
+    animation-fill-mode: forwards;
+    position: relative;
+  }
+}
+
+@keyframes gropDown {
+    from {top: -40px;}
+    to {top: 0px;}
+  }

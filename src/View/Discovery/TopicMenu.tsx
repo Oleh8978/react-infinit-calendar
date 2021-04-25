@@ -27,14 +27,59 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
   const scrollToTop = () => {
     document.getElementById('main').scrollTo(0, 0);
   };
+
+  const moseMover = (ele) => {
+    let pos = { top: 0, left: 0, x: 0, y: 0 };
+
+    const mouseDownHandler = (e) => {
+      pos = {
+        left: ele.scrollLeft,
+        top: ele.scrollTop,
+        // Get the current mouse position
+        x: e.clientX,
+        y: e.clientY,
+      };
+
+      document.addEventListener('mousemove', mouseMoveHandler);
+      document.addEventListener('mouseup', mouseUpHandler);
+    };
+
+    const mouseMoveHandler = (e) => {
+      // How far the mouse has been moved
+      const dx = e.clientX - pos.x;
+      const dy = e.clientY - pos.y;
+
+      // Scroll the element
+      ele.scrollTop = pos.top - dy;
+      ele.scrollLeft = pos.left - dx;
+    };
+
+    const mouseUpHandler = () => {
+      document.removeEventListener('mousemove', mouseMoveHandler);
+      document.removeEventListener('mouseup', mouseUpHandler);
+    };
+
+    // Attach the handler
+    if (ele !== null) ele.addEventListener('mousedown', mouseDownHandler);
+  };
+
   useEffect(() => {
+    const elementGenral = document.querySelector('.discovery-menu-wrapper');
+    const elementSmall = document.querySelector(
+      '.discovery-menu-wrapper__small',
+    );
+
+    moseMover(elementGenral);
+    moseMover(elementSmall);
     document
       .getElementById('main')
       .addEventListener('scroll', () => scrollTracker());
+
     return () => {
-      document
-        .getElementById('main')
-        .removeEventListener('scroll', () => scrollTracker());
+      const main = document.getElementById('main');
+
+      if (main !== null)
+        main.removeEventListener('scroll', () => scrollTracker());
     };
   }, []);
   const bigMenuRender = (arr: ITopic[]) => {
@@ -49,7 +94,9 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
               <div
                 className="topic-item-img"
                 style={{ backgroundColor: arr[i].secondarycolor }}>
-                <img src={arr[i].image} alt="img" />
+                <div className="topic-item-img-wrapper">
+                  <img src={arr[i].image} alt="img" />
+                </div>
               </div>
               <span className="topic-item-text">{arr[i].title}</span>
             </div>
@@ -59,7 +106,9 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
               <div
                 className="topic-item-img"
                 style={{ backgroundColor: arr[i + 1].secondarycolor }}>
-                <img src={arr[i + 1].image} alt="img" />
+                <div className="topic-item-img-wrapper">
+                  <img src={arr[i + 1].image} alt="img" />
+                </div>
               </div>
               <span className="topic-item-text">{arr[i + 1].title}</span>
             </div>
@@ -77,7 +126,9 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
             <div
               className="topic-item-img"
               style={{ backgroundColor: arr[arr.length - 1].secondarycolor }}>
-              <img src={arr[arr.length - 1].image} alt="img" />
+              <div className="topic-item-img-wrapper">
+                <img src={arr[arr.length - 1].image} alt="img" />
+              </div>
             </div>
             <span className="topic-item-text">{arr[arr.length - 1].title}</span>
           </div>
@@ -103,15 +154,25 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
   };
 
   return (
-    <div
-      className={'discovery-menu'}
-      style={{ position: smallMenu ? 'fixed' : 'unset' }}>
-      <SearchBar />
-      <span className={'discovery-select'}>Select your topic interest</span>
-      <div className={'discovery-menu-wrapper'}>
-        {smallMenu ? smallMenuRender(topics) : bigMenuRender(topics)}
+    <>
+      <div
+        className={'discovery-menu '}
+        style={{
+          position: 'fixed',
+          top: '50px',
+          display: smallMenu ? 'flex' : 'none',
+        }}>
+        <div className={'discovery-menu-wrapper__small menu-animated'}>
+          {smallMenuRender(topics)}
+        </div>
       </div>
-    </div>
+
+      <div className={'discovery-menu'}>
+        <SearchBar />
+        <span className={'discovery-select'}>Select your topic interest</span>
+        <div className={'discovery-menu-wrapper'}>{bigMenuRender(topics)}</div>
+      </div>
+    </>
   );
 };
 

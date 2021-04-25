@@ -10,17 +10,26 @@ interface IProps {
 
 const DiscoveryTopicList: React.FC<IProps> = ({ margin }) => {
   return (
-    <div className={'discovery-list'} style={{ marginTop: `${margin}` + 'px' }}>
+    //style={{ marginTop: `${margin}` + 'px' }}
+    <div className={'discovery-list'}>
       <span className="discovery-list-title">Full list</span>
       <div className="discovery-list-holder">
         {dataList.map((item) => {
           if (item.display === 'full') {
             return (
               <div className="discovery-list-item-holder">
-                <img
+                {/* <img
                   className="discovery-list-item-img"
                   src={item.img}
                   alt="image"
+                /> */}
+                <div
+                  className="discovery-list-item-img"
+                  style={{
+                    backgroundImage: `url(${item.img})`,
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                  }}
                 />
                 <div
                   className="discovery-list-item-description"
@@ -29,12 +38,12 @@ const DiscoveryTopicList: React.FC<IProps> = ({ margin }) => {
                     backgroundColor: item.backgroundColor,
                   }}>
                   <span className="card-text-wrapper">
-                    <div className="text-wrapper">
+                    {/* <div className="text-wrapper"> */}
                       <h1 className="card-text-header">{item.title}</h1>
                       {item.description}
-                    </div>
-                    <div className="card-text-start-btn">{item.link}</div>
+                    {/* </div> */}
                   </span>
+                  <div className="card-text-start-btn">{item.link}</div>
                 </div>
               </div>
             );
@@ -43,10 +52,17 @@ const DiscoveryTopicList: React.FC<IProps> = ({ margin }) => {
               <div
                 className="discovery-list-item-holder__half"
                 style={{ display: 'flex', flexFlow: 'row' }}>
-                <img
+                {/* <img
                   className="discovery-list-item-img"
                   src={item.img}
                   alt="image"
+                /> */}
+                <div
+                  className="discovery-list-item-img__half"
+                  style={{
+                    backgroundImage: `url(${item.img})`,
+                    backgroundPosition: 'center',
+                  }}
                 />
                 <span
                   className="card-text-wrapper-link"

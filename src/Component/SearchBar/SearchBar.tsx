@@ -4,9 +4,9 @@ import searchIcon from '../../Asset/images/searchIcon.png';
 interface IProps {}
 
 const SearchBar: React.FC<IProps> = () => {
-  const [isOpened, setIsOpened] = useState<boolean>(true);
+  const [isOpened, setIsOpened] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>('');
-  
+
   return (
     <div className={'searchbar__top'}>
       {isOpened ? (

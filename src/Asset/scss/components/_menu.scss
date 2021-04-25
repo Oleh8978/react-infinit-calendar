@@ -2,10 +2,12 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  right: 0;
+  // right: 0;
+  width: 100%;
   transform: translateY(100%);
   background: #FFFFFF;
   border-top: 1px solid #E9E9E9;
+  border-right: none;
   padding-top: 6px;
   padding-bottom: 7px;
 
