@@ -56,7 +56,7 @@ export const getMonthName = (month) => {
 };
 
 export const dateCreator = (day: number, month: number, year: number) => {
-  
+
   let date = '';
 
   if (day < 10 && month < 10) {
@@ -64,7 +64,7 @@ export const dateCreator = (day: number, month: number, year: number) => {
   }
 
   if (day < 10 && month >= 10) {
-    return (date = '' + month + '-0' + day + year);
+    return (date = '' + month + '-0' + day + "-" + year);
   }
 
   if (day >= 10 && month >= 10) {

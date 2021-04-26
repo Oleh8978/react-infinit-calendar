@@ -6,6 +6,10 @@ import DayInCalendar from './DayInCalendar';
 // images
 import calendarImg from '../../../Asset/images/calendar.png';
 
+// HOC
+
+import useScrollListener from './customHOC';
+
 // date object functionality
 
 import * as dateObject from './utils';
@@ -38,12 +42,17 @@ const Calendar: React.FC<IProps> = () => {
   const [scheduleDivWidth, setShceduleDivWidth] = useState<number>();
   const [calendarRenderedData, setCalendarRenderedData] = useState(calendar);
 
-  const dateAdder = (
-    scrolled: number,
-    windowWidth: number,
-    blockWidth: number,
-  ) => {
-    if (scrolled === 0) {
+  const dateAdder = () => {
+    const calendarHolder = document.querySelector(
+      '.calendar-days',
+    ) as HTMLElement;
+    const schedule = document.querySelector('.schedule') as HTMLElement;
+
+    const scrolled = calendarHolder.scrollLeft;
+    const windowWidth = schedule.offsetWidth;
+    const blockWidth = schedule.scrollWidth;
+
+    if (scrolled <= windowWidth) {
       let arr = [];
       if (calendarRenderedData.length !== 0) {
         const date = new Date(calendarRenderedData[0].date);
@@ -68,18 +77,21 @@ const Calendar: React.FC<IProps> = () => {
           isClicked: false,
         });
         setCalendarRenderedData(arr.concat(calendarRenderedData));
-        // console.log('calendarRenderedData ', calendarRenderedData);
+        calendarHolder.scrollTo(blockWidth + 72, 0)
         arr = [];
       }
-    } else if (scrolled + windowWidth === blockWidth) {
-      let arr = [];
+    }
+    if (scrolled > windowWidth ) {
       if (calendarRenderedData.length !== 0) {
+        
         const date = new Date(
           calendarRenderedData[calendarRenderedData.length - 1].date,
         );
 
+        let calRendData = [];
+
         date.setDate(date.getDate() + 1);
-        calendarRenderedData.push({
+        calRendData.push({
           number: date.getDate(),
           date: dateObject.dateCreator(
             date.getDate(),
@@ -97,48 +109,15 @@ const Calendar: React.FC<IProps> = () => {
           hasAnyEvents: false,
           isClicked: false,
         });
-        setCalendarRenderedData(calendarRenderedData);
-        console.log('calendarRenderedData ', calendarRenderedData);
-        arr = [];
+
+        setCalendarRenderedData(calendarRenderedData.concat(calRendData));
+
+        calRendData = []
       }
     }
   };
 
-  useEffect(() => {
-    const schedule = document.querySelector('.schedule') as HTMLElement;
-    const calendarHolder = document.querySelector(
-      '.calendar-days',
-    ) as HTMLElement;
-
-    window.addEventListener('resize', () => console.log(schedule.offsetWidth));
-
-    if (schedule !== null && calendarHolder !== null) {
-      calendarHolder.addEventListener('scroll', () => {
-        dateAdder(
-          calendarHolder.scrollLeft,
-          schedule.offsetWidth,
-          calendarHolder.scrollWidth,
-        );
-        console.log('scroll left is ', calendarHolder.scrollLeft);
-        // console.log(calendarHolder.scrollLeft + schedule.offsetWidth);
-        // console.log(calendarHolder.scrollWidth);
-      });
-    }
-    return () => {
-      window.removeEventListener('resize', () =>
-        setShceduleDivWidth(schedule.offsetWidth),
-      );
-
-      calendarHolder.removeEventListener('scroll', () => {
-        dateAdder(
-          calendarHolder.scrollLeft,
-          schedule.offsetWidth,
-          calendarHolder.scrollWidth,
-        );
-        // console.log(calendarHolder.offsetLeft),
-      });
-    };
-  }, [calendarRenderedData]);
+  useScrollListener(fieldRef, dateAdder, 100);
 
   if (calendar.find((item) => item.isSelected === true)) {
     console.log('one day is selected ');
