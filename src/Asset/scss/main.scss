@@ -9,9 +9,18 @@
 /* views */
 @import "views/layout";
 @import "views/main";
-
+@import "views/discovery/discovery";
+@import "views/schedule/schedule";
+@import "views/jorney/jorney";
 
 /* components */
 @import "components/menu";
+@import "components/searchbar";
 
 /* UI components */
+
+/*mediaquery*/
+@import "mediaquery/mediaquery";
+
+/* animations */
+@import "animations/animations";

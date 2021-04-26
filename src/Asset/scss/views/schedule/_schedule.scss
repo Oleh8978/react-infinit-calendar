@@ -1,0 +1,105 @@
+.schedule {
+  height: 100%;
+}
+
+.calendar {
+  display: flex;
+  flex-flow: column;
+  height: fit-content;
+  width: 100%;
+  &-img {
+    display: block;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: fit-content;
+    height: fit-content;
+  }
+
+  &-mnth {
+    @include card-list-text-style;
+    font-size: 14px;
+    line-height: 16px;
+    display: block;
+    margin-top: auto;
+    padding-top: 1px;
+    margin-bottom: auto;
+    margin-left: 10px;
+  }
+  &-days {
+    width: auto;
+    height: fit-content;
+    display: flex;
+    flex-flow: row;
+    overflow-x: scroll;
+    cursor: grab;
+  }
+  &-day {
+    @include card-list-text-style;
+    width: 70px;
+    height: 80px;
+    background-color: $white;
+    margin-top: auto;
+    margin-bottom: auto;
+    border-radius: 18px;
+    border: 1px solid $yellow-color;
+    cursor: pointer;
+
+    &-marked {
+      width: 10px;
+      height: 10px;
+      margin-top: -5px;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 50%;
+      border: 1px solid $white;
+      background-color: $uncompleted-task-color;
+    }
+    &-wrapper {
+      width: fit-content;
+      height: fit-content;
+      display: flex;
+      flex-flow: column;
+      margin-left: 12px;
+    }
+    &-today {
+      @include card-list-header;
+      font-size: 8px;
+      height: fit-content;
+      width: fit-content;
+      display: flex;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    &-dayweek {
+      margin-top: 18px;
+      text-align: center;
+      width: 100%;
+      height: fit-content;
+      color: $secondary-grey-text-color;
+    }
+    &-date {
+      @extend .calendar-day-dayweek;
+      margin-top: 12px;
+      color: $text-color;
+      font-size: 16px;
+    }
+  }
+  &-headwraper {
+    display: flex;
+    flex-flow: row;
+    width: fit-content;
+    height: auto;
+    align-items: center;
+    justify-content: center;
+    margin-top: 26px;
+    margin-bottom: 11px;
+    margin-left: 15px;
+  }
+}
+
+.selected {
+  &-card {
+    background-color: $empty-title-color;
+    border: none;
+  }
+}

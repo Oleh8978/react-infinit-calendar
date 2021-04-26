@@ -1,10 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
 import { RouteComponentProps } from 'react-router-dom';
+// components
+import Menu from './TopicMenu';
+import DiscoveryTopicList from './List/TopicsList';
 
 interface IProps extends RouteComponentProps {}
 
 const Discovery: React.FC<IProps> = () => {
-  return <div className={'discovery'}>This is discovery page</div>;
-}
+  const [margin, setMargin] = useState<number>(20);
 
-export default Discovery
+  const marginAdder = (isSmall: boolean): void => {
+    if (isSmall) {
+      setMargin(400);
+    } else {
+      setMargin(20);
+    }
+  };
+  return (
+    <div className={'discovery'}>
+      <Menu marginAdder={marginAdder} />
+      <DiscoveryTopicList margin={margin} />
+    </div>
+  );
+};
+
+export default Discovery;

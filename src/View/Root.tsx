@@ -5,7 +5,7 @@ interface IProps {}
 
 const Root: React.FC<IProps> = () => {
   return (
-    <main className={'main-layout'}>
+    <main className={'main-layout'} style={{ display: 'flex' }}>
       <Routing />
     </main>
   );
