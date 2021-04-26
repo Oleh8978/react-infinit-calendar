@@ -44,29 +44,31 @@ const Routing: React.FC<Props> = ({ authStatus, ...props }) => {
   if (!authStatus) return <Login />;
 
   const transition = useTransition(location, {
-    // from: { opacity: 0, left: 0, top: 0 },
-    // enter: { opacity: 1, left: 0, top: 0 },
-    // leave: { opacity: 0, left: 0, top: 0 },
+    from: { opacity: 0, left: 0, top: 0 },
+    enter: { opacity: 1, left: 0, top: 0 },
+    leave: { opacity: 0, left: 0, top: 0 },
   });
 
   return (
-    <>
-      {transition((style, item) => (
-        <animated.div
-          key={String(item)}
-          style={style}
-          className="main"
-          id={'main'}>
-          <Scrollbars style={{ width: 639, height: 657, display: 'flex'}}>
-            <Switch location={item}>
-              {Routes}
-              <Redirect to={RoutingSchema.getLink('discovery')} />
-            </Switch>
-          </Scrollbars>
-        </animated.div>
-      ))}
+    <div className={'main-layout'}>
+      <div className="wrap-main">
+        {transition((style, item) => (
+          <animated.div
+            key={String(item)}
+            style={style}
+            className="main"
+            id={'main'}>
+            <Scrollbars style={{ width: 639, height: 657, display: 'flex' }}>
+              <Switch location={item}>
+                {Routes}
+                <Redirect to={RoutingSchema.getLink('discovery')} />
+              </Switch>
+            </Scrollbars>
+          </animated.div>
+        ))}
+      </div>
       <Menu />
-    </>
+    </div>
   );
 };
 
