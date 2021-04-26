@@ -21,7 +21,7 @@
     line-height: 16px;
     display: block;
     margin-top: auto;
-    padding: 1px;
+    padding-top: 1px;
     margin-bottom: auto;
     margin-left: 10px;
   }
@@ -31,6 +31,7 @@
     display: flex;
     flex-flow: row;
     overflow-x: scroll;
+    cursor: grab;
   }
   &-day {
     @include card-list-text-style;
@@ -41,6 +42,7 @@
     margin-bottom: auto;
     border-radius: 18px;
     border: 1px solid $yellow-color;
+    cursor: pointer;
 
     &-marked {
       width: 10px;

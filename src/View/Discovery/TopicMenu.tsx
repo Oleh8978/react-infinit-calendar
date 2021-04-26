@@ -68,7 +68,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
     const elementSmall = document.querySelector(
       '.discovery-menu-wrapper__small',
     );
-
+    
     moseMover(elementGenral);
     moseMover(elementSmall);
     document
@@ -162,7 +162,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
           top: '50px',
           display: smallMenu ? 'flex' : 'none',
         }}>
-        <div className={'discovery-menu-wrapper__small menu-animated'}>
+        <div className={'discovery-menu-wrapper__small menu-animated disable-scrollbars'}>
           {smallMenuRender(topics)}
         </div>
       </div>
@@ -170,7 +170,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
       <div className={'discovery-menu'}>
         <SearchBar />
         <span className={'discovery-select'}>Select your topic interest</span>
-        <div className={'discovery-menu-wrapper'}>{bigMenuRender(topics)}</div>
+        <div className={'discovery-menu-wrapper disable-scrollbars'}>{bigMenuRender(topics)}</div>
       </div>
     </>
   );

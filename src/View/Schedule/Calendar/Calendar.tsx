@@ -7,11 +7,9 @@ import DayInCalendar from './DayInCalendar';
 import calendarImg from '../../../Asset/images/calendar.png';
 
 // HOC
-
 import useScrollListener from './customHOC';
 
 // date object functionality
-
 import * as dateObject from './utils';
 
 export interface IHeaderDate {
@@ -38,9 +36,49 @@ const Calendar: React.FC<IProps> = () => {
     month: String(dateObject.getMonthName(new Date().getMonth())),
     year: String(currentYear),
   });
-
-  const [scheduleDivWidth, setShceduleDivWidth] = useState<number>();
   const [calendarRenderedData, setCalendarRenderedData] = useState(calendar);
+
+  const moseMover = (ele) => {
+    let pos = { top: 0, left: 0, x: 0, y: 0 };
+
+    const mouseDownHandler = (e) => {
+      pos = {
+        left: ele.scrollLeft,
+        top: ele.scrollTop,
+        // Get the current mouse position
+        x: e.clientX,
+        y: e.clientY,
+      };
+
+      document.addEventListener('mousemove', mouseMoveHandler);
+      document.addEventListener('mouseup', mouseUpHandler);
+    };
+
+    const mouseMoveHandler = (e) => {
+      // How far the mouse has been moved
+      const dx = e.clientX - pos.x;
+      const dy = e.clientY - pos.y;
+
+      // Scroll the element
+      ele.scrollTop = pos.top - dy;
+      ele.scrollLeft = pos.left - dx;
+    };
+
+    const mouseUpHandler = () => {
+      document.removeEventListener('mousemove', mouseMoveHandler);
+      document.removeEventListener('mouseup', mouseUpHandler);
+    };
+
+    // Attach the handler
+    if (ele !== null) ele.addEventListener('mousedown', mouseDownHandler);
+  };
+
+  useEffect(() => {
+    const calendarHolder = document.querySelector(
+      '.calendar-days',
+    ) as HTMLElement;
+    moseMover(calendarHolder);
+  }, []);
 
   const dateAdder = () => {
     const calendarHolder = document.querySelector(
@@ -77,13 +115,12 @@ const Calendar: React.FC<IProps> = () => {
           isClicked: false,
         });
         setCalendarRenderedData(arr.concat(calendarRenderedData));
-        calendarHolder.scrollTo(blockWidth + 72, 0)
+        calendarHolder.scrollTo(blockWidth + 72, 0);
         arr = [];
       }
     }
-    if (scrolled > windowWidth ) {
+    if (scrolled > windowWidth) {
       if (calendarRenderedData.length !== 0) {
-        
         const date = new Date(
           calendarRenderedData[calendarRenderedData.length - 1].date,
         );
@@ -112,7 +149,7 @@ const Calendar: React.FC<IProps> = () => {
 
         setCalendarRenderedData(calendarRenderedData.concat(calRendData));
 
-        calRendData = []
+        calRendData = [];
       }
     }
   };
@@ -146,7 +183,7 @@ const Calendar: React.FC<IProps> = () => {
           {' ' + headerDate.month + ', ' + headerDate.year}
         </span>
       </div>
-      <div className="calendar-days" ref={fieldRef}>
+      <div className="calendar-days disable-scrollbars" ref={fieldRef}>
         {dates}
       </div>
     </div>

@@ -3,6 +3,7 @@ import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
 import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { useTransition, animated } from 'react-spring';
+import { Scrollbars } from 'react-custom-scrollbars';
 
 import { IStore } from 'Controller/model';
 import { ISetAuthenticatedStatus } from 'Controller/auth/model';
@@ -43,9 +44,9 @@ const Routing: React.FC<Props> = ({ authStatus, ...props }) => {
   if (!authStatus) return <Login />;
 
   const transition = useTransition(location, {
-    from: { opacity: 0, left: 0, top: 0 },
-    enter: { opacity: 1, left: 0, top: 0 },
-    leave: { opacity: 0, left: 0, top: 0 },
+    // from: { opacity: 0, left: 0, top: 0 },
+    // enter: { opacity: 1, left: 0, top: 0 },
+    // leave: { opacity: 0, left: 0, top: 0 },
   });
 
   return (
@@ -56,10 +57,12 @@ const Routing: React.FC<Props> = ({ authStatus, ...props }) => {
           style={style}
           className="main"
           id={'main'}>
-          <Switch location={item}>
-            {Routes}
-            <Redirect to={RoutingSchema.getLink('discovery')} />
-          </Switch>
+          <Scrollbars style={{ width: 639, height: 657, display: 'flex'}}>
+            <Switch location={item}>
+              {Routes}
+              <Redirect to={RoutingSchema.getLink('discovery')} />
+            </Switch>
+          </Scrollbars>
         </animated.div>
       ))}
       <Menu />
