@@ -62,3 +62,5 @@ export const prevDataUncompleted = [
     ],
   },
 ];
+
+export const holidays = [{ title: 'Martin Luther King, Jr. Day' }];
