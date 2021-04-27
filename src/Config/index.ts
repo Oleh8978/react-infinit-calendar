@@ -1,5 +1,5 @@
 import { Pages } from '../Routing/schema';
-import { Component, FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import DiscoveryIcon from 'Component/icon/DiscoveryIcon';
 import ScheduleIcon from 'Component/icon/ScheduleIcon';
 import AccountIcon from 'Component/icon/AccountIcon';
@@ -22,20 +22,20 @@ interface IMenuItem {
 
 export const menuItems: IMenuItem[] = [
   {
-    title: "Discovery",
+    title: 'Discovery',
     name: 'discovery',
     icon: DiscoveryIcon,
   },
   {
-    title: "Schedule",
+    title: 'Schedule',
     name: 'schedule',
     icon: ScheduleIcon,
   },
   {
-    title: "Me",
+    title: 'Me',
     name: 'account',
     icon: AccountIcon,
-  }
+  },
 ];
 
 export const routsWhereShowMenu = ['account', 'schedule', 'discovery'];
