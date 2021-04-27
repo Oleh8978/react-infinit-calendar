@@ -44,9 +44,9 @@ const Routing: React.FC<Props> = ({ authStatus, ...props }) => {
   if (!authStatus) return <Login />;
 
   const transition = useTransition(location, {
-    from: { opacity: 0, left: 0, top: 0 },
-    enter: { opacity: 1, left: 0, top: 0 },
-    leave: { opacity: 0, left: 0, top: 0 },
+    // from: { opacity: 0, left: 0, top: 0 },
+    // enter: { opacity: 1, left: 0, top: 0 },
+    // leave: { opacity: 0, left: 0, top: 0 },
   });
 
   return (
@@ -58,7 +58,14 @@ const Routing: React.FC<Props> = ({ authStatus, ...props }) => {
             style={style}
             className="main"
             id={'main'}>
-            <Scrollbars style={{ width: 639, height: 820, display: 'flex' }}>
+            <Scrollbars
+              style={{
+                width: '100%',
+                maxWidth: 639,
+                height: '100%',
+                maxHeight: 1000,
+                display: 'flex',
+              }}>
               <Switch location={item}>
                 {Routes}
                 <Redirect to={RoutingSchema.getLink('discovery')} />
