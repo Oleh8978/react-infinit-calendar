@@ -1,5 +1,23 @@
 .schedule {
   height: 100%;
+
+  &-list {
+    position: relative;
+    margin-top: 30px;
+    height: fit-content;
+    //height: 100%;
+    overflow: hidden;
+
+    &.absolute {
+      &-big {
+        min-height: 600px;
+      }
+
+      &-small {
+        min-height: 280px;
+      }
+    }
+  }
 }
 
 .calendar {
@@ -98,5 +116,113 @@
   &-card {
     background-color: $empty-title-color;
     border: none;
+  }
+}
+
+.answer {
+  &-notasks,
+  &-dayoff,
+  &-nojourneys,
+  &-trialexpired,
+  &-holiday {
+    margin-bottom: 90px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-flow: column;
+
+    &-header {
+      &__top {
+        @include card-list-header;
+        color: $empty-title-color;
+        text-align: center;
+      }
+    }
+
+    &-description {
+      @include card-list-text-style;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 14px;
+      line-height: 18px;
+      text-align: center;
+      max-width: 360px;
+      display: flex;
+      flex-direction: column;
+
+      span {
+        margin-bottom: 5px;
+      }
+    }
+
+    &-img {
+      display: block;
+      width: 279px;
+      height: fit-content;
+      margin: 50px auto 0;
+    }
+
+    &-icon {
+      margin: 0 auto 20px;
+      display: flex;
+      font-size: 23px;
+      line-height: 24px;
+    }
+
+    &-btn {
+      @include card-list-text-style;
+      width: 160px;
+      height: 38px;
+      border-radius: 4px;
+      margin: 0 auto;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $primary-action-color;
+      color: $white;
+      letter-spacing: initial;
+      cursor: pointer;
+    }
+  }
+
+  &-notasks {
+    padding-top: 30px;
+  }
+
+  &-trialexpired,
+  &-holiday {
+    padding-top: 50px;
+  }
+
+  &-dayoff,
+  &-holiday {
+    //background: rgba($white, 0.95);
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding-bottom: 60px;
+    z-index: 0;
+    height: 100%;
+
+    &::after {
+      position: absolute;
+      content: '';
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      background: rgba($white, 0.95);
+    }
+
+    &-img {
+      margin-top: 30px;
+    }
   }
 }

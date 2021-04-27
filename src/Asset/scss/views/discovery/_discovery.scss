@@ -133,7 +133,7 @@
         //   display: flex;
         //   align-items: center;
         //   justify-content: center;
-        //   border-radius: 14px 0px 0px 14px; 
+        //   border-radius: 14px 0px 0px 14px;
 
         //   img {
         //     height: 100%;
@@ -320,6 +320,7 @@
     &-description {
       @include card-list-text-style;
       margin-top: 10px;
+      margin-bottom: 20px;
       margin-left: auto;
       margin-right: auto;
       font-size: 14px;
@@ -332,8 +333,7 @@
       display: block;
       width: 279px;
       height: fit-content;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 30px auto 0;
     }
 
     &-btn {
@@ -341,7 +341,7 @@
       width: 102px;
       height: 38px;
       border-radius: 4px;
-      margin: 41px auto 40px;
+      margin: 10px auto 0;
       font-size: 14px;
       line-height: 18px;
       display: flex;
