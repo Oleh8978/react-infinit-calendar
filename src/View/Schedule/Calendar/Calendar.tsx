@@ -197,7 +197,7 @@ const Calendar: React.FC<IProps> = () => {
           {' ' + headerDate.month + ', ' + headerDate.year}
         </span>
       </div>
-      <div className="calendar-days disable-scrollbars" ref={fieldRef}>
+      <div className="calendar-days" ref={fieldRef}>
         {dates}
       </div>
     </div>
