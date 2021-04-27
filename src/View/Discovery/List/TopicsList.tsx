@@ -18,19 +18,21 @@ const DiscoveryTopicList: React.FC<IProps> = ({ margin }) => {
           if (item.display === 'full') {
             return (
               <div className="discovery-list-item-holder">
-                {/* <img
-                  className="discovery-list-item-img"
-                  src={item.img}
-                  alt="image"
-                /> */}
-                <div
+                <div className="discovery-list-item-imgwrapper">
+                  <img
+                    className="discovery-list-item-img"
+                    src={item.img}
+                    alt="image"
+                  />
+                </div>
+                {/* <div
                   className="discovery-list-item-img"
                   style={{
                     backgroundImage: `url(${item.img})`,
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
                   }}
-                />
+                /> */}
                 <div
                   className="discovery-list-item-description"
                   style={{
@@ -39,8 +41,8 @@ const DiscoveryTopicList: React.FC<IProps> = ({ margin }) => {
                   }}>
                   <span className="card-text-wrapper">
                     {/* <div className="text-wrapper"> */}
-                      <h1 className="card-text-header">{item.title}</h1>
-                      {item.description}
+                    <h1 className="card-text-header">{item.title}</h1>
+                    {item.description}
                     {/* </div> */}
                   </span>
                   <div className="card-text-start-btn">{item.link}</div>
@@ -52,18 +54,18 @@ const DiscoveryTopicList: React.FC<IProps> = ({ margin }) => {
               <div
                 className="discovery-list-item-holder__half"
                 style={{ display: 'flex', flexFlow: 'row' }}>
-                {/* <img
-                  className="discovery-list-item-img"
+                <img
+                  className="discovery-list-item-img__half"
                   src={item.img}
                   alt="image"
-                /> */}
-                <div
+                />
+                {/* <div
                   className="discovery-list-item-img__half"
                   style={{
                     backgroundImage: `url(${item.img})`,
                     backgroundPosition: 'center',
                   }}
-                />
+                /> */}
                 <span
                   className="card-text-wrapper-link"
                   style={{ color: item.color }}>

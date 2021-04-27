@@ -57,12 +57,12 @@ const Routing: React.FC<Props> = ({ authStatus, ...props }) => {
           style={style}
           className="main"
           id={'main'}>
-          <Scrollbars style={{ width: 639, height: 657, display: 'flex'}}>
+          {/* <Scrollbars style={{ width: 639, height: 657, display: 'flex'}}> */}
             <Switch location={item}>
               {Routes}
               <Redirect to={RoutingSchema.getLink('discovery')} />
             </Switch>
-          </Scrollbars>
+          {/* </Scrollbars> */}
         </animated.div>
       ))}
       <Menu />

@@ -55,6 +55,26 @@ export const getMonthName = (month) => {
   return ar[month];
 };
 
+export const getMonthNameShort = (month) => {
+  // create array to hold name of each month
+  const ar = new Array(12);
+  ar[0] = 'Jan';
+  ar[1] = 'Feb';
+  ar[2] = 'Mar';
+  ar[3] = 'Apr';
+  ar[4] = 'May';
+  ar[5] = 'Jun';
+  ar[6] = 'Jul';
+  ar[7] = 'Aug';
+  ar[8] = 'Sep';
+  ar[9] = 'Oct';
+  ar[10] = 'Nov';
+  ar[11] = 'Dec';
+
+  // return name of specified month (parameter)
+  return ar[month];
+};
+
 export const dateCreator = (day: number, month: number, year: number) => {
 
   let date = '';

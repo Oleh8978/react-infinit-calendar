@@ -5,10 +5,11 @@ import * as dateObject from './utils';
 
 interface IProps {
   date: any;
-  fullDate: any;
+  fullDate: string;
   dayWeek: any;
   hasEvents: any;
   isClicked: any;
+  selectDate: (date: any) => void;
 }
 
 const DayInCalendar: React.FC<IProps> = ({
@@ -17,6 +18,7 @@ const DayInCalendar: React.FC<IProps> = ({
   dayWeek,
   hasEvents,
   isClicked,
+  selectDate,
 }) => {
   const isToday = (itemDate: string) => {
     if (
@@ -35,10 +37,11 @@ const DayInCalendar: React.FC<IProps> = ({
     }
   };
   return (
-    <div className="calendar-day-wrapper" onClick={() => console.log(fullDate)}>
+    <div className="calendar-day-wrapper">
       {isToday(fullDate)}
       <div
-        className={isClicked ? 'calendar-day selected-card' : 'calendar-day'}>
+        className={isClicked ? 'calendar-day selected-card' : 'calendar-day'}
+        onClick={() => selectDate(fullDate)}>
         <div
           className={'calendar-day-dayweek'}
           style={{ color: isClicked ? 'white' : '' }}>

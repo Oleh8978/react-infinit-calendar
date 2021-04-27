@@ -156,6 +156,19 @@ const Calendar: React.FC<IProps> = () => {
 
   useScrollListener(fieldRef, dateAdder, 100);
 
+  const selectDate = (date: string) => {
+    if (!calendarRenderedData.find((item) => item.isClicked === true)) {
+      calendarRenderedData.map(item => {
+        if (item.date === date) {
+          calendarRenderedData[calendarRenderedData.indexOf(item)].isClicked === false;
+          setCalendarRenderedData(calendarRenderedData)
+        }
+      })
+    } else {
+      console.log(calendarRenderedData.find((item) => item.isClicked === true))
+    }
+  };
+
   if (calendar.find((item) => item.isSelected === true)) {
     console.log('one day is selected ');
   } else {
@@ -171,6 +184,7 @@ const Calendar: React.FC<IProps> = () => {
         dayWeek={item.name}
         hasEvents={item.hasAnyEvents}
         isClicked={item.isClicked}
+        selectDate={selectDate}
       />
     );
   });

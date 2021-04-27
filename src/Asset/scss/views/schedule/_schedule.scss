@@ -103,3 +103,128 @@
     border: none;
   }
 }
+
+.modules {
+  &-list {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    background-color: $white;
+
+    &__completed {
+      background-color: $white;
+    }
+    &__uncompleted {
+      margin-top: 30px;
+      background-color: $uncompleted-disable-task-color;
+      &-header {
+        @include card-list-header;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 23px;
+        text-transform: uppercase;
+        margin-top: 30px;
+        margin-right: auto;
+        margin-left: 15px;
+        margin-bottom: 5px;
+        color: $uncompleted-task-color;
+      }
+    }
+  }
+}
+
+.task {
+  width: 100%;
+  &-completed {
+    height: fit-content;
+    margin: 25px 15px 0px;
+    background: $white;
+    border: 1px solid $yellow-color;
+    box-sizing: border-box;
+    border-radius: 14px;
+
+    &-genralinfo {
+      &-wrapper {
+        @include card-list-header;
+        display: flex;
+        flex-flow: row;
+        margin-top: -9px;
+        text-transform: uppercase;
+        font-size: 12px;
+        line-height: 18px;
+      }
+    }
+
+    &-timepanel {
+      margin-left: 15px;
+      margin-right: auto;
+      font-family: Noto Sans SC;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 18px;
+      color: $secondary-grey-text-color;
+      background-color: $white;
+
+      &__uncompleted {
+        @extend .task-completed-timepanel;
+        color: $primary-action-color;
+      }
+    }
+
+    &__info {
+      width: 86px;
+      height: 18px;
+      background-color: $white;
+      margin-right: 15px;
+      left: auto;
+      &-img {
+      }
+    }
+
+    &-descriptionbox {
+      @include card-list-text-style;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 21px;
+      color: $text-color;
+      margin: 25px 15px 15px;
+    }
+  }
+
+  &-previous {
+    width: 100%;
+    margin: 15px 0px;
+
+    &-date {
+      @include card-list-header;
+      line-height: 18px;
+      font-size: 12px;
+      font-style: normal;
+      text-transform: uppercase;
+      color: $uncompleted-task-color;
+      margin-bottom: 5px;
+      margin-left: 15px;
+    }
+
+    &-description {
+      @include card-list-text-style;
+      margin: 0px 15px 10px;
+      background-color: $white;
+      border: 1px solid $yellow-color;
+      box-sizing: border-box;
+      border-radius: 14px;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 21px;
+      color: $text-color;
+
+      span {
+        display: flex;
+        margin: 20px 15px 15px;
+      }
+    }
+  }
+}
