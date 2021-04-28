@@ -51,7 +51,7 @@ const Schedule: React.FC<IProps> = ({ absoluteBlock }) => {
       
     });
 
-    return element
+    return <TaskList />
   };
   return (
     <div className={'schedule'}>

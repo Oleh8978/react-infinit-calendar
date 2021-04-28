@@ -1,0 +1,92 @@
+.module {
+  &-menu {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    max-width: 640px;
+    height: 55px;
+    display: flex;
+    flex-flow: row;
+    align-items: stretch;
+    border-bottom: 1px solid $divider-color;
+
+    &-navigation {
+      height: 43px;
+      width: 100%;
+      padding-right: 8px;
+      padding-left: 8px;
+      display: flex;
+      flex-flow: row;
+      align-items: stretch;
+      border-radius: 18px;
+      border: 1px solid $divider-color;
+
+      &-item {
+        @include card-list-text-style;
+        width: 100%;
+        height: 31px;
+        margin-top: 6px;
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 14px;
+        background-color: $white;
+        color: $empty-title-color;
+
+        &__active {
+          @extend .module-menu-navigation-item;
+          background-color: $empty-title-color;
+          color: $white;
+        }
+      }
+    }
+
+    &-col1 {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: flex-start;
+    }
+    &-col2 {
+      @extend .module-menu-col1;
+      @include card-list-text-style;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    &-col3 {
+      @extend .module-menu-col1;
+    }
+
+    &-back {
+      display: flex;
+      flex-flow: column;
+      margin-top: auto;
+      margin-left: 22px;
+      margin-bottom: auto;
+      width: 11px;
+      height: 18px;
+      &__top {
+        margin-top: 1px;
+        margin-left: 5px;
+        height: 21px;
+        width: 1px;
+        background-color: black;
+        transform: rotate(45deg);
+      }
+      &__bottom {
+        @extend .module-menu-back__top;
+        margin-top: -3px;
+        transform: rotate(135deg);
+      }
+    }
+  }
+
+  &-body {
+    margin-top: 55px;
+    padding-top: 20px;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
