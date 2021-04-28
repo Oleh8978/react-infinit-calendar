@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
 
 import searchIcon from '../../Asset/images/searchIcon.png';
-interface IProps {}
+interface IProps {
+  smallMenu: boolean;
+}
 
-const SearchBar: React.FC<IProps> = () => {
+const SearchBar: React.FC<IProps> = ({ smallMenu }) => {
   const [isOpened, setIsOpened] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>('');
 
   return (
-    <div className={'searchbar__top'}>
+    <div
+      className={'searchbar__top'}
+      style={{
+        // marginTop: '50px',
+        zIndex: 99,
+        position: 'fixed',
+      }}>
       {isOpened ? (
         <>
           <img

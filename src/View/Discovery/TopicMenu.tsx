@@ -15,7 +15,8 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
   const [smallMenu, setSmallMenu] = useState<boolean>(false);
 
   const scrollTracker = () => {
-    if (document.getElementById('main').scrollTop > 400) {
+    console.log('inn', document.querySelector('.main-wrapper').scrollTop);
+    if (document.querySelector('.main-wrapper').scrollTop > 400) {
       setSmallMenu(true);
       marginAdder(true);
     } else {
@@ -25,7 +26,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
   };
 
   const scrollToTop = () => {
-    document.getElementById('main').scrollTo(0, 0);
+    document.querySelector('.main-wrapper').scrollTo(0, 0);
   };
 
   const moseMover = (ele) => {
@@ -68,15 +69,16 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
     const elementSmall = document.querySelector(
       '.discovery-menu-wrapper__small',
     );
-    
+
     moseMover(elementGenral);
     moseMover(elementSmall);
-    document
-      .getElementById('main')
-      .addEventListener('scroll', () => scrollTracker());
+
+    document.querySelector('.main-wrapper').addEventListener('scroll', () => {
+      scrollTracker(), console.log('innn');
+    });
 
     return () => {
-      const main = document.getElementById('main');
+      const main = document.querySelector('.main-wrapper');
 
       if (main !== null)
         main.removeEventListener('scroll', () => scrollTracker());
@@ -162,15 +164,21 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
           top: '50px',
           display: smallMenu ? 'flex' : 'none',
         }}>
-        <div className={'discovery-menu-wrapper__small menu-animated scrollbar__hidden'}>
+        <SearchBar smallMenu={smallMenu} />
+        <div
+          className={
+            'discovery-menu-wrapper__small menu-animated scrollbar__hidden'
+          }>
           {smallMenuRender(topics)}
         </div>
       </div>
 
       <div className={'discovery-menu'}>
-        <SearchBar />
+        <SearchBar smallMenu={smallMenu}/>
         <span className={'discovery-select'}>Select your topic interest</span>
-        <div className={'discovery-menu-wrapper scrollbar__hidden'}>{bigMenuRender(topics)}</div>
+        <div className={'discovery-menu-wrapper scrollbar__hidden'}>
+          {bigMenuRender(topics)}
+        </div>
       </div>
     </>
   );

@@ -65,7 +65,8 @@ const Routing: React.FC<Props> = ({ authStatus, ...props }) => {
                 height: '100%',
                 maxHeight: 1000,
                 display: 'flex',
-              }}>
+              }}
+              renderView={props => <div {...props} className={'main-wrapper'}></div>}>
               <Switch location={item}>
                 {Routes}
                 <Redirect to={RoutingSchema.getLink('discovery')} />

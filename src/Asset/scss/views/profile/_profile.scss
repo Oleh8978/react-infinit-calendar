@@ -1,0 +1,67 @@
+.profile {
+  &-wrapper {
+    width: 100%;
+    height: auto;
+  }
+
+  &-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+  }
+
+  &__top {
+    width: 100%;
+    height: 150px;
+    display: flex;
+    flex-flow: row;
+
+    &-img {
+      &-wrapper {
+        width: 80px;
+        height: 80px;
+        margin-left: 15px;
+        margin-top: 40px;
+        border-radius: 50%;
+      }
+    }
+
+    &-options {
+      width: auto;
+      height: auto;
+      margin-left: auto;
+      margin-right: 15px;
+      display: flex;
+      align-items: center;
+
+      img {
+      }
+
+      &-img {
+        display: flex;
+        width: fit-content;
+        height: fit-content;
+      }
+    }
+
+    &-name {
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      margin-left: 15px;
+      text-transform: uppercase;
+
+      &-f {
+        &-name {
+          @include card-list-header;
+        }
+      }
+
+      &-l {
+        &-name {
+          @extend .profile__top-name-f-name;
+        }
+      }
+    }
+  }
+}
