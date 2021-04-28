@@ -22,9 +22,11 @@ export interface ICurrentDate {
   year: number;
 }
 
-interface IProps {}
+interface IProps {
+  getDayAndRecords: (day: any) => void;
+}
 
-const Calendar: React.FC<IProps> = () => {
+const Calendar: React.FC<IProps> = ({ getDayAndRecords }) => {
   const fieldRef = React.useRef<HTMLInputElement>(null);
   const calendar = [];
 
@@ -154,32 +156,59 @@ const Calendar: React.FC<IProps> = () => {
     }
   };
 
-  useScrollListener(fieldRef, dateAdder, 100);
+  useScrollListener(fieldRef, dateAdder, 4000);
 
   const selectDate = (date: string) => {
     if (!calendarRenderedData.find((item) => item.isClicked === true)) {
-      calendarRenderedData.map(item => {
+      calendarRenderedData.map((item) => {
         if (item.date === date) {
-          calendarRenderedData[calendarRenderedData.indexOf(item)].isClicked === false;
-          setCalendarRenderedData(calendarRenderedData)
+          const arr = [...calendarRenderedData];
+          arr[calendarRenderedData.indexOf(item)].isClicked = true;
+          setCalendarRenderedData(arr);
         }
-      })
+      });
     } else {
-      console.log(calendarRenderedData.find((item) => item.isClicked === true))
+      const arr = [...calendarRenderedData];
+      calendarRenderedData.map((item) => {
+        if (item.date !== date) {
+          arr[calendarRenderedData.indexOf(item)].isClicked = false;
+        } else {
+          arr[calendarRenderedData.indexOf(item)].isClicked = true;
+          setCalendarRenderedData(arr);
+          getDayAndRecords(item.date )
+        }
+      });
+      setHeaderDate({
+        month: String(dateObject.getMonthName(new Date(date).getMonth())),
+        year: String(new Date(date).getFullYear()),
+      });
     }
   };
 
   if (calendar.find((item) => item.isSelected === true)) {
     console.log('one day is selected ');
   } else {
+    // seting first array of dats to calendar !!! do not remove
     dateObject.monthArr(currentMonth, currentYear, calendar);
+    calendar.map((item) => {
+      if (
+        item.date ===
+        dateObject.dateCreator(
+          new Date().getDate(),
+          new Date().getMonth() + 1,
+          new Date().getFullYear(),
+        )
+      ) {
+        calendar[calendar.indexOf(item)].isClicked = true;
+      }
+    });
   }
 
   const dates = calendarRenderedData.map((item) => {
     return (
       <DayInCalendar
+      key={`${item.date}`}
         date={item.number}
-        key={item.date}
         fullDate={item.date}
         dayWeek={item.name}
         hasEvents={item.hasAnyEvents}
@@ -197,7 +226,7 @@ const Calendar: React.FC<IProps> = () => {
           {' ' + headerDate.month + ', ' + headerDate.year}
         </span>
       </div>
-      <div className="calendar-days" ref={fieldRef}>
+      <div className="calendar-days scrollbar__hidden" ref={fieldRef}>
         {dates}
       </div>
     </div>

@@ -2,6 +2,8 @@ import React from 'react';
 
 import { data } from '../fakeData/fakedata';
 import completed from '../../../Asset/images/completed.png';
+// history API
+import  history  from '../../../historyApi';
 
 interface IProps {
   date: string;
@@ -27,10 +29,19 @@ const Task: React.FC<IProps> = ({ date, description, status, time }) => {
     }
   };
 
+  const navigationModule = () => {
+    console.log('history ', history)
+    history.push('/module');
+  };
+
   if (status === 'completed') {
     return (
       <>
-        <div className={'task-completed'}>
+        <div
+          className={'task-completed'}
+          onClick={() => {
+            navigationModule();
+          }}>
           <div className={'task-completed-genralinfo-wrapper'}>
             <div className={'task-completed-timepanel'}>
               {new Date(date).toLocaleTimeString([], {
@@ -63,7 +74,11 @@ const Task: React.FC<IProps> = ({ date, description, status, time }) => {
   if (status === 'uncompleted') {
     return (
       <>
-        <div className={'task-completed'}>
+        <div
+          className={'task-completed'}
+          onClick={() => {
+            navigationModule();
+          }}>
           <div className={'task-completed-genralinfo-wrapper'}>
             <div className={'task-completed-timepanel__uncompleted'}>
               {new Date(date).toLocaleTimeString([], {

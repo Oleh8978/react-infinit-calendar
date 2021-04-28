@@ -7,6 +7,7 @@ import Discovery from 'View/Discovery';
 import NotFound from '../View/Static/NotFound';
 import Schedule from '../View/Schedule';
 import Account from '../View/Account';
+import Module from '../View/Module';
 
 // Interfaces
 interface IRoute {
@@ -61,6 +62,12 @@ class RoutingSchema {
       component: ProtectedRoute(Account, 'ANONYMOUS_USERS'),
     },
     {
+      name: 'module',
+      path: '/module',
+      isExact: true,
+      component: ProtectedRoute(Module, 'ANONYMOUS_USERS'),
+    },
+    {
       name: 'notFound',
       path: '*',
       isExact: true,
@@ -80,7 +87,6 @@ class RoutingSchema {
 
   public getLink(name: Pages): string {
     const route = this.findRouteByName(name);
-
     if (route && route.path) {
       return route.path;
     } else {

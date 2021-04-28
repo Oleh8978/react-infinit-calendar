@@ -9,7 +9,7 @@
 }
 
 @mixin card-list-text-style {
-  font-family: Spartan;
+  font-family: $Spartan;
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
@@ -18,7 +18,7 @@
 }
 
 @mixin card-list-header {
-  font-family: Noto Sans SC;
+  font-family: $NotoSansSC;
   font-style: normal;
   font-weight: bold;
   font-size: 18px;

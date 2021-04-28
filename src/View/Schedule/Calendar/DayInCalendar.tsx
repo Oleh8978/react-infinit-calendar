@@ -24,7 +24,7 @@ const DayInCalendar: React.FC<IProps> = ({
     if (
       itemDate ===
       dateObject.dateCreator(
-        new Date().getDate() + 1,
+        new Date().getDate(),
         new Date().getMonth() + 1,
         new Date().getFullYear(),
       )

@@ -44,6 +44,7 @@
     margin-left: 10px;
   }
   &-days {
+    @include prevent-drag;
     width: auto;
     height: fit-content;
     display: flex;
@@ -177,7 +178,7 @@
     &-timepanel {
       margin-left: 15px;
       margin-right: auto;
-      font-family: Noto Sans SC;
+      font-family: $NotoSansSC;
       font-style: normal;
       font-weight: bold;
       font-size: 12px;
@@ -329,7 +330,6 @@
   &-dayoff,
   &-holiday {
     //background: rgba($white, 0.95);
-    position: absolute;
     top: 0;
     left: 0;
     margin: 0;
@@ -352,4 +352,15 @@
       margin-top: 30px;
     }
   }
+}
+
+
+
+.scrollbar__hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar__hidden::-webkit-scrollbar {
+  display: none
 }

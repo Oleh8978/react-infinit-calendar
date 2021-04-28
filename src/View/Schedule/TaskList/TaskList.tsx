@@ -15,6 +15,7 @@ const TaskList: React.FC<IProps> = () => {
         {data.tasks.map((item) => {
           return (
             <Task
+              key={item.date}
               description={item.description}
               date={item.date}
               time={item.time}
@@ -30,7 +31,13 @@ const TaskList: React.FC<IProps> = () => {
           </h1>
           <div className={'modules-list__uncompleted-list'}>
             {prevDataUncompleted.map((item) => {
-              return <PrevUncompleted date={item.date} tasks={item.tasks} />;
+              return (
+                <PrevUncompleted
+                  date={item.date}
+                  tasks={item.tasks}
+                  key={item.date}
+                />
+              );
             })}
           </div>
         </div>

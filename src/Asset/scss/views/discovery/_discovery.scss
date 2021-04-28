@@ -69,7 +69,7 @@
     margin-left: 15px;
     margin-top: 80px;
     margin-bottom: 20px;
-    font-family: Noto Sans SC;
+    font-family: $NotoSansSC;
     color: $secondary-grey-text-color;
     font-weight: 500;
     font-style: normal;
@@ -246,7 +246,7 @@
     &-link {
       @include link-style-remover;
       color: $secondary-purple-text-color;
-      font-family: Noto Sans SC;
+      font-family: $NotoSansSC;
       font-style: normal;
       font-weight: 500;
       font-size: 12px;

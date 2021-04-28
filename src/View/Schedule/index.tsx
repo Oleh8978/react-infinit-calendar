@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
 import Calendar from './Calendar/Calendar';
@@ -9,15 +9,54 @@ import NoJourneys from './NoJourneys/NoJourneys';
 import TrialExpired from './TrialExpired/TrialExpired';
 import Holiday from './Holiday/Holiday';
 
+// fake data
+import { events } from './fakeData/fakedata';
+
+//utils
+import * as dateObject from './Calendar/utils';
+
 interface IProps extends RouteComponentProps {
   absoluteBlock: string;
 }
 
-const Schedule: React.FC<IProps> = ({absoluteBlock }) => {
+const Schedule: React.FC<IProps> = ({ absoluteBlock }) => {
+  const [selectedDay, setSelectedDay] = useState<any>('');
+
+  const getDayAndRecords = (day: any) => {
+    setSelectedDay(day);
+  };
+
+  const scheduleData = (data) => {
+    let element = <NoTasks/>
+    data.find((item) => {
+      if (
+        String(
+          dateObject.dateCreator(
+            new Date(item.day).getDate(),
+            new Date(item.day).getMonth() + 1,
+            new Date(item.day).getUTCFullYear(),
+          ),
+        ) === selectedDay
+      ) {
+        if (item.hasAnyEvents) {
+          console.log('TaskList');
+          element = <TaskList />;
+        }
+
+        if (item.isHolidays) {
+          console.log('Holiday');
+          element =  <Holiday />;
+        }
+      }
+      
+    });
+
+    return element
+  };
   return (
     <div className={'schedule'}>
-      <Calendar />
-      <TaskList />
+      <Calendar getDayAndRecords={getDayAndRecords} />
+      {scheduleData(events)}
     </div>
   );
 };
