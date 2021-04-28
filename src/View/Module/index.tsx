@@ -4,6 +4,7 @@ import { RouteComponentProps } from 'react-router-dom';
 
 // custom components
 import NavigationMenu from './Menu';
+import ModulePage from "./ModulePage";
 
 // constants
 import * as menuConstats from './constants';
@@ -51,6 +52,7 @@ const Module: React.FC<IProps> = () => {
       </div>
       <div className={'module-body'}>
         <NavigationMenu menuOptions={menuItems} setIsclicked={setIsclicked} />
+        <ModulePage menuItems={menuItems}/>
       </div>
     </div>
   );
