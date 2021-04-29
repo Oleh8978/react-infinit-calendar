@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
 // custom components
+import NavigationBar from 'Component/NavigationBar';
 import NavigationMenu from './Menu';
-import ModulePage from "./ModulePage";
+import ModulePage from './ModulePage';
 
 // constants
 import * as menuConstats from './constants';
@@ -35,24 +36,10 @@ const Module: React.FC<IProps> = () => {
   };
   return (
     <div className={'module'}>
-      <div className={'module-menu'}>
-        <div className="module-menu-col1">
-          {' '}
-          <div
-            className="module-menu-back"
-            onClick={() => {
-              history.push('/schedule');
-            }}>
-            <div className="module-menu-back__top" />
-            <div className="module-menu-back__bottom" />
-          </div>
-        </div>
-        <div className="module-menu-col2">{menuConstats.moduleMenu}</div>
-        <div className="module-menu-col3" />
-      </div>
+      <NavigationBar rout={'schedule'} name={'Moduel name '} />
       <div className={'module-body'}>
         <NavigationMenu menuOptions={menuItems} setIsclicked={setIsclicked} />
-        <ModulePage menuItems={menuItems}/>
+        <ModulePage menuItems={menuItems} />
       </div>
     </div>
   );

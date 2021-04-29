@@ -51,8 +51,7 @@ export const InternalLink: React.FC<ILinkProps> = ({
       to={link}
       className={className || ''}
       onClick={onClickFunction}
-      style={style}
-    >
+      style={style}>
       {children}
     </Link>
   );

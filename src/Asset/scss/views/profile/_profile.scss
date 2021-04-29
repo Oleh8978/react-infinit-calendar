@@ -4,6 +4,12 @@
     height: auto;
   }
 
+  &-body {
+    &-wrapper {
+      padding-right: 0px;
+    }
+  }
+
   &-img {
     width: 80px;
     height: 80px;
@@ -12,17 +18,18 @@
 
   &__top {
     width: 100%;
-    height: 150px;
+    height: 120px;
     display: flex;
     flex-flow: row;
 
     &-img {
       &-wrapper {
         width: 80px;
-        height: 80px;
+        height: 100%;
         margin-left: 15px;
-        margin-top: 40px;
         border-radius: 50%;
+        display: flex;
+        align-items: center;
       }
     }
 
@@ -50,18 +57,242 @@
       justify-content: center;
       margin-left: 15px;
       text-transform: uppercase;
-
-      &-f {
-        &-name {
-          @include card-list-header;
-        }
-      }
-
-      &-l {
-        &-name {
-          @extend .profile__top-name-f-name;
-        }
+    }
+    &-f {
+      &-name {
+        @include card-list-header;
+        color: $empty-title-color;
       }
     }
+
+    &-l {
+      &-name {
+        @extend .profile__top-f-name;
+      }
+    }
+  }
+
+  &-journey {
+    &-progress {
+      display: flex;
+      flex-flow: column;
+      margin: 30px 15px 53px;
+
+      &-header {
+        @include card-list-header;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 17px;
+        color: $empty-title-brighter;
+      }
+      &__left {
+        display: flex;
+        flex: 1;
+
+        &-textwrapper {
+          margin-left: 15px;
+          margin-top: 7px;
+          display: flex;
+          flex-flow: column;
+
+          &__top {
+            @include card-list-text-style;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 20px;
+          }
+
+          &__bottom {
+            @include card-list-header;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 17px;
+            color: $empty-title-brighter;
+          }
+        }
+      }
+      &__right {
+        @extend .profile-journey-progress__left;
+        &-textwrapper {
+          @extend .profile-journey-progress__left-textwrapper;
+          &__top {
+            @extend .profile-journey-progress__left-textwrapper__top;
+          }
+          &__bottom {
+            @extend .profile-journey-progress__left-textwrapper__bottom;
+          }
+        }
+      }
+      &-wrapper {
+        margin-top: 20px;
+        display: flex;
+        flex-flow: row;
+      }
+    }
+
+    &-notes {
+      margin-top: 45px;
+      margin-left: 15px;
+      margin-right: 15px;
+
+      &-header {
+        @extend .profile-journey-progress-header;
+      }
+
+      &-img {
+        margin-right: 27px;
+      }
+
+      &-text {
+        @include card-list-text-style;
+        margin-left: 25px;
+        margin-right: auto;
+        font-weight: bold;
+        justify-content: center;
+      }
+      &-textwrapper {
+        height: 60px;
+        margin-top: 15px;
+        display: flex;
+        border: 1px solid $divider-color;
+        border-radius: 14px;
+        align-items: center;
+      }
+    }
+  }
+
+  &-myjourneys {
+    margin: 45px 15px auto;
+
+    &-header {
+      @extend .profile-journey-progress-header;
+    }
+    &-wrapper {
+
+    }
+  }
+}
+
+.kpi {
+  &-analistic {
+    display: flex;
+    flex-flow: row;
+    height: 49px;
+    width: auto;
+    margin: 10px 20px auto;
+    border-radius: 14px;
+    background-color: $uncompleted-task-color-brighter;
+    &-text {
+      @include card-list-header;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 20px;
+      margin-top: 14px;
+      margin-left: 15px;
+      margin-bottom: auto;
+      text-transform: unset;
+
+      &__bold {
+        @extend .kpi-analistic-text;
+        font-weight: 900;
+        margin-left: 3px;
+      }
+    }
+    &-btn {
+      @include card-list-header;
+      height: 29px;
+      margin-top: 10px;
+      margin-right: 10px;
+      margin-left: auto;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 13px;
+      letter-spacing: -0.045em;
+      border-radius: 14px;
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      background-color: $empty-title-color;
+      color: $white;
+      display: flex;
+
+      span {
+        margin-left: 18px;
+        margin-right: 18px;
+      }
+    }
+  }
+}
+
+.nodata {
+  &-found {
+    display: flex;
+    flex-flow: column;
+  }
+
+  &-header {
+    @include card-list-header;
+    margin: 25px 15px auto;
+    font-size: 18px;
+    line-height: 26px;
+    text-transform: uppercase;
+    color: $empty-title-color;
+  }
+
+  &-text {
+    @include card-list-text-style;
+    margin: 10px 15px auto;
+  }
+
+  &-img {
+    margin: 55px 20px 37px;
+    display: flex;
+  }
+}
+
+.tips {
+  margin: 51px 15px auto;
+  &-header {
+    @extend .profile-journey-progress-header;
+  }
+  &-wrapper {
+    margin-top: 15px;
+    display: flex;
+    height: 60px;
+    border: 1px solid $divider-color;
+    border-radius: 14px;
+    align-items: center;
+  }
+  &-number {
+    @include card-list-text-style;
+    text-transform: uppercase;
+    color: $text-color;
+    font-weight: bold;
+    margin-left: 25px;
+  }
+  &-new {
+    @include card-list-text-style;
+    text-transform: uppercase;
+    color: $uncompleted-task-color;
+    font-weight: bold;
+    margin-left: 4px;
+  }
+  &-tip {
+    @include card-list-text-style;
+    text-transform: uppercase;
+    color: $text-color;
+    font-weight: bold;
+    margin-left: 4px;
+    
+  }
+  &-persone {
+    margin-right: 22px;
+    margin-top: -12px;
+    margin-left: auto;
+    height: auto;
+    width: auto;
   }
 }

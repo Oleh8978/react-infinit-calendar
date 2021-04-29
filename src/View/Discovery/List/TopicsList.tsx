@@ -4,11 +4,18 @@ import { dataList } from '../FakeData/list/List';
 
 import AnswerNotFound from '../AnswerNotFound/AnswerNotFound';
 
+// history
+
+import history from 'historyApi';
+
 interface IProps {
   margin: number;
 }
 
 const DiscoveryTopicList: React.FC<IProps> = ({ margin }) => {
+  const jorneyInfo = () => {
+    history.push('/journey');
+  };
   return (
     //style={{ marginTop: `${margin}` + 'px' }}
     <div className={'discovery-list'}>
@@ -45,7 +52,13 @@ const DiscoveryTopicList: React.FC<IProps> = ({ margin }) => {
                     {item.description}
                     {/* </div> */}
                   </span>
-                  <div className="card-text-start-btn">{item.link}</div>
+                  <div
+                    className="card-text-start-btn"
+                    onClick={() => {
+                      jorneyInfo();
+                    }}>
+                    {item.link}
+                  </div>
                 </div>
               </div>
             );

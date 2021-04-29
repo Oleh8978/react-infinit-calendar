@@ -4,10 +4,11 @@ import { RouteComponentProps } from 'react-router-dom';
 
 //Views
 import Discovery from 'View/Discovery';
-import NotFound from '../View/Static/NotFound';
-import Schedule from '../View/Schedule';
-import Account from '../View/Account';
-import Module from '../View/Module';
+import NotFound from 'View/Static/NotFound';
+import Schedule from 'View/Schedule';
+import Account from 'View/Account';
+import Module from 'View/Module';
+import Journey from "View/Journey";
 
 // Interfaces
 interface IRoute {
@@ -66,6 +67,12 @@ class RoutingSchema {
       path: '/module',
       isExact: true,
       component: ProtectedRoute(Module, 'ANONYMOUS_USERS'),
+    },
+    {
+      name: 'journey',
+      path: '/journey',
+      isExact: true,
+      component: ProtectedRoute(Journey, 'ANONYMOUS_USERS'),
     },
     {
       name: 'notFound',
