@@ -8,10 +8,10 @@ import oldTip from './static/oldtips.png';
 interface IProps {}
 
 const Tips: React.FC<IProps> = () => {
+  const images = [imgW, imgM];
   const [number, setNumber] = useState<number>(45);
   const [isNew, setIsNew] = useState<boolean>(true);
-  const [img, setImg] = useState<string>(imgW);
-  const images = [imgW, imgM];
+  const [img, setImg] = useState<string>(images[Math.floor(Math.random() * 2)]);
 
   return (
     <div className={'tips'}>
@@ -21,9 +21,13 @@ const Tips: React.FC<IProps> = () => {
         {isNew ? <span className={'tips-new'}>new</span> : <> </>}
         <span className={'tips-tip'}>tips</span>
         <img
-          src={images[Math.floor(Math.random() * 2)]}
+          src={img}
           className={'tips-persone'}
           alt="img"
+          style={{
+            marginTop: img === imgW ? '-12px' : '-40px',
+            marginRight: img === imgW ? '22px' : '5px',
+          }}
         />
       </div>
     </div>

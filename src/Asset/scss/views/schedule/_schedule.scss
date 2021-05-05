@@ -31,7 +31,7 @@
     margin-bottom: auto;
     width: fit-content;
     height: fit-content;
-    cursor: pointer
+    cursor: pointer;
   }
 
   &-mnth {
@@ -105,15 +105,44 @@
     }
   }
   &-headwraper {
+    padding-right: 18px;
     display: flex;
     flex-flow: row;
-    width: fit-content;
+    width: auto;
     height: auto;
     align-items: center;
     justify-content: center;
     margin-top: 26px;
     margin-bottom: 11px;
     margin-left: 15px;
+  }
+
+  &-contentmenu {
+    &-wrapper {
+      margin-left: auto;
+      width: auto;
+      height: auto;
+      display: flex;
+      flex-flow: row;
+      cursor: pointer;
+    }
+
+    &-menu1 {
+      width: 6px;
+      height:6px;
+      margin-right: 4px;
+      border-radius: 50%;
+      background-color: $text-color;
+      
+    }
+
+    &-menu2 {
+      @extend .calendar-contentmenu-menu1;
+    }
+
+    &-menu3 {
+      @extend .calendar-contentmenu-menu1;
+    }
   }
 }
 
@@ -133,7 +162,7 @@
 
     &__completed {
       background-color: $white;
-    }
+    } 
     &__uncompleted {
       margin-top: 30px;
       background-color: $uncompleted-disable-task-color;
@@ -254,7 +283,8 @@
   &-nojourneys,
   &-trialexpired,
   &-holiday {
-    margin-bottom: 90px;
+    margin-top: 40px;
+    // margin-bottom: 90px;
     width: 100%;
     height: auto;
     display: flex;
@@ -320,7 +350,7 @@
   }
 
   &-notasks {
-    padding-top: 30px;
+    padding-top: 50px;
   }
 
   &-trialexpired,
@@ -334,6 +364,7 @@
     top: 0;
     left: 0;
     margin: 0;
+    margin-top: 39px;
     padding-bottom: 60px;
     z-index: 0;
     height: 100%;
@@ -355,7 +386,95 @@
   }
 }
 
+.welldone {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $primary-action-color-light;
+  z-index: 99;
+  &-header {
+    @include card-list-header;
+    text-transform: uppercase;
+    color: $white;
+  }
+  &-text {
+    @include card-list-text-style;
+    margin-top: 10px;
+    color: $white;
+  }
+  &-wrapper {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+  }
+  &-main {
+    position: relative;
+    top: -50%;
+    left: -50%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+  }
+  &-smiles {
+    margin-top: 20px;
+  }
+}
 
+.modal {
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: 99;
+  position: fixed;
+  position: fixed;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  max-width: 861px;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: $primary-action-color-ultralight;
+
+  &-btn {
+
+    &-wrapper {
+      width: 100%;
+      height: 115px;
+      margin-top: auto;
+      display: flex;
+      flex-flow: column;
+    }
+
+    &__close {
+      width: 100%;
+      height: 100%;
+      background-color: $white;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    &__dayoff {
+      @extend .modal-btn__close;
+    }
+
+    &-img {
+      margin-right: 10px;
+      margin-left: 15px;
+    }
+
+    &-text {
+      @include card-list-text-style;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 18px;
+      color: $text-color;
+
+    }
+  }
+}
 
 .scrollbar__hidden {
   -ms-overflow-style: none;
@@ -363,5 +482,5 @@
 }
 
 .scrollbar__hidden::-webkit-scrollbar {
-  display: none
+  display: none;
 }

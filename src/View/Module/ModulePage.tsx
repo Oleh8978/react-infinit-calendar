@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
 // components
-import Overview from './MenuSections/Overview';
-import Help from './MenuSections/Help';
-import Notes from './MenuSections/Notes';
-import Tasks from './MenuSections/Tasks';
+import Overview from './MenuSections/Overview/Overview';
+import Help from './MenuSections/Help/Help';
+import Notes from './MenuSections/Notes/Notes';
+import Tasks from './MenuSections/Tasks/Tasks';
 
 // interfaces
 import { INavigationMenu } from './Models';

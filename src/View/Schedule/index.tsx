@@ -8,6 +8,7 @@ import DayOff from './DayOff/DayOff';
 import NoJourneys from './NoJourneys/NoJourneys';
 import TrialExpired from './TrialExpired/TrialExpired';
 import Holiday from './Holiday/Holiday';
+import WellDone from './WellDone/WellDone';
 
 // fake data
 import { events } from './fakeData/fakedata';
@@ -27,7 +28,7 @@ const Schedule: React.FC<IProps> = ({ absoluteBlock }) => {
   };
 
   const scheduleData = (data) => {
-    let element = <NoTasks/>
+    let element = <NoTasks />;
     data.find((item) => {
       if (
         String(
@@ -39,22 +40,21 @@ const Schedule: React.FC<IProps> = ({ absoluteBlock }) => {
         ) === selectedDay
       ) {
         if (item.hasAnyEvents) {
-          console.log('TaskList');
           element = <TaskList />;
         }
 
         if (item.isHolidays) {
-          console.log('Holiday');
-          element =  <Holiday />;
+          element = <Holiday />;
         }
       }
-      
     });
 
-    return <TaskList />
+    return <TaskList />;
   };
+  const isTaskCompleated = false;
   return (
     <div className={'schedule'}>
+      {isTaskCompleated ? <WellDone /> : <></>}
       <Calendar getDayAndRecords={getDayAndRecords} />
       {scheduleData(events)}
     </div>

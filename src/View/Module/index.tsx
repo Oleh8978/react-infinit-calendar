@@ -36,7 +36,7 @@ const Module: React.FC<IProps> = () => {
   };
   return (
     <div className={'module'}>
-      <NavigationBar rout={'schedule'} name={'Moduel name '} />
+      <NavigationBar rout={'schedule'} name={'Module name '} />
       <div className={'module-body'}>
         <NavigationMenu menuOptions={menuItems} setIsclicked={setIsclicked} />
         <ModulePage menuItems={menuItems} />
