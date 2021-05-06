@@ -92,12 +92,14 @@
         margin-bottom: 35px;
         border-radius: 14px;
         cursor: pointer;
+        min-height: 300px;
 
         &__half {
           @extend .discovery-list-item-holder;
           border-radius: 14px;
           overflow: hidden;
           border: 1px solid $yellow-color;
+          min-height: 150px;
         }
       }
 
@@ -115,8 +117,9 @@
 
         &__half {
           display: flex;
-          width: 150px;
-          height: 150px;
+          min-height: 100%;
+          max-width: 150px;
+          width: 100%;
           object-fit: cover;
         }
       }
@@ -132,6 +135,7 @@
         height: auto;
         max-height: 384px;
         flex: 1;
+        padding: 15px;
       }
     }
   }
@@ -213,17 +217,19 @@
       @include card-list-header;
       margin: 0px 0px 10px;
       padding: 0px;
+      text-transform: uppercase;
     }
     &-wrapper {
       @include card-list-text-style;
       width: fit-content;
-      margin: 15px 15px 0px;
 
       &-link {
         @include card-list-text-style;
-        display: block;
         width: fit-content;
-        margin: 0px 15px auto;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
       }
     }
     &-start {
@@ -231,10 +237,9 @@
         @include card-list-text-style;
         height: 31px;
         width: 74px;
-        margin-left: 15px;
         margin-top: 30px;
-        margin-bottom: 15px;
-        margin-right: auto;
+        padding: 10px 22px 8px;
+        line-height: 13px;
         border-radius: 14px;
         display: flex;
         align-items: center;
@@ -251,7 +256,7 @@
       font-weight: 500;
       font-size: 12px;
       line-height: 17px;
-      margin-top: 20px;
+      margin-bottom: 5px;
     }
   }
 }
@@ -279,6 +284,7 @@
         @include card-list-header;
         color: $empty-title-color;
         text-align: center;
+        text-transform: uppercase;
       }
     }
 
@@ -303,12 +309,12 @@
 
     &-btn {
       @include card-list-text-style;
-      width: 102px;
-      height: 38px;
       border-radius: 4px;
       margin: 10px auto 0;
+      padding: 11px 24px 9px;
       font-size: 14px;
       line-height: 18px;
+      font-weight: 600;
       display: flex;
       align-items: center;
       justify-content: center;
