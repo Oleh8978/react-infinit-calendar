@@ -103,6 +103,31 @@
       color: $text-color;
       font-size: 16px;
     }
+
+    &-divider {
+      width: 100%;
+      min-width: 12px;
+      justify-content: center;
+      display: flex;
+      flex-flow: row;
+      align-items: center;
+      cursor: grab;
+    }
+
+    &-dots {
+      display: flex;
+      margin-left: 3px;
+      min-width: 3px;
+      height: 3px;
+      margin-top: 20px;
+      border-radius: 50%;
+      background-color: $secondary-gey-text-color-bright;
+
+      &-first {
+        @extend .calendar-day-dots;
+        margin-left: 0px;
+      }
+    }
   }
   &-headwraper {
     padding-right: 18px;
@@ -129,11 +154,10 @@
 
     &-menu1 {
       width: 6px;
-      height:6px;
+      height: 6px;
       margin-right: 4px;
       border-radius: 50%;
       background-color: $text-color;
-      
     }
 
     &-menu2 {
@@ -162,7 +186,7 @@
 
     &__completed {
       background-color: $white;
-    } 
+    }
     &__uncompleted {
       margin-top: 30px;
       background-color: $uncompleted-disable-task-color;
@@ -437,7 +461,6 @@
   background-color: $primary-action-color-ultralight;
 
   &-btn {
-
     &-wrapper {
       width: 100%;
       height: 115px;
@@ -471,9 +494,13 @@
       font-size: 16px;
       line-height: 18px;
       color: $text-color;
-
     }
   }
+}
+
+.wrapper {
+  display: flex;
+  flex-flow: row;
 }
 
 .scrollbar__hidden {

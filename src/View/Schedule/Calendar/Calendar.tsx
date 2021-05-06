@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 
 // customn components
 import DayInCalendar from './DayInCalendar';
+import ModalWindow from './ModalWindow/modalWindow';
 
 // images
 import calendarImg from '../../../Asset/images/calendar.png';
@@ -39,6 +40,43 @@ const Calendar: React.FC<IProps> = ({ getDayAndRecords }) => {
     year: String(currentYear),
   });
   const [calendarRenderedData, setCalendarRenderedData] = useState(calendar);
+  const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
+  const [scrollType, setScrollType] = useState<string>('right');
+
+  const directionChecker = () => {
+    const ele = document.querySelector('.calendar-days') as HTMLElement;
+
+    let pos = { top: 0, left: 0, x: 0, y: 0 };
+
+    const mouseDownHandler = (e) => {
+      pos = {
+        left: ele.scrollLeft,
+        top: ele.scrollTop,
+        // Get the current mouse position
+        x: e.clientX,
+        y: e.clientY,
+      };
+
+      document.addEventListener('mousemove', mouseMoveHandler);
+      document.addEventListener('mouseup', mouseUpHandler);
+    };
+
+    const mouseMoveHandler = (e) => {
+      // direction
+      if (Math.sign(e.clientX - pos.x) === -1) {
+        setScrollType('right');
+      } else {
+        setScrollType('left');
+      }
+    };
+
+    const mouseUpHandler = () => {
+      document.removeEventListener('mousemove', mouseMoveHandler);
+      document.removeEventListener('mouseup', mouseUpHandler);
+    };
+
+    if (ele !== null) ele.addEventListener('mousedown', mouseDownHandler);
+  };
 
   const moseMover = (ele) => {
     let pos = { top: 0, left: 0, x: 0, y: 0 };
@@ -91,8 +129,9 @@ const Calendar: React.FC<IProps> = ({ getDayAndRecords }) => {
     const scrolled = calendarHolder.scrollLeft;
     const windowWidth = schedule.offsetWidth;
     const blockWidth = schedule.scrollWidth;
-
-    if (scrolled <= windowWidth) {
+    // directionChecker(calendarHolder);
+    console.log('scrolled type', scrollType);
+    if (scrollType === 'left') {
       let arr = [];
       if (calendarRenderedData.length !== 0) {
         const date = new Date(calendarRenderedData[0].date);
@@ -117,11 +156,11 @@ const Calendar: React.FC<IProps> = ({ getDayAndRecords }) => {
           isClicked: false,
         });
         setCalendarRenderedData(arr.concat(calendarRenderedData));
-        calendarHolder.scrollTo(blockWidth + 72, 0);
+        // calendarHolder.scrollTo(72, 0);
         arr = [];
       }
     }
-    if (scrolled > windowWidth) {
+    if (scrollType === 'right') {
       if (calendarRenderedData.length !== 0) {
         const date = new Date(
           calendarRenderedData[calendarRenderedData.length - 1].date,
@@ -155,7 +194,7 @@ const Calendar: React.FC<IProps> = ({ getDayAndRecords }) => {
       }
     }
   };
-
+  useScrollListener(fieldRef, directionChecker, 4000);
   useScrollListener(fieldRef, dateAdder, 4000);
 
   const selectDate = (date: string) => {
@@ -175,7 +214,7 @@ const Calendar: React.FC<IProps> = ({ getDayAndRecords }) => {
         } else {
           arr[calendarRenderedData.indexOf(item)].isClicked = true;
           setCalendarRenderedData(arr);
-          getDayAndRecords(item.date )
+          getDayAndRecords(item.date);
         }
       });
       setHeaderDate({
@@ -204,27 +243,44 @@ const Calendar: React.FC<IProps> = ({ getDayAndRecords }) => {
     });
   }
 
+  const setModalOpened = () => {
+    if (!isModalOpened) {
+      setIsModalOpened(true);
+    } else {
+      setIsModalOpened(false);
+    }
+  };
+
   const dates = calendarRenderedData.map((item) => {
     return (
       <DayInCalendar
-      key={`${item.date}`}
+        key={`${item.date}`}
         date={item.number}
         fullDate={item.date}
         dayWeek={item.name}
         hasEvents={item.hasAnyEvents}
         isClicked={item.isClicked}
         selectDate={selectDate}
+        isCustom={false}
       />
     );
   });
 
   return (
     <div className={'calendar'}>
+      {isModalOpened ? <ModalWindow setModalOpened={setModalOpened} /> : <></>}
       <div className="calendar-headwraper">
         <img src={calendarImg} className="calendar-img" alt="img" />
         <span className="calendar-mnth">
           {' ' + headerDate.month + ', ' + headerDate.year}
         </span>
+        <div
+          className={'calendar-contentmenu-wrapper'}
+          onClick={() => setModalOpened()}>
+          <span className={'calendar-contentmenu-menu1'}></span>
+          <span className={'calendar-contentmenu-menu2'}></span>
+          <span className={'calendar-contentmenu-menu3'}></span>
+        </div>
       </div>
       <div className="calendar-days scrollbar__hidden" ref={fieldRef}>
         {dates}

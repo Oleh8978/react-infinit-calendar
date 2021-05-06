@@ -1,10 +1,189 @@
 .tasks {
+  width: auto;
+  height: 100%;
+
+  &-wrapper {
     width: auto;
     height: 100%;
+    // margin: auto 20px 0px;
+  }
+
+  &-calendar {
+    @include prevent-drag;
+    display: flex;
+    flex-flow: row;
+    overflow-x: scroll;
+
+    &-headerdate {
+      @include card-list-text-style;
+      display: flex;
+      flex-flow: row;
+      margin-top: 20px;
+      margin-left: 20px;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 15px;
+      color: $empty-title-color;
+    }
+  }
+
+  &-current {
+    // margin-top: 10px;
+    margin: 10px 20px 0px;
+    display: flex;
+    flex-flow: column;
+
+    &-task {
+      margin-top: 20px;
+
+      &-wrapper {
+        display: flex;
+        flex-flow: row;
+        padding-top: 15px;
+        min-height: 50px;
+        height: 100%;
+        border-bottom: 1px solid $divider-color;
+        cursor: pointer;
+      }
+
+      &-checkbox {
+        // margin-top: 15px;
+        margin-left: 10px;
+        margin-bottom: auto;
+
+        &-check {
+          -webkit-appearance: none;
+          border-radius: 50%;
+          width: 25px;
+          height: 25px;
+          border: 1px solid $text-color;
+          cursor: pointer;
+          background-color: $white;
+        }
+
+        &-check:checked:after {
+          @extend .tasks-current-task-checkbox-check;
+          background-color: $text-color;
+          margin-left: -1px;
+          margin-top: -1px;
+          width: 23px;
+          height: 23px;
+          content: '';
+          background-image: url('../../../images/check.svg');
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 11px 11px;
+          color: $white;
+          align-items: center;
+          justify-content: center;
+          display: flex;
+        }
+      }
+
+      &-text {
+        &-wrapper {
+          @include card-list-text-style;
+          // align-self:;
+          justify-content: center;
+
+          font-style: normal;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 21px;
+          margin-left: 25px;
+          display: flex;
+          flex-flow: column;
+        }
+
+        &-header {
+          font-style: normal;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 21px;
+          color: $text-color;
+        }
+
+        &-link {
+          font-style: normal;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 21px;
+          color: $primary-action-color;
+          cursor: pointer;
+        }
+      }
+
+      &-timetodo {
+        @include card-list-header;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 18px;
+        text-transform: uppercase;
+        color: $empty-title-color;
+      }
+    }
+  }
+
+  &-uncompleted {
+    display: flex;
+    flex-flow: column;
+    background-color: $uncompleted-disable-task-color;
+
+    &-header {
+      @include card-list-header;
+      margin-top: 30px;
+      margin-left: 20px;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 16px;
+      line-height: 23px;
+      text-transform: uppercase;
+      color: $uncompleted-task-color;
+    }
+
+    &-headeritem {
+      @include card-list-header;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 18px;
+      text-transform: uppercase;
+      color: $uncompleted-task-color;
+      margin-top: 20px;
+    }
 
     &-wrapper {
-        width: auto;
-        height: 100%;
-        margin: auto 20px 0px;
+      margin-left: 20px;
+      margin-right: 20px;
     }
+
+    &-item {
+      display: flex;
+      flex-flow: row;
+      margin-top: 15px;
+      border-bottom: 1px solid $divider-color;
+
+      &-checkbox {
+        margin-left: 5px;
+      }
+
+      &-title {
+        @include card-list-text-style;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 21px;
+        color: $text-color;
+      }
+
+      &-textwrapper {
+        display: flex;
+        flex-flow: column;
+        margin-left: 25px;
+        margin-bottom: 15px;
+      }
+    }
+  }
 }

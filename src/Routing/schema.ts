@@ -8,7 +8,8 @@ import NotFound from 'View/Static/NotFound';
 import Schedule from 'View/Schedule';
 import Account from 'View/Account';
 import Module from 'View/Module';
-import Journey from "View/Journey";
+import Journey from 'View/Journey';
+import TaskInfo from 'View/Module/MenuSections/Tasks/TaskInfo';
 
 // Interfaces
 interface IRoute {
@@ -73,6 +74,12 @@ class RoutingSchema {
       path: '/journey',
       isExact: true,
       component: ProtectedRoute(Journey, 'ANONYMOUS_USERS'),
+    },
+    {
+      name: 'task',
+      path: '/task',
+      isExact: true,
+      component: ProtectedRoute(TaskInfo, 'ANONYMOUS_USERS'),
     },
     {
       name: 'notFound',

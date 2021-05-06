@@ -17,7 +17,7 @@ const NavigationBar: React.FC<IProps> = ({ rout, name }) => {
         <div
           className="module-menu-back"
           onClick={() => {
-            history.push('/schedule');
+            history.push(rout);
           }}>
           <div className="module-menu-back__top" />
           <div className="module-menu-back__bottom" />
