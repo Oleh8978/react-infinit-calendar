@@ -30,9 +30,11 @@
 
       &-item {
         @include card-list-text-style;
+        line-height: 13px;
         width: 100%;
         margin-top: 6px;
         margin-bottom: 6px;
+        padding: 10px 0 8px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -40,6 +42,7 @@
         background-color: $white;
         color: $empty-title-color;
         cursor: pointer;
+        transition: all 0.3s ease;
 
         &__active {
           @extend .module-menu-navigation-item;
@@ -156,8 +159,6 @@
     display: flex;
     flex-flow: column;
     margin-top: 12px;
-    // padding-left: 20px;
-    // padding-right: 20px;
 
     &-img {
       &__code {
@@ -220,11 +221,11 @@
       border-radius: 5px;
       border: 1px solid $primary-action-color;
 
-      @media screen and (max-width: 650px) { 
+      @media screen and (max-width: 650px) {
         margin-left: 15px;
         margin-right: 15px;
       }
-      
+
       &__regular {
         display: flex;
         flex-flow: row;
@@ -266,7 +267,7 @@
     height: fit-content;
     margin: auto 20px 15px;
 
-    @media screen and (max-width: 650px) { 
+    @media screen and (max-width: 650px) {
       margin: auto 15px 15px;
     }
 
@@ -315,7 +316,7 @@
       width: auto;
       margin: auto 20px 15px;
 
-      @media screen and (max-width: 650px) { 
+      @media screen and (max-width: 650px) {
         margin: auto 15px 15px;
       }
 
@@ -374,7 +375,7 @@
     border-left: 4px solid $success-color;
     margin: auto 20px 15px;
 
-    @media screen and (max-width: 650px) { 
+    @media screen and (max-width: 650px) {
       margin: auto 15px 15px;
     }
 
@@ -394,7 +395,7 @@
     flex-flow: column;
     margin: 50px 20px 0px;
 
-    @media screen and (max-width: 650px) { 
+    @media screen and (max-width: 650px) {
       margin: 50px 15px 0px;
     }
 
@@ -429,7 +430,7 @@
       cursor: grab;
       margin-left: 20px;
       margin-bottom: 67px;
-      @media screen and (max-width: 650px) { 
+      @media screen and (max-width: 650px) {
         margin-left: 15px;
       }
 
