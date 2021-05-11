@@ -1,19 +1,43 @@
 .button {
-    &-pink {
-        width: fit-content;
-        height: 38px;
-        border: 1px solid $primary-action-color;
-        border-radius: 4px;
-        display: flex;
-        align-items: center;
-        background-color: $primary-action-color;
-        color: $white;
-        cursor: pointer;
+  &-pink {
+    width: fit-content;
+    height: 38px;
+    border: 1px solid $primary-action-color;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    background-color: $primary-action-color;
+    color: $white;
+    cursor: pointer;
 
-        span {
-            @include card-list-text-style;
-            margin-left: 24px;
-            margin-right: 24px;
-        }
+    span {
+      @include card-list-text-style;
+      margin-left: 24px;
+      margin-right: 24px;
     }
+  }
+}
+
+.btn {
+  &-red {
+    width: 100%;
+    min-height: 50px;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    border-radius: 4px;
+    background-color: $red-color;
+
+    &-text {
+      @include card-list-text-style;
+      display: flex;
+      font-style: normal;
+      margin-right: auto;
+      margin-left: auto;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 18px;
+      color: $white;
+    }
+  }
 }

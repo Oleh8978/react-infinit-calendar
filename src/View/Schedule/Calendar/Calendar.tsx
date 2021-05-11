@@ -155,7 +155,7 @@ const Calendar: React.FC<IProps> = ({ getDayAndRecords }) => {
           hasAnyEvents: false,
           isClicked: false,
         });
-        setCalendarRenderedData(arr.concat(calendarRenderedData));
+        // setCalendarRenderedData(arr.concat(calendarRenderedData));
         // calendarHolder.scrollTo(72, 0);
         arr = [];
       }
@@ -188,7 +188,7 @@ const Calendar: React.FC<IProps> = ({ getDayAndRecords }) => {
           isClicked: false,
         });
 
-        setCalendarRenderedData(calendarRenderedData.concat(calRendData));
+        // setCalendarRenderedData(calendarRenderedData.concat(calRendData));
 
         calRendData = [];
       }

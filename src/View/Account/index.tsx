@@ -1,6 +1,9 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
+// components
+import Link from 'Routing/Link';
+
 // Custom components
 import Profile from './ProfileMain';
 import AnalisticKPI from './AnalisticKPI';

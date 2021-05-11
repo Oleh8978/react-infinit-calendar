@@ -77,6 +77,7 @@ const Task: React.FC<IProps> = () => {
         }
       });
     });
+    prevDataIds.push(id);
     setSortedData(newData);
   };
 

@@ -26,10 +26,13 @@
       &-wrapper {
         width: 80px;
         height: 100%;
-        margin-left: 15px;
+        margin-left: 20px;
         border-radius: 50%;
         display: flex;
         align-items: center;
+        @media screen and (max-width: 650px) {
+          margin-left: 15px;
+        }
       }
     }
 
@@ -48,6 +51,7 @@
         display: flex;
         width: fit-content;
         height: fit-content;
+        cursor: pointer;
       }
     }
 
@@ -76,7 +80,11 @@
     &-progress {
       display: flex;
       flex-flow: column;
-      margin: 30px 15px 53px;
+      margin: 30px 20px 53px;
+
+      @media screen and (max-width: 650px) {
+        margin: 10px 15px auto;
+      }
 
       &-header {
         @include card-list-header;
@@ -129,13 +137,20 @@
         margin-top: 20px;
         display: flex;
         flex-flow: row;
+        width: 100%;
+        max-width: 639px;
       }
     }
 
     &-notes {
       margin-top: 45px;
-      margin-left: 15px;
-      margin-right: 15px;
+      margin-left: 20px;
+      margin-right: 20px;
+
+      @media screen and (max-width: 650px) {
+        margin-left: 15px;
+        margin-right: 15px;
+      }
 
       &-header {
         @extend .profile-journey-progress-header;
@@ -143,6 +158,7 @@
 
       &-img {
         margin-right: 27px;
+        cursor: pointer;
       }
 
       &-text {
@@ -164,13 +180,49 @@
   }
 
   &-myjourneys {
-    margin: 45px 15px auto;
+    // margin: 45px 15px auto;
+    margin-top: 45px;
 
     &-header {
       @extend .profile-journey-progress-header;
+      margin-left: 20px;
+
+      @media screen and (max-width: 650px) {
+        margin-left: 15px;
+      }
     }
     &-wrapper {
+      margin-top: 5px;
+      margin-right: 20px;
+      margin-left: 20px;
 
+      @media screen and (max-width: 650px) {
+        margin-right: 15px;
+        margin-left: 15px;
+      }
+    }
+
+    &-completed {
+      margin-top: 45px;
+
+      &-wrapper {
+        @include prevent-drag;
+        height: 250px;
+        margin-bottom: 30px;
+        display: flex;
+        flex-flow: row;
+        cursor: grab;
+      }
+
+      &-wrapper {
+        @extend .scrollbar__hidden;
+        overflow-x: scroll;
+      }
+
+      &-container {
+        @include prevent-drag;
+        height: fit-content;
+      }
     }
   }
 }
@@ -184,6 +236,11 @@
     margin: 10px 20px auto;
     border-radius: 14px;
     background-color: $uncompleted-task-color-brighter;
+
+    @media screen and (max-width: 650px) {
+      margin: 10px 15px auto;
+    }
+
     &-text {
       @include card-list-header;
       font-style: normal;
@@ -218,6 +275,7 @@
       background-color: $empty-title-color;
       color: $white;
       display: flex;
+      cursor: pointer;
 
       span {
         margin-left: 18px;
@@ -254,7 +312,12 @@
 }
 
 .tips {
-  margin: 51px 15px auto;
+  margin: 51px 20px auto;
+
+  @media screen and (max-width: 650px) {
+    margin: 51px 15px auto;
+  }
+
   &-header {
     @extend .profile-journey-progress-header;
   }
@@ -286,7 +349,6 @@
     color: $text-color;
     font-weight: bold;
     margin-left: 4px;
-    
   }
   &-persone {
     // margin-right: 22px;
