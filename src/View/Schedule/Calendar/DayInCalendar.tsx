@@ -26,7 +26,13 @@ const DayInCalendar: React.FC<IProps> = ({ ...props }) => {
         new Date().getFullYear(),
       )
     ) {
-      return <span className="calendar-day-today">Today</span>;
+      return (
+        <span
+          className="calendar-day-today"
+          style={{ textTransform: 'uppercase' }}>
+          Today
+        </span>
+      );
     } else {
       return (
         <span className="calendar-day-today" style={{ height: '26px' }}></span>
@@ -42,7 +48,10 @@ const DayInCalendar: React.FC<IProps> = ({ ...props }) => {
             <>
               <div
                 className="calendar-day-wrapper"
-                style={{ marginLeft: '10px', marginRight: '10px' }}>
+                style={{
+                  marginLeft: '10px',
+                  marginRight: '10px',
+                }}>
                 {isToday(props.fullDate)}
                 <div
                   className={

@@ -10,6 +10,7 @@ interface IProps {
   tasks: ITask[];
   time: string;
   toDo: number;
+  setCheckButton: (id: number) => void;
 }
 
 const Task: React.FC<IProps> = ({ ...props }) => {
@@ -25,19 +26,23 @@ const Task: React.FC<IProps> = ({ ...props }) => {
       </div>
       {props.tasks.map((item) => {
         return (
-          <div className="tasks-current-task-wrapper">
+          <div className="tasks-current-task-wrapper" key={item.id}>
             <div className="tasks-current-task-checkbox">
               <input
                 type="checkbox"
                 className="tasks-current-task-checkbox-check"
                 checked={item.isChecked ? true : false}
                 onChange={() => {
-                  console.log('click');
+                  props.setCheckButton(item.id);
                 }}
               />
             </div>
             <div className="tasks-current-task-text-wrapper">
-              <span className="tasks-current-task-text-header">
+              <span
+                className="tasks-current-task-text-header"
+                style={{
+                  textDecorationLine: item.isChecked ? 'line-through' : 'none',
+                }}>
                 {item.title}
               </span>
               {item.text.length > 0 ? (

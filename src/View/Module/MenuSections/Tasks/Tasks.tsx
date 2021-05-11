@@ -10,6 +10,7 @@ import { data } from './HardcodedData/data';
 
 // date objects
 import * as dateObject from 'View/Schedule/Calendar/utils';
+import * as helperFunctions from './utils';
 
 // interfaces
 import { ICalendarData } from './Models';
@@ -33,13 +34,51 @@ const Task: React.FC<IProps> = () => {
       })
       .reverse(),
   );
+
   const [currentData, setCurrentData] = useState<ICalendarData[]>();
   const [prevData, setPrevData] = useState<ICalendarData[]>([]);
+  const [prevDataIds, setPrevDataId] = useState<number[]>([]);
 
   useEffect(() => {
     setCurrentPage(selectedDate);
     prevDataProvider(selectedDate);
-  }, [selectedDate]);
+  }, [selectedDate, data, prevDataIds]);
+
+  const setCheckButton = () => {
+    const newData = [...sortedData];
+    prevDataIds.map((id) => {
+      newData.map((item) => {
+        item.tasks.map((task) => {
+          if (task.items.find((elem) => elem.id === id)) {
+            task.items[
+              task.items.lastIndexOf(task.items.find((elem) => elem.id === id))
+            ].isChecked = true;
+          }
+        });
+      });
+    });
+
+    setSortedData(newData);
+  };
+
+  const setCheckButtonID = (id: number) => {
+    prevDataIds.push(id);
+    setPrevDataId(prevDataIds);
+  };
+
+  const setCheckButtonCurrent = (id: number) => {
+    const newData = [...sortedData];
+    newData.map((item) => {
+      item.tasks.map((task) => {
+        if (task.items.find((elem) => elem.id === id)) {
+          task.items[
+            task.items.lastIndexOf(task.items.find((elem) => elem.id === id))
+          ].isChecked = true;
+        }
+      });
+    });
+    setSortedData(newData);
+  };
 
   const prevDataProvider = (currentSelectedData) => {
     const item = sortedData.find(
@@ -47,14 +86,38 @@ const Task: React.FC<IProps> = () => {
         new Date(item.time).setHours(0, 0, 0, 0) ===
         new Date(currentSelectedData).setHours(0, 0, 0, 0),
     );
-    if (sortedData.indexOf(item) > 0) {
-      setPrevData(
-        ifAnyUncompleted(sortedData.slice(0, sortedData.indexOf(item))),
-      );
-    } else if (sortedData.indexOf(item) === 1) {
-      setPrevData(ifAnyUncompleted([sortedData[0]]));
-    } else if (sortedData.indexOf(item) === 0) {
-      setPrevData([]);
+    const closesToItem = sortedData.find(
+      (item) =>
+        new Date(item.time).setHours(0, 0, 0, 0) ===
+        new Date(helperFunctions.mostClosestDate(sortedData)).setHours(
+          0,
+          0,
+          0,
+          0,
+        ),
+    );
+    if (item !== undefined) {
+      if (sortedData.indexOf(item) > 0) {
+        setPrevData(
+          ifAnyUncompleted(sortedData.slice(0, sortedData.indexOf(item))),
+        );
+      } else if (sortedData.indexOf(item) === 1) {
+        setPrevData(ifAnyUncompleted([sortedData[0]]));
+      } else if (sortedData.indexOf(item) === 0) {
+        setPrevData([]);
+      }
+    } else if (item === undefined) {
+      if (sortedData.indexOf(closesToItem) > 0) {
+        setPrevData(
+          ifAnyUncompleted(
+            sortedData.slice(0, sortedData.indexOf(closesToItem)),
+          ),
+        );
+      } else if (sortedData.indexOf(closesToItem) === 1) {
+        setPrevData(ifAnyUncompleted([sortedData[0]]));
+      } else if (sortedData.indexOf(closesToItem) === 0) {
+        setPrevData([]);
+      }
     }
   };
 
@@ -81,10 +144,38 @@ const Task: React.FC<IProps> = () => {
 
   const setCurrentPage = (date) => {
     const arr = [];
+    const requiredElement = sortedData.find(
+      (item) =>
+        String(new Date(new Date(item.time).setHours(0, 0, 0))) ===
+        String(new Date(new Date(date).setHours(0, 0, 0))),
+    );
     sortedData.map((item) => {
       if (
+        requiredElement !== undefined &&
         String(new Date(new Date(item.time).setHours(0, 0, 0))) ===
-        String(new Date(new Date(date).setHours(0, 0, 0)))
+          String(new Date(new Date(date).setHours(0, 0, 0)))
+      ) {
+        arr.push(item);
+      } else if (
+        requiredElement === undefined &&
+        String(new Date(new Date(item.time).setHours(0, 0, 0))) ===
+          String(
+            new Date(
+              new Date(
+                dateObject.dateCreator(
+                  new Date(
+                    helperFunctions.mostClosestDate(sortedData),
+                  ).getDate(),
+                  new Date(
+                    helperFunctions.mostClosestDate(sortedData),
+                  ).getMonth() + 1,
+                  new Date(
+                    helperFunctions.mostClosestDate(sortedData),
+                  ).getFullYear(),
+                ),
+              ).setHours(0, 0, 0),
+            ),
+          )
       ) {
         arr.push(item);
       }
@@ -95,13 +186,25 @@ const Task: React.FC<IProps> = () => {
   const dateSetter = (date) => {
     setSelectedDate(date);
   };
-  console.log(prevData)
+
   return (
     <div className={'tasks'}>
-      <Calendar data={data} dateSetter={dateSetter} />
+      <Calendar
+        data={sortedData}
+        dateSetter={dateSetter}
+        setCheckButton={setCheckButton}
+        prevDataIds={prevDataIds}
+      />
       <div className="tasks-wrapper">
-        <Current currentData={currentData} />
-        {prevData.length > 0 ? <Uncompleted prevData={prevData} /> : <></>}
+        <Current
+          currentData={currentData}
+          setCheckButton={setCheckButtonCurrent}
+        />
+        {prevData.length > 0 ? (
+          <Uncompleted prevData={prevData} setCheckButton={setCheckButtonID} />
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

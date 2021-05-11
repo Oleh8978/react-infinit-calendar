@@ -10,7 +10,9 @@ export interface IListCalendarItem {
 }
 
 export interface ITask {
+  id: number;
   title: string;
   isChecked: boolean;
   text: string;
 }
+

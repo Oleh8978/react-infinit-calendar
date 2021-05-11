@@ -37,10 +37,15 @@
     &-task {
       margin-top: 20px;
 
+      div:last-child {
+        border-bottom: none;
+      }
+
       &-wrapper {
         display: flex;
         flex-flow: row;
         padding-top: 15px;
+        padding-bottom: 15px;
         min-height: 50px;
         height: 100%;
         border-bottom: 1px solid $divider-color;
@@ -49,14 +54,16 @@
 
       &-checkbox {
         // margin-top: 15px;
+        width: 28px;
+        height: 28px;
         margin-left: 10px;
         margin-bottom: auto;
 
         &-check {
           -webkit-appearance: none;
           border-radius: 50%;
-          width: 25px;
-          height: 25px;
+          width: 28px;
+      height: 28px;
           border: 1px solid $text-color;
           cursor: pointer;
           background-color: $white;
@@ -67,8 +74,6 @@
           background-color: $text-color;
           margin-left: -1px;
           margin-top: -1px;
-          width: 23px;
-          height: 23px;
           content: '';
           background-image: url('../../../images/check.svg');
           background-repeat: no-repeat;
@@ -129,7 +134,12 @@
   &-uncompleted {
     display: flex;
     flex-flow: column;
+    margin-top: 15px;
     background-color: $uncompleted-disable-task-color;
+
+    div:last-child {
+      border-bottom: none;
+    }
 
     &-header {
       @include card-list-header;
@@ -163,10 +173,13 @@
       display: flex;
       flex-flow: row;
       margin-top: 15px;
+      padding-bottom: 15px;
       border-bottom: 1px solid $divider-color;
 
       &-checkbox {
         margin-left: 5px;
+        width: 28px;
+        height: 28px;
       }
 
       &-title {
@@ -182,7 +195,7 @@
         display: flex;
         flex-flow: column;
         margin-left: 25px;
-        margin-bottom: 15px;
+        // margin-bottom: 15px;
       }
     }
   }

@@ -28,3 +28,48 @@ export const numDayShortMonth = (date) => {
   const dayOption = [{ month: 'short' }, { day: 'numeric' }];
   return join(new Date(date), dayOption, ' ');
 };
+
+export const isDateInThePast = (date: string): boolean => {
+  if (
+    new Date().setHours(0, 0, 0, 0) - new Date(date).setHours(0, 0, 0, 0) >
+    0
+  ) {
+    return true;
+  } else if (
+    new Date().setHours(0, 0, 0, 0) - new Date(date).setHours(0, 0, 0, 0) ===
+    0
+  ) {
+    return false;
+  } else if (
+    new Date().setHours(0, 0, 0, 0) - new Date(date).setHours(0, 0, 0, 0) <
+    0
+  ) {
+    return false;
+  }
+};
+
+export const mostClosestDate = (arr) => {
+  const arrDiff = [];
+  if (
+    arr.find(
+      (item) =>
+        new Date(item.time).setHours(0, 0, 0, 0) ===
+        new Date().setHours(0, 0, 0, 0),
+    ) === undefined
+  ) {
+    arr.map((item) => {
+      arrDiff.push({
+        dif:
+          Math.abs(new Date(item.time).getTime() - new Date().getTime()) /
+          (1000 * 3600 * 24),
+        itemDate: item.time,
+      });
+    });
+  }
+
+  return arrDiff
+    .sort((a, b) => {
+      return +new Date(b.dif) - +new Date(a.dif);
+    })
+    .reverse()[0].itemDate;
+};
