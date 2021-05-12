@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-// static 
-import note from "./static/note.png"
+// static
+import note from "./static/note.svg"
 
 interface IProps {}
 

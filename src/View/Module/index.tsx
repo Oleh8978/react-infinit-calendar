@@ -34,9 +34,16 @@ const Module: React.FC<IProps> = () => {
     });
     setMenuItems(arr);
   };
+
+  // const setSaveButton = () => {
+  //
+  // }
+  //
+  // setSaveButton();
+
   return (
     <div className={'module'}>
-      <NavigationBar rout={'schedule'} name={'Module name '} />
+      <NavigationBar rout={'schedule'} name={'Module name '} hasSaveButton={false}/>
       <div className={'module-body'}>
         <NavigationMenu menuOptions={menuItems} setIsclicked={setIsclicked} />
         <ModulePage menuItems={menuItems} />

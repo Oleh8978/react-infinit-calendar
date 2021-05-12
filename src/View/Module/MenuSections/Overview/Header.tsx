@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 // static
-import task from 'View/Account/static/tasks.png';
+import task from 'View/Account/static/tasks.svg';
 
 interface IProps {}
 
