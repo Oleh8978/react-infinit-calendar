@@ -1,34 +1,33 @@
-import vector from './vector.png';
+import Journeys from './Journeys.svg';
+import Podcasts from './Podcasts.svg';
+import Mindfulness from './Mindfulness.svg';
+import Community from './Community.svg';
+import FAQ from './FAQ.svg';
 
 export const topics = [
   {
-    image: vector,
+    image: Journeys,
     color: '#747BC3',
-    secondarycolor: '#82D2E9',
     title: 'Some card1',
   },
   {
-    image: vector,
-    color: '#747BC3',
-    secondarycolor: '#82D2E9',
+    image: Podcasts,
+    color: '#74BFD5',
     title: 'Some card2',
   },
   {
-    image: vector,
-    color: '#747BC3',
-    secondarycolor: '#82D2E9',
+    image: Mindfulness,
+    color: '#C374C0',
     title: 'Some card3',
   },
   {
-    image: vector,
-    color: '#747BC3',
-    secondarycolor: '#82D2E9',
+    image: Community,
+    color: '#E6B280',
     title: 'Some card4',
   },
   {
-    image: vector,
-    color: '#747BC3',
-    secondarycolor: '#82D2E9',
-    title: 'Some card5',
+    image: FAQ,
+    color: '#79DCA6',
+    title: 'Here\'s what a long title will look like',
   },
 ];

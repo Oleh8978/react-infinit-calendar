@@ -33,7 +33,7 @@ const Body: React.FC<IProps> = () => {
         <List items={data} isUnderlined={false} />
         <VideoComponent
           link={
-            'https://www.youtube.com/watch?v=MkD7OZZKeiM&ab_channel=7cloudmusic'
+            'https://www.youtube.com/embed/MkD7OZZKeiM'
           }
           img={talks}
         />

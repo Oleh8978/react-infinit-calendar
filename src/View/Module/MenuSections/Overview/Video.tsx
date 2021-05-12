@@ -1,7 +1,8 @@
 import React, { useState, useRef } from 'react';
 
 // static
-import play from 'View/Module/MenuSections/staticHardcoded/play.png';
+import play from 'View/Module/MenuSections/staticHardcoded/play.svg';
+import videoBg from 'View/Module/MenuSections/staticHardcoded/video-bg.png';
 
 interface IProps {
   link: string;
@@ -23,9 +24,15 @@ const VideoComponent: React.FC<IProps> = ({ ...props }) => {
     <>
       <div className="overview-video">
         {isOpened ? (
-          <iframe src={props.link}> </iframe>
+          <div className='video-modal' onClick={onPlay}>
+            <iframe width={'100%'} scrolling={'yes'} src={props.link}> </iframe>
+          </div>
         ) : (
-          <div className="overview-video-wrapper"></div>
+          <div className="overview-video-wrapper">
+            <img src={videoBg} alt='' className='overview-video-bg' />
+            <div className='overview-video-btn' onClick={onPlay}>
+            </div>
+          </div>
         )}
       </div>
     </>

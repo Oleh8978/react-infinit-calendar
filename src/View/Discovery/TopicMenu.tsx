@@ -94,8 +94,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
               className={'topic-item__top'}
               style={{ backgroundColor: arr[i].color }}>
               <div
-                className="topic-item-img"
-                style={{ backgroundColor: arr[i].secondarycolor }}>
+                className="topic-item-img">
                 <div className="topic-item-img-wrapper">
                   <img src={arr[i].image} alt="img" />
                 </div>
@@ -106,8 +105,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
               className={'topic-item__bottom'}
               style={{ backgroundColor: arr[i + 1].color }}>
               <div
-                className="topic-item-img"
-                style={{ backgroundColor: arr[i + 1].secondarycolor }}>
+                className="topic-item-img">
                 <div className="topic-item-img-wrapper">
                   <img src={arr[i + 1].image} alt="img" />
                 </div>
@@ -126,8 +124,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
             className={'topic-item__top'}
             style={{ backgroundColor: arr[arr.length - 1].color }}>
             <div
-              className="topic-item-img"
-              style={{ backgroundColor: arr[arr.length - 1].secondarycolor }}>
+              className="topic-item-img">
               <div className="topic-item-img-wrapper">
                 <img src={arr[arr.length - 1].image} alt="img" />
               </div>

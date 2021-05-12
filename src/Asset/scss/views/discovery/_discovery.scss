@@ -182,6 +182,7 @@
       margin-bottom: auto;
       padding: 0px;
       border-radius: 0px 15px 0px 35px;
+      background-color: rgba($white, 0.3);;
 
       &-wrapper {
         width: 30px;
@@ -306,6 +307,7 @@
       width: 279px;
       height: fit-content;
       margin: 30px auto 0;
+      object-fit: contain;
     }
 
     &-btn {
