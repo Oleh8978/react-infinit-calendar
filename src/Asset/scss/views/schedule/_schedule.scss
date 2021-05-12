@@ -153,8 +153,8 @@
     }
 
     &-menu1 {
-      width: 6px;
-      height: 6px;
+      width: 4px;
+      height: 4px;
       margin-right: 4px;
       border-radius: 50%;
       background-color: $text-color;
@@ -254,6 +254,21 @@
       margin-right: 15px;
       left: auto;
       &-img {
+      }
+
+      &-text {
+        display: flex;
+        flex-flow: row;
+
+        &-completed {
+          display: flex;
+          color: $success-color;
+
+          &-clap {
+            display: flex;
+            margin-left: 3px;
+          }
+        }
       }
     }
 
@@ -468,6 +483,7 @@
       margin-top: auto;
       display: flex;
       flex-flow: column;
+      z-index: 998;
     }
 
     &__close {
@@ -477,6 +493,7 @@
       display: flex;
       align-items: center;
       cursor: pointer;
+      z-index: 999;
     }
 
     &__dayoff {

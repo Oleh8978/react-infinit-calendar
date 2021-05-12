@@ -3,7 +3,7 @@ import React from 'react';
 import { data } from '../fakeData/fakedata';
 import completed from '../../../Asset/images/completed.png';
 // history API
-import  history  from '../../../historyApi';
+import history from '../../../historyApi';
 
 interface IProps {
   date: string;
@@ -30,7 +30,7 @@ const Task: React.FC<IProps> = ({ date, description, status, time }) => {
   };
 
   const navigationModule = () => {
-    console.log('history ', history)
+    console.log('history ', history);
     history.push('/module');
   };
 
@@ -51,11 +51,20 @@ const Task: React.FC<IProps> = ({ date, description, status, time }) => {
               | {timeConvert(time)}
             </div>
             <div className={'task-completed__info'}>
-              <img
+              {/* <img
                 className={'task-completed__info-img'}
                 src={completed}
                 alt="completed"
-              />
+              /> */}
+              <div className="task-completed__info-text">
+                <span className="task-completed__info-text-completed">
+                  Completed
+                </span>{' '}
+                <span className="task-completed__info-text-completed-clap">
+                  {' '}
+                   👏
+                </span>
+              </div>
             </div>
           </div>
           <div

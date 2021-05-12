@@ -27,6 +27,7 @@
     align-items: center;
     border-radius: 4px;
     background-color: $red-color;
+    cursor: pointer;
 
     &-text {
       @include card-list-text-style;

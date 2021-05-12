@@ -103,6 +103,7 @@
           margin-top: 7px;
           display: flex;
           flex-flow: column;
+          
 
           &__top {
             @include card-list-text-style;
@@ -163,10 +164,14 @@
 
       &-text {
         @include card-list-text-style;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 20px;
         margin-left: 25px;
         margin-right: auto;
-        font-weight: bold;
         justify-content: center;
+        text-transform: uppercase;
       }
       &-textwrapper {
         height: 60px;
@@ -175,6 +180,7 @@
         border: 1px solid $divider-color;
         border-radius: 14px;
         align-items: center;
+        cursor: pointer;
       }
     }
   }
@@ -324,13 +330,27 @@
   &-wrapper {
     margin-top: 15px;
     display: flex;
+    font-size: 18px;
     height: 60px;
     border: 1px solid $divider-color;
     border-radius: 14px;
     align-items: center;
+    cursor: pointer;
   }
+
+  &-textsetter {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 20px;
+  }
+  
   &-number {
     @include card-list-text-style;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 20px;
     text-transform: uppercase;
     color: $text-color;
     font-weight: bold;
@@ -338,6 +358,10 @@
   }
   &-new {
     @include card-list-text-style;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 20px;
     text-transform: uppercase;
     color: $uncompleted-task-color;
     font-weight: bold;
@@ -345,6 +369,10 @@
   }
   &-tip {
     @include card-list-text-style;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 20px;
     text-transform: uppercase;
     color: $text-color;
     font-weight: bold;

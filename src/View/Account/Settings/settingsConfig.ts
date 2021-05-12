@@ -4,7 +4,7 @@ import account from './static/account.png';
 
 export const notifications = {
   icon: bell,
-  name: 'notifications',
+  name: 'Notifications',
   items: [
     {
       name: 'Push notification',
