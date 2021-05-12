@@ -9,7 +9,7 @@ interface IProps {}
 const JourneyInfo: React.FC<IProps> = () => {
   return (
     <div className={'journeyinfo'}>
-      <NavigationBar rout={'account'} name={'Journey info'} />
+      <NavigationBar rout={'account'} name={'Journey info'} hasSaveButton={false}/>
       <JourneyBody />
     </div>
   );

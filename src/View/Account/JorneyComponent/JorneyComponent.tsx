@@ -7,7 +7,7 @@ import Link from 'Routing/Link';
 import { IModule } from '../Models';
 
 // static
-import img from '../static/elipsis.png';
+import img from '../static/elipsis.svg';
 
 // helpers
 import * as helpers from '../utils';

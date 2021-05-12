@@ -1,8 +1,8 @@
 import React from 'react';
 
 /// hardcoded data
-import imgleft from './static/tasks.png';
-import imgRight from './static/hours.png';
+import imgleft from './static/tasks.svg';
+import imgRight from './static/hours.svg';
 
 interface IProps {}
 

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
+// static
+import note from "./static/note.svg"
+
 // components
 import Link from 'Routing/Link';
-
-// static
-import note from './static/note.png';
 
 interface IProps {}
 

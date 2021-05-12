@@ -1,4 +1,7 @@
 .module {
+  height: 100vh;
+  height: calc(var(--vhFull) - 110px);
+
   &-menu {
     position: fixed;
     top: 0;
@@ -98,7 +101,18 @@
   &-body {
     margin-top: 55px;
     padding-top: 20px;
-    height: auto;
+    //height: 100%;
+    height: calc(100% - 60px);
+  }
+
+  &-sections {
+    display: block;
+    height: 100%;
+  }
+
+  .notes {
+    display: block;
+    height: 100%;
   }
 }
 

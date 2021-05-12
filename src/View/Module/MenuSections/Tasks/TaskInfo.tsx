@@ -8,7 +8,7 @@ interface IProps {}
 const TaskInfo: React.FC<IProps> = ({ ...props }) => {
   return (
     <div className={'task-info'}>
-      <NavigationBar rout={'/schedule'} name={'Task Info'} />
+      <NavigationBar rout={'/schedule'} name={'Task Info'} hasSaveButton={false}/>
     </div>
   );
 };

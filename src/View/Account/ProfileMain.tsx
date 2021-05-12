@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'Routing/Link';
 
 // static
-import gear from './static/gear.png';
+import gear from './static/gear.svg';
 
 // fake data
 import fakeFace from './static/fakeFace.png';
