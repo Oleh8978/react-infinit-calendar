@@ -26,6 +26,7 @@ const Schedule: React.FC<IProps> = ({ absoluteBlock }) => {
   const getDayAndRecords = (day: any) => {
     setSelectedDay(day);
   };
+  console.log('selectedDay ', selectedDay)
 
   const scheduleData = (data) => {
     let element = <NoTasks />;
@@ -46,10 +47,22 @@ const Schedule: React.FC<IProps> = ({ absoluteBlock }) => {
         if (item.isHolidays) {
           element = <Holiday />;
         }
+
+        if (item.isDayOff) {
+          element = <DayOff/>
+        }
+
+        if (item.isTrialExpired) {
+          element = <TrialExpired />
+        }
+
+        if (item.haseNoActiveJourneys) {
+          element = <NoJourneys />
+        }
       }
     });
 
-    return <TaskList />;
+    return element;
   };
   const isTaskCompleated = false;
   return (

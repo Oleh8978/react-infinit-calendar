@@ -28,7 +28,10 @@ const PrevUncompleted: React.FC<IProps> = ({ date, tasks }) => {
       <div className={'task-previous-date'}>{dateTrnsformer(date)}</div>
       {tasks.map((item) => {
         return (
-          <div className={'task-previous-description'}> <span>{item.description}</span></div>
+          <div className={'task-previous-description'} key={item.date}>
+            {' '}
+            <span>{item.description}</span>
+          </div>
         );
       })}
     </div>

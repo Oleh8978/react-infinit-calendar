@@ -347,3 +347,11 @@ template {
 [hidden] {
   display: none;
 }
+
+/**
+ * remove underline from links.
+ */
+
+ a {
+   text-decoration: none;
+ }

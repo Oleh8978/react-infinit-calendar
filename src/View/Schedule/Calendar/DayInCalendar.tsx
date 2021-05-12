@@ -10,16 +10,13 @@ interface IProps {
   hasEvents: any;
   isClicked: any;
   selectDate: (date: any) => void;
+  isCustom: boolean;
+  index?: number;
+  isLastOne?: boolean;
+  hasMorethanOnedayAfter?: boolean;
 }
 
-const DayInCalendar: React.FC<IProps> = ({
-  date,
-  fullDate,
-  dayWeek,
-  hasEvents,
-  isClicked,
-  selectDate,
-}) => {
+const DayInCalendar: React.FC<IProps> = ({ ...props }) => {
   const isToday = (itemDate: string) => {
     if (
       itemDate ===
@@ -29,32 +26,119 @@ const DayInCalendar: React.FC<IProps> = ({
         new Date().getFullYear(),
       )
     ) {
-      return <span className="calendar-day-today">Today</span>;
+      return (
+        <span
+          className="calendar-day-today"
+          style={{ textTransform: 'uppercase' }}>
+          Today
+        </span>
+      );
     } else {
       return (
         <span className="calendar-day-today" style={{ height: '26px' }}></span>
       );
     }
   };
+
   return (
-    <div className="calendar-day-wrapper">
-      {isToday(fullDate)}
-      <div
-        className={isClicked ? 'calendar-day selected-card' : 'calendar-day'}
-        onClick={() => selectDate(fullDate)}>
-        <div
-          className={'calendar-day-dayweek'}
-          style={{ color: isClicked ? 'white' : '' }}>
-          {dayWeek}
+    <>
+      {props.isCustom ? (
+        <>
+          {props.hasMorethanOnedayAfter ? (
+            <>
+              <div
+                className="calendar-day-wrapper"
+                style={{
+                  marginLeft: '10px',
+                  marginRight: '10px',
+                }}>
+                {isToday(props.fullDate)}
+                <div
+                  className={
+                    props.isClicked
+                      ? 'calendar-day selected-card'
+                      : 'calendar-day'
+                  }
+                  onClick={() => props.selectDate(props.fullDate)}>
+                  <div
+                    className={'calendar-day-dayweek'}
+                    style={{ color: props.isClicked ? 'white' : '' }}>
+                    {props.dayWeek}
+                  </div>
+                  <div
+                    className={'calendar-day-date'}
+                    style={{ color: props.isClicked ? 'white' : '' }}>
+                    {props.date}
+                  </div>
+                </div>
+                {props.hasEvents ? (
+                  <div className={'calendar-day-marked'} />
+                ) : (
+                  <></>
+                )}
+              </div>
+              <div className="calendar-day-divider">
+                <div className="calendar-day-dots-first" />
+                <div className="calendar-day-dots" />
+                <div className="calendar-day-dots" />
+              </div>
+            </>
+          ) : (
+            <>
+              <div
+                className="calendar-day-wrapper"
+                style={{ marginRight: props.isLastOne ? '10px' : '0px' }}>
+                {isToday(props.fullDate)}
+                <div
+                  className={
+                    props.isClicked
+                      ? 'calendar-day selected-card'
+                      : 'calendar-day'
+                  }
+                  onClick={() => props.selectDate(props.fullDate)}>
+                  <div
+                    className={'calendar-day-dayweek'}
+                    style={{ color: props.isClicked ? 'white' : '' }}>
+                    {props.dayWeek}
+                  </div>
+                  <div
+                    className={'calendar-day-date'}
+                    style={{ color: props.isClicked ? 'white' : '' }}>
+                    {props.date}
+                  </div>
+                </div>
+                {props.hasEvents ? (
+                  <div className={'calendar-day-marked'} />
+                ) : (
+                  <></>
+                )}
+              </div>
+            </>
+          )}
+        </>
+      ) : (
+        <div className="calendar-day-wrapper">
+          {isToday(props.fullDate)}
+          <div
+            className={
+              props.isClicked ? 'calendar-day selected-card' : 'calendar-day'
+            }
+            onClick={() => props.selectDate(props.fullDate)}>
+            <div
+              className={'calendar-day-dayweek'}
+              style={{ color: props.isClicked ? 'white' : '' }}>
+              {props.dayWeek}
+            </div>
+            <div
+              className={'calendar-day-date'}
+              style={{ color: props.isClicked ? 'white' : '' }}>
+              {props.date}
+            </div>
+          </div>
+          {props.hasEvents ? <div className={'calendar-day-marked'} /> : <></>}
         </div>
-        <div
-          className={'calendar-day-date'}
-          style={{ color: isClicked ? 'white' : '' }}>
-          {date}
-        </div>
-      </div>
-      {hasEvents ? <div className={'calendar-day-marked'} /> : <></>}
-    </div>
+      )}
+    </>
   );
 };
 

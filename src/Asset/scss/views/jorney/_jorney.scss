@@ -1,0 +1,460 @@
+.single {
+  &-jorney {
+    &-component {
+      display: flex;
+      flex-flow: column;
+      width: 100%;
+      height: fit-content;
+
+      &__row {
+        margin-top: 15px;
+        display: flex;
+        flex-flow: row;
+        border-radius: 14px;
+        border: 1px solid $divider-color;
+        cursor: pointer;
+
+        &-header {
+          margin-top: 25px;
+          margin-bottom: 25px;
+          margin-left: 25px;
+          margin-right: 15px;
+
+          &-text {
+            @include card-list-header;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 26px;
+            text-transform: uppercase;
+            color: $text-color;
+          }
+        }
+
+        &-body {
+          display: flex;
+          margin-left: 60px;
+          align-items: center;
+
+          &-wrapper {
+            display: flex;
+            flex-flow: column;
+          }
+
+          &__left {
+            &-text {
+              &__top {
+                &-numbers {
+                  @include card-list-text-style;
+                  font-style: normal;
+                  font-weight: bold;
+                  font-size: 16px;
+                  line-height: 18px;
+                  color: $text-color;
+                }
+
+                &-description {
+                  @include card-list-header;
+                  font-style: normal;
+                  font-weight: 500;
+                  font-size: 12px;
+                  line-height: 17px;
+                  color: $secondary-purple-text-color;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      &__column {
+        margin-top: 15px;
+        display: flex;
+        flex-flow: column;
+        border-radius: 14px;
+        border: 1px solid $divider-color;
+        cursor: pointer;
+
+        &-header {
+          @extend .single-jorney-component__row-header;
+          margin-right: 25px;
+
+          &-text {
+            @extend .single-jorney-component__row-header-text;
+          }
+        }
+
+        &-body {
+          margin-left: 25px;
+          margin-bottom: 25px;
+          margin-right: 25px;
+          display: flex;
+          flex-flow: row;
+
+          &__left {
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+
+            &-text {
+              &__top {
+                @include card-list-text-style;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 16px;
+                line-height: 18px;
+                color: $text-color;
+                display: flex;
+                flex-flow: column;
+
+                &-description {
+                  @include card-list-header;
+                  font-style: normal;
+                  font-weight: 500;
+                  font-size: 12px;
+                  line-height: 17px;
+                  color: $secondary-purple-text-color;
+                  margin-bottom: 25px;
+                }
+              }
+
+              &__bottom {
+                @extend .single-jorney-component__column-body__left-text__top;
+
+                &-date {
+                  @include card-list-text-style;
+                  font-style: normal;
+                  font-weight: bold;
+                  font-size: 16px;
+                  line-height: 18px;
+                  color: $text-color;
+                }
+
+                &-description {
+                  @include card-list-header;
+                  font-style: normal;
+                  font-weight: 500;
+                  font-size: 12px;
+                  line-height: 17px;
+                  color: $secondary-purple-text-color;
+                }
+              }
+            }
+          }
+
+          &__right {
+            margin-right: 0px;
+            margin-left: auto;
+            display: flex;
+            flex-flow: column;
+
+            &-animated {
+              height: 110px;
+              width: 110px;
+              display: flex;
+              align-content: center;
+              justify-content: center;
+
+              span {
+                @include card-list-text-style;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 16px;
+                line-height: 18px;
+                color: $text-color;
+                width: auto;
+                height: fit-content;
+                display: flex;
+                margin-top: auto;
+                margin-bottom: auto;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.journey {
+  &-completed {
+    &-item {
+      @include prevent-drag;
+      min-width: 326px;
+      width: 100%;
+      height: 212px;
+      margin-top: 28px;
+      margin-left: 15px;
+      border-radius: 14px;
+      border: 1px solid $divider-color;
+      background-color: $secondary-grey-blue-card;
+      cursor: pointer;
+      &-header {
+        @include card-list-text-style;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 10px;
+        line-height: 18px;
+        text-transform: uppercase;
+        margin-top: -9px;
+        margin-left: 15px;
+        background-color: $white;
+        color: $success-color;
+        width: fit-content;
+      }
+
+      &-body {
+        display: flex;
+        flex-flow: column;
+        height: 100%;
+
+        &-title {
+          @include card-list-header;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 18px;
+          line-height: 26px;
+          text-transform: uppercase;
+          color: $text-color;
+          display: flex;
+          margin-top: 25px;
+          margin-bottom: 23px;
+          margin-left: 15px;
+        }
+        &-description {
+          display: flex;
+          flex-flow: row;
+          margin-right: 15px;
+          margin-left: 15px;
+
+          &-progress {
+            display: flex;
+            flex-flow: column;
+
+            &__top {
+              @include card-list-text-style;
+              font-style: normal;
+              font-weight: bold;
+              font-size: 16px;
+              line-height: 18px;
+            }
+
+            &__bottom {
+              @include card-list-header;
+              font-style: normal;
+              font-weight: 500;
+              font-size: 12px;
+              line-height: 17px;
+              color: $secondary-purple-text-color;
+            }
+          }
+          &-days {
+            @extend .journey-completed-item-body-description-progress;
+            margin-left: 25px;
+            &__top {
+              @extend .journey-completed-item-body-description-progress__top;
+            }
+
+            &__bottom {
+              @extend .journey-completed-item-body-description-progress__bottom;
+            }
+          }
+
+          &-hours {
+            @extend .journey-completed-item-body-description-days;
+            margin-left: 25px;
+            &__top {
+              @extend .journey-completed-item-body-description-progress__top;
+            }
+
+            &__bottom {
+              @extend .journey-completed-item-body-description-progress__bottom;
+            }
+          }
+        }
+        &-footer {
+          @include card-list-header;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 10px;
+          line-height: 14px;
+          color: $empty-title-brighter;
+          margin-left: 15px;
+          margin-bottom: 15px;
+          margin-top: auto;
+        }
+      }
+    }
+  }
+}
+
+.journeyinfo {
+  margin-top: 55px;
+  display: flex;
+  flex-flow: column;
+
+  &-body {
+    display: flex;
+    flex-flow: column;
+
+    &-header {
+      display: flex;
+      flex-flow: row;
+      // margin-right: 20px;
+      // margin-left: 20px;
+      border-bottom: 1px solid $divider-color;
+      align-items: center;
+
+      @media screen and (max-width: 650px) {
+        margin-right: 0px;
+        margin-left: 0px;
+      }
+
+      &-img {
+        display: flex;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    &-wrapper {
+      margin: 20px 20px auto;
+      display: flex;
+      flex-flow: column;
+
+      @media screen and (max-width: 650px) {
+        margin: 15px 15px auto;
+      }
+
+      &-title {
+        &-text {
+          @include card-list-header;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 18px;
+          line-height: 26px;
+          text-transform: uppercase;
+          color: $text-color;
+        }
+      }
+
+      &-dayweek {
+        margin-top: 15px;
+        display: flex;
+        flex-flow: row;
+
+        &-day {
+          width: 45px;
+          height: 35px;
+          margin-left: auto;
+          margin-right: auto;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          &-text {
+            @include card-list-text-style;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 13px;
+            text-align: center;
+            color: $empty-title-brighter;
+          }
+          &__selected {
+            @extend .journeyinfo-body-wrapper-dayweek-day;
+            border-radius: 12px;
+            border: 1px solid $day-week-color;
+            &-text {
+              @extend .journeyinfo-body-wrapper-dayweek-day-text;
+              color: $text-color;
+            }
+          }
+        }
+
+        &-day:first-child {
+          margin-left: 0px;
+        }
+
+        &-day:last-child {
+          margin-right: 0px;
+        }
+      }
+    }
+
+    &-textcomponent {
+      margin: 20px 20px auto;
+
+      @media screen and (max-width: 650px) {
+        margin: 15px 15px auto;
+      }
+
+      &-text {
+        @include card-list-text-style;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 22px;
+        letter-spacing: -0.04em;
+      }
+    }
+    &-listcomponent {
+      margin-left: 20px;
+      margin-right: 20px;
+      display: flex;
+      flex-flow: column;
+
+      @media screen and (max-width: 650px) {
+        margin-left: 15px;
+        margin-right: 15px;
+      }
+
+      &-listWrapper {
+        margin-top: 5px;
+        margin-bottom: 70px;
+
+        &-item {
+          @include card-list-text-style;
+          margin-top: 10px;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 22px;
+          letter-spacing: -0.04em;
+        }
+      }
+    }
+  }
+
+  &-footer {
+    height: 145px;
+    margin-left: 20px;
+    margin-right: 20px;
+    display: flex;
+    flex-flow: column;
+
+    @media screen and (max-width: 650px) {
+      margin-left: 15px;
+      margin-right: 15px;
+    }
+
+    &-description {
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      height: 100%;
+
+      &-text {
+        @include card-list-text-style;
+        display: flex;
+        margin-top: auto;
+        margin-bottom: auto;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 18px;
+        color: $empty-title-color;
+      }
+    }
+  }
+}

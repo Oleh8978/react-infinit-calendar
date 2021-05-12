@@ -1,12 +1,18 @@
-export interface IDataToday {
-  isChecked: boolean;
-  title: string;
-  link?: string;
-  timeCurrent: any;
-  timeToComplete: any;
+export interface ICalendarData {
+  time: string;
+  tasks: IListCalendarItem[];
 }
 
-export interface IDataPreviouse {
-  date: any;
-  title: string;
+export interface IListCalendarItem {
+  time: string;
+  timeToDo: number;
+  items: ITask[]
 }
+
+export interface ITask {
+  id: number;
+  title: string;
+  isChecked: boolean;
+  text: string;
+}
+

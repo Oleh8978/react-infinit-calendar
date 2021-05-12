@@ -8,7 +8,11 @@ import NotFound from 'View/Static/NotFound';
 import Schedule from 'View/Schedule';
 import Account from 'View/Account';
 import Module from 'View/Module';
-import Journey from "View/Journey";
+import Journey from 'View/Journey';
+import TaskInfo from 'View/Module/MenuSections/Tasks/TaskInfo';
+import JourneyInfo from 'View/Account/JourneyInfo/index';
+import Settings from 'View/Account/Settings/index';
+import Notes from 'View/Account/Notes/index';
 
 // Interfaces
 interface IRoute {
@@ -28,6 +32,7 @@ export type Pages =
   | 'module-help'
   | 'module-notes'
   | 'journey'
+  | 'journey-info'
   | 'checkout'
   | 'article'
   | 'faq-form'
@@ -40,6 +45,8 @@ export type Pages =
   | 'account-notes'
   | 'about'
   | 'privacy-policy'
+  | 'settings'
+  | 'notes'
   | 'notFound';
 
 class RoutingSchema {
@@ -73,6 +80,30 @@ class RoutingSchema {
       path: '/journey',
       isExact: true,
       component: ProtectedRoute(Journey, 'ANONYMOUS_USERS'),
+    },
+    {
+      name: 'journey-info',
+      path: '/journey-info',
+      isExact: true,
+      component: ProtectedRoute(JourneyInfo, 'ANONYMOUS_USERS'),
+    },
+    {
+      name: 'task',
+      path: '/task',
+      isExact: true,
+      component: ProtectedRoute(TaskInfo, 'ANONYMOUS_USERS'),
+    },
+    {
+      name: 'settings',
+      path: '/settings',
+      isExact: true,
+      component: ProtectedRoute(Settings, 'ANONYMOUS_USERS'),
+    },
+    {
+      name: 'notes',
+      path: '/notes',
+      isExact: true,
+      component: ProtectedRoute(Notes, 'ANONYMOUS_USERS'),
     },
     {
       name: 'notFound',
