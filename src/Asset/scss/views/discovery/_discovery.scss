@@ -250,7 +250,7 @@
     }
     &-link {
       @include link-style-remover;
-      color: $secondary-purple-text-color;
+      color: $primary-action-color;
       font-family: $NotoSansSC;
       font-style: normal;
       font-weight: 500;

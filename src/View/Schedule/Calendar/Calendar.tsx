@@ -130,7 +130,6 @@ const Calendar: React.FC<IProps> = ({ getDayAndRecords }) => {
     const windowWidth = schedule.offsetWidth;
     const blockWidth = schedule.scrollWidth;
     // directionChecker(calendarHolder);
-    console.log('scrolled type', scrollType);
     if (scrollType === 'left') {
       let arr = [];
       if (calendarRenderedData.length !== 0) {
@@ -265,7 +264,9 @@ const Calendar: React.FC<IProps> = ({ getDayAndRecords }) => {
       />
     );
   });
-
+// .replace(/-/g,'/').replace('T',' ').replace(/(\..*|\+.*/,"")
+console.log('headerDate.month ', headerDate.month)
+console.log('headerDate.year ', headerDate.year)
   return (
     <div className={'calendar'}>
       {isModalOpened ? <ModalWindow setModalOpened={setModalOpened} /> : <></>}

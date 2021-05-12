@@ -1,3 +1,18 @@
+export const months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
 export const getDifIndates = (dayPrev: string, dayNext: string): number => {
   return (
     (new Date(dayNext).getTime() - new Date(dayPrev).getTime()) /

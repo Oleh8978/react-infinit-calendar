@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { data } from '../fakeData/fakedata';
 import completed from '../../../Asset/images/completed.png';
@@ -13,6 +13,7 @@ interface IProps {
 }
 
 const Task: React.FC<IProps> = ({ date, description, status, time }) => {
+  const [clap, setClap] = useState<string>('👏');
   const timeConvert = (n) => {
     const num = n;
     const hours = num / 60;
@@ -62,7 +63,7 @@ const Task: React.FC<IProps> = ({ date, description, status, time }) => {
                 </span>{' '}
                 <span className="task-completed__info-text-completed-clap">
                   {' '}
-                   👏
+                  {clap}
                 </span>
               </div>
             </div>

@@ -14,7 +14,7 @@ interface IProps {
 const Current: React.FC<IProps> = ({ ...props }) => {
   return (
     <div className={'tasks-current'}>
-      {props.currentData &&
+      {props.currentData[0] !== undefined &&
         props.currentData[0].tasks.map((item) => {
           return (
             <Task

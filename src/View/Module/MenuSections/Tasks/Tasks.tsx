@@ -18,7 +18,7 @@ import { ICalendarData } from './Models';
 interface IProps {}
 
 const Task: React.FC<IProps> = () => {
-  const [selectedDate, setSelectedDate] = useState<string>(
+  const [selectedDate, setSelectedDate] = useState<Date>(
     dateObject.dateCreator(
       new Date().getDate(),
       new Date().getMonth() + 1,
@@ -197,10 +197,10 @@ const Task: React.FC<IProps> = () => {
         prevDataIds={prevDataIds}
       />
       <div className="tasks-wrapper">
-        <Current
+        {currentData && <Current
           currentData={currentData}
           setCheckButton={setCheckButtonCurrent}
-        />
+        />}
         {prevData.length > 0 ? (
           <Uncompleted prevData={prevData} setCheckButton={setCheckButtonID} />
         ) : (

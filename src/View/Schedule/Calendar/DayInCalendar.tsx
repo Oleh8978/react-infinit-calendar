@@ -5,7 +5,7 @@ import * as dateObject from './utils';
 
 interface IProps {
   date: any;
-  fullDate: string;
+  fullDate: Date;
   dayWeek: any;
   hasEvents: any;
   isClicked: any;
@@ -17,7 +17,7 @@ interface IProps {
 }
 
 const DayInCalendar: React.FC<IProps> = ({ ...props }) => {
-  const isToday = (itemDate: string) => {
+  const isToday = (itemDate: Date) => {
     if (
       itemDate ===
       dateObject.dateCreator(

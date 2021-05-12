@@ -75,24 +75,26 @@ export const getMonthNameShort = (month) => {
   return ar[month];
 };
 
-export const dateCreator = (day: number, month: number, year: number) => {
-  let date = '';
+export const dateCreator = (day: number, month: number, year: number):Date => {
+  // let date = '';
 
-  if (day < 10 && month < 10) {
-    return (date = '0' + month + '-0' + day + '-' + year);
-  }
+  // if (day < 10 && month < 10) {
+  //   return (date = '0' + month + '-0' + day + '-' + year);
+  // }
 
-  if (day < 10 && month >= 10) {
-    return (date = '' + month + '-0' + day + '-' + year);
-  }
+  // if (day < 10 && month >= 10) {
+  //   return (date = '' + month + '-0' + day + '-' + year);
+  // }
 
-  if (day >= 10 && month >= 10) {
-    return (date = month + '-' + day + '-' + year);
-  }
+  // if (day >= 10 && month >= 10) {
+  //   return (date = month + '-' + day + '-' + year);
+  // }
 
-  if (day >= 10 && month < 10) {
-    return (date = '0' + month + '-' + day + '-' + year);
-  }
+  // if (day >= 10 && month < 10) {
+  //   return (date = '0' + month + '-' + day + '-' + year);
+  // }
+
+  return new Date(year, month - 1, day)
 };
 
 export const monthArr = (
