@@ -214,6 +214,7 @@
         display: flex;
         flex-flow: column;
         height: 100%;
+        padding: 15px 15px 25px;
 
         &-title {
           @include card-list-header;
@@ -224,15 +225,12 @@
           text-transform: uppercase;
           color: $text-color;
           display: flex;
-          margin-top: 25px;
-          margin-bottom: 23px;
-          margin-left: 15px;
+          margin-bottom: 20px;
         }
         &-description {
           display: flex;
           flex-flow: row;
-          margin-right: 15px;
-          margin-left: 15px;
+          margin-bottom: 25px;
 
           &-progress {
             display: flex;
@@ -286,8 +284,6 @@
           font-size: 10px;
           line-height: 14px;
           color: $empty-title-brighter;
-          margin-left: 15px;
-          margin-bottom: 15px;
           margin-top: auto;
         }
       }

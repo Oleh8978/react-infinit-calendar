@@ -117,7 +117,8 @@
 
         &__half {
           display: flex;
-          min-height: 100%;
+          min-height: 150px;
+          height: 100%;
           max-width: 150px;
           width: 100%;
           object-fit: cover;
@@ -181,6 +182,7 @@
       margin-bottom: auto;
       padding: 0px;
       border-radius: 0px 15px 0px 35px;
+      background-color: rgba($white, 0.3);;
 
       &-wrapper {
         width: 30px;
@@ -305,6 +307,7 @@
       width: 279px;
       height: fit-content;
       margin: 30px auto 0;
+      object-fit: contain;
     }
 
     &-btn {
