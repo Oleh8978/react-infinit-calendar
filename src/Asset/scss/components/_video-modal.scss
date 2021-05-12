@@ -7,6 +7,7 @@
   height: var(--vhFull);
   background-color: rgba($text-color, 0.65);
   padding: 15px;
+  z-index: 100;
 
   iframe {
     height: 70%;
