@@ -117,7 +117,8 @@
 
         &__half {
           display: flex;
-          min-height: 100%;
+          min-height: 150px;
+          height: 100%;
           max-width: 150px;
           width: 100%;
           object-fit: cover;
