@@ -103,7 +103,7 @@
           margin-top: 7px;
           display: flex;
           flex-flow: column;
-          
+
 
           &__top {
             @include card-list-text-style;
@@ -186,7 +186,6 @@
   }
 
   &-myjourneys {
-    // margin: 45px 15px auto;
     margin-top: 45px;
 
     &-header {
@@ -213,7 +212,7 @@
 
       &-wrapper {
         @include prevent-drag;
-        height: 250px;
+        min-height: 250px;
         margin-bottom: 30px;
         display: flex;
         flex-flow: row;
@@ -223,6 +222,7 @@
       &-wrapper {
         @extend .scrollbar__hidden;
         overflow-x: scroll;
+        overflow-y: hidden;
       }
 
       &-container {
@@ -344,7 +344,7 @@
     font-size: 18px;
     line-height: 20px;
   }
-  
+
   &-number {
     @include card-list-text-style;
     font-style: normal;

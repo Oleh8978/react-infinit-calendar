@@ -1,10 +1,8 @@
 import React, { Component, useState } from 'react';
 import { Editor } from 'react-draft-wysiwyg';
 //import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import Bold from '../staticHardcoded/bold.svg';
 
-interface IProps {
-}
+interface IProps {}
 
 const Notes: React.FC<IProps> = () => {
   const [textState, setTextState] = useState(undefined);
@@ -13,29 +11,24 @@ const Notes: React.FC<IProps> = () => {
     setTextState(textState);
   };
 
-  return <div className={'notes'}>
-    <Editor
-      onEditorStateChange={onEditorStateChange}
-      toolbarOnFocus
-      toolbar={{
-        options: ['inline', 'list'],
-        inline: {
-          options: ['bold', 'italic', 'underline', 'strikethrough'],
-          bold: { icon: Bold },
-          // italic: {  },
-          // underline: {  },
-          // strikethrough: {  },
-        },
-        list: {
-          inDropdown: false,
-          options: ['unordered', 'ordered'],
-          // unordered: { icon: unordered},
-          // ordered: { icon: ordered}
-        },
-      }}
-    />
-  </div>;
+  return (
+    <div className={'notes'}>
+      <Editor
+        onEditorStateChange={onEditorStateChange}
+        toolbarOnFocus
+        toolbar={{
+          options: ['inline', 'list'],
+          inline: {
+            options: ['bold', 'italic', 'underline', 'strikethrough'],
+          },
+          list: {
+            inDropdown: false,
+            options: ['unordered', 'ordered'],
+          },
+        }}
+      />
+    </div>
+  );
 };
-
 
 export default Notes;
