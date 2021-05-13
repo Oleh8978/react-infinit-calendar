@@ -24,7 +24,7 @@ const Schedule: React.FC<IProps> = ({ absoluteBlock }) => {
   const [selectedDay, setSelectedDay] = useState<any>('');
 
   const getDayAndRecords = (day: any) => {
-    setSelectedDay(day);
+    setSelectedDay(String(day));
   };
 
   const scheduleData = (data) => {

@@ -230,11 +230,13 @@ const Calendar: React.FC<IProps> = ({ getDayAndRecords }) => {
     dateObject.monthArr(currentMonth, currentYear, calendar);
     calendar.map((item) => {
       if (
-        item.date ===
-        dateObject.dateCreator(
-          new Date().getDate(),
-          new Date().getMonth() + 1,
-          new Date().getFullYear(),
+        String(item.date) ===
+        String(
+          dateObject.dateCreator(
+            new Date().getDate(),
+            new Date().getMonth() + 1,
+            new Date().getFullYear(),
+          ),
         )
       ) {
         calendar[calendar.indexOf(item)].isClicked = true;
@@ -264,9 +266,9 @@ const Calendar: React.FC<IProps> = ({ getDayAndRecords }) => {
       />
     );
   });
-// .replace(/-/g,'/').replace('T',' ').replace(/(\..*|\+.*/,"")
-console.log('headerDate.month ', headerDate.month)
-console.log('headerDate.year ', headerDate.year)
+  // .replace(/-/g,'/').replace('T',' ').replace(/(\..*|\+.*/,"")
+  console.log('headerDate.month ', headerDate.month);
+  console.log('headerDate.year ', headerDate.year);
   return (
     <div className={'calendar'}>
       {isModalOpened ? <ModalWindow setModalOpened={setModalOpened} /> : <></>}

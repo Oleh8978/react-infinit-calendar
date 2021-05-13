@@ -13,6 +13,7 @@ import TaskInfo from 'View/Module/MenuSections/Tasks/TaskInfo';
 import JourneyInfo from 'View/Account/JourneyInfo/index';
 import Settings from 'View/Account/Settings/index';
 import Notes from 'View/Account/Notes/index';
+import SubmitQuestion from 'View/Discovery/SubmitQuestion/SubmitQuestion'
 
 // Interfaces
 interface IRoute {
@@ -46,6 +47,7 @@ export type Pages =
   | 'about'
   | 'privacy-policy'
   | 'settings'
+  | 'ask-question'
   | 'notes'
   | 'notFound';
 
@@ -104,6 +106,12 @@ class RoutingSchema {
       path: '/notes',
       isExact: true,
       component: ProtectedRoute(Notes, 'ANONYMOUS_USERS'),
+    },
+    {
+      name: 'ask-question',
+      path: '/ask-question',
+      isExact: true,
+      component: ProtectedRoute(SubmitQuestion, 'ANONYMOUS_USERS'),
     },
     {
       name: 'notFound',
