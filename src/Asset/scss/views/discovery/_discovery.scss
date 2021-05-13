@@ -182,7 +182,7 @@
       margin-bottom: auto;
       padding: 0px;
       border-radius: 0px 15px 0px 35px;
-      background-color: rgba($white, 0.3);;
+      background-color: rgba($white, 0.3);
 
       &-wrapper {
         width: 30px;
@@ -311,19 +311,109 @@
     }
 
     &-btn {
-      @include card-list-text-style;
       border-radius: 4px;
       margin: 10px auto 0;
       padding: 11px 24px 9px;
-      font-size: 14px;
-      line-height: 18px;
-      font-weight: 600;
       display: flex;
       align-items: center;
       justify-content: center;
       background-color: $primary-action-color;
-      color: $white;
       cursor: pointer;
+
+      &-text {
+        @include card-list-text-style;
+        font-size: 14px;
+        line-height: 18px;
+        font-weight: 600;
+        color: $white;
+      }
+    }
+  }
+}
+
+.ask-question {
+  margin-top: 55px;
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  background: url('../../../images/question.png');
+  background-position: top 10px right 0px;
+  background-repeat: no-repeat;
+  background-size: 207px 198px;
+
+  &-header {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 65px;
+    display: flex;
+    flex-flow: column;
+
+    &-text {
+      &__first {
+        @include card-list-text-style;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 26px;
+        text-transform: uppercase;
+        color: $empty-title-color;
+      }
+
+      &__second {
+        @extend .ask-question-header-text__first;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 18px;
+        text-transform: unset;
+      }
+    }
+  }
+
+  &-body {
+    margin-right: 20px;
+    margin-left: 20px;
+
+    @media screen and (max-width: 650px) {
+      margin-right: 15px;
+      margin-left: 15px;
+    }
+
+    &-dropdown {
+      margin-top: 30px;
+    }
+
+    textarea {
+      @extend .scrollbar__hidden;
+      margin-top: 15px;
+      margin-bottom: 15px;
+      padding: 15px;
+      display: flex;
+      flex-flow: column;
+      width: 100%;
+      min-height: 240px;
+      resize: none;
+      border: 1px solid $divider-color;
+      border-radius: 5px;
+    }
+
+    textarea:focus,
+    input:focus {
+      outline: none;
+    }
+  }
+
+  &__bottom {
+    display: flex;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: auto;
+    padding-bottom: 20px;
+
+    @media screen and (max-width: 650px) {
+      margin-right: 15px;
+      margin-left: 15px;
+      padding-bottom: 15px;
     }
   }
 }
