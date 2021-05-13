@@ -26,7 +26,7 @@ const Calendar: React.FC<IProps> = ({ ...props }) => {
     }),
   );
   const [calendar, setCalendar] = useState<any>(transformedDataCalendar);
-  const [selectedDate, setSelectedDate] = useState<string>(
+  const [selectedDate, setSelectedDate] = useState<Date>(
     dateObject.dateCreator(
       new Date().getDate(),
       new Date().getMonth() + 1,
@@ -176,7 +176,7 @@ const Calendar: React.FC<IProps> = ({ ...props }) => {
     newData.map((item) => {
       const dates = selectedDateChecker();
       dates.map((date) => {
-        if (date === item.date) {
+        if (String(date) === String(item.date)) {
           return (item.hasAnyEvents = false);
         }
       });
@@ -194,32 +194,40 @@ const Calendar: React.FC<IProps> = ({ ...props }) => {
   } else {
     const requiredItem = calendar.find(
       (item) =>
-        item.date ===
-        dateObject.dateCreator(
-          new Date().getDate(),
-          new Date().getMonth() + 1,
-          new Date().getFullYear(),
-        ),
-    );
-    calendar.map((item) => {
-      if (
-        item.date ===
+        String(item.date) ===
+        String(
           dateObject.dateCreator(
             new Date().getDate(),
             new Date().getMonth() + 1,
             new Date().getFullYear(),
+          ),
+        ),
+    );
+    calendar.map((item) => {
+      if (
+        String(item.date) ===
+          String(
+            dateObject.dateCreator(
+              new Date().getDate(),
+              new Date().getMonth() + 1,
+              new Date().getFullYear(),
+            ),
           ) &&
         requiredItem
       ) {
         calendar[calendar.indexOf(item)].isClicked = true;
       } else if (
         !requiredItem &&
-        item.date ===
-          dateObject.dateCreator(
-            new Date(helperFunctions.mostClosestDate(props.data)).getDate(),
-            new Date(helperFunctions.mostClosestDate(props.data)).getMonth() +
-              1,
-            new Date(helperFunctions.mostClosestDate(props.data)).getFullYear(),
+        String(item.date) ===
+          String(
+            dateObject.dateCreator(
+              new Date(helperFunctions.mostClosestDate(props.data)).getDate(),
+              new Date(helperFunctions.mostClosestDate(props.data)).getMonth() +
+                1,
+              new Date(
+                helperFunctions.mostClosestDate(props.data),
+              ).getFullYear(),
+            ),
           )
       ) {
         calendar[calendar.indexOf(item)].isClicked = true;
@@ -230,7 +238,7 @@ const Calendar: React.FC<IProps> = ({ ...props }) => {
   return (
     <>
       <div className="tasks-calendar-headerdate">
-        {new Date(selectedDate).toLocaleString('default', { month: 'long' })},{' '}
+        {helperFunctions.months[new Date(selectedDate).getMonth()]},{' '}
         {new Date(selectedDate).getFullYear()}
       </div>
       <div className={'tasks-calendar scrollbar__hidden'}>

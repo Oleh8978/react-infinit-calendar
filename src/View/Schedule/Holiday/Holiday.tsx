@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import { holidays } from '../fakeData/fakedata';
 
-interface IProps {}
+interface IProps {
+}
 
 const Holiday: React.FC<IProps> = () => {
   return (
