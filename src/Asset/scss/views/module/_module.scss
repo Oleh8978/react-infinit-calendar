@@ -376,6 +376,8 @@
       height: 100%;
       display: flex;
       position: relative;
+      border-radius: 5px;
+      overflow: hidden;
     }
     &-bg {
       display: flex;
@@ -518,5 +520,34 @@
         }
       }
     }
+  }
+}
+
+.help {
+  padding: 0 15px;
+
+  .overview-help,
+  .overview-help-slider {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .overview-help {
+    margin-top: 20px;
+  }
+
+  .overview-help-slider {
+    margin-bottom: 30px;
+  }
+
+  .questions-title {
+    font-family: $NotoSansSC;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 26px;
+    text-transform: uppercase;
+    color: $empty-title-color;
+    margin-bottom: 20px;
   }
 }

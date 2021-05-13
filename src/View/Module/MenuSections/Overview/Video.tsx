@@ -25,7 +25,7 @@ const VideoComponent: React.FC<IProps> = ({ ...props }) => {
       <div className="overview-video">
         {isOpened ? (
           <div className='video-modal' onClick={onPlay}>
-            <iframe width={'100%'} scrolling={'yes'} src={props.link}> </iframe>
+            <iframe width={'95%'} scrolling={'yes'} src={props.link}> </iframe>
           </div>
         ) : (
           <div className="overview-video-wrapper">
