@@ -8,8 +8,9 @@ type Props = {
   signIn: (state: ISignedData) => void;
 };
 
-const GoogleLogin: React.FC<Props> = ({ signIn }) => {
+const GoogleLoginComponent: React.FC<Props> = ({ signIn }) => {
   const onResponse = (response: any) => {
+    console.log('response: ', response);
     let signedData: ISignedData = { type: 'google' };
     if (!response.error) {
       if (response.profileObj) {
@@ -54,4 +55,4 @@ const GoogleLogin: React.FC<Props> = ({ signIn }) => {
   );
 };
 
-export default GoogleLogin;
+export default GoogleLoginComponent;

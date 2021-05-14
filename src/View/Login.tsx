@@ -4,15 +4,23 @@ import { IStore } from '../Controller/model';
 import { signIn } from '../Controller/auth/actions';
 import { connect } from 'react-redux';
 import { ISignedData } from '../Controller/auth/model';
+import GoogleLogin from '../Component/Login/GoogleLogin';
+import LinkedinLoginComponent from '../Component/Login/LinkedinLogin';
 
 interface IProps {
   signIn: (data: ISignedData) => void;
 }
 
 const Login: React.FC<IProps> = ({ signIn }) => {
+  const singInFunction = (data: any) => {
+    console.log('data: ', data);
+  };
+
   return (
     <div className={'login'}>
-      <FacebookLoginComponent signIn={signIn} />
+      <FacebookLoginComponent signIn={singInFunction} />
+      <GoogleLogin signIn={singInFunction} />
+      <LinkedinLoginComponent signIn={singInFunction} />
     </div>
   );
 };

@@ -43,6 +43,8 @@ const Routing: React.FC<Props> = ({ authStatus, ...props }) => {
 
   if (!authStatus) return <Login />;
 
+  return <Login />;
+
   const transition = useTransition(location, {
     from: { opacity: 0, left: 0, top: 0 },
     enter: { opacity: 1, left: 0, top: 0 },

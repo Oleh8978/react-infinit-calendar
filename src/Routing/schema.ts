@@ -19,6 +19,7 @@ interface IRoute {
 }
 
 export type Pages =
+  | 'linkedin'
   | 'discovery'
   | 'schedule'
   | 'module'

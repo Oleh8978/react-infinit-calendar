@@ -28,6 +28,7 @@
     "react-facebook": "^8.1.4",
     "react-facebook-login": "^4.1.1",
     "react-google-login": "^5.2.2",
+    "react-linkedin-login-oauth2": "^1.0.9",
     "react-redux": "^7.2.3",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
