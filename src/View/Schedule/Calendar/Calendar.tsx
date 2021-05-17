@@ -5,7 +5,7 @@ import DayInCalendar from './DayInCalendar';
 import ModalWindow from './ModalWindow/modalWindow';
 
 // images
-import calendarImg from '../../../Asset/images/calendar.png';
+import calendarImg from 'Asset/images/calendar.svg';
 
 // HOC
 import useScrollListener from './customHOC';

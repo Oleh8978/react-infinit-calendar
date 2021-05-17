@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { EditorState, ContentState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
 
 import { RouteComponentProps } from 'react-router-dom';
 
@@ -15,6 +17,7 @@ import history from 'historyApi';
 
 // interfaces
 import { INavigationMenu } from './Models';
+import { isTypeNode } from 'typescript';
 
 interface IProps extends RouteComponentProps {}
 
@@ -22,31 +25,114 @@ const Module: React.FC<IProps> = () => {
   const [menuItems, setMenuItems] = useState<INavigationMenu[]>(
     menuConstats.menuOptions,
   );
+  const [hasSaveButton, setHasSaveButton] = useState<boolean>(false);
+  const [isSaveBTNActive, setIsSaveBTNActive] = useState<boolean>(false);
+  const [modalWidowIsOpened, setModalWidowIsOpened] = useState<boolean>(false);
+  const [textFromNotes, setTextFromNotes] = useState<any | undefined>(
+    EditorState.createWithContent(ContentState.createFromText('asadsdas'))
+  );
+  const [rout, seRout] = useState<string>('schedule');
 
   const setIsclicked = (name: string) => {
     const arr = [...menuItems];
     arr.map((item: INavigationMenu) => {
-      if (item.name === name) {
-        item.isActive = true;
-      } else {
-        item.isActive = false;
-      }
+      // if (item.name === 'Notes' && isSaveBTNActive && item.isActive) {
+      //   setModalWidowIsOpened(true);
+      // } else {
+        if (item.name === name) {
+          item.isActive = true;
+        } else {
+          item.isActive = false;
+        }
+      // }
     });
     setMenuItems(arr);
   };
 
-  // const setSaveButton = () => {
-  //
-  // }
-  //
-  // setSaveButton();
+  useEffect(() => {
+    addSavedBTN();
+    console.log('textFromNotes ', textFromNotes);
 
+    if (!textFromNotes) {
+      setTextFromNotes(
+        EditorState.createWithContent(ContentState.createFromText('')),
+      );
+    }
+  }, [menuItems, textFromNotes]);
+
+  const addSavedBTN = () => {
+    menuItems.map((item) => {
+      if (item.name === 'Notes' && item.isActive === true) {
+        setHasSaveButton(true);
+        seRout('module');
+      } else {
+        setHasSaveButton(false);
+        seRout('schedule');
+      }
+    });
+  };
+
+  const setActiveBTNFromChild = () => {
+    setIsSaveBTNActive(true);
+  };
+
+  const setActiveBTNFromChildFalse = () => {
+    setIsSaveBTNActive(false);
+  };
+
+  const moveBack = () => {
+    setIsclicked('Overview');
+  };
+
+  const setTextFromChildNotesCop = (txt: string): void => {
+    setTextFromNotes(txt);
+  };
+
+  const modalWindow = () => {
+    return (
+      <>
+        <div className="modalwindow" style={{ marginTop: '100px' }}>
+          {' '}
+          Modalka{' '}
+          <button
+            onClick={() => {
+              setModalWidowIsOpened(false), setHasSaveButton(false);
+            }}>
+            Discard
+          </button>
+          <button
+            onClick={() => {
+              setModalWidowIsOpened(false), setHasSaveButton(false);
+            }}>
+            Save
+          </button>
+        </div>{' '}
+      </>
+    );
+  };
+
+  const openWindow = () => {
+    setModalWidowIsOpened(!modalWidowIsOpened);
+  };
+  console.log();
   return (
     <div className={'module'}>
-      <NavigationBar rout={'schedule'} name={'Module name '} hasSaveButton={false}/>
+      {modalWidowIsOpened ? modalWindow() : <> </>}
+      <NavigationBar
+        rout={rout}
+        name={'Module name '}
+        // hasSaveButton={hasSaveButton}
+        // isSaveBTNActive={isSaveBTNActive}
+        // moveBack={moveBack}
+        // setModalWidowIsOpened={openWindow}
+      />
       <div className={'module-body'}>
         <NavigationMenu menuOptions={menuItems} setIsclicked={setIsclicked} />
-        <ModulePage menuItems={menuItems} />
+        <ModulePage
+          menuItems={menuItems}
+          setTextFromChildNotesComp={setTextFromChildNotesCop}
+          textFromNotes={textFromNotes}
+        />
       </div>
     </div>
   );

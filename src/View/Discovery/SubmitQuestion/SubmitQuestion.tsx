@@ -18,7 +18,7 @@ const SubmitQuestion: React.FC<IProps> = () => {
 
   return (
     <div className="ask-question">
-      <NavigationBar name={''} rout={'/discovery'} hasSaveButton={false} />
+      <NavigationBar name={''} rout={'/'} hasSaveButton={false} />
       <div className="ask-question-header">
         <span className="ask-question-header-text__first">
           What question would you like to have an answer from us?

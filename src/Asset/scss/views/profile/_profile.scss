@@ -104,7 +104,6 @@
           display: flex;
           flex-flow: column;
 
-
           &__top {
             @include card-list-text-style;
             font-weight: bold;
@@ -213,7 +212,9 @@
       &-wrapper {
         @include prevent-drag;
         min-height: 250px;
-        margin-bottom: 30px;
+        // margin-bottom: 30px;
+        padding-top: 28px;
+        padding-bottom: 30px;
         display: flex;
         flex-flow: row;
         cursor: grab;

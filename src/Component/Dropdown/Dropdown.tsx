@@ -1,14 +1,27 @@
 import React, { useState, useEffect } from 'react';
 
+interface IItem {
+  value: string;
+  id: number,
+}
+
 interface IProps {
     //need to changehte model 
-  items: any;
+  items: IItem[];
+  defVal: IItem;
 }
 
 const SelectBox: React.FC<IProps> = ({ ...props }) => {
-  const [items, setItems] = useState<any>(props.items);
+  const [items, setItems] = useState<IItem[]>(props.items);
   const [showItems, setShowItems] = useState<boolean>(false);
-  const [selectedItem, setSelectedItem] = useState<any>('');
+  const [selectedItem, setSelectedItem] = useState<IItem>(props.defVal);
+  console.log('sected ', props.defVal)
+
+  useEffect(() => {
+    if (!selectedItem) {
+      setSelectedItem(props.defVal)
+    }
+  }, [selectedItem])
 
   const dropDown = () => {
     setShowItems(!showItems);

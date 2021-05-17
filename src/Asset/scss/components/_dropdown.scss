@@ -41,12 +41,13 @@
 
     &--items {
       flex-flow: column;
-      margin-top: 15px;
+      margin-top: 5px;
       padding-bottom: 15px;
       background-color: $white;
       border: 1px solid $divider-color;
       border-radius: 5px;
       cursor: pointer;
+      z-index: 99;
 
       &-item {
         @include card-list-text-style;
@@ -104,4 +105,9 @@
       }
     }
   }
+}
+
+.selected {
+  @extend .select-box--items-item;
+  color: $secondary-grey-text-color;
 }

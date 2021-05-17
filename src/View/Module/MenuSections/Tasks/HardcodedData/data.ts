@@ -66,14 +66,8 @@ export const data = [
         timeToDo: 40,
         items: [
           {
-            id: 121326798765432321317,
-            title: 'Create list of calls for the week ',
-            isChecked: false,
-            text: '',
-          },
-          {
             id: 12132456768076544318,
-            title: 'Create list of calls for the week ',
+            title: 'Create an LLC Operating Agreement',
             isChecked: false,
             text: '',
           },
@@ -90,31 +84,7 @@ export const data = [
         items: [
           {
             id: 12132123123126790988763319,
-            title: 'Create list of calls for the week ',
-            isChecked: false,
-            text: '',
-          },
-          {
-            id: 1213236768664432343799,
-            title: 'Create list of calls for the week ',
-            isChecked: false,
-            text: '',
-          },
-        ],
-      },
-      {
-        time: '2021-03-05T07:31:45.414Z',
-        timeToDo: 40,
-        items: [
-          {
-            id: 121323232332456723209,
-            title: 'Create list of calls for the week ',
-            isChecked: false,
-            text: '',
-          },
-          {
-            id: 1213678676577882319,
-            title: 'Create list of calls for the week ',
+            title: 'Publish a Notice in Your Local Newspaper ',
             isChecked: false,
             text: '',
           },
@@ -131,13 +101,7 @@ export const data = [
         items: [
           {
             id: 121323678675629,
-            title: 'Create list of calls for the week ',
-            isChecked: true,
-            text: '',
-          },
-          {
-            id: 1213256756753239,
-            title: 'Create list of calls for the week ',
+            title: 'Fill Out the LLC Articles of Organization Form',
             isChecked: true,
             text: '',
           },
@@ -149,13 +113,7 @@ export const data = [
         items: [
           {
             id: 1213236756756739,
-            title: 'Create list of calls for the week ',
-            isChecked: true,
-            text: '',
-          },
-          {
-            id: 1213256756779875349,
-            title: 'Create list of calls for the week ',
+            title: 'Choose a Name for Your Business',
             isChecked: true,
             text: '',
           },
@@ -172,36 +130,30 @@ export const data = [
         items: [
           {
             id: 12132768675433231359,
-            title: 'Create list of calls for the week ',
-            isChecked: true,
-            text: '',
-          },
-          {
-            id: 1213235678900876544369,
-            title: 'Create list of calls for the week ',
+            title: 'Obtain a Copy of Your State\'s LLC Articles of Organization Form ',
             isChecked: true,
             text: '',
           },
         ],
       },
-      {
-        time: '2021-05-06T07:31:45.414Z',
-        timeToDo: 40,
-        items: [
-          {
-            id: 12167890986754332379,
-            title: 'Create list of calls for the week ',
-            isChecked: true,
-            text: '',
-          },
-          {
-            id: 12132456789087787976389,
-            title: 'Create list of calls for the week ',
-            isChecked: true,
-            text: '',
-          },
-        ],
-      },
+      // {
+      //   time: '2021-05-06T07:31:45.414Z',
+      //   timeToDo: 40,
+      //   items: [
+      //     {
+      //       id: 12167890986754332379,
+      //       title: 'Create list of calls for the week ',
+      //       isChecked: true,
+      //       text: '',
+      //     },
+      //     {
+      //       id: 12132456789087787976389,
+      //       title: 'Create list of calls for the week ',
+      //       isChecked: true,
+      //       text: '',
+      //     },
+      //   ],
+      // },
     ],
   },
   {
@@ -213,36 +165,12 @@ export const data = [
         items: [
           {
             id: 121329834765399,
-            title: 'Create list of calls for the week ',
+            title: 'Learn about corporate choice options and why to use LLC ',
             isChecked: false,
             text: '',
           },
-          {
-            id: 1213267808765445678789,
-            title: 'Create list of calls for the week ',
-            isChecked: true,
-            text: '',
-          },
         ],
-      },
-      {
-        time: '2021-05-07T07:31:45.414Z',
-        timeToDo: 40,
-        items: [
-          {
-            id: 1213769765435352999,
-            title: 'Create list of calls for the week ',
-            isChecked: true,
-            text: '',
-          },
-          {
-            id: 121328456787908765975,
-            title: 'Create list of calls for the week ',
-            isChecked: true,
-            text: '',
-          },
-        ],
-      },
+      }
     ],
   },
   {
@@ -418,36 +346,36 @@ export const data = [
         items: [
           {
             id: 1213231200002222323,
-            title: 'Create list of calls for the week ',
+            title: 'Set Up Your LLC in the State where you \'re Doing Business',
             isChecked: false,
             text: 'asdasdasdasd',
           },
           {
             id: 1213231213333000023123,
-            title: 'Create list of calls for the week ',
+            title: 'Get on the Same Page With Your Business Partners',
             isChecked: false,
             text: 'asdasdasdasdasd',
           },
         ],
       },
-      {
-        time: '2021-01-01T07:31:45.414Z',
-        timeToDo: 40,
-        items: [
-          {
-            id: 12132312114444423456789223,
-            title: 'Create list of calls for the week ',
-            isChecked: false,
-            text: 'asdasdasdasd',
-          },
-          {
-            id: 12132345454540000123,
-            title: 'Create list of calls for the week ',
-            isChecked: true,
-            text: 'asdasdasdasdasdasdas',
-          },
-        ],
-      },
+      // {
+      //   time: '2021-01-01T07:31:45.414Z',
+      //   timeToDo: 40,
+      //   items: [
+      //     {
+      //       id: 12132312114444423456789223,
+      //       title: 'Create list of calls for the week ',
+      //       isChecked: false,
+      //       text: 'asdasdasdasd',
+      //     },
+      //     {
+      //       id: 12132345454540000123,
+      //       title: 'Create list of calls for the week ',
+      //       isChecked: true,
+      //       text: 'asdasdasdasdasdasdas',
+      //     },
+      //   ],
+      // },
     ],
   },
   {
@@ -459,34 +387,10 @@ export const data = [
         items: [
           {
             id: 12132314545452123123,
-            title: 'Create list of calls for the week ',
+            title: 'Submit Your Articles of Organization Form',
             isChecked: true,
             text: '',
-          },
-          {
-            id: 1213231218778723123,
-            title: 'Create list of calls for the week ',
-            isChecked: false,
-            text: '',
-          },
-        ],
-      },
-      {
-        time: '2021-02-02T07:31:45.414Z',
-        timeToDo: 40,
-        items: [
-          {
-            id: 12132312129073123,
-            title: 'Create list of calls for the week ',
-            isChecked: true,
-            text: '',
-          },
-          {
-            id: 121323127878123123,
-            title: 'Create list of calls for the week ',
-            isChecked: false,
-            text: '',
-          },
+          }
         ],
       },
     ],

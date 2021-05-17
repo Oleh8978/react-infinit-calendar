@@ -19,11 +19,13 @@ interface IProps {
 const DayInCalendar: React.FC<IProps> = ({ ...props }) => {
   const isToday = (itemDate: Date) => {
     if (
-      itemDate ===
-      dateObject.dateCreator(
-        new Date().getDate(),
-        new Date().getMonth() + 1,
-        new Date().getFullYear(),
+      String(itemDate) ===
+      String(
+        dateObject.dateCreator(
+          new Date().getDate(),
+          new Date().getMonth() + 1,
+          new Date().getFullYear(),
+        ),
       )
     ) {
       return (

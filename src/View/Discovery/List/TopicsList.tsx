@@ -4,8 +4,10 @@ import { dataList } from '../FakeData/list/List';
 
 import AnswerNotFound from '../AnswerNotFound/AnswerNotFound';
 
-// history
+// components
+import Link from 'Routing/Link';
 
+// history
 import history from 'historyApi';
 
 interface IProps {
@@ -52,13 +54,15 @@ const DiscoveryTopicList: React.FC<IProps> = ({ margin }) => {
                     {item.description}
                     {/* </div> */}
                   </span>
-                  <div
-                    className="card-text-start-btn"
-                    onClick={() => {
-                      jorneyInfo();
-                    }}>
-                    {item.link}
-                  </div>
+                  <Link to={'journey'} className="card-text-start-btn">
+                    {/* <div
+                      className="card-text-start-btn"
+                      onClick={() => {
+                        jorneyInfo();
+                      }}> */}
+                      {item.link}
+                    {/* </div> */}
+                  </Link>
                 </div>
               </div>
             );
@@ -82,7 +86,9 @@ const DiscoveryTopicList: React.FC<IProps> = ({ margin }) => {
                 <span
                   className="card-text-wrapper-link"
                   style={{ color: item.color }}>
-                  <h1 className="card-text-link">{item.link}</h1>
+                  <Link to={'article'}>
+                    <h1 className="card-text-link">{item.link}</h1>
+                  </Link>
                   <h1 className="card-text-header">{item.title}</h1>
                   {item.description}
                 </span>

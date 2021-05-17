@@ -15,7 +15,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
   const [smallMenu, setSmallMenu] = useState<boolean>(false);
 
   const scrollTracker = () => {
-    console.log('inn', document.querySelector('.main-wrapper').scrollTop);
+    // console.log('inn', document.querySelector('.main-wrapper').scrollTop);
     if (document.querySelector('.main-wrapper').scrollTop > 400) {
       setSmallMenu(true);
       marginAdder(true);
@@ -74,7 +74,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
     moseMover(elementSmall);
 
     document.querySelector('.main-wrapper').addEventListener('scroll', () => {
-      scrollTracker(), console.log('innn');
+      scrollTracker();
     });
 
     return () => {
@@ -93,8 +93,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
             <div
               className={'topic-item__top'}
               style={{ backgroundColor: arr[i].color }}>
-              <div
-                className="topic-item-img">
+              <div className="topic-item-img">
                 <div className="topic-item-img-wrapper">
                   <img src={arr[i].image} alt="img" />
                 </div>
@@ -104,8 +103,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
             <div
               className={'topic-item__bottom'}
               style={{ backgroundColor: arr[i + 1].color }}>
-              <div
-                className="topic-item-img">
+              <div className="topic-item-img">
                 <div className="topic-item-img-wrapper">
                   <img src={arr[i + 1].image} alt="img" />
                 </div>
@@ -123,8 +121,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
           <div
             className={'topic-item__top'}
             style={{ backgroundColor: arr[arr.length - 1].color }}>
-            <div
-              className="topic-item-img">
+            <div className="topic-item-img">
               <div className="topic-item-img-wrapper">
                 <img src={arr[arr.length - 1].image} alt="img" />
               </div>
@@ -141,11 +138,15 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
     return (
       <div className="discovery-menu-small">
         <div className="discovery-menu-small-btn" onClick={() => scrollToTop()}>
-          All
+          <span className="discovery-menu-small-btn-txt">All</span>
         </div>
         {items.map((element) => {
           return (
-            <div className="discovery-menu-small-item">{element.title}</div>
+            <div className="discovery-menu-small-item">
+              <span className="discovery-menu-small-item-txt">
+                {element.title}
+              </span>
+            </div>
           );
         })}
       </div>
@@ -171,7 +172,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
       </div>
 
       <div className={'discovery-menu'}>
-        <SearchBar smallMenu={smallMenu}/>
+        <SearchBar smallMenu={smallMenu} />
         <span className={'discovery-select'}>Select your topic interest</span>
         <div className={'discovery-menu-wrapper scrollbar__hidden'}>
           {bigMenuRender(topics)}
