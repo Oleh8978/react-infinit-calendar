@@ -336,31 +336,68 @@
   height: 100%;
   display: flex;
   flex-flow: column;
-  background: url('../../../images/question.png');
-  background-position: top 10px right 0px;
+  background-image: url('../../../images/question.png');
+  background-position: right 10px;
   background-repeat: no-repeat;
   background-size: 207px 198px;
+
+  &-textarea {
+    @extend .scrollbar__hidden;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 15px;
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    min-height: 240px;
+    resize: none;
+    border: 1px solid $divider-color;
+    border-radius: 5px;
+    font-family: $Spartan;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    color: $text-color;
+
+    &::placeholder {
+      font-family: $Spartan;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 18px;
+      color: $secondary-grey-text-color;
+      transition: opacity 0.3s ease;
+    }
+
+    &:focus {
+      &::placeholder {
+       opacity: 0.4;
+      }
+    }
+  }
 
   &-header {
     margin-left: 20px;
     margin-right: 20px;
-    margin-top: 65px;
+    margin-top: 45px;
     display: flex;
     flex-flow: column;
 
     &-text {
       &__first {
-        @include card-list-text-style;
+        font-family: $NotoSansSC;
         font-style: normal;
         font-weight: bold;
         font-size: 18px;
         line-height: 26px;
         text-transform: uppercase;
         color: $empty-title-color;
+        margin-bottom: 10px;
       }
 
       &__second {
-        @extend .ask-question-header-text__first;
+        @include card-list-text-style;
         font-style: normal;
         font-weight: 500;
         font-size: 14px;
@@ -381,20 +418,6 @@
 
     &-dropdown {
       margin-top: 30px;
-    }
-
-    textarea {
-      @extend .scrollbar__hidden;
-      margin-top: 15px;
-      margin-bottom: 15px;
-      padding: 15px;
-      display: flex;
-      flex-flow: column;
-      width: 100%;
-      min-height: 240px;
-      resize: none;
-      border: 1px solid $divider-color;
-      border-radius: 5px;
     }
 
     textarea:focus,

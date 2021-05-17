@@ -27,9 +27,11 @@ const BodySubmitQuestion: React.FC<IProps> = () => {
     <div className="ask-question-body">
       <SelectBox items={items} />
       <TextareaAutosize
+        placeholder={"Type here your question"}
         cacheMeasurements
         value={text}
         onChange={(ev) => setText(ev.target.value)}
+        className={"ask-question-textarea"}
       />
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 interface IProps {
-    //need to changehte model 
+  //need to changehte model
   items: any;
 }
 
@@ -19,15 +19,13 @@ const SelectBox: React.FC<IProps> = ({ ...props }) => {
     setShowItems(false);
   };
   return (
-    <div className="select-box-wrapper">
-      <div className="select-box--box">
-        <div className="select-box--container">
-          <div className="select-box--selected-item">{selectedItem.value}</div>
-          <div className="select-box--arrow" onClick={() => dropDown()}>
+    <div className='select-box-wrapper'>
+      <div className='select-box--box'>
+        <div className='select-box--container' onClick={() => dropDown()}>
+          <div className='select-box--selected-item'>{selectedItem.value || 'Category'}</div>
+          <div className={`select-box--arrow ${showItems ? 'select-box--arrow-up' : 'select-box--arrow-down'}`}>
             <span
-              className={`${
-                showItems ? 'select-box--arrow-up' : 'select-box--arrow-down'
-              }`}
+              className={'arrow-icon'}
             />
           </div>
 

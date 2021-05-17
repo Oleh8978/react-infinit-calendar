@@ -12,8 +12,16 @@ const SubmitQuestion: React.FC<IProps> = () => {
   const [isModal, setIsModal] = useState<boolean>(false);
   const [isActive, setIsActive] = useState<boolean>(false);
 
+  const validateForm = () => {
+
+  };
+
   const submitFunc = () => {
-    setIsModal(true);
+    if(validateForm() === true) {
+      setIsModal(true);
+    } else {
+      setIsModal(false);
+    }
   };
 
   return (
