@@ -13,11 +13,43 @@ import * as dateObject from 'View/Schedule/Calendar/utils';
 import * as helperFunctions from './utils';
 
 // interfaces
-import { ICalendarData } from './Models';
+import { ICalendarData, IDayHaseAnyEvents } from './Models';
 
 interface IProps {}
 
 const Task: React.FC<IProps> = () => {
+  const dataChecker = (day: ICalendarData): boolean => {
+    if (
+      day.tasks
+        .map((task) => {
+          return (
+            task.items.filter((item) => item.isChecked === false).length === 0
+          );
+        })
+        .filter((item) => item === false).length === 0
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  const isAllDaysHasComEvents = () => {
+    const newData = [...sortedData];
+    const allDaysEvents = [];
+    newData.map((day) => {
+      allDaysEvents.push({
+        time: dateObject.dateCreator(
+          new Date(day.time).getDate(),
+          new Date(day.time).getMonth() + 1,
+          new Date(day.time).getFullYear(),
+        ),
+        hasAnyevents: dataChecker(day),
+      });
+    });
+    return allDaysEvents;
+  };
+
   const [selectedDate, setSelectedDate] = useState<Date>(
     dateObject.dateCreator(
       new Date().getDate(),
@@ -38,11 +70,17 @@ const Task: React.FC<IProps> = () => {
   const [currentData, setCurrentData] = useState<ICalendarData[]>();
   const [prevData, setPrevData] = useState<ICalendarData[]>([]);
   const [prevDataIds, setPrevDataId] = useState<number[]>([]);
+  const [isAllSelected, setISAllSelected] = useState<IDayHaseAnyEvents[]>(
+    isAllDaysHasComEvents(),
+  );
 
   useEffect(() => {
     setCurrentPage(selectedDate);
     prevDataProvider(selectedDate);
+    setISAllSelected(isAllDaysHasComEvents());
   }, [selectedDate, data, prevDataIds]);
+
+  console.log('isAllSelected tasks', isAllSelected);
 
   const setCheckButton = () => {
     const newData = [...sortedData];
@@ -195,12 +233,15 @@ const Task: React.FC<IProps> = () => {
         dateSetter={dateSetter}
         setCheckButton={setCheckButton}
         prevDataIds={prevDataIds}
+        isAllSelected={isAllSelected}
       />
       <div className="tasks-wrapper">
-        {currentData && <Current
-          currentData={currentData}
-          setCheckButton={setCheckButtonCurrent}
-        />}
+        {currentData && (
+          <Current
+            currentData={currentData}
+            setCheckButton={setCheckButtonCurrent}
+          />
+        )}
         {prevData.length > 0 ? (
           <Uncompleted prevData={prevData} setCheckButton={setCheckButtonID} />
         ) : (

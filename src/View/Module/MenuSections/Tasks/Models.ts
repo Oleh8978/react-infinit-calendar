@@ -16,3 +16,8 @@ export interface ITask {
   text: string;
 }
 
+export interface IDayHaseAnyEvents {
+  time: string,
+  hasAnyevents: boolean
+}
+
