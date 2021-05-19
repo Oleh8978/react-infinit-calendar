@@ -11,7 +11,7 @@ export const dataList = [
     title: 'Inbound Marketing',
     description:
       'Tips from a Frasier.Technology is ever advancing. I think of it as the thread that tethers us together, helping to expand our relationships.',
-    link: 'Article gallery',
+    link: 'Article Gallery',
     border: '1px solid  #E9E9E9',
     img: radio,
   },
