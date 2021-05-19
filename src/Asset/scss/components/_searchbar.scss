@@ -1,72 +1,87 @@
 .searchbar {
   &__top {
+    display: flex;
+    align-items: center;
     position: absolute;
     padding-right: 100px;
     top: 0px;
-    max-width: 640px;
+    max-width: 639px;
     width: 100%;
     height: 55px;
     border-bottom: 1px solid $divider-color;
+    border-right: 1px solid $divider-color;
     background-color: $white;
   }
 
   &-input {
-      @include card-list-text-style;
-      width: 100%;
-      display: flex;
-      height: 18px;
-      margin-top: 24px;
-      margin-left: 50px;
-      border: 0;
-      outline: 0;
-      color: $text-color;
-      font-size: 16px;
-      line-height: 17px;
+    @include card-list-text-style;
+    width: 100%;
+    display: flex;
+    height: 18px;
+    margin: auto auto auto 50px;
+    border: 0;
+    outline: 0;
+    padding-top: 7px;
+    color: $text-color;
+    font-size: 16px;
+    line-height: 17px;
   }
 
   &-btn {
-    width: 19px;
-    height: 19px;
+    padding: 7px;
+    width: 33px;
+    height: 33px;
     display: block;
     margin-left: auto;
     position: absolute;
-    right: 18px;
-    top: 23px;
-    margin-bottom: auto;
-    cursor:pointer;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 11px;
+    cursor: pointer;
 
     &__input {
-        width: 19px;
-        height: 19px;
-        display: block;
-        position:absolute;
-        top: 23px;
-        left: 18px; 
+      padding: 7px;
+      width: 33px;
+      height: 33px;
+      display: block;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 11px;
     }
   }
 
   &-clear {
-    height: 12px;
-    width: 11px;
+    padding: 7px;
+    height: 33px;
+    width: 33px;
     position: absolute;
-    right: 21px;
-    top: 23px;
-    cursor:pointer;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &-left {
-        height: 15px;
-        width: 1px;
-        background-color: $text-color;
-        transform: rotate(45deg);
-        margin-left: 5px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(45deg);
+      height: 21px;
+      width: 1px;
+      background-color: $text-color;
     }
+
     &-right {
-        height: 15px;
-        width: 1px;
-        margin-top: -15px;
-        background-color: $text-color;
-        transform: rotate(135deg);
-        margin-left: 5px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(135deg);
+      height: 21px;
+      width: 1px;
+      background-color: $text-color;
     }
   }
 }
