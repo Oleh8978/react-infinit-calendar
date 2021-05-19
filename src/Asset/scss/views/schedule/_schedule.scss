@@ -431,6 +431,7 @@
 
 .welldone {
   position: fixed;
+  top: 0;
   left: 0;
   width: 100%;
   height: 100%;
@@ -449,18 +450,23 @@
   &-wrapper {
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
   }
   &-main {
     position: relative;
-    top: -50%;
-    left: -50%;
     display: flex;
     flex-flow: column;
     align-items: center;
   }
   &-smiles {
     margin-top: 20px;
+    font-family: $Spartan;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 27px;
+    text-align: center;
   }
 }
 

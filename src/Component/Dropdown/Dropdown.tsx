@@ -1,27 +1,22 @@
 import React, { useState, useEffect } from 'react';
 
 interface IItem {
+  id: number;
   value: string;
-  id: number,
 }
 
 interface IProps {
-    //need to changehte model 
-  items: IItem[];
-  defVal: IItem;
+  //need to changehte model
+  items: any;
+  value: string;
+  setTextFromDropdown: (text: any) => void;
+  isDropdownError: boolean;
 }
 
 const SelectBox: React.FC<IProps> = ({ ...props }) => {
-  const [items, setItems] = useState<IItem[]>(props.items);
+  const [items, setItems] = useState<any>(props.items);
   const [showItems, setShowItems] = useState<boolean>(false);
-  const [selectedItem, setSelectedItem] = useState<IItem>(props.defVal);
-  console.log('sected ', props.defVal)
-
-  useEffect(() => {
-    if (!selectedItem) {
-      setSelectedItem(props.defVal)
-    }
-  }, [selectedItem])
+  const [selectedItem, setSelectedItem] = useState<any>('');
 
   const dropDown = () => {
     setShowItems(!showItems);
@@ -31,16 +26,19 @@ const SelectBox: React.FC<IProps> = ({ ...props }) => {
     setSelectedItem(item);
     setShowItems(false);
   };
+
+  useEffect(() => {
+    props.setTextFromDropdown(selectedItem.value);
+  }, [showItems]);
+
   return (
-    <div className="select-box-wrapper">
-      <div className="select-box--box">
-        <div className="select-box--container">
-          <div className="select-box--selected-item">{selectedItem.value}</div>
-          <div className="select-box--arrow" onClick={() => dropDown()}>
+    <div className={`select-box-wrapper ${props.isDropdownError ? 'error' : ''}`}>
+      <div className='select-box--box'>
+        <div className='select-box--container' onClick={() => dropDown()}>
+          <div className='select-box--selected-item'>{selectedItem.value || 'Category'}</div>
+          <div className={`select-box--arrow ${showItems ? 'select-box--arrow-up' : 'select-box--arrow-down'}`}>
             <span
-              className={`${
-                showItems ? 'select-box--arrow-up' : 'select-box--arrow-down'
-              }`}
+              className={'arrow-icon'}
             />
           </div>
 
