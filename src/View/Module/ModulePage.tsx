@@ -8,33 +8,45 @@ import Tasks from './MenuSections/Tasks/Tasks';
 
 // interfaces
 import { INavigationMenu } from './Models';
+import { isPropertySignature } from 'typescript';
 
 interface IProps {
   menuItems: INavigationMenu[];
+  setTextFromChildNotesComp: (txt: string) => void;
+  textFromNotes: any;
 }
 
-const ModulePage: React.FC<IProps> = ({ menuItems }) => {
+const ModulePage: React.FC<IProps> = ({
+  menuItems,
+  setTextFromChildNotesComp,
+  textFromNotes
+}) => {
   const body = (elements: INavigationMenu[]) => {
     let menuSection;
-    elements.map( (element: INavigationMenu) => {
-      if (element.name === 'Overview' && element.isActive === true) {
-        menuSection =  <Overview />
+    elements.map((element: INavigationMenu) => {
+      if (element.name === 'Overview') {
+        menuSection = <Overview />;
       }
 
       if (element.name === 'Help' && element.isActive === true) {
-        menuSection =  <Help />
+        menuSection = <Help />;
       }
 
       if (element.name === 'Notes' && element.isActive === true) {
-        menuSection = <Notes />
+        menuSection = (
+          <Notes
+          setTextFromChildNotesComp={setTextFromChildNotesComp}
+          textFromNotes={textFromNotes}
+          />
+        );
       }
 
       if (element.name === 'Tasks' && element.isActive === true) {
-        menuSection = <Tasks /> 
+        menuSection = <Tasks />;
       }
-    })
-    return menuSection
-  }
+    });
+    return menuSection;
+  };
   return <div className={'module-sections'}>{body(menuItems)}</div>;
 };
 

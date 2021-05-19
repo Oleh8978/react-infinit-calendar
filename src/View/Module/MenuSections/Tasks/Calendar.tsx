@@ -8,13 +8,15 @@ import * as dateObject from 'View/Schedule/Calendar/utils';
 import * as helperFunctions from 'View/Module/MenuSections/Tasks/utils';
 
 // interfaces
-import { ICalendarData } from './Models';
+import { ICalendarData, IDayHaseAnyEvents } from './Models';
+import { isTemplateExpression } from 'typescript';
 
 interface IProps {
   data: ICalendarData[];
   dateSetter: (date: string) => void;
   setCheckButton: () => void;
   prevDataIds: number[];
+  isAllSelected: IDayHaseAnyEvents[];
 }
 
 const Calendar: React.FC<IProps> = ({ ...props }) => {
@@ -65,32 +67,24 @@ const Calendar: React.FC<IProps> = ({ ...props }) => {
     if (ele !== null) ele.addEventListener('mousedown', mouseDownHandler);
   };
 
-  const selectedDateChecker = () => {
-    const times = [];
-    props.prevDataIds.map((item) => {
-      props.data.map((data) => {
-        data.tasks.map((task) => {
-          task.items.map((elem) => {
-            if (elem.id === item) {
-              times.push(
-                dateObject.dateCreator(
-                  new Date(data.time).getDate(),
-                  new Date(data.time).getMonth() + 1,
-                  new Date(data.time).getFullYear(),
-                ),
-              );
-            }
-          });
-        });
-      });
+  const dateSelctedSetter = () => {
+    const newData = [...calendar];
+    newData.map((item) => {
+      if (props.isAllSelected[newData.indexOf(item)].hasAnyevents === true) {
+        return (item.hasAnyEvents = true);
+      } else {
+        return (item.hasAnyEvents = false);
+      }
     });
-    return times;
-  };
+    setCalendar(newData);
+  }
 
   useEffect(() => {
     const elementGenral = document.querySelector('.tasks-calendar');
     moseMover(elementGenral);
-  }, [dates, props.prevDataIds, props.data]);
+    dateSelctedSetter();
+    console.log('props.isAllSelected', props.isAllSelected)
+  }, [props.isAllSelected]);
 
   const isAnyUncompleted = (arr) => {
     let isFalse = false;
@@ -172,14 +166,6 @@ const Calendar: React.FC<IProps> = ({ ...props }) => {
 
     newData.map((item) => {
       return (item.isClicked = false);
-    });
-    newData.map((item) => {
-      const dates = selectedDateChecker();
-      dates.map((date) => {
-        if (String(date) === String(item.date)) {
-          return (item.hasAnyEvents = false);
-        }
-      });
     });
 
     newData[calendar.indexOf(value)].isClicked = true;

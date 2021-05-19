@@ -15,15 +15,15 @@ interface IProps {
 
 const items = [
   {
-    value: 'The first question',
+    value: 'Category Name 1',
     id: 1,
   },
   {
-    value: 'The second question',
+    value: 'Category Name 2',
     id: 2,
   },
   {
-    value: 'The third question',
+    value: 'Category Name 3',
     id: 3,
   },
 ];

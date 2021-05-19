@@ -6,21 +6,21 @@ export const data = {
       date: 'Mon May 3 26 2021 13:13:44 GMT+0300 (Eastern European Summer Time)',
       status: 'completed',
       description:
-        'Thinking About Plans for the Week About Plans for the  week About Plans for the ... ',
+        'Marketing -Thinking About Plans for the Week About Plans for the  week About',
       time: 200,
     },
     {
       date: 'Mon May 3 2021 22:13:44 GMT+0300 (Eastern European Summer Time)',
       status: 'uncompleted',
       description:
-        'Thinking About Plans for the Week About Plans for the  week About Plans for the ... ',
+        'Module Title - Time Slot Title',
       time: 100,
     },
     {
       date: 'Mon May 3 2021 23:13:44 GMT+0300 (Eastern European Summer Time)',
       status: 'completed',
       description:
-        'Thinking About Plans for the Week About Plans for the  week About Plans for the ... ',
+        'Accounting - Create a List of Calls for the Week ',
       time: 100,
     },
   ],
@@ -33,12 +33,12 @@ export const prevDataUncompleted = [
       {
         date:
           'Su May 2 2021 23:13:44 GMT+0300 (Eastern European Summer Time)',
-        description: 'Check etc...',
+        description: 'Hiring - Small Business Lawyer - Why and How to Hire One',
       },
       {
         date:
           'Su May 2 2021 23:13:44 GMT+0300 (Eastern European Summer Time)',
-        description: 'Check etc...',
+        description: 'Hiring - Why You Should Hire A Bookkeeper for Your Business',
       },
     ],
   },
@@ -48,7 +48,7 @@ export const prevDataUncompleted = [
       {
         date:
           'Sa May 1 2021 23:13:44 GMT+0300 (Eastern European Summer Time)',
-        description: 'Just simple data',
+        description: 'Legal',
       },
     ],
   },

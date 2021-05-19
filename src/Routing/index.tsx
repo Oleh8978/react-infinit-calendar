@@ -63,7 +63,7 @@ const Routing: React.FC<Props> = ({ authStatus, ...props }) => {
                 width: '100%',
                 maxWidth: 639,
                 height: '100%',
-                maxHeight: 1000,
+                maxHeight: '100%',
                 display: 'flex',
               }}
               renderView={props => <div {...props} className={'main-wrapper'}></div>}>

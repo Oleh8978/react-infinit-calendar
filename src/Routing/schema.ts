@@ -8,12 +8,13 @@ import NotFound from 'View/Static/NotFound';
 import Schedule from 'View/Schedule';
 import Account from 'View/Account';
 import Module from 'View/Module';
-import Journey from 'View/Journey';
+import Journey from 'View/Journey/index';
 import TaskInfo from 'View/Module/MenuSections/Tasks/TaskInfo';
 import JourneyInfo from 'View/Account/JourneyInfo/index';
 import Settings from 'View/Account/Settings/index';
 import Notes from 'View/Account/Notes/index';
-import SubmitQuestion from 'View/Discovery/SubmitQuestion/SubmitQuestion'
+import SubmitQuestion from 'View/Discovery/SubmitQuestion/SubmitQuestion';
+import Article from 'View/Discovery/Article/index';
 
 // Interfaces
 interface IRoute {
@@ -49,13 +50,14 @@ export type Pages =
   | 'settings'
   | 'ask-question'
   | 'notes'
+  | 'article'
   | 'notFound';
 
 class RoutingSchema {
   private schema: IRoute[] = [
     {
       name: 'discovery',
-      path: '/discovery',
+      path: '/',
       isExact: true,
       component: ProtectedRoute(Discovery, 'ANONYMOUS_USERS'),
     },
@@ -112,6 +114,12 @@ class RoutingSchema {
       path: '/ask-question',
       isExact: true,
       component: ProtectedRoute(SubmitQuestion, 'ANONYMOUS_USERS'),
+    },
+    {
+      name: 'article',
+      path: '/article',
+      isExact: true,
+      component: ProtectedRoute(Article, 'ANONYMOUS_USERS'),
     },
     {
       name: 'notFound',

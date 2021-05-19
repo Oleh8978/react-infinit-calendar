@@ -28,7 +28,7 @@ const Schedule: React.FC<IProps> = ({ absoluteBlock }) => {
   };
 
   const scheduleData = (data) => {
-    let element = <NoTasks />;
+    let element = <TaskList />;
     data.find((item) => {
       if (
         String(

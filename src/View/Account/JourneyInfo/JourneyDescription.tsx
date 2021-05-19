@@ -1,18 +1,25 @@
 import React from 'react';
 
+// components 
+import JourneyHoursCalculation from './JourneyHoursCalcul'
+
 // dayweeks
 import { dayWeeks } from './data';
 
-interface IProps {}
+interface IProps {
+  hashours?: boolean
+  text: string;
+}
 
-const JourneyDescription: React.FC<IProps> = () => {
+const JourneyDescription: React.FC<IProps> = ({...props}) => {
   return (
     <div className={'journeyinfo-body-wrapper'}>
       <div className={'journeyinfo-body-wrapper-title'}>
         <span className={'journeyinfo-body-wrapper-title-text'}>
-          This is a template for the journey. Routine tasks.
+          {props.text}
         </span>
       </div>
+      {props.hashours ? <JourneyHoursCalculation /> : <> </>}
       <div className={'journeyinfo-body-wrapper-dayweek'}>
         {dayWeeks.map((item) => {
           return (
@@ -34,7 +41,6 @@ const JourneyDescription: React.FC<IProps> = () => {
           );
         })}
       </div>
-      
     </div>
   );
 };

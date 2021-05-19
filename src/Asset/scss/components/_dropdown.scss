@@ -130,3 +130,8 @@
     }
   }
 }
+
+.selected {
+  @extend .select-box--items-item;
+  color: $secondary-grey-text-color;
+}

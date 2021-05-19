@@ -50,6 +50,14 @@
         align-items: center;
         justify-content: center;
         cursor: pointer;
+
+        &-txt {
+          display: flex;
+          margin-right: auto;
+          margin-left: auto;
+          margin-top: auto;
+          margin-bottom: auto;
+        }
       }
 
       &-btn {
@@ -58,6 +66,10 @@
         color: $white;
         background-color: $empty-title-color;
         cursor: pointer;
+
+        &-txt {
+          @extend .discovery-menu-small-item-txt;
+        }
       }
     }
   }
@@ -374,7 +386,7 @@
 
     &:focus {
       &::placeholder {
-       opacity: 0.4;
+        opacity: 0.4;
       }
     }
 

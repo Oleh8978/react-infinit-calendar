@@ -26,7 +26,7 @@
     "react": "^17.0.2",
     "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^17.0.2",
-    "react-draft-wysiwyg": "^1.14.7",
+    "react-draft-wysiwyg": "^1.14.6",
     "react-facebook": "^8.1.4",
     "react-facebook-login": "^4.1.1",
     "react-google-login": "^5.2.2",

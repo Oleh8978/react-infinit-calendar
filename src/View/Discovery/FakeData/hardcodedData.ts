@@ -8,26 +8,26 @@ export const topics = [
   {
     image: Journeys,
     color: '#747BC3',
-    title: 'Some card1',
+    title: 'Journeys',
   },
   {
     image: Podcasts,
     color: '#74BFD5',
-    title: 'Some card2',
+    title: 'Podcasts',
   },
   {
     image: Mindfulness,
     color: '#C374C0',
-    title: 'Some card3',
+    title: 'Mindfulness',
   },
   {
     image: Community,
     color: '#E6B280',
-    title: 'Some card4',
+    title: 'Community',
   },
   {
     image: FAQ,
     color: '#79DCA6',
-    title: 'Here\'s what a long title will look like',
+    title: 'FAQ',
   },
 ];
