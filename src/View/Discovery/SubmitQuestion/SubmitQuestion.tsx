@@ -5,13 +5,13 @@ import NavigationBar from 'Component/NavigationBar';
 import BodySubmitQuestion from './BodySubmitQuestion';
 import ButtonSubmit from './SubmitBTN';
 import ModalWindowThanks from './ModalWindow';
-import { bindActionCreators } from 'redux';
 
 interface IProps {
 }
 
 const SubmitQuestion: React.FC<IProps> = () => {
   const [isModal, setIsModal] = useState<boolean>(false);
+  const [isClosed, setIsClosed] = useState<boolean>(true);
   const [isActive, setIsActive] = useState<boolean>(false);
   const [isDropdownError, setIsDropdownError] = useState<boolean>(false);
   const [isTextareaError, setIsTextareaError] = useState<boolean>(false);
@@ -28,7 +28,7 @@ const SubmitQuestion: React.FC<IProps> = () => {
   };
 
   const isNotValid = () => {
-    if(dropdownValue === '' || dropdownValue === undefined || textareaValue === '' || textareaValue === undefined) {
+    if (dropdownValue === '' || dropdownValue === undefined || textareaValue === '' || textareaValue === undefined) {
       return true;
     } else {
       return false;
@@ -37,13 +37,13 @@ const SubmitQuestion: React.FC<IProps> = () => {
 
   const formValidation = (): any => {
     if (isNotValid()) {
-      if(dropdownValue === '' || dropdownValue === undefined) {
+      if (dropdownValue === '' || dropdownValue === undefined) {
         setIsDropdownError(true);
       } else {
         setIsDropdownError(false);
       }
 
-      if(textareaValue === '' || textareaValue === undefined) {
+      if (textareaValue === '' || textareaValue === undefined) {
         setIsTextareaError(true);
       } else {
         setIsTextareaError(false);
@@ -51,24 +51,31 @@ const SubmitQuestion: React.FC<IProps> = () => {
 
       setNameError('This field is required');
 
-      return true;
+      return false;
     } else {
       setNameError(null);
       setIsDropdownError(false);
       setIsTextareaError(false);
-      return false;
+      return true;
     }
   };
 
   const submitFunc = () => {
     setIsModal(formValidation());
+    setTimeout(() => {
+      handleCloseModal();
+    }, 2000);
+  };
+
+  const handleCloseModal = () => {
+    setIsModal(false);
   };
 
   return (
-    <div className="ask-question">
+    <div className='ask-question'>
       <NavigationBar name={''} rout={'/'} hasSaveButton={false} />
-      <div className="ask-question-header">
-        <span className="ask-question-header-text__first">
+      <div className='ask-question-header'>
+        <span className='ask-question-header-text__first'>
           What question would you like to have an answer from us?
         </span>
         <span className='ask-question-header-text__second'>
@@ -77,7 +84,7 @@ const SubmitQuestion: React.FC<IProps> = () => {
       </div>
       <BodySubmitQuestion isDropdownError={isDropdownError} isTextareaError={isTextareaError} nameError={nameError}
                           setTextareaValueText={setTextareaValueText}
-                          textareaValue={textareaValue} setDropdownValueText={setDropdownValueText}/>
+                          textareaValue={textareaValue} setDropdownValueText={setDropdownValueText} />
       <div className='ask-question__bottom'>
         <ButtonSubmit
           name={'Submit'}

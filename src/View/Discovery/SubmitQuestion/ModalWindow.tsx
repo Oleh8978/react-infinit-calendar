@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
 interface IProps {
-//   onClick: () => void;
-//   name: string;
-//   isActive: boolean;
 }
 
 const ModalWindowThanks: React.FC<IProps> = ({ ...props }) => {
   return (
-      <>
-    {/* <div
-      className={props.isActive ? 'btn-submit__active' : 'btn-submit'}
-      onClick={() => props.onClick()}>
-      <span className="btn-submit-text">{props.name}</span>
-    </div> */}
-    </>
+    <div className={'welldone thanks'}>
+      <div className={'welldone-wrapper'}>
+        <div className={'welldone-main'}>
+          <h1 className={'welldone-header'}>Thank you</h1>
+          <span className={'welldone-text'}>
+            For getting in touch with us
+          </span>
+          <span className={'welldone-smiles'}>💙 💜 💙</span>
+        </div>
+      </div>
+    </div>
   );
 };
 
