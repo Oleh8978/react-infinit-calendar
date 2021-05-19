@@ -343,8 +343,6 @@
 
   &-textarea {
     @extend .scrollbar__hidden;
-    margin-top: 15px;
-    margin-bottom: 15px;
     padding: 15px;
     display: flex;
     flex-flow: column;
@@ -359,6 +357,10 @@
     font-size: 14px;
     line-height: 18px;
     color: $text-color;
+
+    &.error {
+      border-color: $red-color;
+    }
 
     &::placeholder {
       font-family: $Spartan;
@@ -375,6 +377,20 @@
        opacity: 0.4;
       }
     }
+
+    &-wrapper {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+  }
+
+  &-select {
+    display: flex;
+    flex-direction: column;
+    position: relative;
   }
 
   &-header {

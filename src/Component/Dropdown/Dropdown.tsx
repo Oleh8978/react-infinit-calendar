@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from 'react';
 
+interface IItem {
+  id: number;
+  value: string;
+}
+
 interface IProps {
   //need to changehte model
   items: any;
+  value: string;
+  setTextFromDropdown: (text: any) => void;
+  isDropdownError: boolean;
 }
 
 const SelectBox: React.FC<IProps> = ({ ...props }) => {
@@ -18,8 +26,13 @@ const SelectBox: React.FC<IProps> = ({ ...props }) => {
     setSelectedItem(item);
     setShowItems(false);
   };
+
+  useEffect(() => {
+    props.setTextFromDropdown(selectedItem.value);
+  }, [showItems]);
+
   return (
-    <div className='select-box-wrapper'>
+    <div className={`select-box-wrapper ${props.isDropdownError ? 'error' : ''}`}>
       <div className='select-box--box'>
         <div className='select-box--container' onClick={() => dropDown()}>
           <div className='select-box--selected-item'>{selectedItem.value || 'Category'}</div>

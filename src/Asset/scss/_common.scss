@@ -64,3 +64,16 @@ input[type='number'] {
     background: transparent; /* Chrome/Safari/Webkit */
   }
 }
+
+.error-message {
+  position: absolute;
+  color: $red-color;
+  font-family: $Spartan;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 6px;
+  line-height: 7px;
+  text-transform: uppercase;
+  right: 0;
+  bottom: -11px;
+}

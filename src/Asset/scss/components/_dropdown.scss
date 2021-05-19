@@ -3,6 +3,12 @@
     &-wrapper {
       margin-top: 30px;
       background-color: $white;
+
+      &.error {
+        .select-box--container {
+          border-color: $red-color;
+        }
+      }
     }
 
     &--container {
