@@ -8,7 +8,7 @@ export const dayWeeks = [
     isSelected: false,
   },
   {
-    name: 'Wen',
+    name: 'Wed',
     isSelected: false,
   },
   {

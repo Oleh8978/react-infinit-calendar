@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
+// components
+import Link from 'Routing/Link';
+
 // interfaces
 import { ITask } from './Models';
 
@@ -46,12 +49,14 @@ const Task: React.FC<IProps> = ({ ...props }) => {
                 {item.title}
               </span>
               {item.text.length > 0 ? (
-                <span
-                  className="tasks-current-task-text-link"
-                  onClick={() => console.log('read more')}>
+                // <span
+                //   className="tasks-current-task-text-link"
+                //   onClick={() => console.log('read more')}>
+                <Link className="tasks-current-task-text-link" to={'read-more'}>
                   Read more
-                </span>
+                </Link>
               ) : (
+                // </span>
                 <> </>
               )}
             </div>

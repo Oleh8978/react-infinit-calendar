@@ -477,6 +477,15 @@
       cursor: grab;
       margin-left: 20px;
       margin-bottom: 67px;
+
+      &__marginnull {
+        @extend .overview-help-slider;
+        margin-bottom: 0px;
+
+        @media screen and (max-width: 650px) {
+          margin-left: 15px;
+        }
+      }
       @media screen and (max-width: 650px) {
         margin-left: 15px;
       }

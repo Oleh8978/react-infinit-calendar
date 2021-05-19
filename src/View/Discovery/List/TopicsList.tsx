@@ -54,15 +54,25 @@ const DiscoveryTopicList: React.FC<IProps> = ({ margin }) => {
                     {item.description}
                     {/* </div> */}
                   </span>
-                  <Link to={'journey'} className="card-text-start-btn">
-                    {/* <div
+                  {item.link === 'Join Now' ? (
+                    <div
+                      className="card-text-start-btn btnStartExtended"
+                      onClick={() => {
+                        window.open('https://www.meetup.com/ru-RU/manage-your-small-biz/', '_blank')
+                      }}>
+                      {item.link}
+                    </div>
+                  ) : (
+                    <Link to={'journey'} className="card-text-start-btn">
+                      {/* <div
                       className="card-text-start-btn"
                       onClick={() => {
                         jorneyInfo();
                       }}> */}
                       {item.link}
-                    {/* </div> */}
-                  </Link>
+                      {/* </div> */}
+                    </Link>
+                  )}
                 </div>
               </div>
             );

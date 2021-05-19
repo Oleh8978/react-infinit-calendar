@@ -226,8 +226,9 @@ const Calendar: React.FC<IProps> = ({ getDayAndRecords }) => {
   if (calendar.find((item) => item.isSelected === true)) {
     console.log('one day is selected ');
   } else {
-    // seting first array of dats to calendar !!! do not remove
-    dateObject.monthArr(currentMonth, currentYear, calendar);
+    dateObject.currentWeekedays(currentMonth, currentYear, calendar)
+    // seting first array of dats to calendar !!! do not remove !!!
+    // dateObject.monthArr(currentMonth, currentYear, calendar);
     calendar.map((item) => {
       if (
         String(item.date) ===

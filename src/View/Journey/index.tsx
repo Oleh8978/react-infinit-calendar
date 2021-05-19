@@ -21,12 +21,12 @@ const Journey: React.FC<IProps> = () => {
       <NavigationBar name={'Journey Info'} rout={'/'} />
       <JourneyHeader />
       <JourneyDescription
-        text={'Marketing Analytics: Price and Promotion Analytics'}
+        text={'Business Fundamentals'}
         hashours={true}
       />
       <TextComponent
         data={
-          'Running a business comes with considerable legal and tax responsibilities, including filing and payment deadlines.'
+          'We boil down entrepreneurship to its core activities and then have you focus on those'
         }
       />
       <JourneyListComponent data={list} />

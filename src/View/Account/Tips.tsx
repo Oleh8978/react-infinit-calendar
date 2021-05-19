@@ -9,13 +9,13 @@ interface IProps {}
 
 const Tips: React.FC<IProps> = () => {
   const images = [imgW, imgM];
-  const [number, setNumber] = useState<number>(45);
+  const [number, setNumber] = useState<number>(5);
   const [isNew, setIsNew] = useState<boolean>(true);
   const [img, setImg] = useState<string>(images[Math.floor(Math.random() * 2)]);
 
   return (
     <div className={'tips'}>
-      <span className={'tips-header'}>Tips from fraiser</span>
+      <span className={'tips-header'}>Tips from frasier</span>
       <div className={'tips-wrapper'}>
         <span className={'tips-number'}>{number}</span>
         {isNew ? <span className={'tips-new'}>new</span> : <> </>}

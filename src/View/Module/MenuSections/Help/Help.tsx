@@ -4,10 +4,8 @@ import HelpSection from '../Overview/HelpSection/HelpSection';
 import Slider from '../Overview/HelpSection/Slider';
 import Questions from './Questions';
 import { experts } from '../staticHardcoded/data';
-import history from '../../../../historyApi';
 
-interface IProps {
-}
+interface IProps {}
 
 const Help: React.FC<IProps> = () => {
   return (
@@ -18,7 +16,7 @@ const Help: React.FC<IProps> = () => {
           'Book a consultation with one of our lead accounting experts'
         }
       />
-      <Slider people={experts} />
+      <Slider people={experts} isMain={true} />
 
       <Questions text={'Frequently Asked Questions'} />
 

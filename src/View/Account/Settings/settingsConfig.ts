@@ -22,11 +22,11 @@ export const Account = {
   name: 'Account',
   items: [
     {
-      name: 'Eddit profile ',
+      name: 'Edit profile ',
       button: 'next',
     },
     {
-      name: 'Connect account for authentification',
+      name: 'Connect account for authentication',
       button: 'next',
     },
   ],

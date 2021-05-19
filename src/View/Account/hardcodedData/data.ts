@@ -1,19 +1,31 @@
 export const dataModules = [
   {
-    title: 'title for Routine tasks journey',
+    title: 'Business Fundamentals',
     ends: '2021-09-10T07:31:45.414Z',
     hoursSpent: 70,
   },
   {
-    title: 'title for Routine tasks journey',
+    title: 'Business Operations for Real Estate Developers',
     ends: '2021-09-12T07:31:45.414Z',
     hoursSpent: 90,
     hours: 120,
   },
   {
-    title: 'title for Routine tasks journey',
+    title: 'How to build a Church from scratch',
     ends: '2021-09-11T07:31:45.414Z',
     hoursSpent: 70,
+    hours: 120,
+  },
+  {
+    title: 'Non Profit Fundamentals',
+    ends: '2021-09-11T07:31:45.414Z',
+    hoursSpent: 80,
+    hours: 120,
+  },
+  {
+    title: 'Small Business Video Marketing',
+    ends: '2021-09-11T07:31:45.414Z',
+    hoursSpent: 100,
     hours: 120,
   },
 ];

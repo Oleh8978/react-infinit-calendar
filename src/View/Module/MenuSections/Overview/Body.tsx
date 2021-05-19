@@ -33,7 +33,7 @@ const Body: React.FC<IProps> = () => {
         <List items={data} isUnderlined={false} />
         <VideoComponent
           link={
-            'https://www.youtube.com/embed/MkD7OZZKeiM'
+            'https://www.youtube.com/embed/3J7HG6IuV_c?list=PLvVNnY_Ve0XRRlyMi_ns5_l6ChmzhWXvC'
           }
           img={talks}
         />
@@ -41,11 +41,12 @@ const Body: React.FC<IProps> = () => {
           img={docs}
           isCodeExist={false}
           header={'Requirement for Blanks'}
+          link ='https://docs.google.com/document/d/1VvN39ZY3Llqtc2XXP5-w_yFVl94x5qQt/edit'
         />
         <AdditionalLink
           img={link}
           isCodeExist={true}
-          header={'Here Is a Link to Some Tool With a Referral Discount Code'}
+          header={'Use our discount code for Asana to manage your workplace.'}
           campCode={'DS45671'}
           textDiscount={' some text'}
         />
@@ -77,7 +78,7 @@ const Body: React.FC<IProps> = () => {
             'Book a consultation with one of our lead accounting experts'
           }
         />
-        <Slider people={experts} />
+        <Slider people={experts} isMain={true}/>
       </div>
     </>
   );

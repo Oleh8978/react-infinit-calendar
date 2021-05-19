@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 interface IProps {
   img: string;
   isCodeExist: boolean;
+  link?: string;
   campCode?: string;
   header: string;
   textDiscount?: string;
@@ -12,7 +13,9 @@ interface IProps {
 const AdditionalLink: React.FC<IProps> = ({ ...props }) => {
   return (
     <>
-      <div className="overview-additional-link">
+      <div
+        className="overview-additional-link"
+        onClick={() => window.open(props.link, '_blank')}>
         <div className="overview-additional-link__regular">
           <img src={props.img} className="overview-body-img__code" alt="img" />
           <div className="overview-additional-link__regular-textwrapper">

@@ -29,29 +29,34 @@ export const underlinedData = [
 
 export const experts = [
   {
+    id: 1,
     name: 'Wade Warren',
     img: expert1,
-    link: '#',
+    isClicked: false,
   },
   {
+    id: 1,
     name: 'Wade Warren',
     img: expert2,
-    link: '#',
+    isClicked: false,
   },
   {
+    id: 1,
     name: 'Wade Warren',
     img: expert1,
-    link: '#',
+    isClicked: false,
   },
   {
+    id: 1,
     name: 'Wade Warren',
     img: expert2,
-    link: '#',
+    isClicked: false,
   },
   {
+    id: 1,
     name: 'Wade Warren',
     img: expert1,
-    link: '#',
+    isClicked: false,
   },
 ];
 

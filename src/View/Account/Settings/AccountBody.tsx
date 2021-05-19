@@ -25,7 +25,7 @@ const AccountBody: React.FC<IProps> = () => {
           </div>
         </div>
         <div className="settings-body-account-names">
-          <span className="settings-body-account-names-name">Floid Murphy</span>
+          <span className="settings-body-account-names-name">Jhon Pedersen</span>
         </div>
       </div>
     </div>

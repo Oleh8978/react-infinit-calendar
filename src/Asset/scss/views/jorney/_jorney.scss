@@ -88,6 +88,8 @@
 
           &-text {
             @extend .single-jorney-component__row-header-text;
+            display: flex;
+            max-width: 400px;
           }
         }
 
@@ -345,7 +347,7 @@
 
       &-dayweek {
         margin-top: 15px;
-        width: 90%;
+        width: 85%;
         display: flex;
         flex-flow: row;
 

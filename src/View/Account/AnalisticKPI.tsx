@@ -10,6 +10,7 @@ const AnalisticKPI: React.FC<IProps> = () => {
       <div
         className={'kpi-analistic-btn'}
         onClick={() => {
+          window.location.href = 'https://www.prokpi.com/'
           console.log('start');
         }}>
         <span>Learn more</span>

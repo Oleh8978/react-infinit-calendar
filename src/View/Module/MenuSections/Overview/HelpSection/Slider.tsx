@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
+// components
+import Link from 'Routing/Link';
+
 // interfaces
 import { IExperts } from 'View/Module/MenuSections/Overview/Models';
 
 interface IProps {
   people: IExperts[];
+  isMain: boolean;
+  marginBottom?: boolean;
 }
 
 const Slider: React.FC<IProps> = ({ ...props }) => {
@@ -46,19 +51,49 @@ const Slider: React.FC<IProps> = ({ ...props }) => {
 
   return (
     <>
-      <div className="overview-help-slider scrollbar__hidden">
+      <div
+        className={
+          props.marginBottom
+            ? 'overview-help-slider__marginnull scrollbar__hidden'
+            : 'overview-help-slider scrollbar__hidden'
+        }>
         {props.people.map((persone) => {
           return (
-            <div className="overview-help-slider-item">
-              <img
-                src={persone.img}
-                className="overview-help-slider-item-img"
-              />
-              <span className="overview-help-slider-item-name">
-                {persone.name}
-              </span>
-              <div className="overview-help-slider-item__bottom-line"></div>
-            </div>
+            <>
+              {props.isMain ? (
+                // <Link className="overview-help-slider-item" to={'expert-help'}>
+                //   <img
+                //     src={persone.img}
+                //     className="overview-help-slider-item-img"
+                //   />
+                //   <span className="overview-help-slider-item-name">
+                //     {persone.name}
+                //   </span>
+                //   <div className="overview-help-slider-item__bottom-line"></div>
+                // </Link>
+                <div className="overview-help-slider-item">
+                  <img
+                    src={persone.img}
+                    className="overview-help-slider-item-img"
+                  />
+                  <span className="overview-help-slider-item-name">
+                    {persone.name}
+                  </span>
+                  <div className="overview-help-slider-item__bottom-line"></div>
+                </div>
+              ) : (
+                <div className="overview-help-slider-item">
+                  <img
+                    src={persone.img}
+                    className="overview-help-slider-item-img"
+                  />
+                  <span className="overview-help-slider-item-name">
+                    {persone.name}
+                  </span>
+                  <div className="overview-help-slider-item__bottom-line"></div>
+                </div>
+              )}
+            </>
           );
         })}
       </div>

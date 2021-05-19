@@ -7,14 +7,14 @@ const JourneyHoursCalculation: React.FC<IProps> = ({ ...props }) => {
     <div className={'journeyinfo-body-hours'}>
       <div className={'journeyinfo-body-hours__first'}>
         <span className={'journeyinfo-body-hours__first__top'}>
-          110 hrs / 24 days
+          120 hrs / 60 days
         </span>
         <span className={'journeyinfo-body-hours__first__bottom'}>
           duration
         </span>
       </div>
       <div className={'journeyinfo-body-hours__second'}>
-        <span className={'journeyinfo-body-hours__second__top'}>2–4</span>
+        <span className={'journeyinfo-body-hours__second__top'}>2</span>
         <span className={'journeyinfo-body-hours__second__bottom'}>
           hrs of effort per day
         </span>

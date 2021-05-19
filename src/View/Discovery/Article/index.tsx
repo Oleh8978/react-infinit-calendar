@@ -42,7 +42,9 @@ const Article: React.FC<IProps> = () => {
         <Description />
         <List underlinedItems={underlinedData} isUnderlined={true} />
         <VideoComponent
-          link={'https://www.youtube.com/embed/MkD7OZZKeiM'}
+          link={
+            'https://www.youtube.com/embed/3J7HG6IuV_c?list=PLvVNnY_Ve0XRRlyMi_ns5_l6ChmzhWXvC'
+          }
           img={talks}
         />
         <List items={data} isUnderlined={false} />

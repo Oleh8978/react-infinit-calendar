@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
+// components
+import Link from 'Routing/Link';
+
 //interfaces
 import { ITask } from './Models';
 
@@ -35,11 +38,13 @@ const UncompletedListItem: React.FC<IProps> = ({ ...props }) => {
             {props.element.title}
           </span>
           {props.element.text.length > 0 ? (
-            <span
+            <Link to={'read-more'} className="tasks-current-task-text-link">
+              {/* <span
               className="tasks-current-task-text-link"
-              onClick={() => console.log('read more')}>
+              onClick={() => console.log('read more')}> */}
               Read more
-            </span>
+              {/* </span> */}
+            </Link>
           ) : (
             <></>
           )}

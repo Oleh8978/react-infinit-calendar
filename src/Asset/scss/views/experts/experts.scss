@@ -1,0 +1,56 @@
+.expert {
+    &-help {
+        &-main {
+            margin-top: 75px;
+            display: flex;
+            flex-flow: column;
+            width: 100%;
+
+            &-body {
+                display: flex;
+                flex-flow: column;
+                width: 100%;
+
+                &-header {
+                    display: flex;
+                    flex-flow: column;
+                    margin: 30px 20px auto;
+
+                    &-text {
+                        &__top {
+                            @include card-list-header;
+                            font-style: normal;
+                            font-weight: normal;
+                            font-size: 16px;
+                            line-height: 18px;
+                            color: $empty-title-brighter;
+                        }
+
+                        &__bottom {
+                            @include card-list-header;
+                            margin-top: 2px;
+                            font-style: normal;
+                            font-weight: bold;
+                            font-size: 20px;
+                            line-height: 29px;
+                            text-transform: uppercase;
+                            color: $empty-title-color;
+                        }
+                    }
+                }
+            }
+
+            &-wrapper {
+                display: flex;
+                flex-flow: column;
+
+                &-item {
+                    display: flex;
+                    flex-flow: row;
+                    width: 100%;
+                    background-color: red;
+                }
+            }
+        }
+    }
+}

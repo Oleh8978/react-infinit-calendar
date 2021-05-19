@@ -1,23 +1,23 @@
 export const data = {
-  date: 'Mon May 3 2021 13:13:44 GMT+0300 (Eastern European Summer Time)',
+  date: 'Mon Apr 25 2021 13:13:44 GMT+0300 (Eastern European Summer Time)',
 
   tasks: [
     {
-      date: 'Mon May 3 26 2021 13:13:44 GMT+0300 (Eastern European Summer Time)',
+      date: 'Mon Apr 25 2021 13:13:44 GMT+0300 (Eastern European Summer Time)',
       status: 'completed',
       description:
         'Marketing -Thinking About Plans for the Week About Plans for the  week About',
       time: 200,
     },
     {
-      date: 'Mon May 3 2021 22:13:44 GMT+0300 (Eastern European Summer Time)',
+      date: 'Mon Apr 25 2021 22:13:44 GMT+0300 (Eastern European Summer Time)',
       status: 'uncompleted',
       description:
         'Module Title - Time Slot Title',
       time: 100,
     },
     {
-      date: 'Mon May 3 2021 23:13:44 GMT+0300 (Eastern European Summer Time)',
+      date: 'Mon Apr 25 2021 23:13:44 GMT+0300 (Eastern European Summer Time)',
       status: 'completed',
       description:
         'Accounting - Create a List of Calls for the Week ',
@@ -28,26 +28,26 @@ export const data = {
 
 export const prevDataUncompleted = [
   {
-    date: 'Su May 2 2021 23:13:44 GMT+0300 (Eastern European Summer Time)',
+    date: 'Mon May 10 2021 23:13:44 GMT+0300 (Eastern European Summer Time)',
     tasks: [
       {
         date:
-          'Su May 2 2021 23:13:44 GMT+0300 (Eastern European Summer Time)',
+          'Mon May 10  2021 23:13:44 GMT+0300 (Eastern European Summer Time)',
         description: 'Hiring - Small Business Lawyer - Why and How to Hire One',
       },
       {
         date:
-          'Su May 2 2021 23:13:44 GMT+0300 (Eastern European Summer Time)',
+          'Mon May 10  2021 23:13:44 GMT+0300 (Eastern European Summer Time)',
         description: 'Hiring - Why You Should Hire A Bookkeeper for Your Business',
       },
     ],
   },
   {
-    date: 'Sa May 1 2021 23:13:44 GMT+0300 (Eastern European Summer Time)',
+    date: 'Mon May 3 2021 23:13:44 GMT+0300 (Eastern European Summer Time)',
     tasks: [
       {
         date:
-          'Sa May 1 2021 23:13:44 GMT+0300 (Eastern European Summer Time)',
+          'Mon May 3 2021 23:13:44 GMT+0300 (Eastern European Summer Time)',
         description: 'Legal',
       },
     ],

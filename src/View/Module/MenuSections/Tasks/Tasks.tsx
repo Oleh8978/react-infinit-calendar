@@ -80,8 +80,6 @@ const Task: React.FC<IProps> = () => {
     setISAllSelected(isAllDaysHasComEvents());
   }, [selectedDate, data, prevDataIds]);
 
-  console.log('isAllSelected tasks', isAllSelected);
-
   const setCheckButton = () => {
     const newData = [...sortedData];
     prevDataIds.map((id) => {

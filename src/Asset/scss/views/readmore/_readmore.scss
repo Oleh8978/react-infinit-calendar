@@ -1,0 +1,32 @@
+.read {
+  &-more {
+    &-main {
+      &-wrapper {
+        margin-top: 65px;
+        display: flex;
+        flex-flow: column;
+        width: 100%;
+
+        &-text {
+          margin: 10px 20px auto;
+
+          @media screen and (max-width: 650px) {
+            margin: 10px 15px auto;
+          }
+
+          &__textvalue {
+            @include card-list-text-style;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 22px;
+            letter-spacing: -0.04em;
+          }
+        }
+        &-list {
+            margin-top: 15px;
+        }
+      }
+    }
+  }
+}

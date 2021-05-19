@@ -111,14 +111,7 @@ const Calendar: React.FC<IProps> = ({ ...props }) => {
           new Date(item.time).getMonth() + 1,
           new Date(item.time).getFullYear(),
         ),
-        name:
-          dateObject.days[
-            new Date(
-              new Date(item.time).getDate(),
-              new Date(item.time).getMonth() + 1,
-              new Date(item.time).getFullYear(),
-            ).getDay()
-          ],
+        name: dateObject.getDayInWeek(item.time),
         hasAnyEvents: isAnyUncompleted(item.tasks),
         isClicked: false,
       });

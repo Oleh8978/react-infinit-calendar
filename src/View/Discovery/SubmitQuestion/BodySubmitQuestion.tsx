@@ -13,15 +13,19 @@ interface IProps {}
 
 const items = [
   {
-    value: 'Category Name 1',
+    value: 'Journeys',
     id: 1,
   },
   {
-    value: 'Category Name 2',
+    value: 'Mindfulness',
     id: 2,
   },
   {
-    value: 'Category Name 3',
+    value: 'Podcasts',
+    id: 3,
+  },
+  {
+    value: 'Community',
     id: 3,
   },
 ];

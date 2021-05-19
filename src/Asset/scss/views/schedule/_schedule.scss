@@ -53,6 +53,7 @@
     overflow-x: scroll;
     cursor: grab;
   }
+
   &-day {
     @include card-list-text-style;
     width: 70px;
@@ -79,7 +80,7 @@
       height: fit-content;
       display: flex;
       flex-flow: column;
-      margin-left: 12px;
+      margin-left: 19px;
     }
     &-today {
       @include card-list-header;

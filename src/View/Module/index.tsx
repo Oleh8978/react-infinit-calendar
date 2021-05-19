@@ -120,7 +120,7 @@ const Module: React.FC<IProps> = () => {
       {modalWidowIsOpened ? modalWindow() : <> </>}
       <NavigationBar
         rout={rout}
-        name={'Module name '}
+        name={'Legal'}
         // hasSaveButton={hasSaveButton}
         // isSaveBTNActive={isSaveBTNActive}
         // moveBack={moveBack}

@@ -5,7 +5,8 @@ export interface IListLink {
 }
 
 export interface IExperts {
+  id: number;
   img: string;
   name: string;
-  link: string;
+  isClicked: boolean;
 }
