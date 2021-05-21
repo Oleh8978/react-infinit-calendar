@@ -112,8 +112,10 @@
   }
 
   .notes {
-    display: block;
-    height: 100%;
+    &-module {
+      display: block;
+      height: 100%;
+    }
   }
 }
 

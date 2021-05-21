@@ -1,0 +1,191 @@
+.notes {
+  display: flex;
+  flex-flow: column;
+
+  &-list {
+    margin-top: 55px;
+    display: flex;
+    flex-flow: column;
+
+    &-wrapper {
+      display: flex;
+      flex-flow: column;
+
+      &-item {
+        @include card-list-text-style;
+        display: flex;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 22px;
+        letter-spacing: -0.04em;
+        color: $text-color;
+
+        &::before {
+          content: '';
+          display: inline-block;
+          margin-top: 6px;
+          margin-right: 10px;
+          min-width: 7px;
+          height: 7px;
+          -moz-border-radius: 50%;
+          -webkit-border-radius: 50%;
+          border-radius: 50%;
+          background-color: $text-color;
+        }
+      }
+    }
+
+    &-item {
+      display: flex;
+      flex-flow: row;
+      min-height: 144px;
+      max-height: 190px;
+      border-bottom: 1px solid $divider-color;
+      cursor: pointer;
+
+      &__left {
+        display: flex;
+        flex-flow: column;
+        margin-left: 20px;
+        padding-bottom: 20px;
+        margin-right: auto;
+        width: 100%;
+        border-right: 1px solid $divider-color;
+
+        @media screen and (max-width: 650px) {
+          margin-left: 15px;
+        }
+
+        &-headtop {
+          @include card-list-header;
+          margin-top: 20px;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 14px;
+          line-height: 20px;
+          color: $text-color;
+        }
+
+        &-subhead {
+          @include card-list-header;
+          margin-top: 2px;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 12px;
+          line-height: 17px;
+          color: $empty-title-brighter;
+        }
+
+        &-body {
+          display: flex;
+          margin-top: 20px;
+
+          &-text {
+            @include card-list-text-style;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 22px;
+            letter-spacing: -0.04em;
+            color: $text-color;
+          }
+        }
+      }
+
+      &__right {
+        width: 32px;
+        margin-right: 0px;
+        margin-left: auto;
+        display: flex;
+        margin-top: auto;
+        margin-bottom: auto;
+        &-text {
+          @include card-list-header;
+          display: flex;
+          margin-left: -25px;
+          transform: rotate(90deg);
+
+          font-style: normal;
+          font-weight: bold;
+          font-size: 14px;
+          line-height: 20px;
+          letter-spacing: 0.045em;
+          color: $uncompleted-task-color;
+        }
+      }
+    }
+  }
+
+  &-details {
+    display: flex;
+    flex-flow: column;
+
+    &-wrapper {
+      margin-top: 55px;
+      display: flex;
+      flex-flow: column;
+
+      &-bottom {
+        display: flex;
+        flex-flow: column;
+
+        &-item {
+          display: flex;
+          flex-flow: column;
+
+          &__header {
+            display: flex;
+            flex-flow: column;
+            margin-left: 20px;
+            margin-right: 20px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            border-top: 1px solid $divider-color;
+            border-bottom: 1px solid $divider-color;
+    
+            @media screen and (max-width: 650px) {
+              margin-left: 15px;
+              margin-right: 15px;
+            }
+
+            &__top {
+              @include card-list-header;
+              font-style: normal;
+              font-weight: bold;
+              font-size: 14px;
+              line-height: 20px;
+              color: $text-color;
+            }
+
+            &__bottom {
+              @include card-list-header;
+              font-style: normal;
+              font-weight: normal;
+              font-size: 12px;
+              line-height: 17px;
+              color: $empty-title-brighter;
+              margin-top: 2px;
+            }
+          }
+
+          &-link {
+            @include card-list-text-style;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 18px;
+            margin-top: 15px;
+            margin-left: 20px;
+            margin-right: auto;
+            color: $primary-action-color;
+
+            @media screen and (max-width: 650px) {
+              margin-left: 15px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

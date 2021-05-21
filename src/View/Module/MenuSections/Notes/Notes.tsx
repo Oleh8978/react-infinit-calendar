@@ -8,23 +8,13 @@ interface IProps {
 }
 
 const Notes: React.FC<IProps> = ({ ...props }) => {
-  const [defaultText, setDefaultText] = useState<any>('hello');
-
-  useEffect(() => {
-    if (props.textFromNotes !== undefined) {
-      console.log(props.textFromNotes)
-    }
-  }, [props.textFromNotes]);
 
   const onEditorStateChange = (textState) => {
     props.setTextFromChildNotesComp(textState);
   };
 
-  const data = EditorState.createWithContent(
-    ContentState.createFromText(defaultText),
-  );
   return (
-    <div className={'notes'}>
+    <div className={'notes-module'}>
       <Editor
         defaultEditorState={props.textFromNotes}
         onEditorStateChange={onEditorStateChange}

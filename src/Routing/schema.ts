@@ -17,6 +17,7 @@ import SubmitQuestion from 'View/Discovery/SubmitQuestion/SubmitQuestion';
 import Article from 'View/Discovery/Article/index';
 import ReadMore from 'View/Module/MenuSections/ReadMore/ReadMore';
 import ExpertHelp from 'View/Module/MenuSections/ExpertHelp/ExpertHelp';
+import NoteDetails from 'View/Account/Notes/NoteDetails/index';
 
 // Interfaces
 interface IRoute {
@@ -55,6 +56,7 @@ export type Pages =
   | 'article'
   | 'read-more'
   | 'expert-help'
+  | 'note-details'
   | 'notFound';
 
 class RoutingSchema {
@@ -112,6 +114,12 @@ class RoutingSchema {
       path: '/notes',
       isExact: true,
       component: ProtectedRoute(Notes, 'ANONYMOUS_USERS'),
+    },
+    {
+      name: 'note-details',
+      path: '/note-details/:id',
+      isExact: true,
+      component: ProtectedRoute(NoteDetails, 'ANONYMOUS_USERS'),
     },
     {
       name: 'ask-question',

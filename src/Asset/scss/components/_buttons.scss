@@ -78,7 +78,41 @@
 
     &-text {
       @extend .btn-submit__active-text;
+    }
+  }
 
+  &-pen {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin-bottom: 12px;
+    margin-right: 12px;
+    padding: 5px;
+    display: flex;
+    flex-flow: column;
+    margin-left: auto;
+    margin-top: auto;
+    cursor: pointer;
+  }
+
+  &-save {
+    @include card-list-text-style;
+    margin-top: auto;
+    margin-right: 10px;
+    margin-left: auto;
+    margin-bottom: 12px;
+    padding: 5px;
+    display: flex;
+    color: $primary-action-color;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+
+    &__inactive {
+      @extend .btn-save;
+      color: $grey-color;
     }
   }
 }

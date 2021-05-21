@@ -1,7 +1,7 @@
 @font-face {
     font-family: 'Noto Sans SC';
     src: url('NotoSansSC-Thin.otf');
-    font-weight: 200;
+    font-weight: 100;
     font-style: normal;
 }
 
@@ -36,6 +36,6 @@
 @font-face {
     font-family: 'Noto Sans SC';
     src: url('NotoSansSC-Black.otf');
-    font-weight: 800;
+    font-weight: 900;
     font-style: normal;
 }

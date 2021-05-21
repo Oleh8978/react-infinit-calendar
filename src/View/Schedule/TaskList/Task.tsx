@@ -36,7 +36,7 @@ const Task: React.FC<IProps> = ({ date, description, status, time }) => {
   };
 
   if (status === 'completed') {
-    console.log(' date from page ', date)
+    
     return (
       <>
         <div

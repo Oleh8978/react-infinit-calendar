@@ -1,12 +1,37 @@
 .public-DraftStyleDefault-block .public-DraftStyleDefault-ltr {
+  span {
     span {
-        span {
-            @include card-list-text-style;
-            font-style: normal;
-            font-weight: 500;
-            font-size: 14px;
-            line-height: 22px;
-            letter-spacing: -0.04em;
-        }
+      @include card-list-text-style;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 22px;
+      letter-spacing: -0.04em;
     }
+  }
+}
+
+.notranslate .public-DraftEditor-content {
+  @include card-list-text-style;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: -0.04em;
+}
+
+.rdw-editor-main {
+  @include card-list-text-style;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: -0.04em;
+
+  ul {
+    margin-top: 5px;
+    li {
+      margin-top: 10px;
+    }
+  }
 }

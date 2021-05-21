@@ -29,7 +29,7 @@ const Module: React.FC<IProps> = () => {
   const [isSaveBTNActive, setIsSaveBTNActive] = useState<boolean>(false);
   const [modalWidowIsOpened, setModalWidowIsOpened] = useState<boolean>(false);
   const [textFromNotes, setTextFromNotes] = useState<any | undefined>(
-    EditorState.createWithContent(ContentState.createFromText('asadsdas'))
+    EditorState.createWithContent(ContentState.createFromText('Type...'))
   );
   const [rout, seRout] = useState<string>('schedule');
 
@@ -51,7 +51,6 @@ const Module: React.FC<IProps> = () => {
 
   useEffect(() => {
     addSavedBTN();
-    console.log('textFromNotes ', textFromNotes);
 
     if (!textFromNotes) {
       setTextFromNotes(
@@ -114,7 +113,7 @@ const Module: React.FC<IProps> = () => {
   const openWindow = () => {
     setModalWidowIsOpened(!modalWidowIsOpened);
   };
-  console.log();
+
   return (
     <div className={'module'}>
       {modalWidowIsOpened ? modalWindow() : <> </>}
