@@ -9,8 +9,7 @@
 }
 
 html {
-  padding: constant(safe-area-inset-top) constant(safe-area-inset-right)
-    constant(safe-area-inset-bottom) constant(safe-area-inset-left);
+  padding: constant(safe-area-inset-top) constant(safe-area-inset-right) constant(safe-area-inset-bottom) constant(safe-area-inset-left);
 }
 
 html,
@@ -39,6 +38,7 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
 /* Firefox */
 input[type='number'] {
   -moz-appearance: textfield;
@@ -58,7 +58,7 @@ input[type='number'] {
 
 .disable-scrollbars {
   scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none;  /* IE 10+ */
+  -ms-overflow-style: none; /* IE 10+ */
   &::-webkit-scrollbar {
     width: 0px;
     background: transparent; /* Chrome/Safari/Webkit */
@@ -76,4 +76,71 @@ input[type='number'] {
   text-transform: uppercase;
   right: 0;
   bottom: -11px;
+}
+
+.modalwindow {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: auto;
+  padding: 30px 15px 15px;
+  background-color: $white;
+
+  &-wrapper {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--vhFull);
+    background: rgba($text-color, 0.65);
+    z-index: 99;
+  }
+
+  &-question {
+    margin-bottom: 10px;
+    font-family: $Spartan;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    color: $empty-title-color;
+  }
+
+  &-notification {
+    margin-bottom: 35px;
+    font-family: $NotoSansSC;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 32px;
+    text-align: center;
+    text-transform: uppercase;
+    color: $empty-title-color;
+  }
+
+  &-discard,
+  &-save {
+    display: flex;
+    justify-content: center;
+    background-color: $white;
+    padding: 17px 20px 15px;
+    font-family: $Spartan;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+    color: $red-color;
+    outline: none;
+    border: 1px solid $red-color;
+    border-radius: 4px;
+  }
+
+  &-save {
+    margin-top: 15px;
+    color: $white;
+    background-color: $primary-action-color;
+    border-color: $primary-action-color;
+  }
 }

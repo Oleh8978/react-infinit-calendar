@@ -70,3 +70,10 @@
     }
 
 }
+
+@media screen and (max-width: 649px) {
+
+    .modalwindow-wrapper {
+        position: fixed;
+    }
+}

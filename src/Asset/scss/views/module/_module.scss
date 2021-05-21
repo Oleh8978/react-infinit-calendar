@@ -1,6 +1,6 @@
 .module {
   height: 100vh;
-  height: calc(var(--vhFull) - 110px);
+  height: calc(var(--vhFull) - 55px);
 
   &-menu {
     z-index: 1;
@@ -102,8 +102,7 @@
   &-body {
     margin-top: 55px;
     padding-top: 20px;
-    //height: 100%;
-    height: calc(100% - 60px);
+    height: auto;
   }
 
   &-sections {
