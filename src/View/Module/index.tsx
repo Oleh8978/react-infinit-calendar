@@ -36,15 +36,15 @@ const Module: React.FC<IProps> = () => {
   const setIsclicked = (name: string) => {
     const arr = [...menuItems];
     arr.map((item: INavigationMenu) => {
-      // if (item.name === 'Notes' && isSaveBTNActive && item.isActive) {
-      //   setModalWidowIsOpened(true);
-      // } else {
+      if (item.name === 'Notes' && isSaveBTNActive && item.isActive) {
+        setModalWidowIsOpened(true);
+      } else {
         if (item.name === name) {
           item.isActive = true;
         } else {
           item.isActive = false;
         }
-      // }
+      }
     });
     setMenuItems(arr);
   };
@@ -90,24 +90,24 @@ const Module: React.FC<IProps> = () => {
 
   const modalWindow = () => {
     return (
-      <>
-        <div className="modalwindow" style={{ marginTop: '100px' }}>
-          {' '}
-          Modalka{' '}
-          <button
+      <div className="modalwindow-wrapper">
+        <div className="modalwindow">
+          <span className='modalwindow-question'>Would you like to save your note?</span>
+          <span className='modalwindow-notification'>unsaved changes</span>
+          <button className="modalwindow-discard"
             onClick={() => {
               setModalWidowIsOpened(false), setHasSaveButton(false);
             }}>
             Discard
           </button>
-          <button
+          <button className="modalwindow-save"
             onClick={() => {
               setModalWidowIsOpened(false), setHasSaveButton(false);
             }}>
             Save
           </button>
         </div>{' '}
-      </>
+      </div>
     );
   };
 
@@ -117,14 +117,15 @@ const Module: React.FC<IProps> = () => {
   console.log();
   return (
     <div className={'module'}>
-      {modalWidowIsOpened ? modalWindow() : <> </>}
+      {/*{modalWidowIsOpened ? modalWindow() : <> </>}*/}
+      {modalWidowIsOpened ? modalWindow() : modalWindow()}
       <NavigationBar
         rout={rout}
         name={'Module name '}
-        // hasSaveButton={hasSaveButton}
-        // isSaveBTNActive={isSaveBTNActive}
-        // moveBack={moveBack}
-        // setModalWidowIsOpened={openWindow}
+        hasSaveButton={hasSaveButton}
+        isSaveBTNActive={isSaveBTNActive}
+        moveBack={moveBack}
+        setModalWidowIsOpened={openWindow}
       />
       <div className={'module-body'}>
         <NavigationMenu menuOptions={menuItems} setIsclicked={setIsclicked} />

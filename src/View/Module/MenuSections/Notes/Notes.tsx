@@ -23,6 +23,7 @@ const Notes: React.FC<IProps> = ({ ...props }) => {
   const data = EditorState.createWithContent(
     ContentState.createFromText(defaultText),
   );
+
   return (
     <div className={'notes'}>
       <Editor

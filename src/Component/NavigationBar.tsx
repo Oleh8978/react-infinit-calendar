@@ -31,14 +31,14 @@ const NavigationBar: React.FC<IProps> = ({ ...props }) => {
       <div className="module-menu-col1">
         <div
           className="module-menu-back"
-          onClick={ ()=>history.push(props.rout)
-            // props.hasSaveButton
-            //   ? () => {
-            //       checker();
-            //     }
-            //   : () => {
-            //       history.push(props.rout);
-            //     }
+          onClick={
+            props.hasSaveButton
+              ? () => {
+                  checker();
+                }
+              : () => {
+                  history.push(props.rout);
+                }
           }>
           <div className="module-menu-back__top" />
           <div className="module-menu-back__bottom" />
