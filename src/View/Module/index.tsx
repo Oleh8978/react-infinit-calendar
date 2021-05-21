@@ -117,8 +117,7 @@ const Module: React.FC<IProps> = () => {
   console.log();
   return (
     <div className={'module'}>
-      {/*{modalWidowIsOpened ? modalWindow() : <> </>}*/}
-      {modalWidowIsOpened ? modalWindow() : modalWindow()}
+      {modalWidowIsOpened ? modalWindow() : <> </>}
       <NavigationBar
         rout={rout}
         name={'Module name '}
