@@ -8,6 +8,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import NavigationBar from 'Component/NavigationBar';
 import NavigationMenu from './Menu';
 import ModulePage from './ModulePage';
+import ModalWindow from 'Component/modalWindow/modalWindow';
 
 // constants
 import * as menuConstats from './constants';
@@ -29,7 +30,7 @@ const Module: React.FC<IProps> = () => {
   const [isSaveBTNActive, setIsSaveBTNActive] = useState<boolean>(false);
   const [modalWidowIsOpened, setModalWidowIsOpened] = useState<boolean>(false);
   const [textFromNotes, setTextFromNotes] = useState<any | undefined>(
-    EditorState.createWithContent(ContentState.createFromText('Type...'))
+    EditorState.createWithContent(ContentState.createFromText('Type...')),
   );
   const [rout, seRout] = useState<string>('schedule');
 
@@ -87,27 +88,12 @@ const Module: React.FC<IProps> = () => {
     setTextFromNotes(txt);
   };
 
-  const modalWindow = () => {
-    return (
-      <div className="modalwindow-wrapper">
-        <div className="modalwindow">
-          <span className='modalwindow-question'>Would you like to save your note?</span>
-          <span className='modalwindow-notification'>unsaved changes</span>
-          <button className="modalwindow-discard"
-            onClick={() => {
-              setModalWidowIsOpened(false), setHasSaveButton(false);
-            }}>
-            Discard
-          </button>
-          <button className="modalwindow-save"
-            onClick={() => {
-              setModalWidowIsOpened(false), setHasSaveButton(false);
-            }}>
-            Save
-          </button>
-        </div>{' '}
-      </div>
-    );
+  const save = () => {
+    setModalWidowIsOpened(false), setHasSaveButton(false);
+  };
+
+  const discard = () => {
+    setModalWidowIsOpened(false), setHasSaveButton(false);
   };
 
   const openWindow = () => {
@@ -116,7 +102,11 @@ const Module: React.FC<IProps> = () => {
 
   return (
     <div className={'module'}>
-      {modalWidowIsOpened ? modalWindow() : <> </>}
+      {modalWidowIsOpened ? (
+        <ModalWindow save={save} discard={discard} />
+      ) : (
+        <> </>
+      )}
       <NavigationBar
         rout={rout}
         name={'Legal'}

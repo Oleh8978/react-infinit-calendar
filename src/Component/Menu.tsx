@@ -13,6 +13,15 @@ import { menuItems, routsWhereShowMenu } from '../Config';
 const Menu: React.FC = () => {
   const location = useLocation();
   const nameRoute = schema.getName(location.pathname);
+
+  const isActive = (name, rout) => {
+    if (name === rout) {
+      return 'active';
+    } else {
+      return '';
+    }
+  };
+
   return (
     <div
       className={
@@ -25,7 +34,7 @@ const Menu: React.FC = () => {
       <menu>
         {menuItems.map(({ title, icon: Icon, name }) => {
           return (
-            <li className={nameRoute === name ? 'active' : ''}>
+            <li className={`${isActive(name, nameRoute)}`}>
               <Link to={name}>
                 <Icon />
                 <span>{title}</span>

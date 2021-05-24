@@ -2,7 +2,8 @@
   &__top {
     display: flex;
     align-items: center;
-    position: absolute;
+    position: sticky;
+    z-index: 12;
     padding-right: 100px;
     top: 0px;
     max-width: 639px;
@@ -42,7 +43,7 @@
     &__input {
       padding: 7px;
       width: 33px;
-      height: 33px;
+      height: 35px;
       display: block;
       position: absolute;
       top: 50%;

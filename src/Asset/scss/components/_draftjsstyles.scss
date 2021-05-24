@@ -20,18 +20,154 @@
   letter-spacing: -0.04em;
 }
 
-.rdw-editor-main {
-  @include card-list-text-style;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 22px;
-  letter-spacing: -0.04em;
+.DraftEditor {
+  &-root {
+    margin-top: 55px;
+  }
+}
 
-  ul {
-    margin-top: 5px;
-    li {
-      margin-top: 10px;
+
+.rdw {
+  &-editor {
+    &-toolbar {
+      position: absolute;
+      top: 0px;
+      margin-top: 0px;
+      z-index: 3;
+      visibility: visible !important;
+      display: flex;
+      width: 100%;
+      padding: 10px 0;
+      // margin-top: 10px;
+      border-radius: 0;
+      border-bottom: 1px solid rgba($text-color, 0.15);
+      background-color: $white;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      margin-bottom: 0;
+    }
+
+    &-main {
+      @include card-list-text-style;
+      padding: 20px;
+      height: 100%;
+      min-height: 250px;
+      // min-height: calc(var(--vhFull) - 190px);
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 22px;
+      letter-spacing: -0.04em;
+
+      ul {
+        margin-top: 5px;
+        list-style: initial;
+        padding-left: 17px;
+      }
+
+      ol {
+        padding-left: 17px;
+      }
+
+      li {
+        margin-top: 10px;
+      }
+    }
+
+    &-wrapper {
+      height: 100%;
+      position: relative;
+    }
+  }
+
+  &-inline-wrapper {
+    display: flex;
+    width: 66%;
+    justify-content: space-around;
+  }
+
+  &-list-wrapper {
+    display: flex;
+    width: 33%;
+    justify-content: space-around;
+  }
+
+  &-option {
+    &-wrapper {
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      border: 1px solid $yellow-color;
+      border-radius: 8px;
+      background-color: $white;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        transition: all 0.3s ease;
+      }
+
+      &[title='Bold'] {
+        background-image: url('../../images/Bold.svg');
+      }
+      &[title='Italic'] {
+        background-image: url('../../images/Italic.svg');
+      }
+      &[title='Underline'] {
+        background-image: url('../../images/Underline.svg');
+      }
+      &[title='Strikethrough'] {
+        background-image: url('../../images/Strikethrough.svg');
+      }
+      &[title='Unordered'] {
+        background-image: url('../../images/Bulleted.svg');
+      }
+      &[title='Ordered'] {
+        background-image: url('../../images/Numbered.svg');
+      }
+
+      img {
+        display: none;
+      }
+    }
+
+    &-active {
+      background-color: $primary-action-color;
+      border-color: $primary-action-color;
+
+      &[title='Bold'] {
+        background-image: url('../../images/Bold-white.svg');
+      }
+      &[title='Italic'] {
+        background-image: url('../../images/Italic-white.svg');
+      }
+      &[title='Underline'] {
+        background-image: url('../../images/Underline-white.svg');
+      }
+      &[title='Strikethrough'] {
+        background-image: url('../../images/Strikethrough-white.svg');
+      }
+      &[title='Unordered'] {
+        background-image: url('../../images/Bulleted-white.svg');
+      }
+      &[title='Ordered'] {
+        background-image: url('../../images/Numbered-white.svg');
+      }
     }
   }
 }
+

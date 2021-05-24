@@ -102,7 +102,7 @@ export const events = [
     events: [],
   },
   {
-    day: 'Sa May 1 2021 13:13:44 GMT+0300 (Eastern European Summer Time)',
+    day: 'Mon Sep 6 2021 13:13:44 GMT+0300 (Eastern European Summer Time)',
     isHolidays: true,
     hasAnyEvents: true,
     isDayOff: true,

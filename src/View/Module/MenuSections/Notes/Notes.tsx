@@ -8,7 +8,6 @@ interface IProps {
 }
 
 const Notes: React.FC<IProps> = ({ ...props }) => {
-
   const onEditorStateChange = (textState) => {
     props.setTextFromChildNotesComp(textState);
   };

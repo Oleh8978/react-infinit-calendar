@@ -23,6 +23,8 @@ interface IProps {
   setIsEditable?: () => void;
   isSaveActive?: boolean;
   isBtnSaveActive?: boolean;
+  modalToogle?: () => void;
+  saveBtnFunctionality?: () => void;
 }
 
 const NavigationBar: React.FC<IProps> = ({ ...props }) => {
@@ -42,10 +44,21 @@ const NavigationBar: React.FC<IProps> = ({ ...props }) => {
     <div className={'module-menu'}>
       <div className="module-menu-col1">
         {props.isNotes ? (
-          <Link to={props.page} className="module-menu-back">
-            <div className="module-menu-back__top" />
-            <div className="module-menu-back__bottom" />
-          </Link>
+          <>
+            {props.isBtnSaveActive ? (
+              <div
+                className="module-menu-back"
+                onClick={() => props.modalToogle()}>
+                <div className="module-menu-back__top" />
+                <div className="module-menu-back__bottom" />
+              </div>
+            ) : (
+              <Link to={props.page} className="module-menu-back">
+                <div className="module-menu-back__top" />
+                <div className="module-menu-back__bottom" />
+              </Link>
+            )}
+          </>
         ) : (
           <div
             className="module-menu-back"
@@ -75,7 +88,11 @@ const NavigationBar: React.FC<IProps> = ({ ...props }) => {
                 className={
                   props.isBtnSaveActive ? 'btn-save' : 'btn-save__inactive'
                 }
-                onClick={() => console.log('saved')}>
+                onClick={
+                  props.isBtnSaveActive
+                    ? () => props.saveBtnFunctionality()
+                    : () => console.log('inactive')
+                }>
                 Save
               </span>
             </>

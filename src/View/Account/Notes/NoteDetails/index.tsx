@@ -10,6 +10,7 @@ import { Editor } from 'react-draft-wysiwyg';
 // components
 import NavigationBar from 'Component/NavigationBar';
 import BottomComponent from './Bottom';
+import ModalWindow from 'Component/modalWindow/modalWindow';
 
 // types
 import { Pages } from 'Routing/schema';
@@ -34,6 +35,8 @@ const NoteDetails: React.FC<IProps> = () => {
   const [isReadOnly, setIsReadOnly] = useState<boolean>(true);
   const [isSaveActive, setIsSaveActive] = useState<boolean>(false);
   const [isBtnSaveActive, setIsBtnSaveActive] = useState<boolean>(false);
+  const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
+  // const [emptyState, setEmptyState] = useState<any>(EditorState.createEmpty());
 
   useEffect(() => {
     if (!text) {
@@ -48,7 +51,7 @@ const NoteDetails: React.FC<IProps> = () => {
     } else {
       setIsBtnSaveActive(false);
     }
-  }, [text]);
+  }, [text, isSaveActive, prevText]);
 
   const onEditorStateChange = (textState) => {
     setText(textState);
@@ -60,8 +63,35 @@ const NoteDetails: React.FC<IProps> = () => {
     setIsSaveActive(!isSaveActive);
   };
 
+  const save = () => {
+    setIsReadOnly(true);
+    setIsSaveActive(false);
+    setIsModalOpened(false);
+    setPrevText(text);
+  };
+
+  const discard = () => {
+    setIsReadOnly(true);
+    setIsSaveActive(false);
+    setIsModalOpened(false);
+    setText(
+      EditorState.createWithContent(convertFromRaw(JSON.parse(datdDraft))),
+    );
+  };
+
+  const modalToogle = () => {
+    setIsModalOpened(!isModalOpened);
+  };
+
+  const saveBtnFunctionality = () => {
+    setPrevText(text);
+    setIsReadOnly(true);
+    setIsSaveActive(false);
+  };
+
   return (
     <div className={'notes'}>
+      {isModalOpened ? <ModalWindow save={save} discard={discard} /> : <> </>}
       <NavigationBar
         name={'date'}
         isNotes={true}
@@ -69,6 +99,8 @@ const NoteDetails: React.FC<IProps> = () => {
         setIsEditable={setIsEditable}
         isSaveActive={isSaveActive}
         isBtnSaveActive={isBtnSaveActive}
+        modalToogle={modalToogle}
+        saveBtnFunctionality={saveBtnFunctionality}
       />
       <div className="notes-details-wrapper">
         <>
@@ -78,6 +110,7 @@ const NoteDetails: React.FC<IProps> = () => {
             onEditorStateChange={onEditorStateChange}
             toolbarOnFocus
             readOnly={isReadOnly}
+            editorState={text}
             toolbar={{
               options: ['inline', 'list'],
               inline: {

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import searchIcon from '../../Asset/images/searchIcon.svg';
 interface IProps {
-  smallMenu: boolean;
+  smallMenu?: boolean;
 }
 
 const SearchBar: React.FC<IProps> = ({ smallMenu }) => {
@@ -12,11 +12,12 @@ const SearchBar: React.FC<IProps> = ({ smallMenu }) => {
   return (
     <div
       className={'searchbar__top'}
-      style={{
-        // marginTop: '50px',
-        zIndex: 99,
-        position: 'fixed',
-      }}>
+      // style={{
+      //   // marginTop: '50px',
+      //   zIndex: 99,
+      //   position: 'fixed',
+      // }}
+      >
       {isOpened ? (
         <>
           <img

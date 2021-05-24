@@ -4,9 +4,6 @@ import { topics } from './FakeData/hardcodedData';
 
 import { ITopic } from './Models/DiscoveryModels';
 
-// searchbar component
-import SearchBar from '../../Component/SearchBar/SearchBar';
-
 interface IProps {
   marginAdder: (isSmall: boolean) => void;
 }
@@ -162,7 +159,6 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
           top: '50px',
           display: smallMenu ? 'flex' : 'none',
         }}>
-        <SearchBar smallMenu={smallMenu} />
         <div
           className={
             'discovery-menu-wrapper__small menu-animated scrollbar__hidden'
@@ -172,7 +168,6 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
       </div>
 
       <div className={'discovery-menu'}>
-        <SearchBar smallMenu={smallMenu} />
         <span className={'discovery-select'}>Select your topic interest</span>
         <div className={'discovery-menu-wrapper scrollbar__hidden'}>
           {bigMenuRender(topics)}
