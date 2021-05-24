@@ -83,7 +83,7 @@
     display: block;
     margin-right: auto;
     margin-left: 15px;
-    margin-top: 80px;
+    margin-top: 20px;
     margin-bottom: 20px;
     font-family: $NotoSansSC;
     color: $secondary-grey-text-color;
@@ -348,13 +348,12 @@
 }
 
 .ask-question {
-  margin-top: 55px;
   height: 100%;
   height: calc(100% - 55px);
   display: flex;
   flex-flow: column;
   background-image: url('../../../images/question.png');
-  background-position: right 10px;
+  background-position: right 65px;
   background-repeat: no-repeat;
   background-size: 207px 198px;
 

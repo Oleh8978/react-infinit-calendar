@@ -28,18 +28,6 @@ interface IProps {
 }
 
 const NavigationBar: React.FC<IProps> = ({ ...props }) => {
-  const checker = () => {
-    if (props.isSaveBTNActive) {
-      return props.setModalWidowIsOpened();
-    } else {
-      return (
-        history.push(props.rout),
-        props.moveBack(),
-        props.setModalWidowIsOpened()
-      );
-    }
-  };
-
   return (
     <div className={'module-menu'}>
       <div className="module-menu-col1">
@@ -83,7 +71,6 @@ const NavigationBar: React.FC<IProps> = ({ ...props }) => {
         <div className="module-menu-col3">
           {props.isSaveActive ? (
             <>
-              {' '}
               <span
                 className={
                   props.isBtnSaveActive ? 'btn-save' : 'btn-save__inactive'
@@ -101,21 +88,7 @@ const NavigationBar: React.FC<IProps> = ({ ...props }) => {
           )}
         </div>
       ) : (
-        <div className="module-menu-col3">
-          {props.hasSaveButton ? (
-            <>
-              {props.isSaveBTNActive ? (
-                <button onClick={() => props.setModalWidowIsOpened()}>
-                  Save
-                </button>
-              ) : (
-                <span>Save not active</span>
-              )}
-            </>
-          ) : (
-            <></>
-          )}
-        </div>
+        <div className="module-menu-col3" />
       )}
     </div>
   );
