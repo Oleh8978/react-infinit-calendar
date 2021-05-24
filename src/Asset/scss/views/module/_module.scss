@@ -1,7 +1,8 @@
 .module {
-  // height: 100vh;
-  // height: calc(var(--vhFull) - 55px);
+  //height: 100vh;
+  //height: calc(var(--vhFull) - 55px);
   height: fit-content;
+  min-height: 100vh;
 
   &-menu {
     z-index: 10;

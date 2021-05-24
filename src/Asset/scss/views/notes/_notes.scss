@@ -126,6 +126,12 @@
       display: flex;
       flex-flow: column;
 
+      &.closed {
+        .rdw-editor-toolbar {
+          display: none;
+        }
+      }
+
       &-bottom {
         display: flex;
         flex-flow: column;

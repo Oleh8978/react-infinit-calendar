@@ -22,7 +22,7 @@
 
 .DraftEditor {
   &-root {
-    margin-top: 55px;
+    //margin-top: 55px;
   }
 }
 
@@ -30,15 +30,14 @@
 .rdw {
   &-editor {
     &-toolbar {
-      position: absolute;
-      top: 0px;
-      margin-top: 0px;
+      position: sticky;
+      top: 55px;
       z-index: 3;
       visibility: visible !important;
       display: flex;
       width: 100%;
       padding: 10px 0;
-      // margin-top: 10px;
+      margin-top: 0;
       border-radius: 0;
       border-bottom: 1px solid rgba($text-color, 0.15);
       background-color: $white;
