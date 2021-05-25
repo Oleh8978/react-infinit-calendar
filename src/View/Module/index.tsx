@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { EditorState, ContentState } from 'draft-js';
-import { Editor } from 'react-draft-wysiwyg';
+import {
+  EditorState,
+  ContentState,
+  convertToRaw,
+  convertFromRaw,
+} from 'draft-js';
 
 import { RouteComponentProps } from 'react-router-dom';
 
@@ -26,12 +30,22 @@ const Module: React.FC<IProps> = () => {
   const [menuItems, setMenuItems] = useState<INavigationMenu[]>(
     menuConstats.menuOptions,
   );
-  const [hasSaveButton, setHasSaveButton] = useState<boolean>(false);
   const [isSaveBTNActive, setIsSaveBTNActive] = useState<boolean>(false);
+  const [isBtnSaveActive, setIsBtnSaveActive] = useState<boolean>(false);
   const [modalWidowIsOpened, setModalWidowIsOpened] = useState<boolean>(false);
-  const [textFromNotes, setTextFromNotes] = useState<any | undefined>(
-    EditorState.createWithContent(ContentState.createFromText('Type...')),
+  const [prevText, setPrevText] = useState<any | undefined>(
+    // EditorState.createWithContent(ContentState.createFromText('Type...')),
+    EditorState.createWithContent(
+      convertFromRaw(JSON.parse(menuConstats.defaultTXT)),
+    ),
   );
+  const [textFromNotes, setTextFromNotes] = useState<any | undefined>(
+    // EditorState.createWithContent(ContentState.createFromText('Type...')),
+    EditorState.createWithContent(
+      convertFromRaw(JSON.parse(menuConstats.defaultTXT)),
+    ),
+  );
+  const [isNotes, setIsNotes] = useState<boolean>(false);
   const [rout, seRout] = useState<string>('schedule');
 
   const setIsclicked = (name: string) => {
@@ -58,30 +72,27 @@ const Module: React.FC<IProps> = () => {
         EditorState.createWithContent(ContentState.createFromText('')),
       );
     }
-  }, [menuItems, textFromNotes]);
+
+    if (
+      JSON.stringify(convertToRaw(textFromNotes.getCurrentContent())) !==
+      JSON.stringify(convertToRaw(prevText.getCurrentContent()))
+    ) {
+      setIsBtnSaveActive(true);
+    } else {
+      setIsBtnSaveActive(false);
+    }
+  }, [menuItems, textFromNotes, isBtnSaveActive, modalWidowIsOpened]);
 
   const addSavedBTN = () => {
     menuItems.map((item) => {
       if (item.name === 'Notes' && item.isActive === true) {
-        setHasSaveButton(true);
+        setIsNotes(true);
         seRout('module');
       } else {
-        setHasSaveButton(false);
+        setIsNotes(false);
         seRout('schedule');
       }
     });
-  };
-
-  const setActiveBTNFromChild = () => {
-    setIsSaveBTNActive(true);
-  };
-
-  const setActiveBTNFromChildFalse = () => {
-    setIsSaveBTNActive(false);
-  };
-
-  const moveBack = () => {
-    setIsclicked('Overview');
   };
 
   const setTextFromChildNotesCop = (txt: string): void => {
@@ -89,12 +100,21 @@ const Module: React.FC<IProps> = () => {
   };
 
   const save = () => {
-    setModalWidowIsOpened(false), setHasSaveButton(false);
+    setModalWidowIsOpened(false);
+    setIsBtnSaveActive(false);
+    setPrevText(textFromNotes);
   };
 
   const discard = () => {
-    setModalWidowIsOpened(false), setHasSaveButton(false);
+    setModalWidowIsOpened(false);
+    setIsBtnSaveActive(false);
+    setTextFromNotes(prevText);
   };
+
+  const saveBtnFunctionality = () => {
+    setIsBtnSaveActive(false);
+    setPrevText(textFromNotes);
+  }
 
   const openWindow = () => {
     setModalWidowIsOpened(!modalWidowIsOpened);
@@ -110,10 +130,12 @@ const Module: React.FC<IProps> = () => {
       <NavigationBar
         rout={rout}
         name={'Legal'}
-        // hasSaveButton={hasSaveButton}
-        // isSaveBTNActive={isSaveBTNActive}
-        // moveBack={moveBack}
-        // setModalWidowIsOpened={openWindow}
+        page={'schedule'}
+        isNotes={isNotes}
+        isSaveActive={true}
+        isBtnSaveActive={isBtnSaveActive}
+        modalToogle={openWindow}
+        saveBtnFunctionality={saveBtnFunctionality}
       />
       <div className={'module-body'}>
         <NavigationMenu menuOptions={menuItems} setIsclicked={setIsclicked} />
