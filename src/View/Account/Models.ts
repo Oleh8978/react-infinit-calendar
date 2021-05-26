@@ -8,6 +8,7 @@ export interface IModule {
   ends: string;
   hoursSpent: number;
   hours?: number;
+  color?: string;
 }
 
 export interface IListItemCompleted {

@@ -3,24 +3,28 @@ export const dataModules = [
     title: 'Business Fundamentals',
     ends: '2021-09-10T07:31:45.414Z',
     hoursSpent: 70,
+    color: '#83DCBC',
   },
   {
     title: 'Business Operations for Real Estate Developers',
     ends: '2021-09-12T07:31:45.414Z',
     hoursSpent: 90,
     hours: 120,
+    color: '#77BDF0',
   },
   {
     title: 'How to build a Church from scratch',
     ends: '2021-09-11T07:31:45.414Z',
     hoursSpent: 70,
     hours: 120,
+    color: '#83DCBC',
   },
   {
     title: 'Non Profit Fundamentals',
     ends: '2021-09-11T07:31:45.414Z',
     hoursSpent: 80,
     hours: 120,
+    color: '#DC83CE',
   },
   {
     title: 'Small Business Video Marketing',
