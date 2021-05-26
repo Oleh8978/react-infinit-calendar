@@ -18,6 +18,9 @@ import Article from 'View/Discovery/Article/index';
 import ReadMore from 'View/Module/MenuSections/ReadMore/ReadMore';
 import ExpertHelp from 'View/Module/MenuSections/ExpertHelp/ExpertHelp';
 import NoteDetails from 'View/Account/Notes/NoteDetails/index';
+import EdditProfile from 'View/Account/EditProfile/index';
+import ConnectedAccount from 'View/Account/ConnectedAccount/index';
+import AboutPage from 'View/Account/About/index';
 
 // Interfaces
 interface IRoute {
@@ -68,6 +71,12 @@ class RoutingSchema {
       component: ProtectedRoute(Discovery, 'ANONYMOUS_USERS'),
     },
     {
+      name: 'about',
+      path: '/about',
+      isExact: true,
+      component: ProtectedRoute(AboutPage, 'ANONYMOUS_USERS'),
+    },
+    {
       name: 'schedule',
       path: '/schedule',
       isExact: true,
@@ -78,6 +87,18 @@ class RoutingSchema {
       path: '/account',
       isExact: true,
       component: ProtectedRoute(Account, 'ANONYMOUS_USERS'),
+    },
+    {
+      name: 'account-edit',
+      path: '/account-edit',
+      isExact: true,
+      component: ProtectedRoute(EdditProfile, 'ANONYMOUS_USERS'),
+    },
+    {
+      name: 'account-connected-socials',
+      path: '/account-connected-socials',
+      isExact: true,
+      component: ProtectedRoute(ConnectedAccount, 'ANONYMOUS_USERS'),
     },
     {
       name: 'module',

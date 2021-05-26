@@ -24,10 +24,12 @@ export const Account = {
     {
       name: 'Edit profile ',
       button: 'next',
+      link: 'account-edit'
     },
     {
       name: 'Connect account for authentication',
       button: 'next',
+      link: 'account-connected-socials'
     },
   ],
 };
@@ -39,9 +41,25 @@ export const More = {
     {
       name: 'About this app',
       button: 'next',
+      link: 'about'
     },
     {
       name: 'email@testmail.com',
+    },
+  ],
+};
+
+export const About = {
+  items: [
+    {
+      name: 'Privacy policy',
+      button: 'next',
+      link: 'policy'
+    },
+    {
+      name: 'Terms of use',
+      button: 'next',
+      link: 'policy'
     },
   ],
 };

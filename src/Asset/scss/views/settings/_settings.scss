@@ -249,3 +249,14 @@
     }
   }
 }
+
+.about {
+  &-text {
+    color: $secondary-gey-text-color-brighter;
+  }
+}
+
+.rightaligner {
+  margin-right: 0px;
+  margin-left: auto;
+}
