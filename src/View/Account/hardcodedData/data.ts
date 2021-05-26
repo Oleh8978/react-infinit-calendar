@@ -68,3 +68,10 @@ export const dataModulesCompleted = [
     endedAt: '2021-12-11T07:31:45.414Z',
   },
 ];
+
+export const dataModulesProgress = {
+  hoursGeneral: 40.5,
+  hoursSpent: 17.5,
+  tasksGeneral: 10,
+  tasksDone: 6,
+};

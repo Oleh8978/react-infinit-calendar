@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import WavePercentage from 'Component/WavePercentage';
+import { dataModulesProgress } from './hardcodedData/data';
 
-/// hardcoded data
-import imgleft from './static/tasks.svg';
-import imgRight from './static/hours.svg';
+// interfaces
+import { IModuleProgress } from './Models';
 
 interface IProps {}
 
 const TodaysJourney: React.FC<IProps> = () => {
+  const [data, setData] = useState<IModuleProgress>(dataModulesProgress);
+
   return (
     <div className={'profile-journey'}>
       <div className={'profile-journey-progress'}>
@@ -17,12 +19,12 @@ const TodaysJourney: React.FC<IProps> = () => {
         <div className={'profile-journey-progress-wrapper'}>
           <div className={'profile-journey-progress__left'}>
             <div className={'profile-journey-progress__left-imgwrapper'}>
-              <WavePercentage bubbleValue='H' neededPercent={45}/>
+              <WavePercentage bubbleValue='H' neededPercent={Math.round(data.hoursSpent / data.hoursGeneral * 100)}/>
             </div>
             <div className={'profile-journey-progress__left-textwrapper'}>
               <span
                 className={'profile-journey-progress__left-textwrapper__top'}>
-                17.5 / 40.5
+                {data.hoursSpent} / {data.hoursGeneral}
               </span>
               <span
                 className={
@@ -34,12 +36,12 @@ const TodaysJourney: React.FC<IProps> = () => {
           </div>
           <div className={'profile-journey-progress__right'}>
             <div className={'profile-journey-progress__right-imgwrapper'}>
-              <WavePercentage bubbleValue='T' neededPercent={60} isGreen={true}/>
+              <WavePercentage bubbleValue='T' neededPercent={Math.round(data.tasksDone / data.tasksGeneral * 100)} isGreen={true}/>
             </div>
             <div className={'profile-journey-progress__right-textwrapper'}>
               <span
                 className={'profile-journey-progress__right-textwrapper__top'}>
-                6 / 10
+                {data.tasksDone} / {data.tasksGeneral}
               </span>
               <span
                 className={

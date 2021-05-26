@@ -17,7 +17,7 @@ const WavePercentage: React.FC<IProps> = ({...props}) => {
       if(percent === props.neededPercent){
         clearInterval(interval);
       }
-    },50);
+    },35);
   }, []);
 
   return (

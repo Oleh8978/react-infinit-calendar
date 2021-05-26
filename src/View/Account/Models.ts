@@ -11,6 +11,13 @@ export interface IModule {
   color?: string;
 }
 
+export interface IModuleProgress {
+  hoursGeneral: number;
+  hoursSpent: number;
+  tasksGeneral: number;
+  tasksDone: number;
+}
+
 export interface IListItemCompleted {
   title: string;
   percentageOfTasks: number;
