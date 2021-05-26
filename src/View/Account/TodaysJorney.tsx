@@ -1,4 +1,5 @@
 import React from 'react';
+import WavePercentage from 'Component/WavePercentage';
 
 /// hardcoded data
 import imgleft from './static/tasks.svg';
@@ -16,11 +17,7 @@ const TodaysJourney: React.FC<IProps> = () => {
         <div className={'profile-journey-progress-wrapper'}>
           <div className={'profile-journey-progress__left'}>
             <div className={'profile-journey-progress__left-imgwrapper'}>
-              <img
-                src={imgleft}
-                className={'profile-journey-progress__left-img'}
-                alt="img"
-              />
+              <WavePercentage bubbleValue='H' neededPercent={45}/>
             </div>
             <div className={'profile-journey-progress__left-textwrapper'}>
               <span
@@ -37,11 +34,7 @@ const TodaysJourney: React.FC<IProps> = () => {
           </div>
           <div className={'profile-journey-progress__right'}>
             <div className={'profile-journey-progress__right-imgwrapper'}>
-              <img
-                src={imgRight}
-                className={'profile-journey-progress__right-img'}
-                alt="img"
-              />
+              <WavePercentage bubbleValue='T' neededPercent={60} isGreen={true}/>
             </div>
             <div className={'profile-journey-progress__right-textwrapper'}>
               <span
