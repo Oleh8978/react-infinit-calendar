@@ -1,15 +1,25 @@
 import { DevicePlatformEnum } from '@ternala/frasier-types';
+import { UserDTO } from '@ternala/frasier-types/lib/modules/user/user.dto';
 
 // Configs
 import { loginType } from 'Config';
 import { IState } from '../model';
 
 export interface IAuthState {
+  account?: UserDTO;
   error?: IAuthException;
   token?: string;
   isAuthenticated?: boolean;
   state: IState;
+  deviceCredentials?: {
+    FCMToken?: string;
+    platform: DevicePlatformEnum | null;
+    fingerprint: string;
+  };
 }
+
+export type accessTokenType = string;
+export type refreshTokenType = string;
 
 export interface IAuthException {
   code: string;
@@ -34,4 +44,22 @@ export interface ISignedData {
 
   FCMToken?: string;
   platform?: DevicePlatformEnum;
+}
+
+export interface IAuthData {
+  accessToken: accessTokenType;
+  refreshToken: refreshTokenType;
+}
+
+export interface ISignInByToken {
+  accessToken: accessTokenType;
+}
+
+export interface IRefreshToken {
+  refreshToken: refreshTokenType;
+}
+
+export interface ISignIn {
+  login: string;
+  password: string;
 }

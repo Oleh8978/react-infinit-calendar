@@ -1,11 +1,11 @@
 export class Unauthorized extends Error {
-  constructor(message: string = "User unauthorized!") {
+  constructor(message = "User unauthorized!") {
     super(message);
   }
 }
 
 export class BadRequest extends Error {
-  constructor(message: string = "Bad request!") {
+  constructor(message = "Bad request!") {
     super(message);
   }
 }
