@@ -34,7 +34,9 @@ const items = [
 
 const BodySubmitQuestion: React.FC<IProps> = ({ ...props }) => {
   const [selectText, setSelectText] = useState<any>('');
-  const [isDropdownError, setIsDropdownError] = useState<boolean>(props.isDropdownError);
+  const [isDropdownError, setIsDropdownError] = useState<boolean>(
+    props.isDropdownError,
+  );
 
   const setTextFromDropdown = (text: any) => {
     props.setDropdownValueText(text);
@@ -45,26 +47,32 @@ const BodySubmitQuestion: React.FC<IProps> = ({ ...props }) => {
   };
 
   const checkErrorClass = (errorField: boolean) => {
-    if(errorField && props.nameError) {
-      return <p className="error-message">{props.nameError}</p>
+    if (errorField && props.nameError) {
+      return <p className="error-message">{props.nameError}</p>;
     }
     return;
   };
 
   return (
-    <div className='ask-question-body'>
-      <div className='ask-question-select'>
-        <SelectBox items={items} value={selectText} setTextFromDropdown={setTextFromDropdown}
-                   isDropdownError={props.isDropdownError}/>
+    <div className="ask-question-body">
+      <div className="ask-question-select">
+        <SelectBox
+          items={items}
+          value={selectText}
+          setTextFromDropdown={setTextFromDropdown}
+          isDropdownError={props.isDropdownError}
+        />
         {checkErrorClass(props.isDropdownError)}
       </div>
-      <div className='ask-question-textarea-wrapper'>
+      <div className="ask-question-textarea-wrapper">
         <TextareaAutosize
           placeholder={'Type here your question'}
           cacheMeasurements
           value={props.textareaValue}
           onChange={setTextFromTextarea}
-          className={`ask-question-textarea ${props.isTextareaError ? 'error' : ''}`}
+          className={`ask-question-textarea ${
+            props.isTextareaError ? 'error' : ''
+          }`}
         />
         {checkErrorClass(props.isTextareaError)}
       </div>
