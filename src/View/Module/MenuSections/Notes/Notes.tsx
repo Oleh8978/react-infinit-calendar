@@ -17,6 +17,7 @@ const Notes: React.FC<IProps> = ({ ...props }) => {
       <Editor
         defaultEditorState={props.textFromNotes}
         onEditorStateChange={onEditorStateChange}
+        editorState={props.textFromNotes}
         toolbarOnFocus
         toolbar={{
           options: ['inline', 'list'],

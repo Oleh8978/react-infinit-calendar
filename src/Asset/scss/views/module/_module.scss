@@ -101,9 +101,16 @@
     }
   }
 
+  &-menucontainer {
+    padding-top: 20px;
+    position: relative;
+    background-color: $white;
+    z-index: 3;
+  }
+
   &-body {
     // margin-top: 55px;
-    padding-top: 20px;
+    // padding-top: 20px;
     height: auto;
   }
 
