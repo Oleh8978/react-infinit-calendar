@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { createUUID } from '../View/Helpers/utils';
 
 interface IProps {
   bubbleValue: string;
@@ -7,9 +8,10 @@ interface IProps {
 }
 
 const WavePercentage: React.FC<IProps> = ({...props}) => {
+  const id = createUUID();
 
   useEffect(()=> {
-    const water = document.getElementById(`water${props.neededPercent}`);
+    const water = document.getElementById(`water${id}`);
     let percent = 0;
     const interval = setInterval(function(){
       percent++;
@@ -26,7 +28,7 @@ const WavePercentage: React.FC<IProps> = ({...props}) => {
         <div className='percent'>
           <div className='percentNum'>{props.bubbleValue}</div>
         </div>
-        <div id={`water${props.neededPercent}`} className='water'>
+        <div id={`water${id}`} className='water'>
           <svg viewBox='0 0 560 20' className='water_wave water_wave_front'>
             <path
               d='M420,20c21.5-0.4,38.8-2.5,51.1-4.5c13.4-2.2,26.5-5.2,27.3-5.4C514,6.5,518,4.7,528.5,2.7c7.1-1.3,17.9-2.8,31.5-2.7c0,0,0,0,0,0v20H420z'></path>
