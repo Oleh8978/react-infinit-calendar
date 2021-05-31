@@ -21,6 +21,8 @@ import NoteDetails from 'View/Account/Notes/NoteDetails/index';
 import EdditProfile from 'View/Account/EditProfile/index';
 import ConnectedAccount from 'View/Account/ConnectedAccount/index';
 import AboutPage from 'View/Account/About/index';
+import PrivacyPolicy from '../Component/PrivacyPolicy';
+import Terms from '../Component/Terms';
 
 // Interfaces
 interface IRoute {
@@ -53,6 +55,7 @@ export type Pages =
   | 'account-notes'
   | 'about'
   | 'privacy-policy'
+  | 'terms'
   | 'settings'
   | 'ask-question'
   | 'notes'
@@ -165,6 +168,18 @@ class RoutingSchema {
       path: '/expert-help',
       isExact: true,
       component: ProtectedRoute(ExpertHelp, 'ANONYMOUS_USERS'),
+    },
+    {
+      name: 'privacy-policy',
+      path: '/privacy-policy',
+      isExact: true,
+      component: ProtectedRoute(PrivacyPolicy, 'ANONYMOUS_USERS'),
+    },
+    {
+      name: 'terms',
+      path: '/terms',
+      isExact: true,
+      component: ProtectedRoute(Terms, 'ANONYMOUS_USERS'),
     },
     {
       name: 'notFound',

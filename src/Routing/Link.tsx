@@ -27,6 +27,7 @@ export const InternalLink: React.FC<ILinkProps> = ({
   query,
   style,
 }) => {
+
   let link: string =
     id || orderNumber || slug
       ? generatePath(schema.getLink(to), {
