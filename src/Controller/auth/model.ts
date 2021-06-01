@@ -9,13 +9,10 @@ export interface IAuthState {
   account?: UserDTO;
   error?: IAuthException;
   token?: string;
+  authData?: IAuthData;
   isAuthenticated?: boolean;
   state: IState;
-  deviceCredentials?: {
-    FCMToken?: string;
-    platform: DevicePlatformEnum | null;
-    fingerprint: string;
-  };
+  deviceCredentials?: IDeviceCredentials;
 }
 
 export type accessTokenType = string;
@@ -62,4 +59,15 @@ export interface IRefreshToken {
 export interface ISignIn {
   login: string;
   password: string;
+}
+
+export interface IDeviceCredentials {
+  FCMToken?: string;
+  platform: DevicePlatformEnum | null;
+  fingerprint: string;
+}
+
+export interface ISignInData {
+  signIntype: string;
+  receivedToken: string;
 }

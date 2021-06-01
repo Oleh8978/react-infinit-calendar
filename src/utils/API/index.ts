@@ -1,19 +1,18 @@
-import { Unauthorized, BadRequest } from "./Exceptions";
-import jwt_decode from "jwt-decode";
+import { Unauthorized, BadRequest } from './Exceptions';
+import jwt_decode from 'jwt-decode';
 // import {IAuthData} from "../../controllers/auth/models";
 // import {checkAccessTokenExpired} from "../../controllers/auth/sagas/auth";
 
-export function isJWTTokenExpired (token: string) {
-  const payload = jwt_decode(token) as {exp: number};
+export function isJWTTokenExpired(token: string) {
+  const payload = jwt_decode(token) as { exp: number };
   const accessTokenExpDate = payload.exp;
-  const nowTime = Math.floor(new Date().getTime() / 1000)
+  const nowTime = Math.floor(new Date().getTime() / 1000);
 
-  return accessTokenExpDate <= nowTime
+  return accessTokenExpDate <= nowTime;
 }
 
-
 export async function handleErrors<T = Record<string, never>>(
-  fetch: Promise<Response>
+  fetch: Promise<Response>,
 ): Promise<T> {
   try {
     const res = await fetch;
@@ -28,7 +27,7 @@ export async function handleErrors<T = Record<string, never>>(
           throw new BadRequest(error?.message);
         }
       } else if (error?.code || error?.message || error?.userMessage) {
-        if (error.code === "Unauthorized") {
+        if (error.code === 'Unauthorized') {
           throw new Unauthorized(error?.message || error?.userMessage);
         } else {
           throw new BadRequest(error?.message || error?.userMessage);
@@ -42,19 +41,19 @@ export async function handleErrors<T = Record<string, never>>(
 
     return data as T;
   } catch (error) {
-    console.error("Fetch error: ", error);
+    console.error('Fetch error: ', error);
     throw error;
   }
 }
 
 export function authHeader(token: string) {
   return {
-    "authorization": `Bearer ${token}`
+    authorization: `Bearer ${token}`,
   };
 }
 
 export function refreshHeader(token: string) {
   return {
-    "refresh-token": `Bearer ${token}`
+    'refresh-token': `Bearer ${token}`,
   };
 }
