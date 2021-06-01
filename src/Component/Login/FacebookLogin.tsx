@@ -10,6 +10,7 @@ type Props = {
 
 const FacebookLoginComponent: React.FC<Props> = ({ signIn }) => {
   const handleResponse = (response: ReactFacebookLoginInfo | ReactFacebookFailureResponse): void => {
+    console.log('response: ', response);
     if("status" in response) { return; }
     if("accessToken" in response){
       const fbLoginData: ISignedData = {

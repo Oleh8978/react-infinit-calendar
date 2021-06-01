@@ -6,7 +6,7 @@ import AccountIcon from 'Component/icon/AccountIcon';
 
 export const appName = 'FrasierApp';
 
-export type loginType = 'facebook' | 'google' | 'apple';
+export type loginType = 'facebook' | 'google' | 'linkedin';
 
 export type typeOfId = number;
 
