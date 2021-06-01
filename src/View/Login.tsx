@@ -4,7 +4,7 @@ import { IStore } from '../Controller/model';
 import { signIn } from '../Controller/auth/actions';
 import { connect } from 'react-redux';
 import { ISignedData } from '../Controller/auth/model';
-import GoogleLogin from '../Component/Login/GoogleLogin';
+import GoogleLoginComponent from '../Component/Login/GoogleLogin';
 import LinkedinLoginComponent from '../Component/Login/LinkedinLogin';
 
 interface IProps {
@@ -19,7 +19,7 @@ const Login: React.FC<IProps> = ({ signIn }) => {
   return (
     <div className={'login'}>
       <FacebookLoginComponent signIn={singInFunction} />
-      <GoogleLogin signIn={singInFunction} />
+      <GoogleLoginComponent signIn={singInFunction} />
       <LinkedinLoginComponent signIn={singInFunction} />
     </div>
   );

@@ -8,6 +8,7 @@ type Props = {
 
 const LinkedinLoginComponent: React.FC<Props> = ({ signIn }) => {
   function handleResponse (response: any): void {
+    console.log('response: ', response);
     if("status" in response) { return; }
     if("accessToken" in response){
       const linkedinLoginData: ISignedData = {
