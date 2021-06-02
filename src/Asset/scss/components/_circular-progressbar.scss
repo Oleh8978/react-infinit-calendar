@@ -1,0 +1,32 @@
+.circular-chart {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+
+  .circle {
+    &-background,
+    &-progress {
+      fill: none;
+    }
+
+    &-background {
+      stroke: $progress-bar-bg;
+    }
+
+    &-progress {
+      stroke: red;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    &-text {
+      font-family: $Spartan;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 18px;
+      text-align: center;
+      fill: $text-color;
+    }
+  }
+}

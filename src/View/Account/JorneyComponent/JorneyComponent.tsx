@@ -6,11 +6,9 @@ import Link from 'Routing/Link';
 // interfaces
 import { IModule } from '../Models';
 
-// static
-import img from '../static/elipsis.svg';
-
 // helpers
 import * as helpers from '../utils';
+import CircularProgressBar from '../../../Component/CircularProgressBar';
 
 interface IProps {
   data: IModule;
@@ -70,13 +68,7 @@ const JorneyComponent: React.FC<IProps> = ({ ...props }) => {
                 </div>
               </div>
               <div className={'single-jorney-component__column-body__right'}>
-                <div
-                  className={
-                    'single-jorney-component__column-body__right-animated'
-                  }
-                  style={{ backgroundImage: `url(${img})` }}>
-                  <span>92%</span>
-                </div>
+                <CircularProgressBar sqSize={110} percentage={Math.round(props.data.hoursSpent / props.data.hours * 100)} strokeColor={props.data.color || '#83DCBC'}/>
               </div>
             </div>
           </div>

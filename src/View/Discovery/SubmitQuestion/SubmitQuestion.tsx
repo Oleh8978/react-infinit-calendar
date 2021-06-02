@@ -6,8 +6,7 @@ import BodySubmitQuestion from './BodySubmitQuestion';
 import ButtonSubmit from './SubmitBTN';
 import ModalWindowThanks from './ModalWindow';
 
-interface IProps {
-}
+interface IProps {}
 
 const SubmitQuestion: React.FC<IProps> = () => {
   const [isModal, setIsModal] = useState<boolean>(false);
@@ -28,7 +27,12 @@ const SubmitQuestion: React.FC<IProps> = () => {
   };
 
   const isNotValid = () => {
-    if (dropdownValue === '' || dropdownValue === undefined || textareaValue === '' || textareaValue === undefined) {
+    if (
+      dropdownValue === '' ||
+      dropdownValue === undefined ||
+      textareaValue === '' ||
+      textareaValue === undefined
+    ) {
       return true;
     } else {
       return false;
@@ -72,20 +76,25 @@ const SubmitQuestion: React.FC<IProps> = () => {
   };
 
   return (
-    <div className='ask-question'>
+    <div className="ask-question">
       <NavigationBar name={''} rout={'/'} hasSaveButton={false} />
-      <div className='ask-question-header'>
-        <span className='ask-question-header-text__first'>
+      <div className="ask-question-header">
+        <span className="ask-question-header-text__first">
           What question would you like to have an answer from us?
         </span>
-        <span className='ask-question-header-text__second'>
+        <span className="ask-question-header-text__second">
           One question per form submission
         </span>
       </div>
-      <BodySubmitQuestion isDropdownError={isDropdownError} isTextareaError={isTextareaError} nameError={nameError}
-                          setTextareaValueText={setTextareaValueText}
-                          textareaValue={textareaValue} setDropdownValueText={setDropdownValueText} />
-      <div className='ask-question__bottom'>
+      <BodySubmitQuestion
+        isDropdownError={isDropdownError}
+        isTextareaError={isTextareaError}
+        nameError={nameError}
+        setTextareaValueText={setTextareaValueText}
+        textareaValue={textareaValue}
+        setDropdownValueText={setDropdownValueText}
+      />
+      <div className="ask-question__bottom">
         <ButtonSubmit
           name={'Submit'}
           onClick={submitFunc}

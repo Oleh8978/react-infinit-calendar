@@ -137,24 +137,30 @@ export const monthArr = (
   return arr;
 };
 
+export const dayInCalendar = (day: Date, num: number) => {
+  const firstDay = new Date(new Date(day).getTime());
+  return new Date(firstDay.setDate(new Date(day).getDate() + num)).getDate();
+};
+
+export const getNextDate = (day: Date, num: number) => {
+  const firstDay = new Date(new Date(day).getTime());
+  return new Date(
+    new Date(firstDay.setDate(new Date(day).getDate() + num)).setHours(0, 0, 0),
+  );
+};
+
 export const currentWeekedays = (
   month: number,
   year: number,
   arr: ICalendarDates[],
 ): ICalendarDates[] => {
-
   const firstDay = new Date(new Date().getTime());
   firstDay.setDate(new Date().getDate() - 4);
-  const lastDay = new Date(new Date().getTime());
-  lastDay.setDate(new Date().getDate() + 3)
-
-  console.log('day ', lastDay.getDate())
-
-  for (let i = firstDay.getDate(); i < lastDay.getDate(); i++) {
+  for (let i = 1; i < 8; i++) {
     arr.push({
-      number: i + 1,
-      date: dateCreator(i + 1, month + 1, year),
-      name: getDayInWeek(new Date(year, month, i + 1)),
+      number: dayInCalendar(firstDay, i),
+      date: getNextDate(firstDay, i),
+      name: getDayInWeek(new Date(year, month, dayInCalendar(firstDay, i))),
       hasAnyEvents: false,
       isClicked: false,
     });
