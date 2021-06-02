@@ -1,4 +1,5 @@
 import { all, put, takeEvery, select } from 'redux-saga/effects';
+// types
 import {
   DeviceCreateRequest,
   AuthRefreshRequestDTO,
@@ -30,6 +31,8 @@ import { isJWTTokenExpired } from '../../../utils/API';
 // Interfaces
 import { IAuthData, IDeviceCredentials } from '../model';
 import { IException, IStore } from '../../model';
+/// testing purposes
+import { DevicePlatformEnum } from '@ternala/frasier-types/lib/constants/main';
 
 export async function checkAccessTokenExpired(
   { accessToken, refreshToken, deviceCredentials }: AuthRefreshRequestDTO,
@@ -65,7 +68,12 @@ export function* signInSaga({ payload }: ReturnType<typeof signIn.request>) {
     }),
   );
 
-  const deviceCredentials: IDeviceCredentials = yield getCredentials();
+  // const deviceCredentials: IDeviceCredentials = yield getCredentials();
+  const deviceCredentials: IDeviceCredentials = {
+    FCMToken: 'FCMToken',
+    platform: DevicePlatformEnum.Web,
+    fingerprint: 'hash',
+  };
 
   try {
     AuthAPI.signIn(
@@ -80,7 +88,7 @@ export function* signInSaga({ payload }: ReturnType<typeof signIn.request>) {
         setAuthStateAction({
           code: error.statusCode,
           isLoading: false,
-          message: 'The email/password combination you entered is incorrect.',
+          message: 'Something wrong with the account ',
           error: true,
           loaders: [],
           errors: [],
@@ -90,7 +98,7 @@ export function* signInSaga({ payload }: ReturnType<typeof signIn.request>) {
       yield put(
         setAuthStateAction({
           isLoading: false,
-          message: 'The email/password combination you entered is incorrect.',
+          message: 'Something wrong with the account ',
           error: true,
           loaders: [],
           errors: [],

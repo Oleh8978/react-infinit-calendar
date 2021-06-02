@@ -1,5 +1,5 @@
 import { DevicePlatformEnum } from '@ternala/frasier-types';
-import { UserDTO } from '@ternala/frasier-types/lib/modules/user/user.dto';
+import { UserDTO } from '@ternala/frasier-types';
 
 // Configs
 import { loginType } from 'Config';

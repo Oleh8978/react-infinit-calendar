@@ -1,21 +1,26 @@
 import React from 'react';
 import { LinkedIn } from 'react-linkedin-login-oauth2';
+// componets 
+import LinkedInIcon from 'Component/icon/LinkedInIcon';
+// interfaces 
 import { ISignedData } from 'Controller/auth/model';
 
 type Props = {
-  signIn: (state: ISignedData) => void;
+  signIn: (state: ISignedData, type: string) => void;
 };
 
 const LinkedinLoginComponent: React.FC<Props> = ({ signIn }) => {
-  function handleResponse (response: any): void {
+  function handleResponse(response: any): void {
     console.log('response: ', response);
-    if("status" in response) { return; }
-    if("accessToken" in response){
+    if ('status' in response) {
+      return;
+    }
+    if ('accessToken' in response) {
       const linkedinLoginData: ISignedData = {
         type: 'linkedin',
         accessToken: response.accessToken,
       };
-      signIn(linkedinLoginData);
+      signIn(linkedinLoginData, 'linkedin');
     }
   }
 
@@ -31,9 +36,12 @@ const LinkedinLoginComponent: React.FC<Props> = ({ signIn }) => {
       redirectUri={`${window.location.origin}/linkedin`}
       scope={'r_emailaddress r_liteprofile'}
       renderElement={({ onClick, disabled }) => (
-        <button onClick={onClick} disabled={disabled}>
-          Custom linkedin element
-        </button>
+        <div className={'linked-inn-btn'}>
+          <LinkedInIcon />
+          <button className={'linked-inn-btn-main'}onClick={onClick} disabled={disabled}>
+            <span className={'linked-inn-btn-main-txt'}>Continue with LinkedIn</span>
+          </button>
+        </div>
       )}
     />
   );

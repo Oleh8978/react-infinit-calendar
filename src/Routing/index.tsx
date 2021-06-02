@@ -33,17 +33,17 @@ interface Props {
 
 const Routing: React.FC<Props> = ({ authStatus, ...props }) => {
   const location = useLocation();
-  // useEffect(() => {
-  //   if (localStorage.token) {
-  //     props.loginByToken(localStorage.token);
-  //   } else {
-  //     props.setAuthenticatedStatus({ status: false });
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (localStorage.token) {
+      // props.loginByToken(localStorage.token);
+    } else {
+      // props.setAuthenticatedStatus({ status: false });
+    }
+  }, []);
 
-  if (!authStatus) return <Login />;
+  // if (!authStatus) return <Login />;
 
-  return <Login />;
+  // return <Login />;
 
   const transition = useTransition(location, {
     // from: { opacity: 0, left: 0, top: 0 },
@@ -52,33 +52,42 @@ const Routing: React.FC<Props> = ({ authStatus, ...props }) => {
   });
 
   return (
-    <div className={'main-layout'}>
-      <div className="wrap-main">
-        {transition((style, item) => (
-          <animated.div
-            key={String(item)}
-            style={style}
-            className="main"
-            id={'main'}>
-            <Scrollbars
-              style={{
-                width: '100%',
-                maxWidth: 639,
-                height: '100%',
-                maxHeight: '100%',
-                display: 'flex',
-              }}
-              renderView={props => <div {...props} className={'main-wrapper'}></div>}>
-              <Switch location={item}>
-                {Routes}
-                <Redirect to={RoutingSchema.getLink('discovery')} />
-              </Switch>
-            </Scrollbars>
-          </animated.div>
-        ))}
-      </div>
-      <Menu />
-    </div>
+    <>
+      {/* {authStatus ? ( */}
+      {true ? (
+        <div className={'main-layout'}>
+          <div className="wrap-main">
+            {transition((style, item) => (
+              <animated.div
+                key={String(item)}
+                style={style}
+                className="main"
+                id={'main'}>
+                <Scrollbars
+                  style={{
+                    width: '100%',
+                    maxWidth: 639,
+                    height: '100%',
+                    maxHeight: '100%',
+                    display: 'flex',
+                  }}
+                  renderView={(props) => (
+                    <div {...props} className={'main-wrapper'}></div>
+                  )}>
+                  <Switch location={item}>
+                    {Routes}
+                    <Redirect to={RoutingSchema.getLink('discovery')} />
+                  </Switch>
+                </Scrollbars>
+              </animated.div>
+            ))}
+          </div>
+          <Menu />
+        </div>
+      ) : (
+        <Login />
+      )}
+    </>
   );
 };
 

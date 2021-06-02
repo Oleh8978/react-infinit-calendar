@@ -1,7 +1,7 @@
 import FingerprintJS from '@fingerprintjs/fingerprintjs';
-import { DeviceCreateRequest, DevicePlatformEnum } from '@ternala/frasier-types';
+import { DeviceCreateRequest } from '@ternala/frasier-types/lib/modules/user/device/request.dto';
+import { DevicePlatformEnum } from '@ternala/frasier-types/lib/constants/main';
 import { getFCMToken } from './getFCMToken';
-
 export const getCredentials = async (): Promise<DeviceCreateRequest> => {
   const fp = await FingerprintJS.load();
 

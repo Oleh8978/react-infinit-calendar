@@ -1,7 +1,5 @@
 import { createAction, createAsyncAction } from 'typesafe-actions';
 
-//Configs
-import { widgetName } from './index';
 import { appName } from 'Config';
 
 //Interfaces
@@ -15,6 +13,9 @@ import {
   IRefreshToken,
   ISignInByToken,
 } from './model';
+
+// const for ath actions 
+export const widgetName = 'auth';
 
 // ** Action
 export const setAuthenticatedStatus = createAction(

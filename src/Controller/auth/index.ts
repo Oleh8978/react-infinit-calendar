@@ -12,7 +12,6 @@ import { authActionSaga, checkAccessTokenExpired } from './sagas/auth';
 import { getCredentials } from '../../utils/deviceCredentials';
 
 export type AuthActionType = ActionType<typeof actions>;
-export const widgetName = 'auth';
 
 export const authSaga = function* () {
   yield all([authActionSaga()]);

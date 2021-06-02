@@ -24,6 +24,9 @@ import history from 'historyApi';
 import { INavigationMenu } from './Models';
 import { isTypeNode } from 'typescript';
 
+// helpers 
+import { styleBTNSetter } from 'utils/navigationButtonsStyler';
+
 interface IProps extends RouteComponentProps {}
 
 const Module: React.FC<IProps> = () => {

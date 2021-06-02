@@ -1,5 +1,5 @@
-import { AuthUserLoginByTokenResponseDTO } from '@ternala/frasier-types';
-import { DeviceCreateRequest } from '@ternala/frasier-types';
+import { AuthUserLoginByTokenResponseDTO } from '@ternala/frasier-types/lib/index';
+import { DeviceCreateRequest } from '@ternala/frasier-types/lib/index';
 
 import { Config } from '../../../Config/API';
 import { authHeader, handleErrors, refreshHeader } from '../../../utils/API';
@@ -12,10 +12,14 @@ class API {
     signIntype: string,
     deviceCredentials: IDeviceCredentials,
   ): Promise<AuthUserLoginByTokenResponseDTO | string> {
-    const url = new URL(Config.MAIN_SERVICE_ENDPOINT);
-
-    url.searchParams.append('', String(signIntype));
-
+    const url =
+      new URL(Config.MAIN_SERVICE_ENDPOINT) + 'auth/' + String(signIntype);
+    console.log(
+      JSON.stringify({
+        authToken: receivedToken,
+        deviceCredentials: deviceCredentials,
+      }),
+    );
     return handleErrors(
       fetch(url.toString(), {
         method: 'POST',
