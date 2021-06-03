@@ -6,6 +6,14 @@ export interface IData {
 export interface IItem {
   name: string;
   isRequired: boolean;
+  isSelect?: boolean;
+  isEmail?: boolean;
+  default?: string;
+}
+
+export interface IZones {
+  offset: string;
+  name: string;
 }
 
 export interface IListSocial {

@@ -7,7 +7,7 @@ import EdditProfileBodyComponent from './EditProfileComponents/EditProfileItemBo
 import * as editList from './static';
 
 interface IProps {
-  
+
 }
 
 const BodyEdditProfile: React.FC<IProps> = () => {
@@ -15,7 +15,7 @@ const BodyEdditProfile: React.FC<IProps> = () => {
     <div className={'edditprofile-body'}>
       <EdditProfileBodyComponent data={editList.PersonalInfo} />
       <EdditProfileBodyComponent data={editList.BillingAddress} />
-      <EdditProfileBodyComponent data={editList.TimingSettings} />
+      <EdditProfileBodyComponent data={editList.TimingSettings} timeZones={editList.aryIannaTimeZones}/>
     </div>
   );
 };
