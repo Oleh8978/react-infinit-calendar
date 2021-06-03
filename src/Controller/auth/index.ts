@@ -19,6 +19,7 @@ export const authSaga = function* () {
 
 const initialState: IAuthState = {
   isAuthenticated: true,
+  isAllfiealdsFilledOut: true,
   state: {
     loaders: [],
     errors: [],
@@ -32,6 +33,13 @@ export const authReducer = createReducer<IAuthState, AuthActionType>(
     ...store,
     state: payload,
   }))
+    .handleAction(
+    actions.setInfoAreAllfiealdsFilledOut,
+    (state: IAuthState, { payload }): IAuthState => ({
+      ...state,
+      isAllfiealdsFilledOut: payload.isAllAreFilledOut,
+    }),
+  )
   .handleAction(
     actions.setAuthenticatedStatus,
     (state: IAuthState, { payload }): IAuthState => ({
@@ -48,6 +56,7 @@ export const authReducer = createReducer<IAuthState, AuthActionType>(
         accessToken: payload.authData.accessToken,
         refreshToken: payload.authData.refreshToken,
       },
+      isAllfiealdsFilledOut: false,
       isAuthenticated: true,
       error: undefined,
     }),

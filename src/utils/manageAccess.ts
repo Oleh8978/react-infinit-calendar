@@ -2,7 +2,7 @@ import { IAuthData } from '../Controller/auth/model';
 
 import { authTypeEnum } from '@ternala/frasier-types/lib/constants/main';
 
-export const saveAccess = ({ accessToken, refreshToken }: IAuthData) => {
+export const saveAccess = ( accessToken, refreshToken) => {
   localStorage[authTypeEnum.access] = accessToken;
   localStorage[authTypeEnum.refresh] = refreshToken;
 };

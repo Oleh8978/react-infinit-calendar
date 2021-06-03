@@ -21,6 +21,7 @@ import {
   logOut,
   refreshTokenAction,
   loginByTokenAction,
+  setInfoAreAllfiealdsFilledOut,
 } from '../actions';
 
 // Utils
@@ -29,10 +30,9 @@ import { getCredentials } from '../../../utils/deviceCredentials';
 import { isJWTTokenExpired } from '../../../utils/API';
 
 // Interfaces
-import { IAuthData, IDeviceCredentials } from '../model';
+import { AuthUserLoginByTokenResponseDTO } from '@ternala/frasier-types/lib/index';
+import { IAuthData, IDeviceCredentials, IRespond } from '../model';
 import { IException, IStore } from '../../model';
-/// testing purposes
-import { DevicePlatformEnum } from '@ternala/frasier-types/lib/constants/main';
 
 export async function checkAccessTokenExpired(
   { accessToken, refreshToken, deviceCredentials }: AuthRefreshRequestDTO,
@@ -42,7 +42,6 @@ export async function checkAccessTokenExpired(
   if (isExpired) {
     const res = await AuthAPI.refreshToken(deviceCredentials);
     if (typeof res === 'string') {
-      console.error('something was wrong: ', res);
     } else {
       const authData = store?.authState.authData;
       if (authData) {
@@ -68,19 +67,22 @@ export function* signInSaga({ payload }: ReturnType<typeof signIn.request>) {
     }),
   );
 
-  // const deviceCredentials: IDeviceCredentials = yield getCredentials();
-  const deviceCredentials: IDeviceCredentials = {
-    FCMToken: 'FCMToken',
-    platform: DevicePlatformEnum.Web,
-    fingerprint: 'hash',
-  };
+  const deviceCredentials: IDeviceCredentials = yield getCredentials();
 
   try {
-    AuthAPI.signIn(
+    const response: IRespond = yield AuthAPI.signIn(
       payload.receivedToken,
       payload.signIntype,
       deviceCredentials,
     );
+    for (const [key, value] of Object.entries(response.userData)) {
+      if (value === null) {
+        yield put(setInfoAreAllfiealdsFilledOut({ isAllAreFilledOut: false }));
+      }
+    }
+    
+    saveAccess(response.accessToken, response.refreshToken);
+    yield put(setAuthenticatedStatus({ status: true }));
   } catch (error) {
     clearAccess();
     if (error.statusCode === 401) {

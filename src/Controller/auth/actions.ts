@@ -14,7 +14,7 @@ import {
   ISignInByToken,
 } from './model';
 
-// const for ath actions 
+// const for ath actions
 export const widgetName = 'auth';
 
 // ** Action
@@ -51,6 +51,11 @@ export const logOut = createAsyncAction(
   `${appName}/${widgetName}/SIGN_OUT_SUCCESS`,
   `${appName}/${widgetName}/SIGN_OUT_FAILED`,
 )<undefined, undefined, any>();
+
+/// action to check if all fiealds are okay
+export const setInfoAreAllfiealdsFilledOut = createAction(
+  `${appName}/${widgetName}/SET_ISALLFIELDSAREFILDOUT_STATUS`,
+)<{isAllAreFilledOut:boolean}>();
 
 export const setAuthStateAction = createAction(`${widgetName}/SET_AUTH_STATE`)<{
   code?: number | undefined;

@@ -14,16 +14,12 @@ class API {
   ): Promise<AuthUserLoginByTokenResponseDTO | string> {
     const url =
       new URL(Config.MAIN_SERVICE_ENDPOINT) + 'auth/' + String(signIntype);
-    console.log(
-      JSON.stringify({
-        authToken: receivedToken,
-        deviceCredentials: deviceCredentials,
-      }),
-    );
     return handleErrors(
       fetch(url.toString(), {
         method: 'POST',
-        headers: {},
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({
           authToken: receivedToken,
           deviceCredentials: deviceCredentials,

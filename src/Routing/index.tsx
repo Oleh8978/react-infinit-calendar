@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
 import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
@@ -9,10 +9,16 @@ import { IStore } from 'Controller/model';
 import { ISetAuthenticatedStatus } from 'Controller/auth/model';
 
 // Actions
-import { setAuthenticatedStatus, loginByToken } from 'Controller/auth/actions';
+import {
+  setAuthenticatedStatus,
+  loginByToken,
+  setInfoAreAllfiealdsFilledOut,
+} from 'Controller/auth/actions';
 
 // Routing schema
 import RoutingSchema from './schema';
+
+// components
 import Login from '../View/Login';
 import Menu from '../Component/Menu';
 
@@ -27,34 +33,45 @@ interface Props {
   location: any;
   authStatus?: boolean;
   setAuthenticatedStatus: (status: ISetAuthenticatedStatus) => void;
+  setInfoAreAllfiealdsFilledOut: (boolean) => void;
   push: (path: string) => void;
+  isAllfiealdsFilledOut: boolean;
   loginByToken: (token: string) => void;
 }
 
-const Routing: React.FC<Props> = ({ authStatus, ...props }) => {
-  const location = useLocation();
+const Routing: React.FC<Props> = ({
+  authStatus,
+  isAllfiealdsFilledOut,
+  ...props
+}) => {
   useEffect(() => {
-    if (localStorage.token) {
-      // props.loginByToken(localStorage.token);
+    if (localStorage.authorization) {
+      props.loginByToken(localStorage.authorization);
+      // setInfoAreAllfiealdsFilledOut({ isAllAreFilledOut: false });
+      console.log('localStorage.token ', localStorage.authorization);
     } else {
-      // props.setAuthenticatedStatus({ status: false });
+      console.log('localStorage.token false ', localStorage.authorization);
+      props.setAuthenticatedStatus({ status: false });
     }
+    // console.log('localStorage.token false ', localStorage.authorization)
+    console.log('isAllfiealdsFilledOut ', isAllfiealdsFilledOut);
+    console.log('authStatus ', authStatus);
   }, []);
-
-  // if (!authStatus) return <Login />;
-
-  // return <Login />;
+  const location = useLocation();
 
   const transition = useTransition(location, {
     // from: { opacity: 0, left: 0, top: 0 },
     // enter: { opacity: 1, left: 0, top: 0 },
     // leave: { opacity: 0, left: 0, top: 0 },
   });
+  // isAllfiealdsFilledOut
+  // setInfoAreAllfiealdsFilledOut: ({ isAllfields: boolean }) => void;
+  if (!authStatus) return <Login />;
 
-  return (
-    <>
-      {/* {authStatus ? ( */}
-      {true ? (
+  if (authStatus)
+    return (
+      <>
+        {/* {authStatus && isLoginPageOpened ? ( */}
         <div className={'main-layout'}>
           <div className="wrap-main">
             {transition((style, item) => (
@@ -84,20 +101,22 @@ const Routing: React.FC<Props> = ({ authStatus, ...props }) => {
           </div>
           <Menu />
         </div>
-      ) : (
+        {/* ) : (
         <Login />
-      )}
-    </>
-  );
+      )} */}
+      </>
+    );
 };
 
 export default connect(
   (state: IStore) => ({
     authStatus: state.authState.isAuthenticated,
+    isAllfiealdsFilledOut: state.authState.isAllfiealdsFilledOut,
     location: state.router.location,
   }),
   {
     setAuthenticatedStatus,
+    setInfoAreAllfiealdsFilledOut,
     push,
     loginByToken: loginByToken.request,
   },

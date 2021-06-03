@@ -11,6 +11,7 @@ export interface IAuthState {
   token?: string;
   authData?: IAuthData;
   isAuthenticated?: boolean;
+  isAllfiealdsFilledOut?: boolean | string ,
   state: IState;
   deviceCredentials?: IDeviceCredentials;
 }
@@ -70,4 +71,25 @@ export interface IDeviceCredentials {
 export interface ISignInData {
   signIntype: string;
   receivedToken: string;
+}
+
+export interface IRespond {
+  accessToken: string;
+  refreshToken: string;
+  userData?: IuserData;
+}
+
+export interface IuserData {
+  city?: string | null | any;
+  email?: string;
+  firstName?: string;
+  id?: number;
+  image?: string;
+  lastName?: string;
+  phone?: string | any | null;
+  startTime?: number;
+  state?: string | any | null;
+  street?: string | any | null;
+  timezone?: string;
+  zipCode?: string | any | null;
 }
