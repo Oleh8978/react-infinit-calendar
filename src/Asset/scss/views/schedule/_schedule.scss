@@ -62,7 +62,7 @@
     margin-top: auto;
     margin-bottom: auto;
     border-radius: 18px;
-    border: 1px solid $yellow-color;
+    border: 1px solid $divider-color;
     cursor: pointer;
 
     &-marked {
@@ -214,7 +214,7 @@
     height: fit-content;
     margin: 25px 15px 0px;
     background: $white;
-    border: 1px solid $yellow-color;
+    border: 1px solid $divider-color;
     box-sizing: border-box;
     border-radius: 14px;
     cursor: pointer;
@@ -303,7 +303,7 @@
       @include card-list-text-style;
       margin: 0px 15px 10px;
       background-color: $white;
-      border: 1px solid $yellow-color;
+      border: 1px solid $divider-color;
       box-sizing: border-box;
       border-radius: 14px;
       font-weight: 500;

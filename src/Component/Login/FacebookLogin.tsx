@@ -1,19 +1,34 @@
 import React from 'react';
-import FacebookLogin, { ReactFacebookFailureResponse, ReactFacebookLoginInfo } from 'react-facebook-login';
-import { facebookAppId, loginType } from 'Config';
-import { ISignedData } from 'Controller/auth/model';
+import {
+  ReactFacebookFailureResponse,
+  ReactFacebookLoginInfo,
+} from 'react-facebook-login';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+
+// components
 import FacebookIcon from 'Component/icon/FacebookIcon';
 
+// interfaces
+import { ISignedData } from 'Controller/auth/model';
+
+// config files
+import { facebookAppId, loginType } from 'Config';
+
 type Props = {
-  signIn: (state: ISignedData) => void;
+  signIn: (state: ISignedData, type: string) => void;
 };
 
 const FacebookLoginComponent: React.FC<Props> = ({ signIn }) => {
-  const handleResponse = (response: ReactFacebookLoginInfo | ReactFacebookFailureResponse): void => {
-    if("status" in response) { return; }
-    if("accessToken" in response){
+  const handleResponse = (
+    response: ReactFacebookLoginInfo | ReactFacebookFailureResponse,
+  ): void => {
+    console.log('response: ', response);
+    if ('status' in response) {
+      return;
+    }
+    if ('accessToken' in response) {
       const fbLoginData: ISignedData = {
-        type: "facebook",
+        type: 'facebook',
         id: response.userID,
         firstName: response.name,
         accessToken: response.accessToken,
@@ -24,7 +39,7 @@ const FacebookLoginComponent: React.FC<Props> = ({ signIn }) => {
       if (response.picture?.data.url) {
         fbLoginData.image = response.picture.data.url;
       }
-      signIn(fbLoginData);
+      signIn(fbLoginData, 'facebook');
     }
   };
 
@@ -39,10 +54,13 @@ const FacebookLoginComponent: React.FC<Props> = ({ signIn }) => {
       fields="name,email,picture"
       callback={handleResponse}
       onFailure={handleError}
-    >
-      <FacebookIcon />
-      <span>Continue with Facebook</span>
-    </FacebookLogin>
+      render={(renderProps) => (
+        <div className={'facebook-btn-body'} onClick={renderProps.onClick}>
+          <FacebookIcon />
+          <span className={'facebook-btn-body-txt'}>Continue with Facebook</span>
+        </div>
+      )}
+    />
   );
 };
 

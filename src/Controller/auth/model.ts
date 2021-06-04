@@ -1,15 +1,23 @@
 import { DevicePlatformEnum } from '@ternala/frasier-types';
+import { UserDTO } from '@ternala/frasier-types';
 
 // Configs
 import { loginType } from 'Config';
 import { IState } from '../model';
 
 export interface IAuthState {
+  account?: UserDTO;
   error?: IAuthException;
   token?: string;
+  authData?: IAuthData;
   isAuthenticated?: boolean;
+  isAllfiealdsFilledOut?: boolean | string ,
   state: IState;
+  deviceCredentials?: IDeviceCredentials;
 }
+
+export type accessTokenType = string;
+export type refreshTokenType = string;
 
 export interface IAuthException {
   code: string;
@@ -34,4 +42,54 @@ export interface ISignedData {
 
   FCMToken?: string;
   platform?: DevicePlatformEnum;
+}
+
+export interface IAuthData {
+  accessToken: accessTokenType;
+  refreshToken: refreshTokenType;
+}
+
+export interface ISignInByToken {
+  accessToken: accessTokenType;
+}
+
+export interface IRefreshToken {
+  refreshToken: refreshTokenType;
+}
+
+export interface ISignIn {
+  login: string;
+  password: string;
+}
+
+export interface IDeviceCredentials {
+  FCMToken?: string;
+  platform: DevicePlatformEnum | null;
+  fingerprint: string;
+}
+
+export interface ISignInData {
+  signIntype: string;
+  receivedToken: string;
+}
+
+export interface IRespond {
+  accessToken: string;
+  refreshToken: string;
+  userData?: IuserData;
+}
+
+export interface IuserData {
+  city?: string | null | any;
+  email?: string;
+  firstName?: string;
+  id?: number;
+  image?: string;
+  lastName?: string;
+  phone?: string | any | null;
+  startTime?: number;
+  state?: string | any | null;
+  street?: string | any | null;
+  timezone?: string;
+  zipCode?: string | any | null;
 }

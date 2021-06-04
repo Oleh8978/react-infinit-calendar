@@ -5,28 +5,34 @@ import schema, { Pages } from './schema';
 
 interface ILinkProps {
   to: Pages;
-  id?: string;
-  orderNumber?: string;
+  params?: {
+    id?: string;
+    orderNumber?: string;
+    slug?: string;
+  };
   className?: string;
-  slug?: string;
   onClick?: () => void;
   query?: string;
-  additionalParameter?: string;
   children?: any;
   style?: CSSProperties;
 }
 
 export const InternalLink: React.FC<ILinkProps> = ({
   to,
-  id,
-  slug,
-  orderNumber,
+  params,
   children,
   className,
   onClick,
   query,
   style,
 }) => {
+  let id, slug, orderNumber;
+
+  if(params){
+    id = params.id
+    slug = params.slug
+    orderNumber = params.orderNumber
+  }
 
   let link: string =
     id || orderNumber || slug
