@@ -1,13 +1,13 @@
 import { ActionType, createReducer } from 'typesafe-actions';
 import { all } from 'redux-saga/effects';
 // actions
-import * as actions from './actions';
+import * as actions from '../auth/actions';
 // interfaces
 import { IStore } from '../model';
-import { IAuthState } from './model';
+import { IAuthState } from '../auth/model';
 
 //Sagas
-import { authActionSaga, checkAccessTokenExpired } from './sagas/auth';
+import { authActionSaga, checkAccessTokenExpired } from '../auth/sagas/auth';
 
 import { getCredentials } from '../../utils/deviceCredentials';
 
@@ -20,9 +20,12 @@ export const authSaga = function* () {
 const initialState: IAuthState = {
   isAuthenticated: true,
   isAllfiealdsFilledOut: true,
+  accessToken: '',
+  refreshToken: '',
   state: {
-    loaders: [],
-    errors: [],
+    code: undefined,
+    isLoading: false,
+    error: false,
   },
 };
 
@@ -33,7 +36,7 @@ export const authReducer = createReducer<IAuthState, AuthActionType>(
     ...store,
     state: payload,
   }))
-    .handleAction(
+  .handleAction(
     actions.setInfoAreAllfiealdsFilledOut,
     (state: IAuthState, { payload }): IAuthState => ({
       ...state,
@@ -52,10 +55,8 @@ export const authReducer = createReducer<IAuthState, AuthActionType>(
     (state: IAuthState, { payload }): IAuthState => ({
       ...state,
       ...payload,
-      authData: {
-        accessToken: payload.authData.accessToken,
-        refreshToken: payload.authData.refreshToken,
-      },
+      accessToken: payload.accessToken,
+      refreshToken: payload.refreshToken,
       isAllfiealdsFilledOut: false,
       isAuthenticated: true,
       error: undefined,
@@ -65,7 +66,7 @@ export const authReducer = createReducer<IAuthState, AuthActionType>(
     [actions.refreshTokenAction.success],
     (state: IAuthState, { payload }): IAuthState => ({
       ...state,
-      authData: payload,
+      refreshToken: payload.refreshToken,
       isAuthenticated: true,
       error: undefined,
     }),
@@ -85,6 +86,16 @@ export const authReducer = createReducer<IAuthState, AuthActionType>(
       isAuthenticated: false,
       error: undefined,
     }),
+  )
+  .handleAction(
+    [actions.refreshTokenAction.success],
+    (state: IAuthState, { payload }): IAuthState => ({
+      ...state,
+      accessToken: payload.accessToken,
+      refreshToken: payload.refreshToken,
+      isAuthenticated: true,
+      error: undefined,
+    }),
   );
 
 /* Selectors */
@@ -96,7 +107,9 @@ export const getAuthStatus = (state: IStore): boolean | undefined =>
 
 export const getAccessToken = async (store: IStore) => {
   if (store.authState.token) {
-    const { accessToken, refreshToken } = store.authState.authData;
+    // const { accessToken, refreshToken } = {store.authState.authData};
+    const accessToken = store.authState.accessToken;
+    const refreshToken = store.authState.refreshToken;
     const deviceCredentials = await getCredentials();
     const res = await checkAccessTokenExpired(
       { accessToken, refreshToken, deviceCredentials },
@@ -107,8 +120,7 @@ export const getAccessToken = async (store: IStore) => {
     }
   }
 };
-export const getRefreshToken = (state: IStore) =>
-  state.authState.authData?.refreshToken;
+export const getRefreshToken = (state: IStore) => state.authState.refreshToken;
 
 export const getDeviceCreds = (state: IStore) =>
   state.authState.deviceCredentials;

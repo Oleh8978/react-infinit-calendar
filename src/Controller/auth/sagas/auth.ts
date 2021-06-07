@@ -30,7 +30,6 @@ import { getCredentials } from '../../../utils/deviceCredentials';
 import { isJWTTokenExpired } from '../../../utils/API';
 
 // Interfaces
-import { AuthUserLoginByTokenResponseDTO } from '@ternala/frasier-types/lib/index';
 import { IAuthData, IDeviceCredentials, IRespond } from '../model';
 import { IException, IStore } from '../../model';
 
@@ -40,13 +39,14 @@ export async function checkAccessTokenExpired(
 ) {
   const isExpired = isJWTTokenExpired(accessToken);
   if (isExpired) {
-    const res = await AuthAPI.refreshToken(deviceCredentials);
+    const res = await AuthAPI.refreshToken(refreshToken, deviceCredentials);
     if (typeof res === 'string') {
     } else {
-      const authData = store?.authState.authData;
-      if (authData) {
-        authData.accessToken = res.accessToken;
-        authData.refreshToken = res.refreshToken;
+      let accessToken = store?.authState.accessToken;
+      let refreshToken = store?.authState.refreshToken;
+      if (accessToken && refreshToken) {
+        accessToken = res.accessToken;
+        refreshToken = res.refreshToken;
       }
       return res;
     }
@@ -55,13 +55,13 @@ export async function checkAccessTokenExpired(
   }
 }
 
-export function* signInSaga({ payload }: ReturnType<typeof signIn.request>) {
+export function* signInSaga({
+  payload,
+}: ReturnType<typeof signIn.request> | ReturnType<typeof loginByTokenAction>) {
   yield put(
     setAuthStateAction({
       code: undefined,
       error: false,
-      loaders: [],
-      errors: [],
       isLoading: true,
       message: 'Loading...',
     }),
@@ -70,20 +70,71 @@ export function* signInSaga({ payload }: ReturnType<typeof signIn.request>) {
   const deviceCredentials: IDeviceCredentials = yield getCredentials();
 
   try {
-    const response: IRespond = yield AuthAPI.signIn(
-      payload.receivedToken,
-      payload.signIntype,
-      deviceCredentials,
-    );
-    for (const [key, value] of Object.entries(response.userData)) {
+    let signInData;
+
+    if ('accessToken' in payload) {
+      const tokens: AuthRefreshRequestDTO = yield checkAccessTokenExpired({
+        accessToken: payload.accessToken,
+        refreshToken: payload.accessToken,
+        deviceCredentials,
+      });
+      if (typeof tokens === 'string') throw new BadRequest();
+      signInData = {
+        ...(yield AuthAPI.loginByToken(tokens.accessToken)),
+      };
+      setAuthStateAction({
+        isLoading: false,
+        message: 'success access token in payload',
+        error: false,
+      })
+    } else {
+      signInData = yield AuthAPI.signIn(
+        payload.receivedToken,
+        payload.signIntype,
+        deviceCredentials,
+      );
+      setAuthStateAction({
+        isLoading: true,
+        message: 'success access token not in payload',
+        error: false,
+      })
+    }
+
+    for (const [key, value] of Object.entries(signInData)) {
       if (value === null) {
         yield put(setInfoAreAllfiealdsFilledOut({ isAllAreFilledOut: false }));
       }
     }
-    
-    saveAccess(response.accessToken, response.refreshToken);
-    yield put(setAuthenticatedStatus({ status: true }));
+
+    if (signInData) {
+      console.log('sign in data ', signInData);
+      yield put(
+        signIn.success({
+          ...signInData,
+          state: {
+            isLoading: false,
+          }
+        }),
+      );
+      saveAccess(signInData.accessToken, signInData.refreshToken);
+      yield put(setAuthenticatedStatus({ status: true }));
+      setAuthStateAction({
+        isLoading: false,
+        message: 'sign in success',
+        error: false,
+      })
+    } else {
+      throw new BadRequest();
+    }
+    yield put(
+      setAuthStateAction({
+        isLoading: false,
+        message: 'success',
+        error: false,
+      }),
+    );
   } catch (error) {
+    console.log('eroror receivd ', error)
     clearAccess();
     if (error.statusCode === 401) {
       yield put(
@@ -92,8 +143,6 @@ export function* signInSaga({ payload }: ReturnType<typeof signIn.request>) {
           isLoading: false,
           message: 'Something wrong with the account ',
           error: true,
-          loaders: [],
-          errors: [],
         }),
       );
     } else {
@@ -102,8 +151,6 @@ export function* signInSaga({ payload }: ReturnType<typeof signIn.request>) {
           isLoading: false,
           message: 'Something wrong with the account ',
           error: true,
-          loaders: [],
-          errors: [],
         }),
       );
     }
@@ -127,7 +174,7 @@ export function* refreshTokenSaga() {
 
   try {
     const res: IAuthData | IException | string = yield AuthAPI.refreshToken(
-      // refreshToken,
+      refreshToken,
       deviceCredentials,
     );
 
@@ -175,7 +222,7 @@ export function* logoutSaga() {
     if (!res && res.code) {
       yield put(logOut.failure('failure'));
     } else {
-      yield put(logOut.success('success', '200 okay'));
+      yield put(logOut.success('success'));
     }
   } catch (error) {
     console.error(error);
@@ -187,7 +234,7 @@ export function* authActionSaga() {
   yield all([
     takeEvery(signIn.request, signInSaga),
     takeEvery(refreshTokenAction.request, refreshTokenSaga),
-    // takeEvery(loginByTokenAction, signInSaga),
+    takeEvery(loginByTokenAction, signInSaga),
     takeEvery(logOut.request, logoutSaga),
   ]);
 }

@@ -7,8 +7,7 @@ import {
   IAuthException,
   IAuthState,
   ISetAuthenticatedStatus,
-  ISignedData,
-  ISignInData,
+  ISignInInterface,
   IAuthData,
   IRefreshToken,
   ISignInByToken,
@@ -36,7 +35,7 @@ export const signIn = createAsyncAction(
   `${appName}/${widgetName}/SIGN_IN_REQUEST`,
   `${appName}/${widgetName}/SIGN_IN_SUCCESS`,
   `${appName}/${widgetName}/SIGN_IN_FAILED`,
-)<{ receivedToken: string; signIntype: string }, IAuthState, IAuthException>();
+)<ISignInInterface, IAuthState, IAuthException>();
 
 export const loginByToken = createAsyncAction(
   `${appName}/${widgetName}/LOGIN_BY_TOKEN_REQUEST`,
@@ -50,7 +49,7 @@ export const logOut = createAsyncAction(
   `${appName}/${widgetName}/SIGN_OUT_REQUEST`,
   `${appName}/${widgetName}/SIGN_OUT_SUCCESS`,
   `${appName}/${widgetName}/SIGN_OUT_FAILED`,
-)<undefined, undefined, any>();
+)<string, string, any>();
 
 /// action to check if all fiealds are okay
 export const setInfoAreAllfiealdsFilledOut = createAction(
@@ -60,8 +59,6 @@ export const setInfoAreAllfiealdsFilledOut = createAction(
 export const setAuthStateAction = createAction(`${widgetName}/SET_AUTH_STATE`)<{
   code?: number | undefined;
   message?: string;
-  isLoading?: boolean;
+  isLoading: boolean;
   error?: boolean;
-  loaders: any[];
-  errors: any[];
 }>();

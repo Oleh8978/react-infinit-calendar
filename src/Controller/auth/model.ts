@@ -9,10 +9,11 @@ export interface IAuthState {
   account?: UserDTO;
   error?: IAuthException;
   token?: string;
-  authData?: IAuthData;
+  accessToken: accessTokenType;
+  refreshToken: refreshTokenType;
   isAuthenticated?: boolean;
   isAllfiealdsFilledOut?: boolean | string ,
-  state: IState;
+  state?: IloaderState;
   deviceCredentials?: IDeviceCredentials;
 }
 
@@ -57,10 +58,6 @@ export interface IRefreshToken {
   refreshToken: refreshTokenType;
 }
 
-export interface ISignIn {
-  login: string;
-  password: string;
-}
 
 export interface IDeviceCredentials {
   FCMToken?: string;
@@ -92,4 +89,16 @@ export interface IuserData {
   street?: string | any | null;
   timezone?: string;
   zipCode?: string | any | null;
+}
+
+export interface ISignInInterface  {
+  receivedToken: string;
+  signIntype: string;
+}
+
+export  interface IloaderState {
+  code?: number | undefined;
+  message?: string;
+  isLoading: boolean;
+  error?: boolean;
 }
