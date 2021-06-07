@@ -5,6 +5,10 @@ import { connect } from 'react-redux';
 import { useTransition, animated } from 'react-spring';
 import { Scrollbars } from 'react-custom-scrollbars';
 
+// utils functions
+import { getSavedAccess } from 'utils/manageAccess';
+
+// interfaces
 import { IStore } from 'Controller/model';
 import { ISetAuthenticatedStatus } from 'Controller/auth/model';
 
@@ -21,6 +25,7 @@ import RoutingSchema from './schema';
 // components
 import Login from '../View/Login';
 import Menu from '../Component/Menu';
+import Loader from 'Component/Loader';
 
 // Render all routes
 const Routes = RoutingSchema.getSchema.map(
@@ -37,7 +42,22 @@ interface Props {
   push: (path: string) => void;
   isAllfiealdsFilledOut: boolean;
   loginByToken: (token: string) => void;
+  loader: boolean;
 }
+
+// useEffect(() => {
+//   const authData = getSavedAccess();
+
+//   if (authData) {
+//     props.loginByTokenAction(authData);
+//     setAuthStateAction({ isLoading: true });
+//     setIsLoading(false);
+//   } else {
+//     props.push(RoutingSchema.getLink("login"));
+//     props.setAuthenticatedStatusAction({ status: false });
+//     setIsLoading(false)
+//   }
+// }, [])
 
 const Routing: React.FC<Props> = ({
   authStatus,
@@ -45,17 +65,14 @@ const Routing: React.FC<Props> = ({
   ...props
 }) => {
   useEffect(() => {
-    if (localStorage.authorization) {
-      props.loginByToken(localStorage.authorization);
-      // setInfoAreAllfiealdsFilledOut({ isAllAreFilledOut: false });
-      console.log('localStorage.token ', localStorage.authorization);
+    const authData = getSavedAccess();
+    console.log('authData ', authData);
+    if (authData.accessToken && authData.refreshToken) {
+      props.loginByToken(authData.accessToken);
+      // setAuthenticatedStatus({ status: true })
     } else {
-      console.log('localStorage.token false ', localStorage.authorization);
       props.setAuthenticatedStatus({ status: false });
     }
-    // console.log('localStorage.token false ', localStorage.authorization)
-    console.log('isAllfiealdsFilledOut ', isAllfiealdsFilledOut);
-    console.log('authStatus ', authStatus);
   }, []);
   const location = useLocation();
 
@@ -64,46 +81,48 @@ const Routing: React.FC<Props> = ({
     // enter: { opacity: 1, left: 0, top: 0 },
     // leave: { opacity: 0, left: 0, top: 0 },
   });
-  // isAllfiealdsFilledOut
-  // setInfoAreAllfiealdsFilledOut: ({ isAllfields: boolean }) => void;
-  if (!authStatus) return <Login />;
+  console.log('loader ', props.loader);
+
+  if (!authStatus) return <> {props.loader ? <Loader /> : <Login />}</>;
 
   if (authStatus)
     return (
       <>
         {/* {authStatus && isLoginPageOpened ? ( */}
-        <div className={'main-layout'}>
-          <div className="wrap-main">
-            {transition((style, item) => (
-              <animated.div
-                key={String(item)}
-                style={style}
-                className="main"
-                id={'main'}>
-                <Scrollbars
-                  style={{
-                    width: '100%',
-                    maxWidth: 639,
-                    height: '100%',
-                    maxHeight: '100%',
-                    display: 'flex',
-                  }}
-                  renderView={(props) => (
-                    <div {...props} className={'main-wrapper'}></div>
-                  )}>
-                  <Switch location={item}>
-                    {Routes}
-                    <Redirect to={RoutingSchema.getLink('discovery')} />
-                  </Switch>
-                </Scrollbars>
-              </animated.div>
-            ))}
+        {/* for the form usage take a look on the prev row*/}
+        {props.loader ? (
+          <Loader />
+        ) : (
+          <div className={'main-layout'}>
+            <div className="wrap-main">
+              {transition((style, item) => (
+                <animated.div
+                  key={String(item)}
+                  style={style}
+                  className="main"
+                  id={'main'}>
+                  <Scrollbars
+                    style={{
+                      width: '100%',
+                      maxWidth: 639,
+                      height: '100%',
+                      maxHeight: '100%',
+                      display: 'flex',
+                    }}
+                    renderView={(props) => (
+                      <div {...props} className={'main-wrapper'}></div>
+                    )}>
+                    <Switch location={item}>
+                      {Routes}
+                      <Redirect to={RoutingSchema.getLink('discovery')} />
+                    </Switch>
+                  </Scrollbars>
+                </animated.div>
+              ))}
+            </div>
+            <Menu />
           </div>
-          <Menu />
-        </div>
-        {/* ) : (
-        <Login />
-      )} */}
+        )}
       </>
     );
 };
@@ -113,6 +132,7 @@ export default connect(
     authStatus: state.authState.isAuthenticated,
     isAllfiealdsFilledOut: state.authState.isAllfiealdsFilledOut,
     location: state.router.location,
+    loader: state.authState.state.isLoading,
   }),
   {
     setAuthenticatedStatus,

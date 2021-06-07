@@ -31,11 +31,11 @@ class API {
   public async loginByToken(
     accessToken: string,
   ): Promise<AuthUserLoginByTokenResponseDTO | string> {
-    const url = new URL(Config.MAIN_SERVICE_ENDPOINT);
+    const url = new URL(Config.MAIN_SERVICE_ENDPOINT + 'user/get-user');
 
     return handleErrors(
       fetch(url.toString(), {
-        method: 'POST',
+        method: 'GET',
         headers: {
           ...authHeader(accessToken),
         },
@@ -44,6 +44,7 @@ class API {
   }
 
   public async refreshToken(
+    refreshToken: string,
     deviceCredentials: DeviceCreateRequest,
   ): Promise<IAuthData | string> {
     return handleErrors(
@@ -51,6 +52,7 @@ class API {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          ...refreshHeader(refreshToken),
         },
         body: JSON.stringify(deviceCredentials),
       }),

@@ -16,6 +16,7 @@ export async function handleErrors<T = Record<string, never>>(
 ): Promise<T> {
   try {
     const res = await fetch;
+    console.log('respond from utils api index.ts', res)
     if (!res.ok) {
       const error = await res.json();
 
