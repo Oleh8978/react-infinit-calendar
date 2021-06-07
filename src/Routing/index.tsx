@@ -45,20 +45,6 @@ interface Props {
   loader: boolean;
 }
 
-// useEffect(() => {
-//   const authData = getSavedAccess();
-
-//   if (authData) {
-//     props.loginByTokenAction(authData);
-//     setAuthStateAction({ isLoading: true });
-//     setIsLoading(false);
-//   } else {
-//     props.push(RoutingSchema.getLink("login"));
-//     props.setAuthenticatedStatusAction({ status: false });
-//     setIsLoading(false)
-//   }
-// }, [])
-
 const Routing: React.FC<Props> = ({
   authStatus,
   isAllfiealdsFilledOut,
