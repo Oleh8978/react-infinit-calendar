@@ -20,7 +20,7 @@ const EdditProfile: React.FC<IProps> = () => {
         hasSaveButton={true}
         isSaveBTNActive={true}
       />
-      <BodyEdditProfile />
+      <BodyEdditProfile isFirstpage={false} />
     </div>
   );
 };
