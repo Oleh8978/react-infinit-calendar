@@ -7,10 +7,11 @@ import { Pages } from 'Routing/schema';
 import EdditBodyElementItem from './EditProfileItem';
 
 // interfaces
-import { IData } from '../Models';
+import { IData, IZones } from '../Models';
 
 interface IProps {
   data: IData;
+  timeZones?: IZones[];
 }
 
 const EdditProfileBodyComponent: React.FC<IProps> = ({ ...props }) => {
@@ -22,7 +23,7 @@ const EdditProfileBodyComponent: React.FC<IProps> = ({ ...props }) => {
         </span>
         <div className="edditprofile-body-itemWrapper-item-body">
           {props.data.details.map((item) => {
-            return <EdditBodyElementItem data={item} />;
+            return <EdditBodyElementItem data={item} timeZones={props.timeZones} />;
           })}
         </div>
       </div>

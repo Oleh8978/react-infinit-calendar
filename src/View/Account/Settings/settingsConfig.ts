@@ -54,12 +54,12 @@ export const About = {
     {
       name: 'Privacy policy',
       button: 'next',
-      link: 'policy'
+      link: 'privacy-policy'
     },
     {
       name: 'Terms of use',
       button: 'next',
-      link: 'policy'
+      link: 'terms'
     },
   ],
 };
