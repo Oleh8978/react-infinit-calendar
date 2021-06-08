@@ -1,13 +1,15 @@
 .module {
-  // height: 100vh;
-  // height: calc(var(--vhFull) - 55px);
+  //height: 100vh;
+  //height: calc(var(--vhFull) - 55px);
   height: fit-content;
+  min-height: 100vh;
 
   &-menu {
     z-index: 10;
     position: sticky;
     top: 0;
     width: 100%;
+    min-width: 100%;
     max-width: 639px;
     height: 55px;
     display: flex;
@@ -100,9 +102,16 @@
     }
   }
 
+  &-menucontainer {
+    padding-top: 20px;
+    position: relative;
+    background-color: $white;
+    z-index: 3;
+  }
+
   &-body {
     // margin-top: 55px;
-    padding-top: 20px;
+    // padding-top: 20px;
     height: auto;
   }
 

@@ -18,6 +18,11 @@ import Article from 'View/Discovery/Article/index';
 import ReadMore from 'View/Module/MenuSections/ReadMore/ReadMore';
 import ExpertHelp from 'View/Module/MenuSections/ExpertHelp/ExpertHelp';
 import NoteDetails from 'View/Account/Notes/NoteDetails/index';
+import EdditProfile from 'View/Account/EditProfile/index';
+import ConnectedAccount from 'View/Account/ConnectedAccount/index';
+import AboutPage from 'View/Account/About/index';
+import PrivacyPolicy from '../Component/PrivacyPolicy';
+import Terms from '../Component/Terms';
 
 // Interfaces
 interface IRoute {
@@ -30,6 +35,7 @@ interface IRoute {
 }
 
 export type Pages =
+  | 'linkedin'
   | 'discovery'
   | 'schedule'
   | 'module'
@@ -50,6 +56,7 @@ export type Pages =
   | 'account-notes'
   | 'about'
   | 'privacy-policy'
+  | 'terms'
   | 'settings'
   | 'ask-question'
   | 'notes'
@@ -68,6 +75,12 @@ class RoutingSchema {
       component: ProtectedRoute(Discovery, 'ANONYMOUS_USERS'),
     },
     {
+      name: 'about',
+      path: '/about',
+      isExact: true,
+      component: ProtectedRoute(AboutPage, 'ANONYMOUS_USERS'),
+    },
+    {
       name: 'schedule',
       path: '/schedule',
       isExact: true,
@@ -78,6 +91,18 @@ class RoutingSchema {
       path: '/account',
       isExact: true,
       component: ProtectedRoute(Account, 'ANONYMOUS_USERS'),
+    },
+    {
+      name: 'account-edit',
+      path: '/account-edit',
+      isExact: true,
+      component: ProtectedRoute(EdditProfile, 'ANONYMOUS_USERS'),
+    },
+    {
+      name: 'account-connected-socials',
+      path: '/account-connected-socials',
+      isExact: true,
+      component: ProtectedRoute(ConnectedAccount, 'ANONYMOUS_USERS'),
     },
     {
       name: 'module',
@@ -144,6 +169,18 @@ class RoutingSchema {
       path: '/expert-help',
       isExact: true,
       component: ProtectedRoute(ExpertHelp, 'ANONYMOUS_USERS'),
+    },
+    {
+      name: 'privacy-policy',
+      path: '/privacy-policy',
+      isExact: true,
+      component: ProtectedRoute(PrivacyPolicy, 'ANONYMOUS_USERS'),
+    },
+    {
+      name: 'terms',
+      path: '/terms',
+      isExact: true,
+      component: ProtectedRoute(Terms, 'ANONYMOUS_USERS'),
     },
     {
       name: 'notFound',

@@ -24,6 +24,6 @@ export interface IException {
 }
 
 export interface IState {
-  loaders: ILoader[];
-  errors: IError[];
+  loaders?: ILoader[];
+  errors?: IError[];
 }

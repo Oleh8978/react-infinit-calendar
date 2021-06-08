@@ -229,7 +229,19 @@ const Calendar: React.FC<IProps> = ({ getDayAndRecords }) => {
     dateObject.currentWeekedays(currentMonth, currentYear, calendar)
     // seting first array of dats to calendar !!! do not remove !!!
     // dateObject.monthArr(currentMonth, currentYear, calendar);
+
     calendar.map((item) => {
+      console.log(`String(
+        dateObject.dateCreator(
+          new Date().getDate(),
+          new Date().getMonth() + 1,
+          new Date().getFullYear(),
+        )`, String(
+          dateObject.dateCreator(
+            new Date().getDate(),
+            new Date().getMonth() + 1,
+            new Date().getFullYear(),
+          )));
       if (
         String(item.date) ===
         String(

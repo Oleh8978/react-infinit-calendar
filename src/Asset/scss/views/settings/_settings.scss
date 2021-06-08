@@ -3,6 +3,7 @@
   flex-flow: column;
 
   &-body {
+    // margin-top: 55px;
     display: flex;
     flex-flow: column;
 
@@ -247,4 +248,15 @@
       color: $primary-action-color; 
     }
   }
+}
+
+.about {
+  &-text {
+    color: $secondary-gey-text-color-brighter;
+  }
+}
+
+.rightaligner {
+  margin-right: 0px;
+  margin-left: auto;
 }

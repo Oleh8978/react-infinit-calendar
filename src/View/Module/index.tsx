@@ -24,6 +24,9 @@ import history from 'historyApi';
 import { INavigationMenu } from './Models';
 import { isTypeNode } from 'typescript';
 
+// helpers 
+import { styleBTNSetter } from 'utils/navigationButtonsStyler';
+
 interface IProps extends RouteComponentProps {}
 
 const Module: React.FC<IProps> = () => {
@@ -81,7 +84,7 @@ const Module: React.FC<IProps> = () => {
     } else {
       setIsBtnSaveActive(false);
     }
-  }, [menuItems, textFromNotes, isBtnSaveActive]);
+  }, [menuItems, textFromNotes, isBtnSaveActive, modalWidowIsOpened]);
 
   const addSavedBTN = () => {
     menuItems.map((item) => {

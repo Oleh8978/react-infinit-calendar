@@ -23,6 +23,7 @@ import history from './historyApi';
 
 // Root view
 import Routing from './Routing';
+import App from './App';
 
 Config.init({
   MAIN_SERVICE_HOST: process.env.REACT_APP_MAIN_SERVICE_HOST || '',
@@ -34,7 +35,7 @@ ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <React.StrictMode>
-        <Routing />
+        <App />
       </React.StrictMode>
     </ConnectedRouter>
   </Provider>,

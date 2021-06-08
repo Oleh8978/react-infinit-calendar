@@ -36,6 +36,7 @@ const NoteDetails: React.FC<IProps> = () => {
   const [isSaveActive, setIsSaveActive] = useState<boolean>(false);
   const [isBtnSaveActive, setIsBtnSaveActive] = useState<boolean>(false);
   const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
+  const [isToolbarOpened, setIsToolbarOpened] = useState<boolean>(false);
   // const [emptyState, setEmptyState] = useState<any>(EditorState.createEmpty());
 
   useEffect(() => {
@@ -51,7 +52,13 @@ const NoteDetails: React.FC<IProps> = () => {
     } else {
       setIsBtnSaveActive(false);
     }
-  }, [text, isSaveActive, prevText]);
+
+    if(!isReadOnly) {
+      setIsToolbarOpened(true);
+    } else {
+      setIsToolbarOpened(false);
+    }
+  }, [text, isSaveActive, prevText, isReadOnly]);
 
   const onEditorStateChange = (textState) => {
     setText(textState);
@@ -102,7 +109,7 @@ const NoteDetails: React.FC<IProps> = () => {
         modalToogle={modalToogle}
         saveBtnFunctionality={saveBtnFunctionality}
       />
-      <div className="notes-details-wrapper">
+      <div className={`notes-details-wrapper ${isToolbarOpened ? '' : 'closed'}`}>
         <>
           <Editor
             customStyleMap={styleMap}

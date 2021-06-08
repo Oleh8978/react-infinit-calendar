@@ -50,7 +50,7 @@ const Task: React.FC<IProps> = () => {
     return allDaysEvents;
   };
 
-  const [selectedDate, setSelectedDate] = useState<Date>(
+  const [selectedDate, setSelectedDate] = useState<any>(
     dateObject.dateCreator(
       new Date().getDate(),
       new Date().getMonth() + 1,
