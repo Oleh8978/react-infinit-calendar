@@ -68,6 +68,7 @@ const Routing: React.FC<Props> = ({
   });
   console.log('isNeededSecondStep ', isNeededSecondStep);
   console.log('authStatus ', authStatus);
+  isNeededSecondStep = false;
   if (
     (!authStatus && isNeededSecondStep) ||
     (!authStatus && !isNeededSecondStep) ||
