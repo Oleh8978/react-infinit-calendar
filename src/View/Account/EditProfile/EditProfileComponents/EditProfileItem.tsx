@@ -9,6 +9,7 @@ import { IItem, IZones } from '../Models';
 interface IProps {
   data: IItem;
   timeZones?: IZones[];
+  isFirstpage?: boolean;
 }
 
 const EdditBodyElementItem: React.FC<IProps> = ({ ...props }) => {
@@ -26,12 +27,15 @@ const EdditBodyElementItem: React.FC<IProps> = ({ ...props }) => {
   return (
     <div className={'edditprofile-body-itemWrapper-element'}>
       <div className="edditprofile-body-itemWrapper-element-container">
-        <span className={`edditprofile-body-itemWrapper-element-container-name ${error ? 'error' : ''}`}>
+        <span
+          className={`edditprofile-body-itemWrapper-element-container-name ${
+            error ? 'error' : ''
+          }`}>
           {props.data.name}
           <>
             {props.data.isRequired ? (
               <span className="edditprofile-body-itemWrapper-element-container-name-required">
-                *
+                {props.isFirstpage ? <> </> : <>*</>}
               </span>
             ) : (
               <> </>

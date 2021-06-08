@@ -17,8 +17,18 @@ const BodyEdditProfile: React.FC<IProps> = ({ ...props }) => {
   };
   return (
     <div className={'edditprofile-body'}>
-      <EdditProfileBodyComponent data={editList.PersonalInfo} />
-      <EdditProfileBodyComponent data={editList.BillingAddress} />
+      <EdditProfileBodyComponent
+        data={editList.PersonalInfo}
+        isFirstpage={props.isFirstpage}
+      />
+      {props.isFirstpage ? (
+        <></>
+      ) : (
+        <EdditProfileBodyComponent
+          data={editList.BillingAddress}
+          isFirstpage={props.isFirstpage}
+        />
+      )}
       <EdditProfileBodyComponent
         data={editList.TimingSettings}
         timeZones={editList.aryIannaTimeZones}

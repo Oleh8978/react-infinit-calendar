@@ -10,14 +10,10 @@ import { getSavedAccess } from 'utils/manageAccess';
 
 // interfaces
 import { IStore } from 'Controller/model';
-import { ISetAuthenticatedStatus } from 'Controller/auth/model';
+import { ISetAuthenticatedStatus, IUser } from 'Controller/auth/model';
 
 // Actions
-import {
-  setAuthenticatedStatus,
-  loginByToken,
-  setInfoAreAllfiealdsFilledOut,
-} from 'Controller/auth/actions';
+import { setAuthenticatedStatus, loginByToken } from 'Controller/auth/actions';
 
 // Routing schema
 import RoutingSchema from './schema';
@@ -40,26 +36,29 @@ interface Props {
   setAuthenticatedStatus: (status: ISetAuthenticatedStatus) => void;
   setInfoAreAllfiealdsFilledOut: (boolean) => void;
   push: (path: string) => void;
-  isAllfiealdsFilledOut: boolean;
+  isNeededSecondStep: boolean;
   loginByToken: (token: string) => void;
   loader: boolean;
+  user: IUser;
 }
 
 const Routing: React.FC<Props> = ({
   authStatus,
-  isAllfiealdsFilledOut,
+  isNeededSecondStep,
+  user,
   ...props
 }) => {
   useEffect(() => {
     const authData = getSavedAccess();
-    console.log('authData ', authData);
+    // console.log('authData ', authData);
     if (authData.accessToken && authData.refreshToken) {
       props.loginByToken(authData.accessToken);
       // setAuthenticatedStatus({ status: true })
     } else {
       props.setAuthenticatedStatus({ status: false });
     }
-  }, []);
+    console.log('user ', user, isNeededSecondStep);
+  }, [isNeededSecondStep]);
   const location = useLocation();
 
   const transition = useTransition(location, {
@@ -67,11 +66,27 @@ const Routing: React.FC<Props> = ({
     // enter: { opacity: 1, left: 0, top: 0 },
     // leave: { opacity: 0, left: 0, top: 0 },
   });
-  console.log('loader ', props.loader);
+  console.log('isNeededSecondStep ', isNeededSecondStep);
+  console.log('authStatus ', authStatus);
+  if (
+    (!authStatus && isNeededSecondStep) ||
+    (!authStatus && !isNeededSecondStep) ||
+    (authStatus && isNeededSecondStep)
+  )
+    return (
+      <>
+        {props.loader ? (
+          <Loader />
+        ) : (
+          <Login
+            authStatus={authStatus}
+            isNeededSecondStep={isNeededSecondStep}
+          />
+        )}
+      </>
+    );
 
-  if (!authStatus) return <> {props.loader ? <Loader /> : <Login />}</>;
-
-  if (authStatus)
+  if (authStatus && !isNeededSecondStep)
     return (
       <>
         {/* {authStatus && isLoginPageOpened ? ( */}
@@ -116,13 +131,13 @@ const Routing: React.FC<Props> = ({
 export default connect(
   (state: IStore) => ({
     authStatus: state.authState.isAuthenticated,
-    isAllfiealdsFilledOut: state.authState.isAllfiealdsFilledOut,
     location: state.router.location,
     loader: state.authState.state.isLoading,
+    isNeededSecondStep: state.authState.user.isNeedSecondStep,
+    user: state.authState.user,
   }),
   {
     setAuthenticatedStatus,
-    setInfoAreAllfiealdsFilledOut,
     push,
     loginByToken: loginByToken.request,
   },

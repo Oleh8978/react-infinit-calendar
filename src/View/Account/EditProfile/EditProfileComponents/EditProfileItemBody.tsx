@@ -12,6 +12,7 @@ import { IData, IZones } from '../Models';
 interface IProps {
   data: IData;
   timeZones?: IZones[];
+  isFirstpage?: boolean;
 }
 
 const EdditProfileBodyComponent: React.FC<IProps> = ({ ...props }) => {
@@ -23,7 +24,13 @@ const EdditProfileBodyComponent: React.FC<IProps> = ({ ...props }) => {
         </span>
         <div className="edditprofile-body-itemWrapper-item-body">
           {props.data.details.map((item) => {
-            return <EdditBodyElementItem data={item} timeZones={props.timeZones} />;
+            return (
+              <EdditBodyElementItem
+                data={item}
+                timeZones={props.timeZones}
+                isFirstpage={props.isFirstpage}
+              />
+            );
           })}
         </div>
       </div>

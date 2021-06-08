@@ -3,7 +3,7 @@ import { AuthUserLoginByTokenResponseDTO } from '@ternala/frasier-types/lib/inde
 import { Config } from '../../../Config/API';
 import { authHeader, handleErrors, refreshHeader } from '../../../utils/API';
 
-// models
+// models 
 import { createdAtSortFieldEnum } from '@ternala/frasier-types/lib/constants/sortFields';
 import { IDiscoverySearchParams } from '../model';
 
@@ -22,7 +22,7 @@ class API {
   public async getDiscovery(
     discoverySearchParams: IDiscoverySearchParams,
   ): Promise<AuthUserLoginByTokenResponseDTO | string> {
-    const url = new URL(Config.MAIN_SERVICE_ENDPOINT + 'discovery/list');
+    const url = new URL(Config.MAIN_SERVICE_ENDPOINT + "discovery/list");
 
     // if(Array.isArray(getEnterpriseData[TaxonomyTypeSlug.enterpriseType])){
     //   getEnterpriseData[TaxonomyTypeSlug.enterpriseType]?.forEach((item) => {
