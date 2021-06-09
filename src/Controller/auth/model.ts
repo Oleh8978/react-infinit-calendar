@@ -1,18 +1,16 @@
 import { DevicePlatformEnum } from '@ternala/frasier-types';
-import { UserDTO } from '@ternala/frasier-types';
+import { UserDTO, AuthUserResponseDTO } from '@ternala/frasier-types';
 
 // Configs
 import { loginType } from 'Config';
 import { IState } from '../model';
 
 export interface IAuthState {
-  account?: UserDTO;
   error?: IAuthException;
-  token?: string;
   accessToken: accessTokenType;
   refreshToken: refreshTokenType;
+  user?: IUser;
   isAuthenticated?: boolean;
-  isAllfiealdsFilledOut?: boolean | string ,
   state?: IloaderState;
   deviceCredentials?: IDeviceCredentials;
 }
@@ -58,7 +56,6 @@ export interface IRefreshToken {
   refreshToken: refreshTokenType;
 }
 
-
 export interface IDeviceCredentials {
   FCMToken?: string;
   platform: DevicePlatformEnum | null;
@@ -70,35 +67,60 @@ export interface ISignInData {
   receivedToken: string;
 }
 
-export interface IRespond {
-  accessToken: string;
-  refreshToken: string;
-  userData?: IuserData;
+// export interface IRespond {
+//   accessToken: string;
+//   refreshToken: string;
+//   userData?: IuserData;
+// }
+
+// export interface IuserData {
+//   city?: string | null | any;
+//   email?: string;
+//   firstName?: string;
+//   id?: number;
+//   image?: string;
+//   lastName?: string;
+//   phone?: string | any | null;
+//   startTime?: number;
+//   state?: string | any | null;
+//   street?: string | any | null;
+//   timezone?: string;
+//   zipCode?: string | any | null;
+// }
+
+export interface ISignInInterface {
+  receivedToken: string;
+  signIntype: string;
 }
 
-export interface IuserData {
-  city?: string | null | any;
+export interface IloaderState {
+  code?: number | undefined;
+  message?: string;
+  isLoading: boolean;
+  error?: boolean;
+}
+
+export interface IUser {
+  createdAt?: string;
+  id?: number;
+  isCanSendEmail?: boolean;
+  isCanSendPush?: boolean;
+  isNeedSecondStep?: boolean;
+  userData?: IUserData;
+}
+
+export interface IUserData {
+  city?: null | string;
+  deletedAt?: null | string;
   email?: string;
   firstName?: string;
   id?: number;
   image?: string;
   lastName?: string;
-  phone?: string | any | null;
-  startTime?: number;
-  state?: string | any | null;
-  street?: string | any | null;
-  timezone?: string;
-  zipCode?: string | any | null;
-}
-
-export interface ISignInInterface  {
-  receivedToken: string;
-  signIntype: string;
-}
-
-export  interface IloaderState {
-  code?: number | undefined;
-  message?: string;
-  isLoading: boolean;
-  error?: boolean;
+  phone?: null | string;
+  startTime?: number | null | string;
+  state?: null | string;
+  street?: null | string;
+  timezone?: null | string;
+  zipCode?: null | string | number;
 }

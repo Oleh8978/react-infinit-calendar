@@ -9,7 +9,6 @@ import * as helperFunctions from 'View/Module/MenuSections/Tasks/utils';
 
 // interfaces
 import { ICalendarData, IDayHaseAnyEvents } from './Models';
-import { isTemplateExpression } from 'typescript';
 
 interface IProps {
   data: ICalendarData[];
@@ -70,20 +69,22 @@ const Calendar: React.FC<IProps> = ({ ...props }) => {
   const dateSelctedSetter = () => {
     const newData = [...calendar];
     newData.map((item) => {
-      if (props.isAllSelected[newData.indexOf(item)].hasAnyevents === true) {
+      if (
+        props.isAllSelected[newData.indexOf(item)].hasAnyevents === true &&
+        isAnyUncompleted(props.data[newData.indexOf(item)].tasks)
+      ) {
         return (item.hasAnyEvents = true);
       } else {
         return (item.hasAnyEvents = false);
       }
     });
     setCalendar(newData);
-  }
+  };
 
   useEffect(() => {
     const elementGenral = document.querySelector('.tasks-calendar');
     moseMover(elementGenral);
     dateSelctedSetter();
-    console.log('props.isAllSelected', props.isAllSelected)
   }, [props.isAllSelected]);
 
   const isAnyUncompleted = (arr) => {
@@ -91,7 +92,7 @@ const Calendar: React.FC<IProps> = ({ ...props }) => {
     arr.map((item) => {
       if (
         item.items.find((item) => item.isChecked === false) !== undefined &&
-        helperFunctions.isDateInThePast(item.time)
+        helperFunctions.isDateInThePast(item.time) === true
       ) {
         isFalse = true;
       } else {

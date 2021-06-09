@@ -116,4 +116,38 @@
       color: $grey-color;
     }
   }
+
+  &-account {
+    &-delete {
+      display: flex;
+      flex-flow: row;
+      height: 36px;
+      max-width: fit-content;
+      padding-left: 24px;
+      padding-right: 24px;
+      width: 100%;
+      margin-right: auto;
+      margin-top: auto;
+      margin-bottom: 30px;
+      border: 1px solid $primary-action-color;
+      background-color: $white;
+      color: $primary-action-color;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &-text {
+        @include card-list-text-style;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 18px;
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        justify-content: center;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  }
 }

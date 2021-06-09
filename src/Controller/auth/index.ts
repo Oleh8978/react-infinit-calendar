@@ -19,9 +19,30 @@ export const authSaga = function* () {
 
 const initialState: IAuthState = {
   isAuthenticated: true,
-  isAllfiealdsFilledOut: true,
   accessToken: '',
   refreshToken: '',
+  user: {
+    createdAt: '',
+    id: 0,
+    isCanSendEmail: false,
+    isCanSendPush: false,
+    isNeedSecondStep: false,
+    userData: {
+      city: '',
+      deletedAt: '',
+      email: '',
+      firstName: '',
+      id: 0,
+      image: '',
+      lastName: '',
+      phone: '',
+      startTime: '',
+      state: '',
+      street: '',
+      timezone: '',
+      zipCode: '',
+    }
+  },
   state: {
     code: undefined,
     isLoading: false,
@@ -37,13 +58,6 @@ export const authReducer = createReducer<IAuthState, AuthActionType>(
     state: payload,
   }))
   .handleAction(
-    actions.setInfoAreAllfiealdsFilledOut,
-    (state: IAuthState, { payload }): IAuthState => ({
-      ...state,
-      isAllfiealdsFilledOut: payload.isAllAreFilledOut,
-    }),
-  )
-  .handleAction(
     actions.setAuthenticatedStatus,
     (state: IAuthState, { payload }): IAuthState => ({
       ...state,
@@ -57,9 +71,14 @@ export const authReducer = createReducer<IAuthState, AuthActionType>(
       ...payload,
       accessToken: payload.accessToken,
       refreshToken: payload.refreshToken,
-      isAllfiealdsFilledOut: false,
       isAuthenticated: true,
       error: undefined,
+      user: {
+        ...payload.user,
+        userData: {
+          ...payload.user.userData,
+        },
+      },
     }),
   )
   .handleAction(
@@ -106,7 +125,7 @@ export const getAuthStatus = (state: IStore): boolean | undefined =>
   state.authState.isAuthenticated;
 
 export const getAccessToken = async (store: IStore) => {
-  if (store.authState.token) {
+  if (store.authState.accessToken) {
     // const { accessToken, refreshToken } = {store.authState.authData};
     const accessToken = store.authState.accessToken;
     const refreshToken = store.authState.refreshToken;

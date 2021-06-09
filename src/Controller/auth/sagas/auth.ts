@@ -21,7 +21,6 @@ import {
   logOut,
   refreshTokenAction,
   loginByTokenAction,
-  setInfoAreAllfiealdsFilledOut,
 } from '../actions';
 
 // Utils
@@ -30,7 +29,7 @@ import { getCredentials } from '../../../utils/deviceCredentials';
 import { isJWTTokenExpired } from '../../../utils/API';
 
 // Interfaces
-import { IAuthData, IDeviceCredentials, IRespond } from '../model';
+import { IAuthData, IDeviceCredentials } from '../model';
 import { IException, IStore } from '../../model';
 
 export async function checkAccessTokenExpired(
@@ -100,12 +99,6 @@ export function* signInSaga({
       })
     }
 
-    for (const [key, value] of Object.entries(signInData)) {
-      if (value === null) {
-        yield put(setInfoAreAllfiealdsFilledOut({ isAllAreFilledOut: false }));
-      }
-    }
-
     if (signInData) {
       console.log('sign in data ', signInData);
       yield put(
@@ -133,6 +126,7 @@ export function* signInSaga({
         error: false,
       }),
     );
+    console.log('signInData ', signInData)
   } catch (error) {
     console.log('eroror receivd ', error)
     clearAccess();
