@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import NavigationBar from './NavigationBar';
 
 interface IProps {
 }
 
 const Terms: React.FC<IProps> = ({ ...props }) => {
+
+  const checkIFMyCompExists = () => !!document.querySelector('.main-layout');
+
+  const [elementExists, setElementExist] = useState(!checkIFMyCompExists());
+
   return (
     <div className={'terms-page'}>
-      <NavigationBar name={'Terms of Use'} rout={'/about'} />
+      <NavigationBar name={'Terms of Use'} rout={elementExists ? '/' : '/about'} />
       <div className='terms-body'>
         <h1>Privacy Policy</h1>
         <span className={'updated-time'}>Last updated [month day, year]</span>
