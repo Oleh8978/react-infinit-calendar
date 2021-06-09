@@ -23,7 +23,9 @@ const EdditProfileBodyComponent: React.FC<IProps> = ({ ...props }) => {
         </span>
         <div className="edditprofile-body-itemWrapper-item-body">
           {props.data.details.map((item) => {
-            return <EdditBodyElementItem data={item} timeZones={props.timeZones} />;
+            return (
+              <EdditBodyElementItem data={item} timeZones={props.timeZones} />
+            );
           })}
         </div>
       </div>

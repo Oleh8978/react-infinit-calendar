@@ -12,10 +12,12 @@ import { signIn } from '../Controller/auth/actions';
 
 // interfaces
 import { IStore } from '../Controller/model';
-import { ISignedData } from '../Controller/auth/model';
+import Link from '../Routing/Link';
+import PrivacyPolicy from '../Component/PrivacyPolicy';
 
 interface IProps {
   signIn: ({ receivedToken, signIntype }) => void;
+  status?: boolean;
 }
 
 const Login: React.FC<IProps> = ({ ...props }) => {
@@ -52,10 +54,15 @@ const Login: React.FC<IProps> = ({ ...props }) => {
           <div className={'login-body-footer'}>
             <span className={'login-body-footer-text'}>
               By continuing you agree with our{' '}
-              <span className={'login-body-footer-text-link'}>terms</span> and{' '}
-              <span className={'login-body-footer-text-link'}>
+              <Link to={'terms'} className={'login-body-footer-text-link'}>
+                terms
+              </Link>{' '}
+              and{' '}
+              <Link
+                to={'privacy-policy'}
+                className={'login-body-footer-text-link'}>
                 privacy policy
-              </span>
+              </Link>
             </span>
           </div>
         </div>

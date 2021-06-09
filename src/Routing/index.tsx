@@ -110,7 +110,7 @@ const Routing: React.FC<Props> = ({
                       display: 'flex',
                     }}
                     renderView={(props) => (
-                      <div {...props} className={'main-wrapper'}></div>
+                      <div {...props} className={'main-wrapper'} />
                     )}>
                     <Switch location={item}>
                       {Routes}

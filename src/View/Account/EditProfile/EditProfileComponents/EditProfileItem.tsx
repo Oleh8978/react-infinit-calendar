@@ -26,7 +26,10 @@ const EdditBodyElementItem: React.FC<IProps> = ({ ...props }) => {
   return (
     <div className={'edditprofile-body-itemWrapper-element'}>
       <div className="edditprofile-body-itemWrapper-element-container">
-        <span className={`edditprofile-body-itemWrapper-element-container-name ${error ? 'error' : ''}`}>
+        <span
+          className={`edditprofile-body-itemWrapper-element-container-name ${
+            error ? 'error' : ''
+          }`}>
           {props.data.name}
           <>
             {props.data.isRequired ? (
