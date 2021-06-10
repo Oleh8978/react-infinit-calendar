@@ -28,10 +28,10 @@ export const InternalLink: React.FC<ILinkProps> = ({
 }) => {
   let id, slug, orderNumber;
 
-  if(params){
-    id = params.id
-    slug = params.slug
-    orderNumber = params.orderNumber
+  if (params) {
+    id = params.id;
+    slug = params.slug;
+    orderNumber = params.orderNumber;
   }
 
   let link: string =

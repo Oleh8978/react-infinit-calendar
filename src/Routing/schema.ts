@@ -60,7 +60,6 @@ export type Pages =
   | 'settings'
   | 'ask-question'
   | 'notes'
-  | 'article'
   | 'read-more'
   | 'expert-help'
   | 'note-details'
