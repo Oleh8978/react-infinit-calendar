@@ -13,7 +13,7 @@ class API {
     userData: IUserDataExtended,
   ): Promise<IUserDataExtended | string> {
     console.log('Config.MAIN_SERVICE_ENDPOINT', Config.MAIN_SERVICE_ENDPOINT)
-    const url = new URL(Config.MAIN_SERVICE_ENDPOINT + 'user-data/update');
+    const url = new URL(Config.MAIN_SERVICE_ENDPOINT + 'user/data');
 
     return handleErrors(
       fetch(url.toString(), {

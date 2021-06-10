@@ -84,7 +84,7 @@ const AddYourData: React.FC<any> = ({ ...props }) => {
         phone: validationObject[2].value,
         timezone: userData.timezone,
         startTime: userData.startTime,
-        id: 1,
+        id: userData.id,
       });
     } else {
       return;

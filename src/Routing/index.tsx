@@ -47,12 +47,12 @@ interface Props {
 
 const Routing: React.FC<Props> = ({
   authStatus,
-  // isNeededSecondStep,
+  isNeededSecondStep,
   user,
   ...props
 }) => {
   const [userData, setUserData] = useState<IUser>(undefined);
-  const isNeededSecondStep = false;
+  // const isNeededSecondStep = false;
   useEffect(() => {
     const authData = getSavedAccess();
     if (authData.accessToken && authData.refreshToken) {
