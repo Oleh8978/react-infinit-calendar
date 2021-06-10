@@ -40,3 +40,11 @@ export interface IFacebookLogin {
     userID: string;
   };
 }
+
+export interface IChangeStateAction {
+  id: string;
+  code?: string;
+  message?: string;
+  type: string;
+  purposeId?: number;
+}

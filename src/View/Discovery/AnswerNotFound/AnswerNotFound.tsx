@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
+// components
+import Link from 'Routing/Link';
+
 // static images
 import imageAnswerNotFound from '../FakeData/notFound/answerNotFound.png';
 
@@ -14,7 +17,11 @@ const AnswerNotFound: React.FC<IProps> = () => {
       <span className="answer-notfound-description">
         Let us know! We will submit answer in the next post.
       </span>
-      <div className="answer-notfound-btn">Submit</div>
+      {/* <div > */}
+      <Link to={'ask-question'} className="answer-notfound-btn">
+        <span className="answer-notfound-btn-text">Submit</span>
+      </Link>
+      {/* </div> */}
       <img
         src={imageAnswerNotFound}
         className="answer-notfound-img"

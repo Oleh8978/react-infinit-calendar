@@ -1,0 +1,137 @@
+.select {
+  &-box {
+    &-wrapper {
+      margin-top: 30px;
+      background-color: $white;
+
+      &.error {
+        .select-box--container {
+          border-color: $red-color;
+        }
+      }
+    }
+
+    &--container {
+      cursor: pointer;
+      min-height: 45px;
+      border: 1px solid $divider-color;
+      display: flex;
+      flex-flow: column;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      border-radius: 5px;
+      position: relative;
+    }
+
+    &--box {
+      width: 100%;
+      //   position: absolute;
+      left: 15px;
+    }
+
+    &--selected {
+      &-item {
+        @include card-list-text-style;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 18px;
+        display: flex;
+        color: $text-color;
+        height: 100%;
+        min-height: 45px;
+        width: 90%;
+        align-items: center;
+        padding: 15px;
+        cursor: pointer;
+
+        &::placeholder {
+          font-family: $Spartan;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 18px;
+          color: $secondary-grey-text-color;
+        }
+      }
+    }
+
+    &--items {
+      position: absolute;
+      top: 45px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      width: calc(100% + 2px);
+      flex-flow: column;
+      margin-top: 7px;
+      padding-bottom: 15px;
+      background-color: $white;
+      border: 1px solid $divider-color;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 1;
+
+      &-item {
+        @include card-list-text-style;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 18px;
+        color: $text-color;
+      }
+    }
+
+    &--items div {
+      width: 100%;
+      margin-top: 15px;
+      padding-left: 15px;
+      padding-right: 15px;
+      color: $text-color;
+      font-family: $Spartan;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 18px;
+
+      &.selected {
+        color: $secondary-grey-text-color;
+      }
+    }
+
+    &--arrow {
+      cursor: pointer;
+      display: flex;
+      height: 25px;
+      width: 25px;
+      position: absolute;
+      top: 7px;
+      right: 10px;
+      justify-content: center;
+      align-items: center;
+      padding: 5px;
+      transition: all 0.3s ease;
+
+      &-up {
+        top: 12px;
+        transform: rotate(180deg);
+      }
+
+      .arrow-icon {
+        transform: rotate(45deg);
+        transition: transform 0.3s ease;
+        border-right: 2px solid $arrow-color;
+        border-bottom: 2px solid $arrow-color;
+        width: 10px;
+        height: 10px;
+        display: flex;
+      }
+    }
+  }
+}
+
+.selected {
+  @extend .select-box--items-item;
+  color: $secondary-grey-text-color;
+}

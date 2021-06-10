@@ -1,0 +1,16 @@
+.aboutpage {
+    display: flex;
+    flex-flow: column;
+
+    &-links {
+        display: flex;
+        flex-flow: column;
+        margin-right: 20px;
+        margin-left: 20px;
+
+        @media screen and (max-width: 650px) {
+            margin-left: 15px;
+            margin-right: 15px;
+          }
+    }
+}

@@ -1,0 +1,209 @@
+.tasks {
+  width: auto;
+  height: 100%;
+
+  &-wrapper {
+    width: auto;
+    height: 100%;
+    // margin: auto 20px 0px;
+  }
+
+  &-calendar {
+    @include prevent-drag;
+    display: flex;
+    flex-flow: row;
+    overflow-x: scroll;
+
+    &-headerdate {
+      @include card-list-text-style;
+      display: flex;
+      flex-flow: row;
+      margin-top: 20px;
+      margin-left: 20px;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 15px;
+      color: $empty-title-color;
+    }
+  }
+
+  &-current {
+    // margin-top: 10px;
+    margin: 10px 20px 0px;
+    display: flex;
+    flex-flow: column;
+
+    &-task {
+      margin-top: 20px;
+
+      div:last-child {
+        border-bottom: none;
+      }
+
+      &-wrapper {
+        display: flex;
+        flex-flow: row;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        min-height: 50px;
+        height: 100%;
+        border-bottom: 1px solid $divider-color;
+        cursor: pointer;
+      }
+
+      &-checkbox {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        margin-left: 10px;
+        margin-bottom: auto;
+
+        &-check {
+          -webkit-appearance: none;
+          border-radius: 50%;
+          min-width: 22px;
+          min-height: 22px;
+          width: 100%;
+          height: 100%;
+          border: 1px solid $text-color;
+          cursor: pointer;
+          background-color: $white;
+        }
+
+        &-check:checked:after {
+          @extend .tasks-current-task-checkbox-check;
+          background-color: $text-color;
+          max-width: 16px;
+          max-height: 16px;
+          margin-left: -1px;
+          margin-top: -1px;
+          content: '';
+          background-image: url('../../../images/check.svg');
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 9px 7px;
+          color: $white;
+          align-items: center;
+          justify-content: center;
+          display: flex;
+        }
+      }
+
+      &-text {
+        &-wrapper {
+          @include card-list-text-style;
+          // align-self:;
+          // justify-content: center;
+
+          font-style: normal;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 21px;
+          margin-left: 25px;
+          display: flex;
+          flex-flow: column;
+        }
+
+        &-header {
+          font-style: normal;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 21px;
+          color: $text-color;
+        }
+
+        &-link {
+          font-family: $Spartan;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 14px;
+          line-height: 18px;
+          color: $primary-action-color;
+          cursor: pointer;
+          margin-top: 5px;
+        }
+      }
+
+      &-timetodo {
+        @include card-list-header;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 18px;
+        text-transform: uppercase;
+        color: $empty-title-color;
+      }
+    }
+  }
+
+  &-uncompleted {
+    display: flex;
+    flex-flow: column;
+    margin-top: 15px;
+    background-color: $uncompleted-disable-task-color;
+
+    div:last-child {
+      border-bottom: none;
+    }
+
+    &-header {
+      @include card-list-header;
+      margin-top: 30px;
+      margin-left: 20px;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 16px;
+      line-height: 23px;
+      text-transform: uppercase;
+      color: $uncompleted-task-color;
+    }
+
+    &-headeritem {
+      @include card-list-header;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 18px;
+      text-transform: uppercase;
+      color: $uncompleted-task-color;
+      margin-top: 20px;
+    }
+
+    &-wrapper {
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+
+    &-item {
+      display: flex;
+      flex-flow: row;
+      margin-top: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid $divider-color;
+
+      &-checkbox {
+        margin-left: 5px;
+        display: flex;
+        width: 24px;
+        height: 24px;
+      }
+
+      &-title {
+        @include card-list-text-style;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 21px;
+        color: $text-color;
+      }
+
+      &-textwrapper {
+        display: flex;
+        flex-flow: column;
+        margin-left: 25px;
+        // margin-bottom: 15px;
+      }
+    }
+  }
+}

@@ -1,0 +1,193 @@
+.edditprofile {
+  display: flex;
+  flex-flow: column;
+  height: auto;
+
+  &-body {
+    margin-left: 20px;
+    margin-right: 20px;
+    display: flex;
+    flex-flow: column;
+    @media screen and (max-width: 650px) {
+      margin-left: 15px;
+      margin-right: 15px;
+    }
+
+    &-itemWrapper {
+      display: flex;
+      flex-flow: column;
+
+      &-item {
+        display: flex;
+        flex-flow: column;
+        margin-top: 20px;
+        margin-bottom: 20px;
+
+        &-header {
+          @include card-list-header;
+
+          display: flex;
+          flex-flow: column;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 18px;
+          color: $secondary-grey-text-color;
+        }
+
+        &-body {
+          display: flex;
+          flex-flow: column;
+        }
+      }
+
+      &-element {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        display: flex;
+        flex-flow: row;
+        border-bottom: 1px solid $divider-color;
+
+        &-container {
+          display: flex;
+          flex-flow: row;
+          width: 100%;
+
+          &-name {
+            @include card-list-text-style;
+            display: flex;
+            flex-flow: row;
+            //min-width: 170px;
+            min-width: fit-content;
+            padding-right: 5px;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 18px;
+            color: $empty-title-color;
+
+            &.error {
+              color: $red-color;
+            }
+
+            &-required {
+              color: $red-color;
+            }
+          }
+
+          &-input {
+            @include card-list-text-style;
+            display: flex;
+            flex-flow: row;
+            width: 100%;
+            border: none;
+            outline: none;
+            z-index: 3;
+            background-color: transparent;
+            text-align: right;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 18px;
+            color: $empty-title-color;
+          }
+
+          &-select {
+            cursor: pointer;
+            color: $text-color;
+            appearance: none;
+            text-align-last: right;
+            padding-right: 30px;
+            background-image: url('../../../images/arrow.svg');
+            background-repeat: no-repeat;
+            background-size: 13px 8px;
+            background-position: 100% 50%;
+
+            option {
+              @include card-list-text-style;
+              font-size: 16px;
+              line-height: 18px;
+              text-align: right;
+              color: $text-color;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &-links {
+    display: flex;
+    flex-flow: column;
+
+    &-body {
+      display: flex;
+      flex-flow: column;
+      margin-left: 20px;
+      margin-right: 20px;
+
+      @media screen and (max-width: 650px) {
+        margin-left: 15px;
+        margin-right: 15px;
+      }
+
+      &-item {
+        display: flex;
+        flex-flow: column;
+        border-bottom: 1px solid $divider-color;
+        padding-top: 20px;
+        padding-bottom: 20px;
+
+        &-wrapper {
+          display: flex;
+          flex-flow: row;
+          align-items: center;
+
+          &__name {
+            @include card-list-text-style;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 18px;
+            color: $empty-title-color;
+          }
+
+          &__btn {
+            margin-left: auto;
+            margin-right: 0px;
+
+            &-wrapper {
+              @include card-list-text-style;
+              width: 151px;
+              height: 38px;
+              left: 248px;
+              top: 95px;
+              background: $primary-action-color;
+              border-radius: 4px;
+              align-items: center;
+              justify-content: center;
+              display: flex;
+              border: 1px solid $primary-action-color;
+
+              color: $white;
+              font-style: normal;
+              font-weight: 600;
+              font-size: 14px;
+              line-height: 18px;
+              cursor: pointer;
+
+              &-text {
+                display: flex;
+              }
+            }
+            &-unlink {
+              @extend .edditprofile-links-body-item-wrapper__btn-wrapper;
+              background-color: $white;
+              color: $primary-action-color;
+            }
+          }
+        }
+      }
+    }
+  }
+}

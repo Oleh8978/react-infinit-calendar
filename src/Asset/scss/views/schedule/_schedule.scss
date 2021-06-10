@@ -1,5 +1,23 @@
 .schedule {
   height: 100%;
+
+  &-list {
+    position: relative;
+    margin-top: 30px;
+    height: fit-content;
+    //height: 100%;
+    overflow: hidden;
+
+    &.absolute {
+      &-big {
+        min-height: 600px;
+      }
+
+      &-small {
+        min-height: 280px;
+      }
+    }
+  }
 }
 
 .calendar {
@@ -13,6 +31,7 @@
     margin-bottom: auto;
     width: fit-content;
     height: fit-content;
+    cursor: pointer;
   }
 
   &-mnth {
@@ -26,6 +45,7 @@
     margin-left: 10px;
   }
   &-days {
+    @include prevent-drag;
     width: auto;
     height: fit-content;
     display: flex;
@@ -33,6 +53,7 @@
     overflow-x: scroll;
     cursor: grab;
   }
+
   &-day {
     @include card-list-text-style;
     width: 70px;
@@ -41,7 +62,7 @@
     margin-top: auto;
     margin-bottom: auto;
     border-radius: 18px;
-    border: 1px solid $yellow-color;
+    border: 1px solid $divider-color;
     cursor: pointer;
 
     &-marked {
@@ -59,7 +80,7 @@
       height: fit-content;
       display: flex;
       flex-flow: column;
-      margin-left: 12px;
+      margin-left: 19px;
     }
     &-today {
       @include card-list-header;
@@ -83,17 +104,70 @@
       color: $text-color;
       font-size: 16px;
     }
+
+    &-divider {
+      width: 100%;
+      min-width: 12px;
+      justify-content: center;
+      display: flex;
+      flex-flow: row;
+      align-items: center;
+      cursor: grab;
+    }
+
+    &-dots {
+      display: flex;
+      margin-left: 3px;
+      min-width: 3px;
+      height: 3px;
+      margin-top: 20px;
+      border-radius: 50%;
+      background-color: $secondary-gey-text-color-bright;
+
+      &-first {
+        @extend .calendar-day-dots;
+        margin-left: 0px;
+      }
+    }
   }
   &-headwraper {
+    padding-right: 18px;
     display: flex;
     flex-flow: row;
-    width: fit-content;
+    width: auto;
     height: auto;
     align-items: center;
     justify-content: center;
     margin-top: 26px;
     margin-bottom: 11px;
     margin-left: 15px;
+  }
+
+  &-contentmenu {
+    &-wrapper {
+      margin-left: auto;
+      width: auto;
+      height: auto;
+      display: flex;
+      flex-flow: row;
+      cursor: pointer;
+    }
+
+    &-menu1 {
+      width: 4px;
+      height: 4px;
+      margin-right: 4px;
+      border-radius: 50%;
+      background-color: $text-color;
+    }
+
+    &-menu2 {
+      @extend .calendar-contentmenu-menu1;
+    }
+
+    &-menu3 {
+      @extend .calendar-contentmenu-menu1;
+    }
   }
 }
 
@@ -102,4 +176,364 @@
     background-color: $empty-title-color;
     border: none;
   }
+}
+
+.modules {
+  &-list {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    background-color: $white;
+
+    &__completed {
+      background-color: $white;
+    }
+    &__uncompleted {
+      margin-top: 30px;
+      background-color: $uncompleted-disable-task-color;
+      &-header {
+        @include card-list-header;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 23px;
+        text-transform: uppercase;
+        margin-top: 30px;
+        margin-right: auto;
+        margin-left: 15px;
+        margin-bottom: 5px;
+        color: $uncompleted-task-color;
+      }
+    }
+  }
+}
+
+.task {
+  width: 100%;
+  &-completed {
+    height: fit-content;
+    margin: 25px 15px 0px;
+    background: $white;
+    border: 1px solid $divider-color;
+    box-sizing: border-box;
+    border-radius: 14px;
+    cursor: pointer;
+
+    &-genralinfo {
+      &-wrapper {
+        @include card-list-header;
+        display: flex;
+        flex-flow: row;
+        margin-top: -9px;
+        text-transform: uppercase;
+        font-size: 12px;
+        line-height: 18px;
+      }
+    }
+
+    &-timepanel {
+      margin-left: 15px;
+      margin-right: auto;
+      font-family: $NotoSansSC;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 18px;
+      color: $secondary-grey-text-color;
+      background-color: $white;
+
+      &__uncompleted {
+        @extend .task-completed-timepanel;
+        color: $primary-action-color;
+      }
+    }
+
+    &__info {
+      width: 86px;
+      height: 18px;
+      background-color: $white;
+      margin-right: 15px;
+      left: auto;
+      &-img {
+      }
+
+      &-text {
+        display: flex;
+        flex-flow: row;
+
+        &-completed {
+          display: flex;
+          color: $success-color;
+
+          &-clap {
+            display: flex;
+            margin-left: 3px;
+          }
+        }
+      }
+    }
+
+    &-descriptionbox {
+      @include card-list-text-style;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 21px;
+      color: $text-color;
+      margin: 15px;
+    }
+  }
+
+  &-previous {
+    width: 100%;
+    margin: 15px 0px;
+
+    &-date {
+      @include card-list-header;
+      line-height: 18px;
+      font-size: 12px;
+      font-style: normal;
+      text-transform: uppercase;
+      color: $uncompleted-task-color;
+      margin-bottom: 5px;
+      margin-left: 15px;
+    }
+
+    &-description {
+      @include card-list-text-style;
+      margin: 0px 15px 10px;
+      background-color: $white;
+      border: 1px solid $divider-color;
+      box-sizing: border-box;
+      border-radius: 14px;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 21px;
+      color: $text-color;
+
+      span {
+        display: flex;
+        margin: 20px 15px 15px;
+      }
+    }
+  }
+}
+.answer {
+  &-notasks,
+  &-dayoff,
+  &-nojourneys,
+  &-trialexpired,
+  &-holiday {
+    margin-top: 40px;
+    // margin-bottom: 90px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-flow: column;
+
+    &-header {
+      &__top {
+        @include card-list-header;
+        color: $empty-title-color;
+        text-align: center;
+        text-transform: uppercase;
+      }
+    }
+
+    &-description {
+      @include card-list-text-style;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 14px;
+      line-height: 18px;
+      text-align: center;
+      max-width: 360px;
+      display: flex;
+      flex-direction: column;
+
+      span {
+        margin-bottom: 5px;
+      }
+    }
+
+    &-img {
+      display: block;
+      width: 279px;
+      height: fit-content;
+      margin: 50px auto 0;
+      object-fit: contain;
+    }
+
+    &-icon {
+      margin: 0 auto 20px;
+      display: flex;
+      font-size: 23px;
+      line-height: 24px;
+    }
+
+    &-btn {
+      @include card-list-text-style;
+      width: 160px;
+      height: 38px;
+      border-radius: 4px;
+      margin: 0 auto;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $primary-action-color;
+      color: $white;
+      letter-spacing: initial;
+      cursor: pointer;
+    }
+  }
+
+  &-notasks {
+    padding-top: 50px;
+  }
+
+  &-trialexpired,
+  &-holiday {
+    padding-top: 50px;
+  }
+
+  &-dayoff,
+  &-holiday {
+    //background: rgba($white, 0.95);
+    top: 0;
+    left: 0;
+    margin: 0;
+    margin-top: 39px;
+    padding-bottom: 60px;
+    z-index: 0;
+    height: 100%;
+
+    &::after {
+      position: absolute;
+      content: '';
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      background: rgba($white, 0.95);
+    }
+
+    &-img {
+      margin-top: 30px;
+    }
+  }
+}
+
+.welldone {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $primary-action-color-light;
+  z-index: 99;
+  &-header {
+    @include card-list-header;
+    text-transform: uppercase;
+    color: $white;
+  }
+  &-text {
+    @include card-list-text-style;
+    margin-top: 10px;
+    color: $white;
+  }
+  &-wrapper {
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+  }
+  &-main {
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+  }
+  &-smiles {
+    margin-top: 20px;
+    font-family: $Spartan;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 27px;
+    text-align: center;
+  }
+}
+
+.modal {
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: 99;
+  position: fixed;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  max-width: 861px;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: $primary-action-color-ultralight;
+
+  &-btn {
+    &-wrapper {
+      width: 100%;
+      height: 115px;
+      margin-top: auto;
+      display: flex;
+      flex-flow: column;
+      z-index: 998;
+    }
+
+    &__close {
+      width: 100%;
+      height: 100%;
+      background-color: $white;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      z-index: 999;
+    }
+
+    &__dayoff {
+      @extend .modal-btn__close;
+    }
+
+    &-img {
+      margin-right: 10px;
+      margin-left: 15px;
+    }
+
+    &-text {
+      @include card-list-text-style;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 18px;
+      color: $text-color;
+    }
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex-flow: row;
+}
+
+.scrollbar__hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar__hidden::-webkit-scrollbar {
+  display: none;
 }

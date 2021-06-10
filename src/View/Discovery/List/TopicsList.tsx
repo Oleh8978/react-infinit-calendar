@@ -4,11 +4,20 @@ import { dataList } from '../FakeData/list/List';
 
 import AnswerNotFound from '../AnswerNotFound/AnswerNotFound';
 
+// components
+import Link from 'Routing/Link';
+
+// history
+import history from 'historyApi';
+
 interface IProps {
   margin: number;
 }
 
 const DiscoveryTopicList: React.FC<IProps> = ({ margin }) => {
+  const jorneyInfo = () => {
+    history.push('/journey');
+  };
   return (
     //style={{ marginTop: `${margin}` + 'px' }}
     <div className={'discovery-list'}>
@@ -18,19 +27,21 @@ const DiscoveryTopicList: React.FC<IProps> = ({ margin }) => {
           if (item.display === 'full') {
             return (
               <div className="discovery-list-item-holder">
-                {/* <img
-                  className="discovery-list-item-img"
-                  src={item.img}
-                  alt="image"
-                /> */}
-                <div
+                <div className="discovery-list-item-imgwrapper">
+                  <img
+                    className="discovery-list-item-img"
+                    src={item.img}
+                    alt="image"
+                  />
+                </div>
+                {/* <div
                   className="discovery-list-item-img"
                   style={{
                     backgroundImage: `url(${item.img})`,
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
                   }}
-                />
+                /> */}
                 <div
                   className="discovery-list-item-description"
                   style={{
@@ -39,11 +50,29 @@ const DiscoveryTopicList: React.FC<IProps> = ({ margin }) => {
                   }}>
                   <span className="card-text-wrapper">
                     {/* <div className="text-wrapper"> */}
-                      <h1 className="card-text-header">{item.title}</h1>
-                      {item.description}
+                    <h1 className="card-text-header">{item.title}</h1>
+                    {item.description}
                     {/* </div> */}
                   </span>
-                  <div className="card-text-start-btn">{item.link}</div>
+                  {item.link === 'Join Now' ? (
+                    <div
+                      className="card-text-start-btn btnStartExtended"
+                      onClick={() => {
+                        window.open('https://www.meetup.com/ru-RU/manage-your-small-biz/', '_blank')
+                      }}>
+                      {item.link}
+                    </div>
+                  ) : (
+                    <Link to={'journey'} className="card-text-start-btn">
+                      {/* <div
+                      className="card-text-start-btn"
+                      onClick={() => {
+                        jorneyInfo();
+                      }}> */}
+                      {item.link}
+                      {/* </div> */}
+                    </Link>
+                  )}
                 </div>
               </div>
             );
@@ -52,22 +81,24 @@ const DiscoveryTopicList: React.FC<IProps> = ({ margin }) => {
               <div
                 className="discovery-list-item-holder__half"
                 style={{ display: 'flex', flexFlow: 'row' }}>
-                {/* <img
-                  className="discovery-list-item-img"
+                <img
+                  className="discovery-list-item-img__half"
                   src={item.img}
                   alt="image"
-                /> */}
-                <div
+                />
+                {/* <div
                   className="discovery-list-item-img__half"
                   style={{
                     backgroundImage: `url(${item.img})`,
                     backgroundPosition: 'center',
                   }}
-                />
+                /> */}
                 <span
                   className="card-text-wrapper-link"
                   style={{ color: item.color }}>
-                  <h1 className="card-text-link">{item.link}</h1>
+                  <Link to={'article'}>
+                    <h1 className="card-text-link">{item.link}</h1>
+                  </Link>
                   <h1 className="card-text-header">{item.title}</h1>
                   {item.description}
                 </span>

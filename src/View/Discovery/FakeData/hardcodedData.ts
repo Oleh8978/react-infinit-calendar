@@ -1,154 +1,33 @@
-import vector from './vector.png';
+import Journeys from './Journeys.svg';
+import Podcasts from './Podcasts.svg';
+import Mindfulness from './Mindfulness.svg';
+import Community from './Community.svg';
+import FAQ from './FAQ.svg';
 
 export const topics = [
   {
-    image: vector,
+    image: Journeys,
     color: '#747BC3',
-    secondarycolor: '#82D2E9',
-    title: 'Some card1',
+    title: 'Journeys',
   },
   {
-    image: vector,
-    color: '#747BC3',
-    secondarycolor: '#82D2E9',
-    title: 'Some card2',
+    image: Podcasts,
+    color: '#74BFD5',
+    title: 'Podcasts',
   },
   {
-    image: vector,
-    color: '#747BC3',
-    secondarycolor: '#82D2E9',
-    title: 'Some card3',
+    image: Mindfulness,
+    color: '#C374C0',
+    title: 'Mindfulness',
   },
   {
-    image: vector,
-    color: '#747BC3',
-    secondarycolor: '#82D2E9',
-    title: 'Some card4',
+    image: Community,
+    color: '#E6B280',
+    title: 'Community',
   },
   {
-    image: vector,
-    color: '#747BC3',
-    secondarycolor: '#82D2E9',
-    title: 'Some card5',
-  },
-  {
-    image: vector,
-    color: '#747BC3',
-    secondarycolor: '#82D2E9',
-    title: 'Some card6',
-  },
-  {
-    image: vector,
-    color: '#747BC3',
-    secondarycolor: '#82D2E9',
-    title: 'Some card7',
-  },
-  {
-    image: vector,
-    color: '#747BC3',
-    secondarycolor: '#82D2E9',
-    title: 'Some card8',
-  },
-  {
-    image: vector,
-    color: '#747BC3',
-    secondarycolor: '#82D2E9',
-    title: 'Some card9',
-  },
-  {
-    image: vector,
-    color: '#747BC3',
-    secondarycolor: '#82D2E9',
-    title: 'Some card10',
-  },
-  {
-    image: vector,
-    color: '#747BC3',
-    secondarycolor: '#82D2E9',
-    title: 'Some card11',
-  },
-  {
-    image: vector,
-    color: '#747BC3',
-    secondarycolor: '#82D2E9',
-    title: 'Some card12',
-  },
-  {
-    image: vector,
-    color: '#747BC3',
-    secondarycolor: '#82D2E9',
-    title: 'Some card13',
-  },
-  {
-    image: vector,
-    color: '#747BC3',
-    secondarycolor: '#82D2E9',
-    title: 'Some card14',
-  },
-  {
-    image: vector,
-    color: '#747BC3',
-    secondarycolor: '#82D2E9',
-    title: 'Some card15',
-  },
-  {
-    image: vector,
-    color: '#747BC3',
-    secondarycolor: '#82D2E9',
-    title: 'Some card25',
-  },
-  {
-    image: vector,
-    color: '#747BC3',
-    secondarycolor: '#82D2E9',
-    title: 'Some card14',
-  },
-  {
-    image: vector,
-    color: '#747BC3',
-    secondarycolor: '#82D2E9',
-    title: 'Some card15',
-  },
-  {
-    image: vector,
-    color: '#747BC3',
-    secondarycolor: '#82D2E9',
-    title: 'Some card25',
-  },
-  {
-    image: vector,
-    color: '#747BC3',
-    secondarycolor: '#82D2E9',
-    title: 'Some card14',
-  },
-  {
-    image: vector,
-    color: '#747BC3',
-    secondarycolor: '#82D2E9',
-    title: 'Some card15',
-  },
-  {
-    image: vector,
-    color: '#747BC3',
-    secondarycolor: '#82D2E9',
-    title: 'Some card25',
-  },
-  {
-    image: vector,
-    color: '#747BC3',
-    secondarycolor: '#82D2E9',
-    title: 'Some card14',
-  },
-  {
-    image: vector,
-    color: '#747BC3',
-    secondarycolor: '#82D2E9',
-    title: 'Some card15',
-  },
-  {
-    image: vector,
-    color: '#747BC3',
-    secondarycolor: '#82D2E9',
-    title: 'Some card25',
+    image: FAQ,
+    color: '#79DCA6',
+    title: 'FAQ',
   },
 ];

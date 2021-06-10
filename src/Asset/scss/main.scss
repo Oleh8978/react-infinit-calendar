@@ -12,12 +12,33 @@
 @import "views/discovery/discovery";
 @import "views/schedule/schedule";
 @import "views/jorney/jorney";
+@import "views/module/module";
+@import "views/module/tasks";
+@import "views/profile/profile";
+@import "views/settings/settings";
+@import "views/pagentf/pagenotfound";
+@import "views/readmore/readmore";
+@import "views/experts/experts.scss";
+@import "views/notes/notes";
+@import "views/editprofile/editprofile";
+@import "views/about/about";
+@import "views/login/login";
+@import "views/addYourData/addYourData";
 
 /* components */
 @import "components/menu";
 @import "components/searchbar";
+@import "components/video-modal";
+@import "components/draftjsstyles";
+@import "components/modalwindow";
+@import "components/wavepercent";
+@import "components/circular-progressbar";
+@import "components/privacy-terms";
 
 /* UI components */
+@import "components/buttons";
+@import "components/dropdown";
+@import "components/loader";
 
 /*media query*/
 @import "mediaquery/mediaquery";
