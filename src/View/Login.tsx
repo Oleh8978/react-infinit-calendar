@@ -14,11 +14,14 @@ import { signIn } from '../Controller/auth/actions';
 // interfaces
 import { IStore } from '../Controller/model';
 import { ISignedData } from '../Controller/auth/model';
+import { IUser } from 'Controller/auth/model';
 
 interface IProps {
   authStatus: boolean;
   isNeededSecondStep: boolean;
   signIn: ({ receivedToken, signIntype }) => void;
+  logoutMethod: () => void;
+  user?: IUser;
 }
 
 const Login: React.FC<any> = ({ ...props }) => {
@@ -67,7 +70,13 @@ const Login: React.FC<any> = ({ ...props }) => {
           </div>
         </>
       ) : (
-        <>{props.isNeededSecondStep ? <AddYourData /> : <></>}</>
+        <>
+          {props.isNeededSecondStep ? (
+            <AddYourData user={props.user} logoutMethod={props.logoutMethod} />
+          ) : (
+            <></>
+          )}
+        </>
       )}
     </>
   );

@@ -1,13 +1,15 @@
-import { PayloadAction } from "typesafe-actions/dist/type-helpers";
+import { PayloadAction } from 'typesafe-actions/dist/type-helpers';
 import { RouterState } from 'connected-react-router';
 
 import { IError, ILoader } from '../Model';
 import { IAuthState } from './auth/model';
+import { IUpdateState } from './secondStepDataUpdater/models';
 
 export interface IStore {
   router: RouterState;
   authState: IAuthState;
   app: IState;
+  updateSignInSecondStep: IUpdateState;
 }
 
 export interface ISimpleState {

@@ -23,6 +23,9 @@ import Login from '../View/Login';
 import Menu from '../Component/Menu';
 import Loader from 'Component/Loader';
 
+// clear access method 
+import { clearAccess } from 'utils/manageAccess';
+
 // Render all routes
 const Routes = RoutingSchema.getSchema.map(
   ({ component: Component, path, name, isExact }) => (
@@ -48,17 +51,19 @@ const Routing: React.FC<Props> = ({
   user,
   ...props
 }) => {
+  const [userData, setUserData] = useState<IUser>(undefined);
   useEffect(() => {
     const authData = getSavedAccess();
-    // console.log('authData ', authData);
     if (authData.accessToken && authData.refreshToken) {
       props.loginByToken(authData.accessToken);
-      // setAuthenticatedStatus({ status: true })
+      if (user !== undefined) {
+        setUserData(user)
+      }
     } else {
       props.setAuthenticatedStatus({ status: false });
+      // props.setAuthenticatedStatus({ status: true });
     }
-    console.log('user ', user, isNeededSecondStep);
-  }, [isNeededSecondStep]);
+  }, [user]);
   const location = useLocation();
 
   const transition = useTransition(location, {
@@ -68,7 +73,11 @@ const Routing: React.FC<Props> = ({
   });
   console.log('isNeededSecondStep ', isNeededSecondStep);
   console.log('authStatus ', authStatus);
-  isNeededSecondStep = false;
+
+  const logoutMethod = () => {
+    props.setAuthenticatedStatus({ status: false });
+    clearAccess();
+  }
   if (
     (!authStatus && isNeededSecondStep) ||
     (!authStatus && !isNeededSecondStep) ||
@@ -82,6 +91,8 @@ const Routing: React.FC<Props> = ({
           <Login
             authStatus={authStatus}
             isNeededSecondStep={isNeededSecondStep}
+            user={userData}
+            logoutMethod={logoutMethod}
           />
         )}
       </>
@@ -90,7 +101,7 @@ const Routing: React.FC<Props> = ({
   if (authStatus && !isNeededSecondStep)
     return (
       <>
-        {/* {authStatus && isLoginPageOpened ? ( */}
+        {/* {authStatus && isLoginPageOpened ? (
         {/* for the form usage take a look on the prev row*/}
         {props.loader ? (
           <Loader />
@@ -124,7 +135,7 @@ const Routing: React.FC<Props> = ({
             </div>
             <Menu />
           </div>
-        )}
+        )} 
       </>
     );
 };

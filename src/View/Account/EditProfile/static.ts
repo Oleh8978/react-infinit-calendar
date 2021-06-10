@@ -4,19 +4,24 @@ export const PersonalInfo = {
     {
       name: 'First name',
       isRequired: true,
+      subname: 'firstName',
     },
     {
       name: 'Last name',
       isRequired: true,
+      subname: 'lastName',
     },
     {
       name: 'Email',
       isRequired: true,
       isEmail: true,
+      subname: 'email',
     },
     {
       name: 'Phone',
       isRequired: true,
+      phone: 'phone',
+      subname: 'phone'
     },
   ],
 };
@@ -27,18 +32,22 @@ export const BillingAddress = {
     {
       name: 'Street',
       isRequired: false,
+      subname: 'street',
     },
     {
       name: 'City',
       isRequired: false,
+      submane: 'city',
     },
     {
       name: 'State',
       isRequired: false,
+      subname: 'state',
     },
     {
       name: 'Zip Code',
       isRequired: false,
+      subname: 'zipCode',
     },
   ],
 };
@@ -50,11 +59,13 @@ export const TimingSettings = {
       name: 'Time zone',
       isRequired: false,
       isSelect: true,
+      subname: 'timezone',
     },
     {
       name: 'Workday start time',
       default: '9:00 AM',
       isRequired: false,
+      subname: 'startTime',
     },
   ],
 };
