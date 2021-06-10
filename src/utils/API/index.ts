@@ -48,7 +48,7 @@ export async function handleErrors<T = Record<string, never>>(
 
 export function authHeader(token: string) {
   return {
-    authorization: `Bearer ${token}`,
+    'authorization': `Bearer ${token}`,
   };
 }
 

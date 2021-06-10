@@ -9,11 +9,14 @@ import { BadRequest } from 'utils/API/Exceptions';
 import { UpdateUserApi } from '../transport/secondStep.api';
 
 // Actions
-
 import * as action from '../actions';
 
 // Utils
-import { clearAccess, saveAccess } from '../../../utils/manageAccess';
+import {
+  clearAccess,
+  saveAccess,
+  getSavedAccess,
+} from '../../../utils/manageAccess';
 
 // Interfaces
 import { IException, IStore } from '../../model';
@@ -31,26 +34,38 @@ export function* updateUserData({
   );
 
   try {
-    yield put(
-      action.LoaderAction({
-        code: undefined,
-        error: false,
-        isLoading: false,
-        message: 'success loaded and posted',
-      }),
+    const UserData = yield UpdateUserApi.updateUserAfterLogIn(
+      { ...payload },
+      getSavedAccess().accessToken,
     );
-    const UserData = yield UpdateUserApi.updateUserAfterLogIn({
-      ...payload,
-    });
 
     if (UserData) {
       action.updateUserDataAction.success({
         ...payload,
       });
+      yield put(action.setIsSecondStepPassed({ isSecondStepPassed: true }));
+      yield put(
+        action.LoaderAction({
+          code: undefined,
+          error: false,
+          isLoading: false,
+          message: 'success loaded and put',
+        }),
+      );
     } else {
+      yield put(action.setIsSecondStepPassed({ isSecondStepPassed: false }));
+      yield put(
+        action.LoaderAction({
+          code: undefined,
+          error: false,
+          isLoading: false,
+          message: 'error while puting the data posted',
+        }),
+      );
       throw new BadRequest();
     }
   } catch (error) {
+    yield put(action.setIsSecondStepPassed({ isSecondStepPassed: false }));
     console.log('error ', error);
     yield put(
       action.LoaderAction({

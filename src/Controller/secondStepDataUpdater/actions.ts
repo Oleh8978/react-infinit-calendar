@@ -1,11 +1,17 @@
 import { createAction, createAsyncAction } from 'typesafe-actions';
 // interfaces
-import { IException, IUserDataExtended, IUpdateState } from './models';
+import { IException, IUserDataExtended, IIsSecondStepPassed } from './models';
 
 import { appName } from 'Config';
 
 // const for ath actions
 export const widgetName = 'updateUser';
+
+
+//Actions
+export const setIsSecondStepPassed = createAction(
+  `${appName}/${widgetName}/SET_AUTHENTICATED_STATUS`,
+)<IIsSecondStepPassed>();
 
 export const updateUserDataAction = createAsyncAction(
   `${appName}/${widgetName}/REFRESH_TOKEN_REQUEST`,

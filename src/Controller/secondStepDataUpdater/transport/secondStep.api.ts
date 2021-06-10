@@ -11,15 +11,17 @@ import { IUserDataExtended } from '../models';
 class API {
   public async updateUserAfterLogIn(
     userData: IUserDataExtended,
+    accessToken: string,
   ): Promise<IUserDataExtended | string> {
-    console.log('Config.MAIN_SERVICE_ENDPOINT', Config.MAIN_SERVICE_ENDPOINT)
+    console.log('user data ', userData)
     const url = new URL(Config.MAIN_SERVICE_ENDPOINT + 'user/data');
 
     return handleErrors(
       fetch(url.toString(), {
-        method: 'POST',
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          ...authHeader(accessToken)
         },
         body: JSON.stringify(userData),
       }),

@@ -23,6 +23,7 @@ interface IProps {
   signIn: ({ receivedToken, signIntype }) => void;
   logoutMethod: () => void;
   user?: IUser;
+  setPageOpened: () => void;
 }
 
 const Login: React.FC<any> = ({ ...props }) => {
@@ -75,7 +76,7 @@ const Login: React.FC<any> = ({ ...props }) => {
       ) : (
         <>
           {props.isNeededSecondStep ? (
-            <AddYourData user={props.user} logoutMethod={props.logoutMethod} />
+            <AddYourData user={props.user} logoutMethod={props.logoutMethod} setPageOpened = {props.setPageOpened}/>
           ) : (
             <></>
           )}
