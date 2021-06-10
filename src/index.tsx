@@ -31,6 +31,18 @@ Config.init({
   WS_API_HOST: process.env.REACT_APP_WS_API_HOST || '',
 });
 
+if ('serviceWorker' in navigator) {
+  console.log(' service worker inn ')
+  navigator.serviceWorker
+    .register('../firebase-messaging-sw.js')
+    .then(function (registration) {
+      console.log('Registration successful, scope is:', registration.scope);
+    })
+    .catch(function (err) {
+      console.log('Service worker registration failed, error:', err);
+    });
+}
+
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>

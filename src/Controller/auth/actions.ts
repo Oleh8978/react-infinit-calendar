@@ -11,6 +11,7 @@ import {
   IAuthData,
   IRefreshToken,
   ISignInByToken,
+  IUser,
 } from './model';
 
 // const for ath actions
@@ -20,6 +21,10 @@ export const widgetName = 'auth';
 export const setAuthenticatedStatus = createAction(
   `${appName}/${widgetName}/SET_AUTHENTICATED_STATUS`,
 )<ISetAuthenticatedStatus>();
+
+export const setIsneedSecondStep = createAction(
+  `${appName}/${widgetName}/SET_ISNEEDSECONDSTEP_STATUS`,
+)<IUser>();
 
 export const loginByTokenAction = createAction(
   `${appName}/${widgetName}/LOGIN_TOKEN_REQUEST`,

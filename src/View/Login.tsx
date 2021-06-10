@@ -14,13 +14,14 @@ import { signIn } from '../Controller/auth/actions';
 // interfaces
 import { IStore } from '../Controller/model';
 import { ISignedData } from '../Controller/auth/model';
-import Link from '../Routing/Link';
-import PrivacyPolicy from './LoginPages/PrivacyPolicy';
+import { IUser } from 'Controller/auth/model';
 
 interface IProps {
   authStatus: boolean;
   isNeededSecondStep: boolean;
   signIn: ({ receivedToken, signIntype }) => void;
+  logoutMethod: () => void;
+  user?: IUser;
 }
 
 const Login: React.FC<any> = ({ ...props }) => {
@@ -58,20 +59,24 @@ const Login: React.FC<any> = ({ ...props }) => {
               <div className={'login-body-footer'}>
                 <span className={'login-body-footer-text'}>
                   By continuing you agree with our{' '}
-                  <Link to={'terms'} className={'login-body-footer-text-link'}>terms</Link>{' '}
+                  <span className={'login-body-footer-text-link'}>terms</span>{' '}
                   and{' '}
-                  <Link
-                    to={'privacy-policy'}
-                    className={'login-body-footer-text-link'}>
+                  <span className={'login-body-footer-text-link'}>
                     privacy policy
-                  </Link>
+                  </span>
                 </span>
               </div>
             </div>
           </div>
         </>
       ) : (
-        <>{props.isNeededSecondStep ? <AddYourData /> : <></>}</>
+        <>
+          {props.isNeededSecondStep ? (
+            <AddYourData user={props.user} logoutMethod={props.logoutMethod} />
+          ) : (
+            <></>
+          )}
+        </>
       )}
     </>
   );

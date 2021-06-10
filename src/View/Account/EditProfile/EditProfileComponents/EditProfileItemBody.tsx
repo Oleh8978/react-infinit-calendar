@@ -8,11 +8,15 @@ import EdditBodyElementItem from './EditProfileItem';
 
 // interfaces
 import { IData, IZones } from '../Models';
+import { IUser } from 'Controller/auth/model';
+import { IvalidatorState } from '../../../LoginPages/utils/models';
 
 interface IProps {
   data: IData;
   timeZones?: IZones[];
   isFirstpage?: boolean;
+  user?: IUser;
+  validatorFunctionality?: (key: string, value: string) => void;
 }
 
 const EdditProfileBodyComponent: React.FC<IProps> = ({ ...props }) => {
@@ -29,6 +33,8 @@ const EdditProfileBodyComponent: React.FC<IProps> = ({ ...props }) => {
                 data={item}
                 timeZones={props.timeZones}
                 isFirstpage={props.isFirstpage}
+                user={props.user}
+                validatorFunctionality={props.validatorFunctionality}
               />
             );
           })}
