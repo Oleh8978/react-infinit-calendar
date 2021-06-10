@@ -23,7 +23,7 @@ import Login from '../View/Login';
 import Menu from '../Component/Menu';
 import Loader from 'Component/Loader';
 
-// clear access method 
+// clear access method
 import { clearAccess } from 'utils/manageAccess';
 
 // Render all routes
@@ -47,11 +47,12 @@ interface Props {
 
 const Routing: React.FC<Props> = ({
   authStatus,
-  isNeededSecondStep,
+  //isNeededSecondStep, // uncomment before push
   user,
   ...props
 }) => {
   const [userData, setUserData] = useState<IUser>(undefined);
+  const isNeededSecondStep = false; // delete this before push
   useEffect(() => {
     const authData = getSavedAccess();
     if (authData.accessToken && authData.refreshToken) {
@@ -135,7 +136,7 @@ const Routing: React.FC<Props> = ({
             </div>
             <Menu />
           </div>
-        )} 
+        )}
       </>
     );
 };
