@@ -29,7 +29,6 @@ interface IProps {
 }
 
 const NavigationBar: React.FC<IProps> = ({ ...props }) => {
-
   return (
     <>
       {props.isEditProfile ? (
