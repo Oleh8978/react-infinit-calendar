@@ -15,6 +15,7 @@ import { signIn } from '../Controller/auth/actions';
 import { IStore } from '../Controller/model';
 import { ISignedData } from '../Controller/auth/model';
 import { IUser } from 'Controller/auth/model';
+import Link from '../Routing/Link';
 
 interface IProps {
   authStatus: boolean;
@@ -59,11 +60,13 @@ const Login: React.FC<any> = ({ ...props }) => {
               <div className={'login-body-footer'}>
                 <span className={'login-body-footer-text'}>
                   By continuing you agree with our{' '}
-                  <span className={'login-body-footer-text-link'}>terms</span>{' '}
+                  <Link to={'terms'} className={'login-body-footer-text-link'}>terms</Link>{' '}
                   and{' '}
-                  <span className={'login-body-footer-text-link'}>
+                  <Link
+                    to={'privacy-policy'}
+                    className={'login-body-footer-text-link'}>
                     privacy policy
-                  </span>
+                  </Link>
                 </span>
               </div>
             </div>
