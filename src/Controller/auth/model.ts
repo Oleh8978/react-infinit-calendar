@@ -28,6 +28,10 @@ export interface ISetAuthenticatedStatus {
   status: boolean;
 }
 
+export interface IIsNeedSecondStep {
+  status: boolean;
+}
+
 export interface ISignedData {
   id?: string;
   firstName?: string;

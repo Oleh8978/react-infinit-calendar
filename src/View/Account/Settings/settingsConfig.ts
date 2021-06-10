@@ -54,7 +54,7 @@ export const About = {
     {
       name: 'Privacy policy',
       button: 'next',
-      link: 'privacy-policy'
+      link: 'privacy-policy',
     },
     {
       name: 'Terms of use',

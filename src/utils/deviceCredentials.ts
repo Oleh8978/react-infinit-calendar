@@ -10,6 +10,7 @@ export const getCredentials = async (): Promise<DeviceCreateRequest> => {
   const visitorId = result.visitorId;
 
   const fcmToken = await getFCMToken();
+  console.log('fcmToken ', fcmToken)
 
   return {
     platform: DevicePlatformEnum.Web,

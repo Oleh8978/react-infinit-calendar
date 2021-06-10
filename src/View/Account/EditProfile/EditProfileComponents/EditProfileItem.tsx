@@ -1,23 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // types
 import { Pages } from 'Routing/schema';
 
 // interfaces
 import { IItem, IZones } from '../Models';
+import { IUser } from 'Controller/auth/model';
+import { IvalidatorState } from '../../../LoginPages/utils/models';
 
 interface IProps {
   data: IItem;
   timeZones?: IZones[];
   isFirstpage?: boolean;
+  user?: IUser;
+  validatorFunctionality?: (key: string, value: string) => void;
 }
 
 const EdditBodyElementItem: React.FC<IProps> = ({ ...props }) => {
   const [value, setValue] = useState<string>(null);
   const [error, setError] = useState<boolean>(false);
 
+  useEffect(() => {
+    if (props.user) {
+      itemIterator();
+    }
+  }, [props.user]);
+
+  const validator = (key: string, value: string) => {
+    if (
+      key === 'email' ||
+      key === 'phone' ||
+      key === 'firstName' ||
+      key === 'lastName'
+    ) {
+      if (value !== null && value !== undefined) {
+        props.validatorFunctionality(key, value.trim());
+      }
+    }
+  };
+
+  const itemIterator = () => {
+    if (props.user !== undefined && props.data.subname !== undefined) {
+      for (const [key, value] of Object.entries(props.user.userData)) {
+        if (
+          props.data.subname.toLowerCase() === String(key.toLowerCase()) &&
+          value !== null
+        ) {
+          validator(key, value);
+          return setValue(String(value));
+        }
+      }
+    }
+  };
+
   const handleChange = (event) => {
     setValue(event.target.value);
+    validator(props.data.subname, event.target.value);
   };
 
   const validate = () => {

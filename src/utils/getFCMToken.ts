@@ -1,4 +1,5 @@
 import * as firebase from 'firebase/app';
+import '@firebase/messaging';
 
 export const getFCMToken = async () => {
   try {
@@ -6,6 +7,7 @@ export const getFCMToken = async () => {
     await messaging.requestPermission();
     return await messaging.getToken();
   } catch (error) {
-    process.env.REACT_APP_SHOW_LOGS === "true" && console.error(error);
+    console.log('fcm token error ', error);
+    process.env.REACT_APP_SHOW_LOGS === 'true' && console.error(error);
   }
-}
+};

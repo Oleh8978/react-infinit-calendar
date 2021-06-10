@@ -13,7 +13,11 @@ import { IStore } from 'Controller/model';
 import { ISetAuthenticatedStatus, IUser } from 'Controller/auth/model';
 
 // Actions
-import { setAuthenticatedStatus, loginByToken } from 'Controller/auth/actions';
+import {
+  setAuthenticatedStatus,
+  loginByToken,
+  setIsneedSecondStep,
+} from 'Controller/auth/actions';
 
 // Routing schema
 import RoutingSchema from './schema';
@@ -22,6 +26,9 @@ import RoutingSchema from './schema';
 import Login from '../View/Login';
 import Menu from '../Component/Menu';
 import Loader from 'Component/Loader';
+
+// clear access method
+import { clearAccess } from 'utils/manageAccess';
 
 // Render all routes
 const Routes = RoutingSchema.getSchema.map(
@@ -40,6 +47,8 @@ interface Props {
   loginByToken: (token: string) => void;
   loader: boolean;
   user: IUser;
+  isSecondStepPassed: any;
+  setIsneedSecondStep: () => void;
 }
 
 const Routing: React.FC<Props> = ({
@@ -48,17 +57,34 @@ const Routing: React.FC<Props> = ({
   user,
   ...props
 }) => {
+  const [userData, setUserData] = useState<IUser>(undefined);
+  const [
+    isNeeededSecondStepValue,
+    setIsNeededSecondSteValue,
+  ] = useState<boolean>(true);
+  // const isNeededSecondStep = true;
   useEffect(() => {
     const authData = getSavedAccess();
-    // console.log('authData ', authData);
     if (authData.accessToken && authData.refreshToken) {
       props.loginByToken(authData.accessToken);
-      // setAuthenticatedStatus({ status: true })
+      if (user !== undefined) {
+        setUserData(user);
+      }
     } else {
       props.setAuthenticatedStatus({ status: false });
     }
-    console.log('user ', user, isNeededSecondStep);
-  }, [isNeededSecondStep]);
+
+    if (isNeededSecondStep === true) {
+      setIsNeededSecondSteValue(true);
+    } else {
+      setIsNeededSecondSteValue(false);
+    }
+
+    if (props.isSecondStepPassed === true) {
+      setPageOpened();
+    }
+  }, [user, props.isSecondStepPassed]);
+
   const location = useLocation();
 
   const transition = useTransition(location, {
@@ -66,13 +92,26 @@ const Routing: React.FC<Props> = ({
     // enter: { opacity: 1, left: 0, top: 0 },
     // leave: { opacity: 0, left: 0, top: 0 },
   });
-  console.log('isNeededSecondStep ', isNeededSecondStep);
-  console.log('authStatus ', authStatus);
-  isNeededSecondStep = false;
+  // console.log('isNeededSecondStep ', isNeededSecondStep);
+  // console.log('authStatus ', authStatus);
+
+  const setPageOpened = () => {
+    setIsNeededSecondSteValue(false);
+    setIsneedSecondStep({
+      ...userData,
+      isNeedSecondStep: false,
+    });
+  };
+
+  const logoutMethod = () => {
+    props.setAuthenticatedStatus({ status: false });
+    clearAccess();
+  };
+
   if (
-    (!authStatus && isNeededSecondStep) ||
-    (!authStatus && !isNeededSecondStep) ||
-    (authStatus && isNeededSecondStep)
+    (!authStatus && isNeeededSecondStepValue) ||
+    (!authStatus && !isNeeededSecondStepValue) ||
+    (authStatus && isNeeededSecondStepValue)
   )
     return (
       <>
@@ -81,16 +120,19 @@ const Routing: React.FC<Props> = ({
         ) : (
           <Login
             authStatus={authStatus}
-            isNeededSecondStep={isNeededSecondStep}
+            isNeededSecondStep={isNeeededSecondStepValue}
+            user={userData}
+            setPageOpened={setPageOpened}
+            logoutMethod={logoutMethod}
           />
         )}
       </>
     );
 
-  if (authStatus && !isNeededSecondStep)
+  if (authStatus && !isNeeededSecondStepValue)
     return (
       <>
-        {/* {authStatus && isLoginPageOpened ? ( */}
+        {/* {authStatus && isLoginPageOpened ? (
         {/* for the form usage take a look on the prev row*/}
         {props.loader ? (
           <Loader />
@@ -112,7 +154,7 @@ const Routing: React.FC<Props> = ({
                       display: 'flex',
                     }}
                     renderView={(props) => (
-                      <div {...props} className={'main-wrapper'}></div>
+                      <div {...props} className={'main-wrapper'} />
                     )}>
                     <Switch location={item}>
                       {Routes}
@@ -135,6 +177,7 @@ export default connect(
     location: state.router.location,
     loader: state.authState.state.isLoading,
     isNeededSecondStep: state.authState.user.isNeedSecondStep,
+    isSecondStepPassed: state.updateSteUserAfterSignIn.isSecondStepPassed,
     user: state.authState.user,
   }),
   {

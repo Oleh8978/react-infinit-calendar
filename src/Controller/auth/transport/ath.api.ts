@@ -3,6 +3,8 @@ import { DeviceCreateRequest } from '@ternala/frasier-types/lib/index';
 
 import { Config } from '../../../Config/API';
 import { authHeader, handleErrors, refreshHeader } from '../../../utils/API';
+import { getSavedAccess } from '../../../utils/manageAccess';
+import { getFCMToken } from '../../../utils/getFCMToken';
 
 import { IAuthData, IDeviceCredentials } from '../model';
 
@@ -14,6 +16,13 @@ class API {
   ): Promise<AuthUserLoginByTokenResponseDTO | string> {
     const url =
       new URL(Config.MAIN_SERVICE_ENDPOINT) + 'auth/' + String(signIntype);
+    let tokenForQuery: any = '';
+    const tokenFCM = getFCMToken();
+    if (!tokenFCM) {
+      tokenForQuery = '';
+    } else if (tokenFCM !== undefined) {
+      tokenForQuery = tokenFCM;
+    }
     return handleErrors(
       fetch(url.toString(), {
         method: 'POST',
@@ -21,6 +30,7 @@ class API {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          FCMToken: tokenForQuery,
           authToken: receivedToken,
           deviceCredentials: deviceCredentials,
         }),
@@ -62,13 +72,26 @@ class API {
   public async logout(
     deviceCredentials: DeviceCreateRequest,
   ): Promise<boolean | string> {
+    console.log(
+      'getSavedAccess().refreshToken ',
+      getSavedAccess().refreshToken,
+    );
+    console.log('deviceCredentials ', deviceCredentials);
     return handleErrors(
       fetch(Config.AUTH_SERVICE_ENDPOINT + 'logout', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          ...refreshHeader(getSavedAccess().refreshToken),
         },
-        body: JSON.stringify(deviceCredentials),
+        // body: JSON.stringify(deviceCredentials),
+        body: JSON.stringify({
+          deviceCredentials: {
+            FCMToken: 'FCMToken',
+            platform: 'web',
+            fingerprint: 'hash',
+          },
+        }),
       }),
     );
   }

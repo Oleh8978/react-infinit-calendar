@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import NavigationBar from './NavigationBar';
 
 interface IProps {
 }
 
 const PrivacyPolicy: React.FC<IProps> = ({ ...props }) => {
+
+  const checkIFMyCompExists = () => !!document.querySelector('.main-layout');
+
+  const [elementExists, setElementExist] = useState(!checkIFMyCompExists());
+
   return (
     <div className={'privacypage'}>
-      <NavigationBar name={'Privacy Policy'} rout={'/about'} />
+      <NavigationBar name={'Privacy Policy'} rout={elementExists ? '/' : '/about'} />
       <div className='privacy-body'>
         <h1>Privacy Policy</h1>
         <span className={'updated-time'}>Last updated [month day, year]</span>

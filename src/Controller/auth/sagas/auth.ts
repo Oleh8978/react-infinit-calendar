@@ -126,7 +126,6 @@ export function* signInSaga({
         error: false,
       }),
     );
-    console.log('signInData ', signInData)
   } catch (error) {
     console.log('eroror receivd ', error)
     clearAccess();
@@ -208,19 +207,48 @@ export function* logoutSaga() {
   const accessToken: string | undefined = yield yield select(getAccessToken);
   const refreshToken: string | undefined = yield select(getRefreshToken);
   const deviceCredentials: DeviceCreateRequest = yield getCredentials();
-
+  // console.log('accessToken ', accessToken);
+  // console.log('refreshToken ', refreshToken)
   try {
     if (!refreshToken || !accessToken) throw new Error("Haven't refresh token");
     const res = yield AuthAPI.logout(deviceCredentials);
+    yield put(
+      setAuthStateAction({
+        isLoading: true,
+        message: 'We are loging out ',
+        error: true,
+      }),
+    );
 
     if (!res && res.code) {
       yield put(logOut.failure('failure'));
+      yield put(
+        setAuthStateAction({
+          isLoading: false,
+          message: 'Something wrong with the logout',
+          error: true,
+        }),
+      );
     } else {
       yield put(logOut.success('success'));
+      yield put(
+        setAuthStateAction({
+          isLoading: false,
+          message: 'Successfully loged out ',
+          error: true,
+        }),
+      );
     }
   } catch (error) {
     console.error(error);
     yield put(logOut.failure('failure'));
+    yield put(
+      setAuthStateAction({
+        isLoading: false,
+        message: `An error catched ${error} with code ${error.code}`,
+        error: true,
+      }),
+    );
   }
 }
 
