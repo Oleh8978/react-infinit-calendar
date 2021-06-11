@@ -1,7 +1,7 @@
 import { all, put, takeEvery, select } from 'redux-saga/effects';
 
 //APIs
-import { DiscoveryAPI } from '../transport/discovery.api';
+import { ArticleCategoryAPI } from '../transport/articleCategoy.api';
 import { getAccessToken } from '../../auth';
 
 // Actions
@@ -9,7 +9,7 @@ import * as actions from '../actions';
 
 export function* getDiscoveriesSaga({
   payload,
-}: ReturnType<typeof actions.getDiscoveryList.request>) {
+}: ReturnType<typeof actions.getArticlesCategoriesAction.request>) {
   const accessToken: string | undefined = yield yield select(getAccessToken);
   const additionalFields = {
     property: payload.property,
@@ -24,7 +24,10 @@ export function* getDiscoveriesSaga({
   //   );
   try {
     if (!accessToken) throw new Error('Not authorized');
-    const res = yield DiscoveryAPI.getDiscovery(payload, accessToken);
+    const res = yield ArticleCategoryAPI.getArticleCategories(
+      payload,
+      accessToken,
+    );
     if (!res && res.code) {
       //   yield put(
       //     getLeaseTransactionsAction.failure({
@@ -52,7 +55,7 @@ export function* getDiscoveriesSaga({
       //   }),
       //   );
       yield put(
-        actions.getDiscoveryList.success({
+        actions.getArticlesCategoriesAction.success({
           response: res,
           searchParams: payload,
           isAll: payload.limit ? res.items.length < payload.limit : true,
@@ -84,6 +87,8 @@ export function* getDiscoveriesSaga({
   }
 }
 
-export function* DiscoveryListSaga() {
-  yield all([takeEvery(actions.getDiscoveryList.request, getDiscoveriesSaga)]);
+export function* ArticleCategoriesSaga() {
+  yield all([
+    takeEvery(actions.getArticlesCategoriesAction.request, getDiscoveriesSaga),
+  ]);
 }

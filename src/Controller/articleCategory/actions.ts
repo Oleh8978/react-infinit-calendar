@@ -20,7 +20,7 @@ import { IException } from './models';
 export const widgetName = 'article';
 
 // ** Action
-export const getArticlesAction = createAsyncAction(
+export const getArticlesCategoriesAction = createAsyncAction(
   `${appName}/${widgetName}/GET_ARTICLE_REQUEST`,
   `${appName}/${widgetName}/GET_ARTICLE_SUCCESS`,
   `${appName}/${widgetName}/GET_ARTICLE_FILED`,
@@ -34,17 +34,7 @@ export const getArticlesAction = createAsyncAction(
   IException
 >();
 
-//   export const createArticleAction = createAsyncAction(
-//     `${appName}/${widgetName}/CREATE_ARTICLE_REQUEST`,
-//     `${appName}/${widgetName}/CREATE_ARTICLE_SUCCESS`,
-//     `${appName}/${widgetName}/CREATE_ARTICLE_FILED`
-//   )<EnterpriseCreateRequestExpanded, EnterpriseCreateResponse, IException>();
-
-//   export const getArticleAction = createAsyncAction(
-//     `${appName}/${widgetName}/GET_ARTICLE_REQUEST`,
-//     `${appName}/${widgetName}/GET_ARTICLE_SUCCESS`,
-//     `${appName}/${widgetName}/GET_ARTICLE_FILED`
-//   )<EnterpriseGetRequest & { callback?: Function }, EnterpriseGetResponse, IException>();
+/// these actions below are nto working /// 
 
 export const updateArticleAction = createAsyncAction(
   `${appName}/${widgetName}/UPDATE_ARTICLE_REQUEST`,
