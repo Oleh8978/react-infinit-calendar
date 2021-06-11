@@ -15,5 +15,5 @@ export const rootReducer = (history: History): Reducer =>
   combineReducers({
     router: connectRouter(history),
     authState: authReducer,
-    updateSteUserAfterSignIn: updateUserDataSaga,
+    updateSteUserAfterSignIn: UpdateAfterSignInRequestReducer,
   });

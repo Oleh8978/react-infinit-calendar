@@ -25,18 +25,27 @@ const initialState: IUpdateState = {
   },
   isLoading: false,
   exceptions: undefined,
+  isSecondStepPassed: false,
 };
 
 export const UpdateAfterSignInRequestReducer = createReducer<
   IUpdateState,
   UpdateUserActionType
 >(initialState)
+.handleAction(
+  actions.LoaderAction,
+  (state: IUpdateState, { payload }): IUpdateState => ({
+    ...state,
+    isLoading: payload.isLoading,
+    exceptions: undefined,
+  }),
+)
   .handleAction(
-    actions.LoaderAction,
+    actions.setIsSecondStepPassed,
     (state: IUpdateState, { payload }): IUpdateState => ({
       ...state,
-      isLoading: payload.isLoading,
-      exceptions: undefined,
+      isLoading: false,
+      isSecondStepPassed: payload.isSecondStepPassed,
     }),
   )
   .handleAction(
@@ -44,6 +53,7 @@ export const UpdateAfterSignInRequestReducer = createReducer<
     (state: IUpdateState, { payload }): IUpdateState => ({
       ...state,
       ...payload,
+      isSecondStepPassed: true,
     }),
   )
   .handleAction(
@@ -51,5 +61,6 @@ export const UpdateAfterSignInRequestReducer = createReducer<
     (state: IUpdateState, { payload }): IUpdateState => ({
       ...state,
       ...payload,
+      isSecondStepPassed: false,
     }),
   );

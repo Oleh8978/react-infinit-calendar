@@ -10,6 +10,7 @@ export interface IUpdateState {
   userData: IUserDataExtended;
   isLoading: boolean;
   exceptions: undefined | IException;
+  isSecondStepPassed: boolean;
 }
 
 export interface IUserDataExtended {
@@ -27,3 +28,9 @@ export interface IUserDataExtended {
   user: number | null;
   id: number | null;
 }
+
+
+export interface IIsSecondStepPassed {
+  isSecondStepPassed: boolean
+}
+

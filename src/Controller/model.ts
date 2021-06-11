@@ -9,7 +9,7 @@ export interface IStore {
   router: RouterState;
   authState: IAuthState;
   app: IState;
-  updateSignInSecondStep: IUpdateState;
+  updateSteUserAfterSignIn: IUpdateState;
 }
 
 export interface ISimpleState {

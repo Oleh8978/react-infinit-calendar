@@ -13,7 +13,11 @@ import { IStore } from 'Controller/model';
 import { ISetAuthenticatedStatus, IUser } from 'Controller/auth/model';
 
 // Actions
-import { setAuthenticatedStatus, loginByToken } from 'Controller/auth/actions';
+import {
+  setAuthenticatedStatus,
+  loginByToken,
+  setIsneedSecondStep,
+} from 'Controller/auth/actions';
 
 // Routing schema
 import RoutingSchema from './schema';
@@ -43,28 +47,44 @@ interface Props {
   loginByToken: (token: string) => void;
   loader: boolean;
   user: IUser;
+  isSecondStepPassed: any;
+  setIsneedSecondStep: () => void;
 }
 
 const Routing: React.FC<Props> = ({
   authStatus,
-  //isNeededSecondStep, // uncomment before push
+  isNeededSecondStep,
   user,
   ...props
 }) => {
   const [userData, setUserData] = useState<IUser>(undefined);
-  const isNeededSecondStep = false; // delete this before push
+  const [
+    isNeeededSecondStepValue,
+    setIsNeededSecondSteValue,
+  ] = useState<boolean>(true);
+  // const isNeededSecondStep = true;
   useEffect(() => {
     const authData = getSavedAccess();
     if (authData.accessToken && authData.refreshToken) {
       props.loginByToken(authData.accessToken);
       if (user !== undefined) {
-        setUserData(user)
+        setUserData(user);
       }
     } else {
       props.setAuthenticatedStatus({ status: false });
-      // props.setAuthenticatedStatus({ status: true });
     }
-  }, [user]);
+
+    if (isNeededSecondStep === true) {
+      setIsNeededSecondSteValue(true);
+    } else {
+      setIsNeededSecondSteValue(false);
+    }
+
+    if (props.isSecondStepPassed === true) {
+      setPageOpened();
+    }
+  }, [user, props.isSecondStepPassed]);
+
   const location = useLocation();
 
   const transition = useTransition(location, {
@@ -72,17 +92,26 @@ const Routing: React.FC<Props> = ({
     // enter: { opacity: 1, left: 0, top: 0 },
     // leave: { opacity: 0, left: 0, top: 0 },
   });
-  console.log('isNeededSecondStep ', isNeededSecondStep);
-  console.log('authStatus ', authStatus);
+  // console.log('isNeededSecondStep ', isNeededSecondStep);
+  // console.log('authStatus ', authStatus);
+
+  const setPageOpened = () => {
+    setIsNeededSecondSteValue(false);
+    setIsneedSecondStep({
+      ...userData,
+      isNeedSecondStep: false,
+    });
+  };
 
   const logoutMethod = () => {
     props.setAuthenticatedStatus({ status: false });
     clearAccess();
-  }
+  };
+
   if (
-    (!authStatus && isNeededSecondStep) ||
-    (!authStatus && !isNeededSecondStep) ||
-    (authStatus && isNeededSecondStep)
+    (!authStatus && isNeeededSecondStepValue) ||
+    (!authStatus && !isNeeededSecondStepValue) ||
+    (authStatus && isNeeededSecondStepValue)
   )
     return (
       <>
@@ -91,15 +120,16 @@ const Routing: React.FC<Props> = ({
         ) : (
           <Login
             authStatus={authStatus}
-            isNeededSecondStep={isNeededSecondStep}
+            isNeededSecondStep={isNeeededSecondStepValue}
             user={userData}
+            setPageOpened={setPageOpened}
             logoutMethod={logoutMethod}
           />
         )}
       </>
     );
 
-  if (authStatus && !isNeededSecondStep)
+  if (authStatus && !isNeeededSecondStepValue)
     return (
       <>
         {/* {authStatus && isLoginPageOpened ? (
@@ -147,6 +177,7 @@ export default connect(
     location: state.router.location,
     loader: state.authState.state.isLoading,
     isNeededSecondStep: state.authState.user.isNeedSecondStep,
+    isSecondStepPassed: state.updateSteUserAfterSignIn.isSecondStepPassed,
     user: state.authState.user,
   }),
   {
