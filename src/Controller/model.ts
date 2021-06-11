@@ -4,12 +4,16 @@ import { RouterState } from 'connected-react-router';
 import { IError, ILoader } from '../Model';
 import { IAuthState } from './auth/model';
 import { IUpdateState } from './secondStepDataUpdater/models';
+import { IDiscoveryState } from './Discovery/model';
+import { IAcrticleCategoryState } from './articleCategory/models';
 
 export interface IStore {
   router: RouterState;
   authState: IAuthState;
   app: IState;
   updateSteUserAfterSignIn: IUpdateState;
+  discoveryListReducer: IDiscoveryState;
+  ArticleReducer: IAcrticleCategoryState;
 }
 
 export interface ISimpleState {

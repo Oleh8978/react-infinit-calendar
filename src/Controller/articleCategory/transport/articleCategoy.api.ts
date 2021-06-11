@@ -7,14 +7,14 @@ import { authHeader, handleErrors, refreshHeader } from '../../../utils/API';
 import { appendSearchParams } from '../../../utils/appendSearchParams';
 
 // models
-import { IDiscoverySearchParams } from '../model';
+import { IArticleListSearchParanms } from '../models';
 
 class API {
-  public async getDiscovery(
-    discoverySearchParams: IDiscoverySearchParams,
+  public async getArticleCategories(
+    discoverySearchParams: IArticleListSearchParanms,
     accessToken: string,
   ): Promise<AuthUserLoginByTokenResponseDTO | string> {
-    let url = new URL(Config.MAIN_SERVICE_ENDPOINT + 'discovery/list');
+    let url = new URL(Config.MAIN_SERVICE_ENDPOINT + 'article-category/list');
 
     url = appendSearchParams(url, discoverySearchParams);
 
@@ -41,4 +41,4 @@ class API {
     );
   }
 }
-export const DiscoveryAPI = new API();
+export const ArticleCategoryAPI = new API();
