@@ -153,7 +153,7 @@ class RoutingSchema {
     },
     {
       name: 'article',
-      path: '/article',
+      path: '/article/:id',
       isExact: true,
       component: ProtectedRoute(Article, 'ANONYMOUS_USERS'),
     },
