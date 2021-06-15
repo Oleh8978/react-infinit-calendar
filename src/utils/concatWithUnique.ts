@@ -2,7 +2,7 @@ export const concatWithUnique = function concatArrayWithUnique<TypeElement>(
   arr1: TypeElement[],
   arr2: TypeElement[],
   property?: string,
-  concatItems?: boolean
+  concatItems?: boolean,
 ) {
   const uniqueArray: any[] = [...arr1, ...arr2];
   if (Array.isArray(uniqueArray) && uniqueArray.length) {
@@ -15,16 +15,17 @@ export const concatWithUnique = function concatArrayWithUnique<TypeElement>(
               .reduce(
                 (accumulator, currentValue) => {
                   return {
-                  ...accumulator,
-                  ...currentValue,
-                  }
+                    ...accumulator,
+                    ...currentValue,
+                  };
                 },
                 {
                   [property]: itemProperty,
-                }
+                },
               );
           }
-          let findObject, index = uniqueArray.length - 1;
+          let findObject,
+            index = uniqueArray.length - 1;
           for (; index >= 0; index--) {
             if (uniqueArray[index][property] === itemProperty) {
               findObject = uniqueArray[index];
@@ -35,12 +36,12 @@ export const concatWithUnique = function concatArrayWithUnique<TypeElement>(
             [property]: itemProperty,
             ...findObject,
           };
-        }
+        },
       );
     }
 
     return uniqueArray.filter(
-      (value, index, self) => self.indexOf(value) === index
+      (value, index, self) => self.indexOf(value) === index,
     );
   }
   return uniqueArray;
