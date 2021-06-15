@@ -2,10 +2,17 @@
   &-more {
     &-main {
       &-wrapper {
-        margin-top: 65px;
+        //margin-top: 65px;
+        margin-top: 10px;
         display: flex;
         flex-flow: column;
         width: 100%;
+
+        a {
+          font-family: $NotoSansSC;
+          font-weight: 700;
+          color: $success-color;
+        }
 
         &-text {
           margin: 10px 20px auto;
