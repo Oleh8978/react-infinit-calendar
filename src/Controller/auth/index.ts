@@ -130,7 +130,7 @@ export const authReducer = createReducer<IAuthState, AuthActionType>(
       isAuthenticated: true,
       error: undefined,
     }),
-  );
+  )
 
 /* Selectors */
 

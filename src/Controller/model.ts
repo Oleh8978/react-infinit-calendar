@@ -6,6 +6,7 @@ import { IAuthState } from './auth/model';
 import { IUpdateState } from './secondStepDataUpdater/models';
 import { IDiscoveryState } from './Discovery/model';
 import { IAcrticleCategoryState } from './articleCategory/models';
+import { IAccountState } from './account/models';
 
 export interface IStore {
   router: RouterState;
@@ -14,6 +15,7 @@ export interface IStore {
   updateSteUserAfterSignIn: IUpdateState;
   discoveryListReducer: IDiscoveryState;
   ArticleReducer: IAcrticleCategoryState;
+  userReducer: IAccountState;
 }
 
 export interface ISimpleState {

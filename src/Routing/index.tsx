@@ -10,12 +10,16 @@ import { getSavedAccess } from 'utils/manageAccess';
 
 // interfaces
 import { IStore } from 'Controller/model';
-import { ISetAuthenticatedStatus, IUser } from 'Controller/auth/model';
+import {
+  ISetAuthenticatedStatus,
+  IUser,
+  IAuthData,
+} from 'Controller/auth/model';
 
 // Actions
 import {
   setAuthenticatedStatus,
-  loginByToken,
+  loginByTokenAction,
   setIsneedSecondStep,
 } from 'Controller/auth/actions';
 
@@ -44,10 +48,10 @@ interface Props {
   setInfoAreAllfiealdsFilledOut: (boolean) => void;
   push: (path: string) => void;
   isNeededSecondStep: boolean;
-  loginByToken: (token: string) => void;
   loader: boolean;
   user: IUser;
   isSecondStepPassed: any;
+  loginByTokenAction: (data: IAuthData) => void;
   setIsneedSecondStep: () => void;
 }
 
@@ -64,10 +68,14 @@ const Routing: React.FC<Props> = ({
   ] = useState<boolean>(true);
   // const isNeededSecondStep = true;
   useEffect(() => {
+    console.log(' user ', user);
     const authData = getSavedAccess();
     if (authData.accessToken && authData.refreshToken) {
-      props.loginByToken(authData.accessToken);
-      if (user !== undefined) {
+      if (authStatus === false) {
+        props.loginByTokenAction(authData);
+      }
+
+      if (user !== undefined && userData === undefined) {
         setUserData(user);
       }
     } else {
@@ -83,7 +91,7 @@ const Routing: React.FC<Props> = ({
     if (props.isSecondStepPassed === true) {
       setPageOpened();
     }
-  }, [user, props.isSecondStepPassed]);
+  }, [props.isSecondStepPassed, user]);
 
   const location = useLocation();
 
@@ -179,10 +187,11 @@ export default connect(
     isNeededSecondStep: state.authState.user.isNeedSecondStep,
     isSecondStepPassed: state.updateSteUserAfterSignIn.isSecondStepPassed,
     user: state.authState.user,
+    usr: state,
   }),
   {
     setAuthenticatedStatus,
     push,
-    loginByToken: loginByToken.request,
+    loginByTokenAction,
   },
 )(Routing);

@@ -29,72 +29,84 @@ const initialState: IDiscoveryState = {
     items: [],
   },
   storedSearchParams: null,
-  isLoading: false,
+  isLoading: {
+    status: false,
+  },
   anyErrors: false,
-  error: undefined,
+  error: {
+    code: '',
+    message: '',
+    name: '',
+  },
 };
 
 export const discoveryListReducer = createReducer<
   IDiscoveryState,
   DiscoveryListTypeAction
->(initialState).handleAction(
-  [actions.getDiscoveryList.success],
-  (state: IDiscoveryState, { payload }): IDiscoveryState => {
-    const storedSearchParams = state.storedSearchParams;
-    const { searchParams }: any = payload.searchParams;
+>(initialState)
+  .handleAction(actions.setLoadingAction, (store, { payload }) => ({
+    ...store,
+    isLoading: payload,
+  }))
+  .handleAction(
+    [actions.getDiscoveryList.success],
+    (state: IDiscoveryState, { payload }): IDiscoveryState => {
+      const storedSearchParams = state.storedSearchParams;
+      const { searchParams }: any = payload.searchParams;
 
-    const discoveryList = {
-      ...state.discoveryList,
-    };
+      const discoveryList = {
+        ...state.discoveryList,
+      };
 
-    payload.response.items.forEach((elem) => {
+      payload.response.items.forEach((elem) => {
+        if (
+          discoveryList.items.find(
+            (item) =>
+              item.article.id !== elem.article.id &&
+              item.journey.id !== elem.article.id,
+          )
+        ) {
+          discoveryList.items.push(elem);
+        } else {
+          return discoveryList.items;
+        }
+      });
+
+      let newDiscoveryList;
       if (
-        discoveryList.items.find(
-          (item) =>
-            item.article.id !== elem.article.id &&
-            item.journey.id !== elem.article.id,
-        )
+        JSON.stringify(omit(storedSearchParams, ['limit', 'offset'])) ===
+        JSON.stringify(omit(searchParams, ['limit', 'offset']))
       ) {
-        discoveryList.items.push(elem);
+        newDiscoveryList = concatWithUnique<DiscoveryDTO>(
+          state.discoveryList.items || [],
+          payload.response.items.map((item) => item),
+        );
       } else {
-        return discoveryList.items;
+        newDiscoveryList = concatWithUnique<DiscoveryDTO>(
+          [],
+          payload.response.items.map((item) => item),
+        );
       }
 
-      // discoveryList.items[elem.] = {
-      //   ...discoveryList.items[elem.type],
-      //   ...elem,
-      // };
-    });
-
-    let newDiscoveryList;
-    if (
-      JSON.stringify(omit(storedSearchParams, ['limit', 'offset'])) ===
-      JSON.stringify(omit(searchParams, ['limit', 'offset']))
-    ) {
-      newDiscoveryList = concatWithUnique<DiscoveryDTO>(
-        state.discoveryList.items || [],
-        payload.response.items.map((item) => item),
-      );
-    } else {
-      newDiscoveryList = concatWithUnique<DiscoveryDTO>(
-        [],
-        payload.response.items.map((item) => item),
-      );
-    }
-
-    return {
-      ...state,
-      storedSearchParams: searchParams,
-      discoveryList: {
-        counts: payload.response.counts,
-        items: newDiscoveryList,
-      },
-      isLoading: false,
-      anyErrors: false,
-      error: undefined,
-    };
-  },
-);
+      return {
+        ...state,
+        storedSearchParams: searchParams,
+        discoveryList: {
+          counts: payload.response.counts,
+          items: newDiscoveryList,
+        },
+        isLoading: {
+          status: false,
+        },
+        anyErrors: false,
+        error: {
+          code: '',
+          message: '',
+          name: '',
+        },
+      };
+    },
+  );
 
 /* Selectors */
 // export const getDiscoveries = (state: IStore) => state.;

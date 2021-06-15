@@ -55,7 +55,7 @@ const Schedule: React.FC<IProps> = ({ absoluteBlock }) => {
           element = <TrialExpired />;
         }
 
-        if (item.haseNoActiveJourneys) {
+        if (item.hasNoActiveJourneys) {
           element = <NoJourneys />;
         }
       }

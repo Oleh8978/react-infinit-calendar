@@ -1,4 +1,4 @@
-import { ArticleDTO, ArticleGetListResponse } from '@ternala/frasier-types';
+import { ArticleDTO, ArticleGetListResponse, JourneyShortDTO } from '@ternala/frasier-types';
 
 import { createdAtSortFieldEnum } from '@ternala/frasier-types/lib/constants/sortFields';
 import { discoveryEntityTypeEnum } from '@ternala/frasier-types/lib/constants/main';

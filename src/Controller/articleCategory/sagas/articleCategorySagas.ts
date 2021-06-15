@@ -11,9 +11,9 @@ export function* getDiscoveriesSaga({
   payload,
 }: ReturnType<typeof actions.getArticlesCategoriesAction.request>) {
   const accessToken: string | undefined = yield yield select(getAccessToken);
-  const additionalFields = {
-    property: payload.property,
-  };
+//   const additionalFields = {
+//     property: payload.property,
+//   };
   //   yield put(
   //     addLeaseTransactionLoader({
   //       id: loadId,
@@ -70,6 +70,7 @@ export function* getDiscoveriesSaga({
     }
     if (typeof payload.callback === 'function') payload.callback();
   } catch (error) {
+      console.log('error ', error)
     // yield put(
     //   getLeaseTransactionAction.failure({
     //     code: error.code || 400,

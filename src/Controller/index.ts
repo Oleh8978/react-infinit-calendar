@@ -8,9 +8,16 @@ import { updateUserDataSaga } from './secondStepDataUpdater/sagas/secondStepSaga
 import { UpdateAfterSignInRequestReducer } from './secondStepDataUpdater/index';
 import { DiscoverySaga, discoveryListReducer } from './Discovery/index';
 import { ArticleReducer, ArticleSaga } from './articleCategory/index';
+import { accountUserSaga, userReducer } from './account/index';
 
 export const rootSaga = function* () {
-  yield all([authSaga(), updateUserDataSaga(), DiscoverySaga(), ArticleSaga()]);
+  yield all([
+    authSaga(),
+    updateUserDataSaga(),
+    DiscoverySaga(),
+    ArticleSaga(),
+    accountUserSaga(),
+  ]);
 };
 
 export const rootReducer = (history: History): Reducer =>
@@ -20,4 +27,5 @@ export const rootReducer = (history: History): Reducer =>
     updateSteUserAfterSignIn: UpdateAfterSignInRequestReducer,
     discoveryListReducer: discoveryListReducer,
     ArticleReducer: ArticleReducer,
+    userReducer: userReducer,
   });

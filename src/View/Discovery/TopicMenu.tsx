@@ -4,16 +4,21 @@ import { topics } from './FakeData/hardcodedData';
 
 import { ITopic } from './Models/DiscoveryModels';
 
+//interface
+import { ArticleDTO } from '@ternala/frasier-types';
+
 interface IProps {
   marginAdder: (isSmall: boolean) => void;
+  articleCategories: ArticleDTO[] | undefined;
 }
 
 const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
   const [smallMenu, setSmallMenu] = useState<boolean>(false);
+  const [ArticleList, setArticleList] = useState<ArticleDTO[]>([]);
 
   const scrollTracker = () => {
     // console.log('inn', document.querySelector('.main-wrapper').scrollTop);
-    if (document.querySelector('.main-wrapper').scrollTop > 400) {
+    if (document.querySelector('.main-wrapper-discovery').scrollTop > 400) {
       setSmallMenu(true);
       marginAdder(true);
     } else {
@@ -23,7 +28,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
   };
 
   const scrollToTop = () => {
-    document.querySelector('.main-wrapper').scrollTo(0, 0);
+    document.querySelector('.main-wrapper-discovery').scrollTo(0, 0);
   };
 
   const moseMover = (ele) => {
@@ -70,12 +75,14 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
     moseMover(elementGenral);
     moseMover(elementSmall);
 
-    document.querySelector('.main-wrapper').addEventListener('scroll', () => {
-      scrollTracker();
-    });
+    document
+      .querySelector('.main-wrapper-discovery')
+      .addEventListener('scroll', () => {
+        scrollTracker();
+      });
 
     return () => {
-      const main = document.querySelector('.main-wrapper');
+      const main = document.querySelector('.main-wrapper-discovery');
 
       if (main !== null)
         main.removeEventListener('scroll', () => scrollTracker());

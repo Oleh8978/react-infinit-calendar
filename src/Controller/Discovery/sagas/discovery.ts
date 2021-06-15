@@ -14,14 +14,12 @@ export function* getDiscoveriesSaga({
   const additionalFields = {
     property: payload.property,
   };
-  //   yield put(
-  //     addLeaseTransactionLoader({
-  //       id: loadId,
-  //       message: 'Please wait, leases are loading!',
-  //       type: LoaderAction.lease.getList,
-  //       additionalFields,
-  //     }),
-  //   );
+
+  yield put(
+    actions.setLoadingAction({
+      status: true,
+    }),
+  );
   try {
     if (!accessToken) throw new Error('Not authorized');
     const res = yield DiscoveryAPI.getDiscovery(payload, accessToken);
@@ -40,7 +38,17 @@ export function* getDiscoveriesSaga({
       //       additionalFields,
       //     }),
       //   );
+      yield put(
+        actions.setLoadingAction({
+          status: false,
+        }),
+      );
     } else {
+      yield put(
+        actions.setLoadingAction({
+          status: false,
+        }),
+      );
       //   yield put(
       //   getLeaseTransactionsAction.success({
       //     response: res,
@@ -67,6 +75,11 @@ export function* getDiscoveriesSaga({
     }
     if (typeof payload.callback === 'function') payload.callback();
   } catch (error) {
+    yield put(
+      actions.setLoadingAction({
+        status: false,
+      }),
+    );
     // yield put(
     //   getLeaseTransactionAction.failure({
     //     code: error.code || 400,

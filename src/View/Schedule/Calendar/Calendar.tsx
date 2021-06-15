@@ -231,17 +231,6 @@ const Calendar: React.FC<IProps> = ({ getDayAndRecords }) => {
     // dateObject.monthArr(currentMonth, currentYear, calendar);
 
     calendar.map((item) => {
-      console.log(`String(
-        dateObject.dateCreator(
-          new Date().getDate(),
-          new Date().getMonth() + 1,
-          new Date().getFullYear(),
-        )`, String(
-          dateObject.dateCreator(
-            new Date().getDate(),
-            new Date().getMonth() + 1,
-            new Date().getFullYear(),
-          )));
       if (
         String(item.date) ===
         String(
@@ -279,9 +268,7 @@ const Calendar: React.FC<IProps> = ({ getDayAndRecords }) => {
       />
     );
   });
-  // .replace(/-/g,'/').replace('T',' ').replace(/(\..*|\+.*/,"")
-  console.log('headerDate.month ', headerDate.month);
-  console.log('headerDate.year ', headerDate.year);
+  
   return (
     <div className={'calendar'}>
       {isModalOpened ? <ModalWindow setModalOpened={setModalOpened} /> : <></>}
