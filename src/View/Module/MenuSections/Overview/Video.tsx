@@ -6,7 +6,8 @@ import videoBg from 'View/Module/MenuSections/staticHardcoded/video-bg.png';
 
 interface IProps {
   link: string;
-  img: string;
+  img?: string;
+  title?: string;
 }
 
 const VideoComponent: React.FC<IProps> = ({ ...props }) => {
@@ -29,9 +30,15 @@ const VideoComponent: React.FC<IProps> = ({ ...props }) => {
           </div>
         ) : (
           <div className="overview-video-wrapper">
-            <img src={videoBg} alt='' className='overview-video-bg' />
-            <div className='overview-video-btn' onClick={onPlay}>
-            </div>
+            {props.img ? (<>
+              <img src={videoBg} alt='' className='overview-video-bg' />
+              <div className='overview-video-btn' onClick={onPlay}>
+              </div>
+            </>) : (
+              <div className='overview-video-btn' onClick={onPlay}>
+                {props.title}
+              </div>
+            )}
           </div>
         )}
       </div>

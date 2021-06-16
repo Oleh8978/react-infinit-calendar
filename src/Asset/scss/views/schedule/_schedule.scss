@@ -94,6 +94,7 @@
     }
     &-dayweek {
       margin-top: 18px;
+      font-size: 14px;
       text-align: center;
       width: 100%;
       height: fit-content;
@@ -104,6 +105,7 @@
       margin-top: 12px;
       color: $text-color;
       font-size: 16px;
+      line-height: 18px;
     }
 
     &-divider {
@@ -152,6 +154,7 @@
       display: flex;
       flex-flow: row;
       cursor: pointer;
+      padding: 10px 0 10px 10px;
     }
 
     &-menu1 {
@@ -483,7 +486,7 @@
   max-width: 861px;
   margin-right: auto;
   margin-left: auto;
-  background-color: $primary-action-color-ultralight;
+  background-color: rgba($text-color, 0.65);
 
   &-btn {
     &-wrapper {

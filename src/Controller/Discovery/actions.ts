@@ -1,6 +1,6 @@
 import { createAsyncAction } from 'typesafe-actions';
 
-import { appName } from 'Config';
+import { appName } from '../../Config/index';
 
 //Interfaces
 import { IException } from './model';
@@ -11,10 +11,10 @@ import {
 } from '@ternala/frasier-types';
 
 // const for ath actions
-export const widgetName = 'auth';
+export const widgetName = 'discovery';
 
 // ** Action
-export const getDiscovery = createAsyncAction(
+export const getDiscoveryList = createAsyncAction(
   `${appName}/${widgetName}/GET_DISCOVERY_REQUEST`,
   `${appName}/${widgetName}/GET_DISCOVERY_SUCCESS`,
   `${appName}/${widgetName}/GET_DISCOVERY_FAILED`,

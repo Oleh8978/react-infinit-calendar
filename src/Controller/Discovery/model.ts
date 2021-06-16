@@ -1,5 +1,7 @@
 import { createdAtSortFieldEnum } from '@ternala/frasier-types/lib/constants/sortFields';
 import { discoveryEntityTypeEnum } from '@ternala/frasier-types/lib/constants/main';
+// interfaces 
+import { DiscoveryDTO } from '@ternala/frasier-types';
 
 export interface IException {
   code: string;
@@ -7,19 +9,17 @@ export interface IException {
   name?: string;
 }
 
-export interface ILoaderState {
-  loaders: any[];
-  errors: any[];
-}
-
 export interface IDiscoveryState {
-  discoveryList: any;
-  ILoadersState: ILoaderState;
+  discoveryList: IDiscoveryObject;
+  storedSearchParams: null | IDiscoverySearchParams;
+  isLoading: boolean;
+  anyErrors: boolean;
+  error: string | undefined;
 }
 
 export interface IDiscoveryObject {
   counts: number;
-  items: IItemList[];
+  items: DiscoveryDTO[];
 }
 
 export interface IItemList {

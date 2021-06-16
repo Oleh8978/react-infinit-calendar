@@ -7,7 +7,7 @@ interface IProps {
   campCode?: string;
   header: string;
   textDiscount?: string;
-  text?: string;
+  text?: any;
 }
 
 const AdditionalLink: React.FC<IProps> = ({ ...props }) => {

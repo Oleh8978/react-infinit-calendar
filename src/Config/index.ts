@@ -39,3 +39,5 @@ export const menuItems: IMenuItem[] = [
 ];
 
 export const routsWhereShowMenu = ['account', 'schedule', 'discovery'];
+
+export const LoaingItemsLimit = 15;
