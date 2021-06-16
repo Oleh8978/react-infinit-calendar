@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { ArticleDTO } from '@ternala/frasier-types';
 import { useSelector } from 'react-redux';
