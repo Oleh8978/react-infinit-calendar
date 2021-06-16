@@ -3,8 +3,8 @@ import { EditorState, ContentState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 
 interface IProps {
-  setTextFromChildNotesComp: (txt: string) => void;
-  textFromNotes: any;
+  setTextFromChildNotesComp?: (txt: string) => void;
+  textFromNotes?: any;
 }
 
 const Notes: React.FC<IProps> = ({ ...props }) => {

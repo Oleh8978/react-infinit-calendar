@@ -6,7 +6,7 @@ import { useTransition, animated } from 'react-spring';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 // utils functions
-import { getSavedAccess } from 'utils/manageAccess';
+import { getSavedAccess } from 'Utils/manageAccess';
 
 // interfaces
 import { IStore } from 'Controller/model';
@@ -20,7 +20,7 @@ import {
 } from 'Controller/auth/actions';
 
 // Routing schema
-import RoutingSchema from './schema';
+import RoutingSchema, { IRoute } from './schema';
 
 // components
 import Login from '../View/Login';
@@ -28,14 +28,33 @@ import Menu from '../Component/Menu';
 import Loader from 'Component/Loader';
 
 // clear access method
-import { clearAccess } from 'utils/manageAccess';
+import { clearAccess } from 'Utils/manageAccess';
 
 // Render all routes
-const Routes = RoutingSchema.getSchema.map(
-  ({ component: Component, path, name, isExact }) => (
-    <Route exact={isExact} key={name} path={path} component={Component} />
-  ),
-);
+const generateRoutes = (routes: IRoute[]) => {
+  return routes.map(({ component: Component, ...route }) => (
+    <Route
+      exact={route.isExact}
+      key={route.name}
+      path={route.path}
+      render={(props) => {
+        return (
+          <Component
+            key={route.name + Object.values(props.match.params).join(',')}
+            {...props}>
+            {route.childRoutes ? (
+              <Switch>{generateRoutes(route.childRoutes)}</Switch>
+            ) : (
+              <></>
+            )}
+          </Component>
+        );
+      }}
+    />
+  ));
+};
+
+const Routes = generateRoutes(RoutingSchema.getSchema);
 
 interface Props {
   location: any;

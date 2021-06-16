@@ -122,7 +122,7 @@ export interface IUserData {
   image?: string;
   lastName?: string;
   phone?: null | string;
-  startTime?: number | null | string;
+  startTime?: number | null;
   state?: null | string;
   street?: null | string;
   timezone?: null | string;

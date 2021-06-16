@@ -7,7 +7,8 @@ export const getFCMToken = async () => {
     await messaging.requestPermission();
     return await messaging.getToken();
   } catch (error) {
-    console.log('fcm token error ', error);
+    // console.log('fcm token error ', error);
+    // TODO: Check problem
     process.env.REACT_APP_SHOW_LOGS === 'true' && console.error(error);
   }
 };

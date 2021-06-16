@@ -21,9 +21,9 @@ import {
   experts,
 } from 'View/Module/MenuSections/staticHardcoded/data';
 
-interface IProps {}
+interface IProps extends RouteComponentProps<{id: string}>{}
 
-const Article: React.FC<IProps> = () => {
+const Article: React.FC<IProps> = (props) => {
   return (
     <div className={'jorneydiscovey'}>
       <NavigationBar name={'Podcast'} rout={'/'} />

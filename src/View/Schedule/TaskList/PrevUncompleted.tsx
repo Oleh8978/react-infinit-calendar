@@ -2,6 +2,8 @@ import React from 'react';
 
 // utils
 import { getMonthNameShort } from '../Calendar/utils';
+import { TimeSlotDTO } from '@ternala/frasier-types';
+import InternalLink from '../../../Routing/Link';
 
 interface ITask {
   date: string;
@@ -10,28 +12,28 @@ interface ITask {
 
 interface IProps {
   date: string;
-  tasks: ITask[];
+  timeSlots: TimeSlotDTO[];
 }
 
-const PrevUncompleted: React.FC<IProps> = ({ date, tasks }) => {
-  const dateTrnsformer = (dat) => {
-    return (
-      '' +
-      getMonthNameShort(new Date(dat).getMonth()) +
-      ' ' +
-      new Date(dat).getDate()
-    );
-  };
-
+const PrevUncompleted: React.FC<IProps> = ({ date, timeSlots }) => {
   return (
     <div className={'task-previous'}>
-      <div className={'task-previous-date'}>{dateTrnsformer(date)}</div>
-      {tasks.map((item) => {
+      <div className={'task-previous-date'}>{date}</div>
+      {timeSlots.map((timeSlot) => {
         return (
-          <div className={'task-previous-description'} key={item.date}>
-            {' '}
-            <span>{item.description}</span>
-          </div>
+          <InternalLink
+            to={'module-tab'}
+            params={{
+              id: String(timeSlot.module.id),
+              tabName: 'task',
+            }}
+            className={'task-previous-description'}
+            key={'task-previous-description' + timeSlot?.id}>
+            <span>
+              {timeSlot?.module?.title +
+                (timeSlot?.title ? ' - ' + timeSlot.title : '')}
+            </span>
+          </InternalLink>
         );
       })}
     </div>

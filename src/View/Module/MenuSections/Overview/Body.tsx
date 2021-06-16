@@ -21,13 +21,17 @@ import {
   underlinedData,
   experts,
 } from 'View/Module/MenuSections/staticHardcoded/data';
+import { ModuleExpandDTO } from '../../../../Controller/module/models';
 
-interface IProps {}
+interface IProps {
+  module: ModuleExpandDTO
+}
 
-const Body: React.FC<IProps> = () => {
+const Body: React.FC<IProps> = ({ module }) => {
   return (
     <>
       <div className="overview-body">
+        {module.sections}
         <img src={talks} className="overview-body-img__main" alt="img" />
         <Description />
         <List items={data} isUnderlined={false} />

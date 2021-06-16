@@ -2,6 +2,10 @@ import { ActionType, createReducer } from 'typesafe-actions';
 import { all } from 'redux-saga/effects';
 // actions
 import * as actions from '../auth/actions';
+
+// config
+import { defaultUserStartTime } from '../../Config/constants';
+
 // interfaces
 import { IStore } from '../model';
 import { IAuthState } from '../auth/model';
@@ -10,8 +14,8 @@ import { IAuthState } from '../auth/model';
 import { authActionSaga, checkAccessTokenExpired } from './sagas/auth';
 
 // functionality
-import { getSavedAccess } from '../../utils/manageAccess';
-import { getCredentials } from '../../utils/deviceCredentials';
+import { getSavedAccess } from 'Utils/manageAccess';
+import { getCredentials } from 'Utils/deviceCredentials';
 
 export type AuthActionType = ActionType<typeof actions>;
 
@@ -38,7 +42,7 @@ const initialState: IAuthState = {
       image: '',
       lastName: '',
       phone: '',
-      startTime: '',
+      startTime: defaultUserStartTime,
       state: '',
       street: '',
       timezone: '',
@@ -174,9 +178,12 @@ export const getRefreshToken = (state: IStore) => {
 };
 // export const getRefreshToken = (state: IStore) => state.authState.refreshToken;
 
+
 export const deviceCredentials = async () => {
   await getCredentials();
 };
+export const getUserStartTime = (state: IStore): number | undefined =>
+  state.authState?.user?.userData.startTime;
 
 export const getDeviceCreds = (state: IStore) => {
   if (state.authState.deviceCredentials !== undefined) {

@@ -2,9 +2,9 @@ import { AuthUserLoginByTokenResponseDTO } from '@ternala/frasier-types/lib/inde
 import { DeviceCreateRequest } from '@ternala/frasier-types/lib/index';
 
 import { Config } from '../../../Config/API';
-import { authHeader, handleErrors, refreshHeader } from '../../../utils/API';
-import { getSavedAccess } from '../../../utils/manageAccess';
-import { getFCMToken } from '../../../utils/getFCMToken';
+import { authHeader, handleErrors, refreshHeader } from 'Utils/API';
+import { getSavedAccess } from 'Utils/manageAccess';
+import { getFCMToken } from 'Utils/getFCMToken';
 
 import { IAuthData, IDeviceCredentials } from '../model';
 

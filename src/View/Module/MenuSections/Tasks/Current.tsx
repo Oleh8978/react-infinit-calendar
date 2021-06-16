@@ -1,30 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { TimeSlotDTO } from '@ternala/frasier-types';
 
 // components
-import Task from './Task';
+import TimeSlot from './TimeSlot';
 
 // interfaces
-import { ICalendarData, IListCalendarItem } from './Models';
+import { getUserStartTime } from '../../../../Controller/auth';
+import { defaultUserStartTime } from '../../../../Config/constants';
 
 interface IProps {
-  currentData: ICalendarData[];
-  setCheckButton: (id: number) => void;
+  timeSlots: TimeSlotDTO[];
+  toggleTask: (id: number) => void;
 }
 
-const Current: React.FC<IProps> = ({ ...props }) => {
+const Current: React.FC<IProps> = ({ timeSlots, ...props }) => {
+  let userStartTime = useSelector(getUserStartTime) || defaultUserStartTime;
   return (
     <div className={'tasks-current'}>
-      {props.currentData[0] !== undefined &&
-        props.currentData[0].tasks.map((item) => {
-          return (
-            <Task
-              tasks={item.items}
-              time={item.time}
-              toDo={item.timeToDo}
-              setCheckButton={props.setCheckButton}
-            />
-          );
-        })}
+      {timeSlots.map((timeSlot) => {
+        const timeSlotEl = (
+          <TimeSlot
+            tasks={timeSlot.tasks}
+            time={userStartTime}
+            duration={timeSlot.duration}
+            toggleTask={props.toggleTask}
+          />
+        );
+        userStartTime += timeSlot.duration;
+        return timeSlotEl;
+      })}
     </div>
   );
 };

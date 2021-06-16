@@ -52,6 +52,7 @@
     flex-flow: row;
     overflow-x: scroll;
     cursor: grab;
+    align-items: flex-end;
   }
 
   &-day {

@@ -7,10 +7,10 @@ import {
 } from '@ternala/frasier-types';
 
 // Exceptions
-import { BadRequest } from 'utils/API/Exceptions';
+import { BadRequest } from 'Utils/API/exceptions';
 
 //APIs
-import { AuthAPI } from '../transport/ath.api';
+import { AuthAPI } from '../transport/auth.api';
 
 // Actions
 import { getAccessToken, getRefreshToken } from '../index';
@@ -24,9 +24,9 @@ import {
 } from '../actions';
 
 // Utils
-import { clearAccess, saveAccess } from '../../../utils/manageAccess';
-import { getCredentials } from '../../../utils/deviceCredentials';
-import { isJWTTokenExpired } from '../../../utils/API';
+import { clearAccess, saveAccess } from 'Utils/manageAccess';
+import { getCredentials } from 'Utils/deviceCredentials';
+import { isJWTTokenExpired } from 'Utils/API';
 
 // Interfaces
 import { IAuthData, IDeviceCredentials } from '../model';

@@ -1,74 +1,104 @@
 import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-
+import moment, { Moment } from 'moment';
+import { timeSlotDateFormat } from '@ternala/frasier-types/lib/constants'
 import Calendar from './Calendar/Calendar';
 import TaskList from './TaskList/TaskList';
-import NoTasks from './NoTasks/NoTasks';
-import DayOff from './DayOff/DayOff';
-import NoJourneys from './NoJourneys/NoJourneys';
-import TrialExpired from './TrialExpired/TrialExpired';
-import Holiday from './Holiday/Holiday';
 import WellDone from './WellDone/WellDone';
 
-// fake data
-import { events } from './fakeData/fakedata';
-
 //utils
-import * as dateObject from './Calendar/utils';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  getScheduleAction,
+  getUncompletedTimeSlotsAction,
+} from '../../Controller/schedule/actions';
+
+// Interfaces
+import { limitGetScheduleDays } from '../../Config/constants';
+import { TimeSlotDTO } from '@ternala/frasier-types';
+import { getSchedule, getUncompleted } from '../../Controller/schedule';
+import { generateArrayOfDates } from '../../Utils/generateArrayOfDates';
 
 interface IProps extends RouteComponentProps {
   absoluteBlock: string;
 }
 
 const Schedule: React.FC<IProps> = ({ absoluteBlock }) => {
-  const [selectedDay, setSelectedDay] = useState<any>('');
+  const startDate = moment().subtract(limitGetScheduleDays, 'days');
+  const endDate = moment().add(limitGetScheduleDays, 'days');
+  const daysInSchedule: Moment[] = generateArrayOfDates(startDate, endDate);
 
-  const getDayAndRecords = (day: any) => {
-    setSelectedDay(String(day));
-  };
+  const schedule = useSelector(getSchedule);
+  const uncompletedSchedule = useSelector(getUncompleted);
 
-  const scheduleData = (data) => {
-    let element = <TaskList />;
-    data.find((item) => {
-      if (
-        String(
-          dateObject.dateCreator(
-            new Date(item.day).getDate(),
-            new Date(item.day).getMonth() + 1,
-            new Date(item.day).getUTCFullYear(),
-          ),
-        ) === String(selectedDay)
-      ) {
-        if (item.hasAnyEvents) {
-          element = <TaskList />;
-        }
+  const [selectedDay, setSelectedDay] = useState<Moment>(moment());
+  const [timeSlots, setTimeSlots] = useState<TimeSlotDTO[]>([]);
+  const dispatch = useDispatch();
 
-        if (item.isHolidays) {
-          element = <Holiday />;
-        }
+  useEffect(() => {
+    dispatch(
+      getScheduleAction.request({
+        date: selectedDay.toDate(),
+        limit: limitGetScheduleDays,
+      }),
+    );
+    dispatch(
+      getUncompletedTimeSlotsAction.request({
+        date: selectedDay.toDate(),
+      }),
+    );
+  }, []);
+  useEffect(() => {
+    setTimeSlots(schedule[moment(selectedDay).format(timeSlotDateFormat)] || []);
+  }, [selectedDay, schedule]);
 
-        if (item.isDayOff) {
-          element = <DayOff />;
-        }
-
-        if (item.isTrialExpired) {
-          element = <TrialExpired />;
-        }
-
-        if (item.haseNoActiveJourneys) {
-          element = <NoJourneys />;
-        }
-      }
-    });
-
-    return element;
-  };
+  // const scheduleData = (data) => {
+  //   const element = <TaskList />;
+  //   // data.find((item) => {
+  //   //   if (
+  //   //     String(
+  //   //       dateObject.dateCreator(
+  //   //         new Date(item.day).getDate(),
+  //   //         new Date(item.day).getMonth() + 1,
+  //   //         new Date(item.day).getUTCFullYear(),
+  //   //       ),
+  //   //     ) === String(selectedDay)
+  //   //   ) {
+  //   //     if (item.hasAnyEvents) {
+  //   //       element = <TaskList />;
+  //   //     }
+  //   //
+  //   //     if (item.isHolidays) {
+  //   //       element = <Holiday />;
+  //   //     }
+  //   //
+  //   //     if (item.isDayOff) {
+  //   //       element = <DayOff />;
+  //   //     }
+  //   //
+  //   //     if (item.isTrialExpired) {
+  //   //       element = <TrialExpired />;
+  //   //     }
+  //   //
+  //   //     if (item.haseNoActiveJourneys) {
+  //   //       element = <NoJourneys />;
+  //   //     }
+  //   //   }
+  //   // });
+  //
+  //   return element;
+  // };
   const isTaskCompleated = false;
   return (
     <div className={'schedule'}>
       {isTaskCompleated ? <WellDone /> : <></>}
-      <Calendar getDayAndRecords={getDayAndRecords} />
-      {scheduleData(events)}
+      <Calendar
+        setSelectedDay={setSelectedDay}
+        selectedDay={selectedDay}
+        daysInSchedule={daysInSchedule}
+      />
+      <TaskList timeSlots={timeSlots} uncompletedDays={uncompletedSchedule} />
+      {/*{scheduleData(todayTimeSlots)}*/}
     </div>
   );
 };
