@@ -16,7 +16,7 @@ import {
 } from './sagas/schedule';
 import { IAuthState } from '../auth/model';
 import { DayOffDTO, IDayWithTimeSlots } from '@ternala/frasier-types';
-import { concatWithUnique } from '../../Utils/concatWithUnique';
+import { concatWithUnique } from 'Utils/concatWithUnique';
 
 export type ScheduleActionType = ActionType<typeof actions>;
 type ActionTypes = ScheduleActionType | LoaderActionType;

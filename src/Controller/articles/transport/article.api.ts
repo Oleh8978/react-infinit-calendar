@@ -1,6 +1,6 @@
 import { ArticleGetResponse } from '@ternala/frasier-types';
 import { Config } from '../../../Config/API';
-import { authHeader, handleErrors } from '../../../Utils/API';
+import { authHeader, handleErrors } from 'Utils/API';
 
 class API {
   public async getArticle(

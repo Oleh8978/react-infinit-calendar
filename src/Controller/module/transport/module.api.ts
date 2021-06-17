@@ -12,7 +12,7 @@ import {
 } from '@ternala/frasier-types';
 import { Config } from '../../../Config/API';
 import { authHeader, handleErrors } from 'Utils/API';
-import { appendSearchParams } from '../../../Utils/appendSearchParams';
+import { appendSearchParams } from 'Utils/appendSearchParams';
 
 class API {
   public async getModule(

@@ -9,7 +9,7 @@ import { Config } from 'Config/API';
 
 // Utils
 import { authHeader, handleErrors } from 'Utils/API';
-import { appendSearchParams } from '../../../Utils/appendSearchParams';
+import { appendSearchParams } from 'Utils/appendSearchParams';
 
 // Interfaces
 import { IHolidayListSearchParams } from '../models';

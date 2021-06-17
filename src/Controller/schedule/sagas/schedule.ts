@@ -7,7 +7,7 @@ import {
   setDayOffAction,
 } from '../actions';
 import { getAccessToken } from '../../auth';
-import uuid from '../../../Utils/uuid';
+import uuid from 'Utils/uuid';
 import { addError, addLoader, removeLoader } from '../index';
 import { LoaderAction } from 'Config/constants';
 import { ScheduleAPI } from '../transport/schedule.api';
