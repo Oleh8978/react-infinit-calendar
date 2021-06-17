@@ -24,6 +24,7 @@ import AboutPage from 'View/Account/About/index';
 import PrivacyPolicy from '../Component/PrivacyPolicy';
 import Terms from '../Component/Terms';
 import ModuleTabContent from '../View/Module/ModuleTabContent';
+import Holiday from '../View/Schedule/Holiday/Holiday';
 
 // Interfaces
 export interface IRoute {
