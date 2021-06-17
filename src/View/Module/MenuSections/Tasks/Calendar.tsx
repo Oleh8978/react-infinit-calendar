@@ -38,7 +38,7 @@ const generateDays: React.FC<IProps> = ({
               key={'day-' + day.format(timeSlotDateFormat)}
               hasUncompleted={Boolean(
                 uncompletedSchedule[day.format(timeSlotDateFormat)],
-              )} // TODO: Make marker if has previously uncompleted
+              )}
               hasEvents={true}
               selectDate={selectDay}
               isCustom={true}
