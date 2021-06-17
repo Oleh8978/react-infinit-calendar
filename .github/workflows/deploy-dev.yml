@@ -41,7 +41,7 @@ jobs:
         USERNAME: ${{ secrets.USERNAME }}
         PORT: ${{ secrets.PORT }}
         KEY: ${{ secrets.SSHKEY }}
-        script: cd ${{ secrets.DEV_PATH }}; npm i
+        script: cd ${{ secrets.DEV_PATH }}; yarn
 
     - name: Build project
       uses: appleboy/ssh-action@master
@@ -50,4 +50,4 @@ jobs:
         USERNAME: ${{ secrets.USERNAME }}
         PORT: ${{ secrets.PORT }}
         KEY: ${{ secrets.SSHKEY }}
-        script: cd ${{ secrets.DEV_PATH }}; npm run build
+        script: cd ${{ secrets.DEV_PATH }}; yarn run build
