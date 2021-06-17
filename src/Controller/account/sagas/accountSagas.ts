@@ -7,7 +7,7 @@ import {
 } from '@ternala/frasier-types';
 
 // Exceptions
-import { BadRequest } from 'utils/API/Exceptions';
+import { BadRequest } from 'Utils/API/exceptions';
 
 //APIs
 import { userDataAPI } from '../transport/account.api';
@@ -20,7 +20,7 @@ import {
   clearAccess,
   saveAccess,
   getSavedAccess,
-} from '../../../utils/manageAccess';
+} from 'Utils/manageAccess';
 
 // Interfaces
 import { IAccountState } from '../models';

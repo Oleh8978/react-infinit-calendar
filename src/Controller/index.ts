@@ -22,7 +22,7 @@ export const rootSaga = function* () {
     accountUserSaga(),
     scheduleSaga(),
     moduleSaga(),
-    HolidaySaga()
+    HolidaySaga(),
   ]);
 };
 

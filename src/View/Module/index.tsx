@@ -1,32 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import {
-  EditorState,
-  ContentState,
-  convertToRaw,
-  convertFromRaw,
-} from 'draft-js';
-
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 
 // custom components
 import NavigationBar from 'Component/NavigationBar';
-import NavigationMenu from './Menu';
-import ModalWindow from 'Component/modalWindow/modalWindow';
 
-// constants
-import * as menuConstats from './constants';
-
-// history
-import history from 'historyApi';
-
-// interfaces
-import { INavigationMenu } from './Models';
-import { isTypeNode } from 'typescript';
-
-// helpers 
-import { styleBTNSetter } from 'Utils/navigationButtonsStyler';
 import { getModuleAction } from '../../Controller/module/actions';
-import { useDispatch, useSelector } from 'react-redux';
 import { getModules } from '../../Controller/module';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
@@ -144,7 +123,7 @@ const Module: React.FC<IProps> = (props) => {
       {/*  <> </>*/}
       {/*)}*/}
       <NavigationBar
-        rout={'schedule'}
+        rout={'/schedule'}
         name={modules[idNumber]?.title}
         page={'schedule'}
         // isNotes={isNotes}

@@ -10,8 +10,8 @@ import { IAccountState } from './models';
 import { accountSaga } from './sagas/accountSagas';
 
 // functionality
-import { getSavedAccess } from '../../utils/manageAccess';
-import { getCredentials } from '../../utils/deviceCredentials';
+import { getSavedAccess } from 'Utils/manageAccess';
+import { getCredentials } from 'Utils/deviceCredentials';
 
 export type AccountActionType = ActionType<typeof actions>;
 
