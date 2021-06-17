@@ -15,7 +15,8 @@ import {
   scheduleActionSaga,
 } from './sagas/schedule';
 import { IAuthState } from '../auth/model';
-import { IDayWithTimeSlots } from '@ternala/frasier-types';
+import { DayOffDTO, IDayWithTimeSlots } from '@ternala/frasier-types';
+import { concatWithUnique } from '../../Utils/concatWithUnique';
 
 export type ScheduleActionType = ActionType<typeof actions>;
 type ActionTypes = ScheduleActionType | LoaderActionType;
@@ -38,6 +39,7 @@ const initialState: IScheduleState = {
   storedSearchParams: null,
   timeSlotData: {},
   uncompletedTimeSlotData: {},
+  daysOff: [],
 };
 
 export const scheduleReducer = createReducer<IScheduleState, ActionTypes>(
@@ -57,6 +59,39 @@ export const scheduleReducer = createReducer<IScheduleState, ActionTypes>(
       ...state,
       timeSlotData: payload.response.days,
     }),
+  )
+  .handleAction(
+    actions.getDaysOffAction.success,
+    (state: IScheduleState, { payload }): IScheduleState => ({
+      ...state,
+      daysOff: concatWithUnique<DayOffDTO>(
+        state.daysOff,
+        payload.response.items,
+        'id',
+        false,
+      ),
+    }),
+  )
+  .handleAction(
+    actions.setDayOffAction.success,
+    (state: IScheduleState, { payload }): IScheduleState => ({
+      ...state,
+      daysOff: concatWithUnique<DayOffDTO>(
+        state.daysOff,
+        [payload.response],
+        'id',
+        false,
+      ),
+    }),
+  )
+  .handleAction(
+    actions.deleteDayOffAction.success,
+    (state: IScheduleState, { payload }): IScheduleState => ({
+      ...state,
+      daysOff: state.daysOff.filter(
+        (item) => payload.additionalFields.ids.indexOf(item.id) === -1,
+      ),
+    }),
   );
 
 export const addLoader = loaderActions.actions.addLoader;
@@ -68,3 +103,5 @@ export const getSchedule = (state: IStore): IDayWithTimeSlots =>
   state.scheduleState.timeSlotData;
 export const getUncompleted = (state: IStore): IDayWithTimeSlots =>
   state.scheduleState.uncompletedTimeSlotData;
+export const getDaysOff = (state: IStore): DayOffDTO[] =>
+  state.scheduleState.daysOff;

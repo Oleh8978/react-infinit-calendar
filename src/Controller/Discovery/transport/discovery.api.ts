@@ -4,7 +4,7 @@ import { Config } from '../../../Config/API';
 import { authHeader, handleErrors, refreshHeader } from 'Utils/API';
 
 // cfunctionality
-import { appendSearchParams } from '../../../utils/appendSearchParams';
+import { appendSearchParams } from 'Utils/appendSearchParams';
 
 // models
 import { IDiscoverySearchParams } from '../model';

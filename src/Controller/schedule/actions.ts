@@ -2,7 +2,14 @@ import { appName } from '../../Config';
 import { createAsyncAction } from 'typesafe-actions';
 import { IException } from '../model';
 import {
-  TimeSlotGetListExpandedResponse, TimeSlotGetListRequest,
+  DayOffCreateRequest,
+  DayOffCreateResponse,
+  DayOffDeleteRequest,
+  DayOffDeleteResponse,
+  DayOffGetListRequest,
+  DayOffGetListResponse,
+  TimeSlotGetListExpandedResponse,
+  TimeSlotGetListRequest,
   TimeSlotGetPreviouslyUncompletedListRequest,
 } from '@ternala/frasier-types';
 
@@ -30,6 +37,45 @@ export const getUncompletedTimeSlotsAction = createAsyncAction(
   {
     response: TimeSlotGetListExpandedResponse;
     searchParams: TimeSlotGetPreviouslyUncompletedListRequest;
+  },
+  IException
+>();
+
+export const getDaysOffAction = createAsyncAction(
+  `${appName}/${widgetName}/get_day_off_request`,
+  `${appName}/${widgetName}/get_day_off_success`,
+  `${appName}/${widgetName}/get_day_off_filed`,
+)<
+  DayOffGetListRequest,
+  {
+    response: DayOffGetListResponse;
+    additionalFields: DayOffGetListRequest;
+  },
+  IException
+>();
+
+export const setDayOffAction = createAsyncAction(
+  `${appName}/${widgetName}/set_day_off_request`,
+  `${appName}/${widgetName}/set_day_off_success`,
+  `${appName}/${widgetName}/set_day_off_filed`,
+)<
+  DayOffCreateRequest,
+  {
+    response: DayOffCreateResponse;
+    additionalFields: DayOffCreateRequest;
+  },
+  IException
+>();
+
+export const deleteDayOffAction = createAsyncAction(
+  `${appName}/${widgetName}/delete_day_off_request`,
+  `${appName}/${widgetName}/delete_day_off_success`,
+  `${appName}/${widgetName}/delete_day_off_filed`,
+)<
+  DayOffDeleteRequest,
+  {
+    response: DayOffDeleteResponse;
+    additionalFields: DayOffDeleteRequest;
   },
   IException
 >();

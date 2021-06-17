@@ -6,7 +6,7 @@ import Link from 'Routing/Link';
 
 interface IProps {
   task: TaskDTO;
-  toggleTask: (id: number) => void;
+  toggleTask: (id: number, action: 'create' | 'remove') => void;
 }
 
 const UncompletedListItem: React.FC<IProps> = ({ task, toggleTask }) => {
@@ -20,7 +20,7 @@ const UncompletedListItem: React.FC<IProps> = ({ task, toggleTask }) => {
             className="tasks-current-task-checkbox-check"
             checked={!!task?.executions?.length}
             onChange={() => {
-              toggleTask(task.id);
+              toggleTask(task.id, !!task?.executions?.length ? 'remove' : "create");
             }}
           />
         </div>

@@ -2,7 +2,10 @@ import { appName } from '../../Config';
 import { createAsyncAction } from 'typesafe-actions';
 import { IException } from '../model';
 import {
-  ModuleGetResponse, TimeSlotGetListByModuleRequest,
+  ModuleGetResponse,
+  TaskExecuteCreateRequest,
+  TaskExecuteCreateResponse,
+  TimeSlotGetListByModuleRequest,
   TimeSlotGetListExpandedResponse,
   TimeSlotGetPreviouslyUncompletedListRequest,
 } from '@ternala/frasier-types';
@@ -17,6 +20,27 @@ export const getModuleAction = createAsyncAction(
   { id: number },
   {
     response: ModuleGetResponse;
+  },
+  IException
+>();
+
+export const toggleExecuteTaskAction = createAsyncAction(
+  `${appName}/${widgetName}/toggle_execute_task_request`,
+  `${appName}/${widgetName}/toggle_execute_task_success`,
+  `${appName}/${widgetName}/toggle_execute_task_filed`,
+)<
+  TaskExecuteCreateRequest & {
+    timeSlot: number;
+    module?: number;
+    action: 'create' | 'remove';
+  },
+  {
+    response: TaskExecuteCreateResponse;
+    additionalFields?: TaskExecuteCreateRequest & {
+      timeSlot: number;
+      module?: number;
+      action: 'create' | 'remove';
+    };
   },
   IException
 >();

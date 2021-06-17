@@ -1,8 +1,14 @@
 import {
-  ArticleGetResponse, ModuleGetResponse,
+  ArticleGetResponse,
+  ModuleGetResponse,
+  TaskExecuteCreateRequest,
+  TaskExecuteCreateResponse,
+  TaskExecuteDeleteRequest,
+  TaskExecuteDeleteResponse,
   TimeSlotGetListByModuleRequest,
   TimeSlotGetListExpandedResponse,
-  TimeSlotGetListRequest, TimeSlotGetPreviouslyUncompletedListRequest,
+  TimeSlotGetListRequest,
+  TimeSlotGetPreviouslyUncompletedListRequest,
 } from '@ternala/frasier-types';
 import { Config } from '../../../Config/API';
 import { authHeader, handleErrors } from 'Utils/API';
@@ -19,6 +25,48 @@ class API {
       fetch(url.toString(), {
         method: 'GET',
         headers: {
+          ...authHeader(accessToken),
+        },
+      }),
+    );
+  }
+
+  public async createExecuteTask(
+    data: TaskExecuteCreateRequest,
+    accessToken: string,
+  ): Promise<TaskExecuteCreateResponse | string> {
+    const url = new URL(Config.MAIN_SERVICE_ENDPOINT + `task/execute/create`);
+
+    return handleErrors(
+      fetch(url.toString(), {
+        method: 'POST',
+        body: JSON.stringify({
+          task: data.task,
+          purposeDate: data.purposeDate,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          ...authHeader(accessToken),
+        },
+      }),
+    );
+  }
+
+  public async deleteExecuteTask(
+    data: TaskExecuteDeleteRequest,
+    accessToken: string,
+  ): Promise<TaskExecuteDeleteResponse | string> {
+    const url = new URL(Config.MAIN_SERVICE_ENDPOINT + `task/execute/delete`);
+
+    return handleErrors(
+      fetch(url.toString(), {
+        method: 'DELETE',
+        body: JSON.stringify({
+          task: data.task,
+          purposeDate: data.purposeDate,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
           ...authHeader(accessToken),
         },
       }),

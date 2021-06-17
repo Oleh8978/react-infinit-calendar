@@ -9,7 +9,7 @@ import PrevUncompleted from '../../../Schedule/TaskList/PrevUncompleted';
 
 interface IProps {
   prevData: IDayWithTimeSlots;
-  toggleTask: (id: number, date: string) => void;
+  toggleTask: (data: {id: number, date: string, timeSlot: number, action: 'create' | 'remove'}) => void;
 }
 
 const Uncompleted: React.FC<IProps> = ({ toggleTask, ...props }) => {
@@ -23,7 +23,7 @@ const Uncompleted: React.FC<IProps> = ({ toggleTask, ...props }) => {
                 <UncompletedTask
                   date={day}
                   timeSlots={timeSlots}
-                  toggleTask={(id) => toggleTask(id, day)}
+                  toggleTask={(id, timeSlot, action: 'create' | 'remove') => toggleTask({id, date: day, timeSlot, action})}
                 />
               );
             })

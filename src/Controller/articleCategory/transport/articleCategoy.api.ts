@@ -1,10 +1,10 @@
 import { AuthUserLoginByTokenResponseDTO } from '@ternala/frasier-types/lib/index';
 
 import { Config } from '../../../Config/API';
-import { authHeader, handleErrors, refreshHeader } from '../../../utils/API';
+import { authHeader, handleErrors, refreshHeader } from '../../../Utils/API';
 
 // cfunctionality
-import { appendSearchParams } from '../../../utils/appendSearchParams';
+import { appendSearchParams } from '../../../Utils/appendSearchParams';
 
 // models
 import { IArticleListSearchParanms } from '../models';

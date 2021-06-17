@@ -18,6 +18,7 @@ const generateDayContent = ({
   isSelected,
   selectDate,
   hasEvents,
+  hasUncompleted,
 }: IProps) => {
   const isToday = moment().isSame(day, 'day');
   return (
@@ -45,7 +46,7 @@ const generateDayContent = ({
           {moment(day).format('D')}
         </div>
       </div>
-      {hasEvents ? <div className={'calendar-day-marked'} /> : <></>}
+      {hasUncompleted ? <div className={'calendar-day-marked'} /> : <></>}
     </>
   );
 };

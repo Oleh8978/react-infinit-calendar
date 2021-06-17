@@ -16,6 +16,7 @@ import Uncompleted from './Uncompleted';
 // interfaces
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  toggleExecuteTaskAction,
   getScheduleAction,
   getUncompletedTimeSlotsAction,
 } from '../../../../Controller/module/actions';
@@ -302,9 +303,16 @@ const Task: React.FC<IProps> = ({ id }) => {
   //   setSelectedDate(date);
   // };
 
-  const toggleTask = (id: number, date: string) => {
-    console.log('id: ', id);
-    console.log('date: ', date);
+  const toggleTask = ({id, date, timeSlot, action}: {id: number, date: string, timeSlot: number, action: "create" | "remove"}) => {
+    dispatch(
+      toggleExecuteTaskAction.request({
+        action,
+        task: id,
+        purposeDate: moment(date, timeSlotDateFormat).toDate(),
+        timeSlot,
+        module: module?.id,
+      }),
+    );
   };
 
   return (
@@ -318,8 +326,8 @@ const Task: React.FC<IProps> = ({ id }) => {
         {timeSlots && (
           <Current
             timeSlots={timeSlots}
-            toggleTask={(id: number) =>
-              toggleTask(id, selectedDay.format(timeSlotDateFormat))
+            toggleTask={(id: number, timeSlot: number, action: "create" | "remove") =>
+              toggleTask({id, timeSlot, date: selectedDay.format(timeSlotDateFormat), action})
             }
           />
         )}

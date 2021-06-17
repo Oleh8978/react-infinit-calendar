@@ -14,6 +14,7 @@ import useScrollListener from './customHOC';
 
 // date object functionality
 import * as dateObject from './utils';
+import { IDayWithTimeSlots } from '@ternala/frasier-types';
 
 export interface IHeaderDate {
   month: string;
@@ -29,12 +30,16 @@ interface IProps {
   setSelectedDay: (day: Moment) => void;
   selectedDay: Moment;
   daysInSchedule: Moment[];
+  schedule: IDayWithTimeSlots;
+  uncompletedSchedule: IDayWithTimeSlots;
 }
 
 const Calendar: React.FC<IProps> = ({
   setSelectedDay,
   selectedDay,
   daysInSchedule,
+  uncompletedSchedule,
+  schedule
 }) => {
   const fieldRef = React.useRef<HTMLInputElement>(null);
   // const calendar = [];
@@ -271,8 +276,10 @@ const Calendar: React.FC<IProps> = ({
         day={item}
         isSelected={item.isSame(selectedDay, 'day')}
         key={'day-' + item.format(timeSlotDateFormat)}
-        hasUncompleted={false} // TODO: Make marker if has previously uncompleted
-        hasEvents={false} // TODO: Make marker if has events
+        hasUncompleted={Boolean(
+          uncompletedSchedule[item.format(timeSlotDateFormat)],
+        )}
+        hasEvents={Boolean(schedule[item.format(timeSlotDateFormat)])}
         selectDate={setSelectedDay}
         isCustom={false}
         isLast={array.length - 1 === i}
@@ -281,7 +288,7 @@ const Calendar: React.FC<IProps> = ({
   });
   return (
     <div className={'calendar'}>
-      {isModalOpened ? <ModalWindow setModalOpened={setModalOpened} /> : <></>}
+      {isModalOpened ? <ModalWindow setModalOpened={setModalOpened} date={selectedDay.toDate()} /> : <></>}
       <div className="calendar-headwraper">
         <img src={calendarImg} className="calendar-img" alt="img" />
         <span className="calendar-mnth">

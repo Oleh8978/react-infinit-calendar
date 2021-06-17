@@ -12,7 +12,7 @@ interface IProps {
   tasks: TaskDTO[];
   time: number;
   duration: number;
-  toggleTask: (id: number) => void;
+  toggleTask: (id: number, action: 'create' | 'remove') => void;
 }
 
 const TimeSlot: React.FC<IProps> = ({ time, toggleTask, ...props }) => {
@@ -35,7 +35,10 @@ const TimeSlot: React.FC<IProps> = ({ time, toggleTask, ...props }) => {
                 className="tasks-current-task-checkbox-check"
                 checked={!!task?.executions?.length}
                 onChange={() => {
-                  toggleTask(task.id);
+                  toggleTask(
+                    task.id,
+                    !!task?.executions?.length ? 'remove' : 'create',
+                  );
                 }}
               />
             </div>

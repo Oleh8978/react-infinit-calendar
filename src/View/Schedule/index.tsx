@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import moment, { Moment } from 'moment';
-import { timeSlotDateFormat } from '@ternala/frasier-types/lib/constants'
+import { timeSlotDateFormat } from '@ternala/frasier-types/lib/constants';
+
+// Components
 import Calendar from './Calendar/Calendar';
 import TaskList from './TaskList/TaskList';
 import WellDone from './WellDone/WellDone';
+import Holiday from './Holiday/Holiday';
 
 //utils
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  getDaysOffAction,
   getScheduleAction,
   getUncompletedTimeSlotsAction,
 } from '../../Controller/schedule/actions';
@@ -16,7 +20,7 @@ import {
 // Interfaces
 import { limitGetScheduleDays } from '../../Config/constants';
 import { TimeSlotDTO } from '@ternala/frasier-types';
-import { getSchedule, getUncompleted } from '../../Controller/schedule';
+import { getDaysOff, getSchedule, getUncompleted } from '../../Controller/schedule';
 import { generateArrayOfDates } from '../../Utils/generateArrayOfDates';
 
 interface IProps extends RouteComponentProps {
@@ -30,10 +34,15 @@ const Schedule: React.FC<IProps> = ({ absoluteBlock }) => {
 
   const schedule = useSelector(getSchedule);
   const uncompletedSchedule = useSelector(getUncompleted);
+  const daysOff = useSelector(getDaysOff);
 
   const [selectedDay, setSelectedDay] = useState<Moment>(moment());
   const [timeSlots, setTimeSlots] = useState<TimeSlotDTO[]>([]);
   const dispatch = useDispatch();
+
+  const isCurrentDayOff = daysOff.find((day) =>
+    moment(selectedDay).isSame(day.date, 'day')
+  );
 
   useEffect(() => {
     dispatch(
@@ -47,6 +56,7 @@ const Schedule: React.FC<IProps> = ({ absoluteBlock }) => {
         date: selectedDay.toDate(),
       }),
     );
+    dispatch(getDaysOffAction.request({}));
   }, []);
   useEffect(() => {
     setTimeSlots(schedule[moment(selectedDay).format(timeSlotDateFormat)] || []);
@@ -92,10 +102,13 @@ const Schedule: React.FC<IProps> = ({ absoluteBlock }) => {
   return (
     <div className={'schedule'}>
       {isTaskCompleated ? <WellDone /> : <></>}
+      {isCurrentDayOff ? <Holiday dayOff={isCurrentDayOff}/> : <></>}
       <Calendar
         setSelectedDay={setSelectedDay}
         selectedDay={selectedDay}
         daysInSchedule={daysInSchedule}
+        schedule={schedule}
+        uncompletedSchedule={uncompletedSchedule}
       />
       <TaskList timeSlots={timeSlots} uncompletedDays={uncompletedSchedule} />
       {/*{scheduleData(todayTimeSlots)}*/}

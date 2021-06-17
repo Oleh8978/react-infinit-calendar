@@ -17,9 +17,9 @@ const Header: React.FC<IProps> = ({ module }) => {
         <img className="overview-header-img" src={task} alt="img" />
         <div className="overview-header-text">
           <span className="overview-header-text__top">
-            {module.moduleCategories.map((category) => category.title)}
+            {module?.moduleCategories?.map((category) => category.title)}
           </span>
-          <span className="overview-header-text__bottom">{module.title}</span>
+          <span className="overview-header-text__bottom">{module?.title}</span>
         </div>
       </div>
     </>
