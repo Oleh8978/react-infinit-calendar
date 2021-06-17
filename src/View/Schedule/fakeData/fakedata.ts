@@ -151,7 +151,7 @@ export const events = [
     hasAnyEvents: false,
     isDayOff: false,
     isTrialExpired: false,
-    haseNoActiveJourneys: true,
+    hasNoActiveJourneys: true,
     events: [],
   },
 ];

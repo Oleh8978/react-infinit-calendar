@@ -1,8 +1,10 @@
-import React, { useEffect, useState, useRef } from 'react';
-import moment, { Moment } from 'moment';
+import React, { useState } from 'react';
+import { Moment } from 'moment';
 import { timeSlotDateFormat } from '@ternala/frasier-types/lib/constants';
-
-// customn components
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { SwiperOptions } from 'swiper';
+import moment from 'moment';
+// custom components
 import DayInCalendar from './DayInCalendar';
 import ModalWindow from './ModalWindow/modalWindow';
 
@@ -39,9 +41,23 @@ const Calendar: React.FC<IProps> = ({
   selectedDay,
   daysInSchedule,
   uncompletedSchedule,
-  schedule
+  schedule,
 }) => {
-  const fieldRef = React.useRef<HTMLInputElement>(null);
+  let selectedItem = 0;
+
+  daysInSchedule.forEach((day, i) => {
+    if (moment(selectedDay).isSame(day, 'day')) {
+      selectedItem = i;
+    }
+  });
+
+  const swiperOptions: SwiperOptions = {
+    slidesPerView: 'auto',
+    // centeredSlides: true,
+    initialSlide: selectedItem,
+  };
+
+  // const fieldRef = React.useRef<HTMLInputElement>(null);
   // const calendar = [];
 
   // const [calendarRenderedData, setCalendarRenderedData] = useState(calendar);
@@ -272,23 +288,32 @@ const Calendar: React.FC<IProps> = ({
 
   const dates = daysInSchedule.map((item, i, array) => {
     return (
-      <DayInCalendar
-        day={item}
-        isSelected={item.isSame(selectedDay, 'day')}
-        key={'day-' + item.format(timeSlotDateFormat)}
-        hasUncompleted={Boolean(
-          uncompletedSchedule[item.format(timeSlotDateFormat)],
-        )}
-        hasEvents={Boolean(schedule[item.format(timeSlotDateFormat)])}
-        selectDate={setSelectedDay}
-        isCustom={false}
-        isLast={array.length - 1 === i}
-      />
+      <SwiperSlide>
+        <DayInCalendar
+          day={item}
+          isSelected={item.isSame(selectedDay, 'day')}
+          key={'day-' + item.format(timeSlotDateFormat)}
+          hasUncompleted={Boolean(
+            uncompletedSchedule[item.format(timeSlotDateFormat)],
+          )}
+          hasEvents={Boolean(schedule[item.format(timeSlotDateFormat)])}
+          selectDate={setSelectedDay}
+          isCustom={false}
+          isLast={array.length - 1 === i}
+        />
+      </SwiperSlide>
     );
   });
   return (
     <div className={'calendar'}>
-      {isModalOpened ? <ModalWindow setModalOpened={setModalOpened} date={selectedDay.toDate()} /> : <></>}
+      {isModalOpened ? (
+        <ModalWindow
+          setModalOpened={setModalOpened}
+          date={selectedDay.toDate()}
+        />
+      ) : (
+        <></>
+      )}
       <div className="calendar-headwraper">
         <img src={calendarImg} className="calendar-img" alt="img" />
         <span className="calendar-mnth">
@@ -302,8 +327,8 @@ const Calendar: React.FC<IProps> = ({
           <span className={'calendar-contentmenu-menu3'} />
         </div>
       </div>
-      <div className="calendar-days scrollbar__hidden" ref={fieldRef}>
-        {dates}
+      <div className="calendar-days scrollbar__hidden">
+        <Swiper {...swiperOptions}>{dates}</Swiper>
       </div>
     </div>
   );

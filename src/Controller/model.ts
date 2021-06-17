@@ -9,6 +9,7 @@ import { IModuleState } from './module/models';
 import { IDiscoveryState } from './Discovery/model';
 import { IAcrticleCategoryState } from './articleCategory/models';
 import { IHolidayState } from './holidays/models';
+import { IAccountState } from './account/models';
 
 export interface IStore {
   router: RouterState;
@@ -19,6 +20,7 @@ export interface IStore {
   updateSteUserAfterSignIn: IUpdateState;
   discoveryListReducer: IDiscoveryState;
   ArticleReducer: IAcrticleCategoryState;
+  userReducer: IAccountState;
   HolidayReducer: IHolidayState;
 }
 

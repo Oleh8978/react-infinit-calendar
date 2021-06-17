@@ -33,16 +33,17 @@ const generateDayContent = ({
         <span className="calendar-day-today" style={{ height: 26 }} />
       )}
       <div
-        className={isSelected ? 'calendar-day selected-card' : 'calendar-day'}
+        className={
+          (isSelected ? 'calendar-day selected-card' : 'calendar-day') +
+          (hasEvents ? '' : ' without-tasks')
+        }
         onClick={() => selectDate(day)}>
         <div
-          className={'calendar-day-dayweek'}
-          style={{ color: isSelected ? 'white' : '' }}>
+          className={'calendar-day-dayweek'}>
           {moment(day).format('ddd')}
         </div>
         <div
-          className={'calendar-day-date'}
-          style={{ color: isSelected ? 'white' : '' }}>
+          className={'calendar-day-date'}>
           {moment(day).format('D')}
         </div>
       </div>

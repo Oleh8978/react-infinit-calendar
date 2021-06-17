@@ -81,7 +81,8 @@
       height: fit-content;
       display: flex;
       flex-flow: column;
-      margin-left: 19px;
+      margin-left: 10px;
+      margin-right: 10px;
     }
     &-today {
       @include card-list-header;
@@ -130,6 +131,28 @@
       &-first {
         @extend .calendar-day-dots;
         margin-left: 0px;
+      }
+    }
+    &.selected-card{
+      .calendar-day-dayweek{
+        color: $white;
+      }
+      .calendar-day-date{
+        color: $white;
+      }
+    }
+    &.without-tasks{
+      &.selected-card{
+        border: 1px solid $empty-title-color;
+        background: #fff;
+      }
+      &, &.selected-card{
+        .calendar-day-dayweek{
+          color: $purple-color;
+        }
+        .calendar-day-date{
+          color: $purple-color;
+        }
       }
     }
   }

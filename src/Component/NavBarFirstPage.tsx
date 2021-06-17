@@ -5,7 +5,7 @@ import { RouteComponentProps } from 'react-router-dom';
 // Actions
 import {
   setAuthenticatedStatus,
-  loginByToken,
+  loginByTokenAction,
   logOut,
 } from 'Controller/auth/actions';
 

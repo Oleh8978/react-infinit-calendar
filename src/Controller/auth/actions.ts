@@ -28,7 +28,7 @@ export const setIsneedSecondStep = createAction(
 
 export const loginByTokenAction = createAction(
   `${appName}/${widgetName}/LOGIN_TOKEN_REQUEST`,
-)<ISignInByToken>();
+)<IAuthData>();
 
 export const refreshTokenAction = createAsyncAction(
   `${appName}/${widgetName}/REFRESH_TOKEN_REQUEST`,
@@ -41,12 +41,6 @@ export const signIn = createAsyncAction(
   `${appName}/${widgetName}/SIGN_IN_SUCCESS`,
   `${appName}/${widgetName}/SIGN_IN_FAILED`,
 )<ISignInInterface, IAuthState, IAuthException>();
-
-export const loginByToken = createAsyncAction(
-  `${appName}/${widgetName}/LOGIN_BY_TOKEN_REQUEST`,
-  `${appName}/${widgetName}/LOGIN_BY_TOKEN_SUCCESS`,
-  `${appName}/${widgetName}/LOGIN_BY_TOKEN_FAILED`,
-)<string, IAuthState, IAuthException>();
 
 // Action for user sign out
 // ** Action

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Moment } from 'moment';
+import moment, { Moment } from 'moment';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 // components
 import DayInCalendar from 'View/Schedule/Calendar/DayInCalendar';
@@ -9,35 +10,41 @@ import { Split } from '../../../../Component/Calendar/Split';
 
 // interfaces
 import { timeSlotDateFormat } from '@ternala/frasier-types/lib/constants';
+import { SwiperOptions } from 'swiper';
+import { IDayWithTimeSlots } from '@ternala/frasier-types';
 
 interface IProps {
   days: Moment[];
   selectDay: (date: Moment) => void;
   selectedDay?: Moment;
+  uncompletedSchedule: IDayWithTimeSlots;
 }
 const generateDays: React.FC<IProps> = ({
   days,
   selectedDay,
   selectDay,
+  uncompletedSchedule
 }: IProps) => {
   let prevDay;
   return (
     <>
       {days.map((day, i, array) => {
         const dayEl = (
-          <>
+          <SwiperSlide>
             {prevDay?.diff(day, 'day') > 1 ? <Split /> : ''}
             <DayInCalendar
               day={day}
               isSelected={day.isSame(selectedDay, 'day')}
               key={'day-' + day.format(timeSlotDateFormat)}
-              hasUncompleted={false} // TODO: Make marker if has previously uncompleted
-              hasEvents={false} // TODO: Make marker if has events
+              hasUncompleted={Boolean(
+                uncompletedSchedule[day.format(timeSlotDateFormat)],
+              )}
+              hasEvents={true}
               selectDate={selectDay}
               isCustom={true}
               isLast={array.length - 1 === i}
             />
-          </>
+          </SwiperSlide>
         );
         prevDay = day;
         return dayEl;
@@ -47,39 +54,36 @@ const generateDays: React.FC<IProps> = ({
 };
 
 const Calendar: React.FC<IProps> = (props) => {
+  let selectedItem = 0;
   const { selectedDay } = props;
+
+  props.days.forEach((day, i) => {
+    if (moment(selectedDay).isSame(day, 'day')) {
+      selectedItem = i;
+    }
+  });
+
+  const swiperOptions: SwiperOptions = {
+    slidesPerView: 'auto',
+    // centeredSlides: true,
+    initialSlide: selectedItem,
+  };
+
   return (
     <>
       <div className="tasks-calendar-headerdate">
         {selectedDay?.format('MMMM, YYYY')}
       </div>
-      <div className={'tasks-calendar scrollbar__hidden'}>
-        <div className="wrapper">
-          {generateDays(props)}
-          {/*{calendar.map((item) => {*/}
-          {/*  const index = calendar.indexOf(item);*/}
-          {/*  let isLastOne = false;*/}
-          {/*  if (calendar.indexOf(item) === calendar.length - 1) {*/}
-          {/*    isLastOne = true;*/}
-          {/*  }*/}
-          {/*  // return (*/}
-          {/*  //   <DayInCalendar*/}
-          {/*  //     key={`${item.date}`}*/}
-          {/*  //     date={item.number}*/}
-          {/*  //     fullDate={item.date}*/}
-          {/*  //     dayWeek={item.name}*/}
-          {/*  //     hasEvents={item.hasAnyEvents}*/}
-          {/*  //     isClicked={item.isClicked}*/}
-          {/*  //     selectDate={selectDate}*/}
-          {/*  //     isCustom={true}*/}
-          {/*  //     index={index}*/}
-          {/*  //     isLastOne={isLastOne}*/}
-          {/*  //     hasMorethanOnedayAfter={item.hasMorethanOnedayAfter}*/}
-          {/*  //   />*/}
-          {/*  // );*/}
-          {/*})}*/}
+      {props.days?.length && selectedDay ? (
+        <div className={'tasks-calendar scrollbar__hidden'}>
+          {console.log('swiperOptions: ', swiperOptions)}
+          <div className="wrapper">
+            <Swiper {...swiperOptions}>{generateDays(props)}</Swiper>
+          </div>
         </div>
-      </div>
+      ) : (
+        <></>
+      )}
     </>
   );
 };

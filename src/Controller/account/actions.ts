@@ -3,26 +3,34 @@ import { createAction, createAsyncAction } from 'typesafe-actions';
 import { appName } from 'Config';
 
 //Interfaces
-import {} from './models';
+import { IException, ISetLoadingAction } from './models';
 import {
-    UserDataCreateRequest,
-    UserDataUpdateRequest,
-    UserDataDeleteRequest,
-
-    UserDataCreateResponse,
-    UserDataGetResponse,
-    UserDataUpdateResponse,
-    UserDataDeleteResponse
-} from '@ternala/frasier-types'
+  UserDataCreateRequest,
+  UserDataUpdateRequest,
+  UserDataDeleteRequest,
+  UserDataCreateResponse,
+  UserDataGetResponse,
+  UserDataUpdateResponse,
+  UserDataDeleteResponse,
+} from '@ternala/frasier-types';
 
 // const for ath actions
 export const widgetName = 'user';
 
-// export const getUserAction = createAsyncAction(
-//   `${appName}/${widgetName}/GET_USER_REQUEST`,
-//   `${appName}/${widgetName}/GET_USER_SUCCESS`,
-//   `${appName}/${widgetName}/GET_USER_FILED`,
-// )<UserDataCreateRequest & { callback?: any }, UserGetResponse, IException>();
+// loading action
+export const setLoadingAction = createAction(
+  `${appName}/${widgetName}/SET_AUTHENTICATED_STATUS`,
+)<ISetLoadingAction>();
+
+export const getUserAction = createAsyncAction(
+  `${appName}/${widgetName}/GET_USER_REQUEST`,
+  `${appName}/${widgetName}/GET_USER_SUCCESS`,
+  `${appName}/${widgetName}/GET_USER_FILED`,
+)<
+  UserDataCreateRequest & { callback?: any },
+  UserDataGetResponse,
+  IException
+>();
 
 // export const updateUserAction = createAsyncAction(
 //   `${appName}/${widgetName}/UPDATE_USER_REQUEST`,
