@@ -4,27 +4,30 @@ import React, { useState, useEffect } from 'react';
 import UncompletedTask from './UncompletedTask';
 
 // interfaces
-import { ICalendarData } from './Models';
+import { IDayWithTimeSlots } from '@ternala/frasier-types';
+import PrevUncompleted from '../../../Schedule/TaskList/PrevUncompleted';
 
 interface IProps {
-  prevData: ICalendarData[];
-  setCheckButton: (id: number) => void;
+  prevData: IDayWithTimeSlots;
+  toggleTask: (data: {id: number, date: string, timeSlot: number, action: 'create' | 'remove'}) => void;
 }
 
-const Uncompleted: React.FC<IProps> = ({ ...props }) => {
-
+const Uncompleted: React.FC<IProps> = ({ toggleTask, ...props }) => {
   return (
     <div className={'tasks-uncompleted'}>
       <span className="tasks-uncompleted-header">Previously uncompleted</span>
       <div className="tasks-uncompleted-wrapper">
-        {props.prevData.map((item) => {
-          return (
-            <UncompletedTask
-              data={item}
-              setCheckButton={props.setCheckButton}
-            />
-          );
-        })}
+        {props.prevData
+          ? Object.entries(props.prevData).map(([day, timeSlots]) => {
+              return (
+                <UncompletedTask
+                  date={day}
+                  timeSlots={timeSlots}
+                  toggleTask={(id, timeSlot, action: 'create' | 'remove') => toggleTask({id, date: day, timeSlot, action})}
+                />
+              );
+            })
+          : ''}
       </div>
     </div>
   );

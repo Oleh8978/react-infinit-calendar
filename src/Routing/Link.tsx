@@ -8,6 +8,7 @@ interface ILinkProps {
   params?: {
     id?: string;
     orderNumber?: string;
+    tabName?: string;
     slug?: string;
   };
   className?: string;
@@ -26,12 +27,13 @@ export const InternalLink: React.FC<ILinkProps> = ({
   query,
   style,
 }) => {
-  let id, slug, orderNumber;
+  let id, slug, orderNumber, tabName;
 
   if (params) {
     id = params.id;
     slug = params.slug;
     orderNumber = params.orderNumber;
+    tabName = params.tabName;
   }
 
   let link: string =
@@ -40,6 +42,7 @@ export const InternalLink: React.FC<ILinkProps> = ({
           id,
           orderNumber,
           slug,
+          tabName,
         })
       : schema.getLink(to) || '/error';
 

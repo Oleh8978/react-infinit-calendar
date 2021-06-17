@@ -3,7 +3,7 @@ import { createAction, createAsyncAction } from 'typesafe-actions';
 import { appName } from '../../Config/index';
 
 //Interfaces
-import { IException } from './model';
+import { IException, ISetLoadingAction } from './model';
 
 import {
   DiscoveryGetListResponse,
@@ -12,6 +12,11 @@ import {
 
 // const for ath actions
 export const widgetName = 'discovery';
+
+// loading action
+export const setLoadingAction = createAction(
+  `${appName}/${widgetName}/SET_ISLOADING_STATUS`,
+)<ISetLoadingAction>();
 
 // ** Action
 export const getDiscoveryList = createAsyncAction(
@@ -23,7 +28,6 @@ export const getDiscoveryList = createAsyncAction(
   {
     response: DiscoveryGetListResponse;
     searchParams: DiscoveryGetListRequest;
-    isAll: boolean;
   },
   IException
 >();

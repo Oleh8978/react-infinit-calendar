@@ -1,6 +1,6 @@
 import { ComponentType, ComponentProps } from 'react';
 import ProtectedRoute from 'Routing/ProtectedRoute';
-import { RouteComponentProps } from 'react-router-dom';
+import { matchPath, RouteComponentProps } from 'react-router-dom';
 
 //Views
 import Discovery from 'View/Discovery';
@@ -23,15 +23,18 @@ import ConnectedAccount from 'View/Account/ConnectedAccount/index';
 import AboutPage from 'View/Account/About/index';
 import PrivacyPolicy from '../Component/PrivacyPolicy';
 import Terms from '../Component/Terms';
+import ModuleTabContent from '../View/Module/ModuleTabContent';
+import Holiday from '../View/Schedule/Holiday/Holiday';
 
 // Interfaces
-interface IRoute {
+export interface IRoute {
   readonly name: Pages;
   readonly path: string;
   readonly isExact: boolean;
   readonly component: ComponentType<
     RouteComponentProps<any> & ComponentProps<any> & { opacity: number }
   >;
+  readonly childRoutes?: IRoute[];
 }
 
 export type Pages =
@@ -39,9 +42,7 @@ export type Pages =
   | 'discovery'
   | 'schedule'
   | 'module'
-  | 'module-tasks'
-  | 'module-help'
-  | 'module-notes'
+  | 'module-tab'
   | 'journey'
   | 'journey-info'
   | 'checkout'
@@ -105,9 +106,17 @@ class RoutingSchema {
     },
     {
       name: 'module',
-      path: '/module',
-      isExact: true,
+      path: '/module/:id',
+      isExact: false,
       component: ProtectedRoute(Module, 'ANONYMOUS_USERS'),
+      childRoutes: [
+        {
+          name: 'module-tab',
+          path: '/module/:id/:tabName',
+          isExact: false,
+          component: ProtectedRoute(ModuleTabContent, 'AUTHENTICATED_USERS'),
+        },
+      ],
     },
     {
       name: 'journey',
@@ -153,7 +162,7 @@ class RoutingSchema {
     },
     {
       name: 'article',
-      path: '/article',
+      path: '/article/:id',
       isExact: true,
       component: ProtectedRoute(Article, 'ANONYMOUS_USERS'),
     },
@@ -191,12 +200,48 @@ class RoutingSchema {
   private findRouteByPath(path: string): IRoute | undefined {
     return this.schema.find(({ path: routePath }) => routePath === path);
   }
+
+  private findActiveRoute(path: string, exact?: boolean): IRoute | undefined {
+    return this.schema.find(({ path: routePath }) =>
+      matchPath(routePath, { path, exact }),
+    );
+  }
+
+  private findRouteInArray(
+    routes: IRoute[],
+    routeName: Pages,
+  ): IRoute | undefined {
+    for (const route of routes) {
+      if (route.name === routeName) {
+        return route;
+      }
+      if (route.childRoutes && route.childRoutes.length) {
+        const foundRoute = this.findRouteInArray(route.childRoutes, routeName);
+        if (foundRoute) {
+          return foundRoute;
+        }
+      }
+    }
+  }
+
   private findRouteByName(name: Pages): IRoute | undefined {
-    return this.schema.find(({ name: routeName }) => routeName === name);
+    const route = this.findRouteInArray(this.schema, name);
+    if (route) {
+      return route;
+    }
+    return undefined;
   }
 
   public get getSchema() {
     return this.schema;
+  }
+
+  public getSchemaItem(name: Pages): IRoute | undefined {
+    const route = this.findRouteByName(name);
+
+    if (route && route.path) {
+      return route;
+    }
   }
 
   public getLink(name: Pages): string {

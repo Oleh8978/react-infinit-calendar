@@ -1,56 +1,50 @@
 import React, { useState } from 'react';
+import moment from 'moment';
 
-import { data } from '../fakeData/fakedata';
-import completed from '../../../Asset/images/completed.png';
 // history API
 import history from '../../../historyApi';
+import InternalLink from '../../../Routing/Link';
+import { timeConvert } from '../../../Utils/timeConverter';
 
 interface IProps {
-  date: string;
+  date: number;
   description: string;
-  status: string;
+  isCompleted: boolean;
   time: number;
+  moduleId: number;
 }
 
-const Task: React.FC<IProps> = ({ date, description, status, time }) => {
+const Task: React.FC<IProps> = ({
+  date,
+  description,
+  isCompleted,
+  time,
+  moduleId,
+}) => {
   const [clap, setClap] = useState<string>('👏');
-  const timeConvert = (n) => {
-    const num = n;
-    const hours = num / 60;
-    const rhours = Math.floor(hours);
-    const minutes = (hours - rhours) * 60;
-    const rminutes = Math.round(minutes);
-
-    if (rhours !== 0) {
-      return rhours + ' H ' + rminutes + ' MIN';
-    }
-
-    if (rminutes !== 0 && rhours === 0) {
-      return rminutes + ' MIN';
-    }
-  };
 
   const navigationModule = () => {
     console.log('history ', history);
     history.push('/module');
   };
 
-  if (status === 'completed') {
-    
+  if (isCompleted) {
     return (
       <>
-        <div
+        <InternalLink
+          to={'module-tab'}
+          params={{
+            tabName: 'task',
+            id: String(moduleId),
+          }}
           className={'task-completed'}
           onClick={() => {
             navigationModule();
           }}>
           <div className={'task-completed-genralinfo-wrapper'}>
             <div className={'task-completed-timepanel'}>
-              {new Date(date).toLocaleTimeString([], {
-                hour: '2-digit',
-                minute: '2-digit',
-              })}{' '}
-              | {timeConvert(time)}
+              {moment.utc(date * 60 * 1000).format('HH:mm A')} |{' '}
+              {timeConvert(time)}
             </div>
             <div className={'task-completed__info'}>
               {/* <img
@@ -77,30 +71,32 @@ const Task: React.FC<IProps> = ({ date, description, status, time }) => {
             }}>
             {description}
           </div>
-        </div>
+        </InternalLink>
       </>
     );
   }
 
-  if (status === 'uncompleted') {
+  if (!isCompleted) {
     return (
       <>
-        <div
+        <InternalLink
+          to={'module-tab'}
+          params={{
+            tabName: 'task',
+            id: String(moduleId),
+          }}
           className={'task-completed'}
           onClick={() => {
             navigationModule();
           }}>
           <div className={'task-completed-genralinfo-wrapper'}>
             <div className={'task-completed-timepanel__uncompleted'}>
-              {new Date(date).toLocaleTimeString([], {
-                hour: '2-digit',
-                minute: '2-digit',
-              })}{' '}
-              | {timeConvert(time)}
+              {moment.utc(date * 60 * 1000).format('HH:mm A')} |{' '}
+              {timeConvert(time)}
             </div>
           </div>
           <div className={'task-completed-descriptionbox'}>{description}</div>
-        </div>
+        </InternalLink>
       </>
     );
   }

@@ -1,42 +1,44 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { TaskDTO } from '@ternala/frasier-types';
 
 // components
 import Link from 'Routing/Link';
 
-// interfaces
-import { ITask } from './Models';
-
 // utils
-import { formatAMPM } from './utils';
+import moment from 'moment';
+import { timeConvert } from '../../../../Utils/timeConverter';
 
 interface IProps {
-  tasks: ITask[];
-  time: string;
-  toDo: number;
-  setCheckButton: (id: number) => void;
+  tasks: TaskDTO[];
+  time: number;
+  duration: number;
+  toggleTask: (id: number, action: 'create' | 'remove') => void;
 }
 
-const Task: React.FC<IProps> = ({ ...props }) => {
+const TimeSlot: React.FC<IProps> = ({ time, toggleTask, ...props }) => {
   return (
     <div className={'tasks-current-task'}>
       <div className="tasks-current-task-timetodo">
         <span className="tasks-current-task-timetodo-time">
-          {formatAMPM(new Date(props.time))}
-        </span>
+          {moment.utc(time * 60 * 1000).format('HH:mm A')}
+        </span>{' '}
         <span className="tasks-current-task-timetodo-spendtime">
-          | {props.toDo} min
+          | {timeConvert(props.duration)}
         </span>
       </div>
-      {props.tasks.map((item) => {
+      {props.tasks.map((task) => {
         return (
-          <div className="tasks-current-task-wrapper" key={item.id}>
+          <div className="tasks-current-task-wrapper" key={task.id}>
             <div className="tasks-current-task-checkbox">
               <input
                 type="checkbox"
                 className="tasks-current-task-checkbox-check"
-                checked={item.isChecked ? true : false}
+                checked={!!task?.executions?.length}
                 onChange={() => {
-                  props.setCheckButton(item.id);
+                  toggleTask(
+                    task.id,
+                    !!task?.executions?.length ? 'remove' : 'create',
+                  );
                 }}
               />
             </div>
@@ -44,19 +46,17 @@ const Task: React.FC<IProps> = ({ ...props }) => {
               <span
                 className="tasks-current-task-text-header"
                 style={{
-                  textDecorationLine: item.isChecked ? 'line-through' : 'none',
+                  textDecorationLine: !!task?.executions?.length
+                    ? 'line-through'
+                    : 'none',
                 }}>
-                {item.title}
+                {task.title}
               </span>
-              {item.text.length > 0 ? (
-                // <span
-                //   className="tasks-current-task-text-link"
-                //   onClick={() => console.log('read more')}>
+              {task?.sections?.length > 0 ? (
                 <Link className="tasks-current-task-text-link" to={'read-more'}>
                   Read more
                 </Link>
               ) : (
-                // </span>
                 <> </>
               )}
             </div>
@@ -67,4 +67,4 @@ const Task: React.FC<IProps> = ({ ...props }) => {
   );
 };
 
-export default Task;
+export default TimeSlot;

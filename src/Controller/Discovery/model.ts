@@ -12,9 +12,9 @@ export interface IException {
 export interface IDiscoveryState {
   discoveryList: IDiscoveryObject;
   storedSearchParams: null | IDiscoverySearchParams;
-  isLoading: boolean;
+  isLoading: ISetLoadingAction;
   anyErrors: boolean;
-  error: string | undefined;
+  error: IException;
 }
 
 export interface IDiscoveryObject {
@@ -66,4 +66,9 @@ export interface IDiscoverySearchParams {
   categories?: string[] | string;
   sortField?: createdAtSortFieldEnum;
   ids?: string[] | string;
+}
+
+
+export interface ISetLoadingAction {
+  status: boolean;
 }

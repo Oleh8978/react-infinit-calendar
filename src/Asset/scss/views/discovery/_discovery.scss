@@ -95,6 +95,7 @@
   &-list {
     @extend .discovery-select;
     margin: 20px 20px 60px;
+    width: auto;
     &-holder {
       width: 100%;
       margin-top: 20px;
@@ -240,6 +241,7 @@
     &-wrapper {
       @include card-list-text-style;
       width: fit-content;
+      color: $text-color;
 
       &-link {
         @include card-list-text-style;

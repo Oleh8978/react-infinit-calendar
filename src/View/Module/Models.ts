@@ -1,4 +1,4 @@
 export interface INavigationMenu {
   name: string;
-  isActive: boolean;
+  slug: 'overview' | 'task' | 'help' | 'note';
 }

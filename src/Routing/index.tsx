@@ -6,36 +6,56 @@ import { useTransition, animated } from 'react-spring';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 // utils functions
-import { getSavedAccess } from 'utils/manageAccess';
+import { getSavedAccess, clearAccess } from 'Utils/manageAccess';
 
 // interfaces
 import { IStore } from 'Controller/model';
-import { ISetAuthenticatedStatus, IUser } from 'Controller/auth/model';
+import {
+  ISetAuthenticatedStatus,
+  IUser,
+  IAuthData,
+} from 'Controller/auth/model';
 
 // Actions
 import {
   setAuthenticatedStatus,
-  loginByToken,
+  loginByTokenAction,
   setIsneedSecondStep,
 } from 'Controller/auth/actions';
 
 // Routing schema
-import RoutingSchema from './schema';
+import RoutingSchema, { IRoute } from './schema';
 
 // components
 import Login from '../View/Login';
 import Menu from '../Component/Menu';
 import Loader from 'Component/Loader';
 
-// clear access method
-import { clearAccess } from 'utils/manageAccess';
-
 // Render all routes
-const Routes = RoutingSchema.getSchema.map(
-  ({ component: Component, path, name, isExact }) => (
-    <Route exact={isExact} key={name} path={path} component={Component} />
-  ),
-);
+const generateRoutes = (routes: IRoute[]) => {
+  return routes.map(({ component: Component, ...route }) => (
+    <Route
+      exact={route.isExact}
+      key={route.name}
+      path={route.path}
+      render={(props) => {
+        return (
+          <Component
+            key={route.name + Object.values(props.match.params).join(',')}
+            {...props}>
+            {route.childRoutes ? (
+              <Switch>{generateRoutes(route.childRoutes)}</Switch>
+            ) : (
+              <></>
+            )}
+          </Component>
+        );
+      }}
+    />
+  ));
+};
+
+const Routes = generateRoutes(RoutingSchema.getSchema);
 
 interface Props {
   location: any;
@@ -44,16 +64,16 @@ interface Props {
   setInfoAreAllfiealdsFilledOut: (boolean) => void;
   push: (path: string) => void;
   isNeededSecondStep: boolean;
-  loginByToken: (token: string) => void;
   loader: boolean;
   user: IUser;
   isSecondStepPassed: any;
+  loginByTokenAction: (data: IAuthData) => void;
   setIsneedSecondStep: () => void;
 }
 
 const Routing: React.FC<Props> = ({
   authStatus,
-  isNeededSecondStep,
+  // isNeededSecondStep,
   user,
   ...props
 }) => {
@@ -61,29 +81,34 @@ const Routing: React.FC<Props> = ({
   const [
     isNeeededSecondStepValue,
     setIsNeededSecondSteValue,
-  ] = useState<boolean>(true);
-  // const isNeededSecondStep = true;
+  // ] = useState<boolean>(true);
+] = useState<boolean>(false);
+  const isNeededSecondStep = false;
   useEffect(() => {
+    console.log(' user ', user);
     const authData = getSavedAccess();
     if (authData.accessToken && authData.refreshToken) {
-      props.loginByToken(authData.accessToken);
-      if (user !== undefined) {
+      if (authStatus === false) {
+        props.loginByTokenAction(authData);
+      }
+
+      if (user !== undefined && userData === undefined) {
         setUserData(user);
       }
     } else {
       props.setAuthenticatedStatus({ status: false });
     }
 
-    if (isNeededSecondStep === true) {
-      setIsNeededSecondSteValue(true);
-    } else {
-      setIsNeededSecondSteValue(false);
-    }
+    // if (isNeededSecondStep === true) {
+    //   setIsNeededSecondSteValue(true);
+    // } else {
+    //   setIsNeededSecondSteValue(false);
+    // }
 
     if (props.isSecondStepPassed === true) {
       setPageOpened();
     }
-  }, [user, props.isSecondStepPassed]);
+  }, [props.isSecondStepPassed, user]);
 
   const location = useLocation();
 
@@ -179,10 +204,11 @@ export default connect(
     isNeededSecondStep: state.authState.user.isNeedSecondStep,
     isSecondStepPassed: state.updateSteUserAfterSignIn.isSecondStepPassed,
     user: state.authState.user,
+    usr: state,
   }),
   {
     setAuthenticatedStatus,
     push,
-    loginByToken: loginByToken.request,
+    loginByTokenAction,
   },
 )(Routing);

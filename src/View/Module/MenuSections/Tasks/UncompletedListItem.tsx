@@ -1,31 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { TaskDTO } from '@ternala/frasier-types';
 
 // components
 import Link from 'Routing/Link';
 
-//interfaces
-import { ITask } from './Models';
-
 interface IProps {
-  element: ITask | any;
-  setCheckButton: (id: number) => void;
+  task: TaskDTO;
+  toggleTask: (id: number, action: 'create' | 'remove') => void;
 }
 
-const UncompletedListItem: React.FC<IProps> = ({ ...props }) => {
-  const [isChecked, setIsChecked] = useState<boolean>(false);
-
+const UncompletedListItem: React.FC<IProps> = ({ task, toggleTask }) => {
   return (
     <>
-      <div className="tasks-uncompleted-item" key={props.element.id + ''}>
+      <div className="tasks-uncompleted-item" key={task.id + ''}>
         {' '}
         <div className="tasks-uncompleted-item-checkbox">
           <input
             type="checkbox"
             className="tasks-current-task-checkbox-check"
-            checked={isChecked}
+            checked={!!task?.executions?.length}
             onChange={() => {
-              props.setCheckButton(props.element.id);
-              setIsChecked(true);
+              toggleTask(task.id, !!task?.executions?.length ? 'remove' : "create");
             }}
           />
         </div>
@@ -33,17 +28,15 @@ const UncompletedListItem: React.FC<IProps> = ({ ...props }) => {
           <span
             className="tasks-uncompleted-item-title"
             style={{
-              textDecoration: isChecked ? 'line-through' : 'unset',
+              textDecoration: !!task?.executions?.length
+                ? 'line-through'
+                : 'unset',
             }}>
-            {props.element.title}
+            {task.title}
           </span>
-          {props.element.text.length > 0 ? (
+          {task?.sections?.length > 0 ? (
             <Link to={'read-more'} className="tasks-current-task-text-link">
-              {/* <span
-              className="tasks-current-task-text-link"
-              onClick={() => console.log('read more')}> */}
               Read more
-              {/* </span> */}
             </Link>
           ) : (
             <></>

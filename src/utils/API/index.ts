@@ -1,4 +1,4 @@
-import { Unauthorized, BadRequest } from './Exceptions';
+import { Unauthorized, BadRequest } from './exceptions';
 import jwt_decode from 'jwt-decode';
 // import {IAuthData} from "../../controllers/auth/models";
 // import {checkAccessTokenExpired} from "../../controllers/auth/sagas/auth";

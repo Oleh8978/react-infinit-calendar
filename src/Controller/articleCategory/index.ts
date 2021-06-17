@@ -1,5 +1,5 @@
 import { all } from 'redux-saga/effects';
-import { createReducer, ActionType, getType } from 'typesafe-actions';
+import { createReducer, ActionType } from 'typesafe-actions';
 import { omit } from 'lodash';
 
 // Actions
@@ -13,7 +13,7 @@ import { ArticleDTO } from '@ternala/frasier-types';
 import { ArticleCategoriesSaga } from './sagas/articleCategorySagas';
 
 // utils
-import { concatWithUnique } from '../../utils/concatWithUnique';
+import { concatWithUnique } from 'Utils/concatWithUnique';
 
 export type AericleActionType = ActionType<typeof actions>;
 

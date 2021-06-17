@@ -1,22 +1,55 @@
 import React, { useState, useEffect } from 'react';
+import moment from 'moment';
 
 // static
 import check from 'Asset/images/confirm.png';
 import back from 'Asset/images/back.png';
+import { useDispatch, useSelector } from 'react-redux';
+
+// redux
+import { deleteDayOffAction, setDayOffAction } from '../../../../Controller/schedule/actions';
+import { getDaysOff } from '../../../../Controller/schedule';
 
 interface IProps {
-  setModalOpened: () => void
+  setModalOpened: () => void;
+  date: Date;
 }
 
-const ModalWindow: React.FC<IProps> = ({ setModalOpened }) => {
+const ModalWindow: React.FC<IProps> = ({ date, setModalOpened }) => {
+  const dispatch = useDispatch();
+
+  const daysOff = useSelector(getDaysOff);
+  const currentDay = daysOff.find((day) =>
+    moment(date).isSame(day.date, 'day'),
+  );
+
   return (
     <div className="modal">
       <div className="modal-btn-wrapper">
-        <div className="modal-btn__close" onClick={()=> setModalOpened()}>
+        <div
+          className="modal-btn__close"
+          onClick={() => {
+            if (currentDay) {
+              dispatch(
+                deleteDayOffAction.request({
+                  ids: [currentDay.id],
+                }),
+              );
+            } else {
+              dispatch(
+                setDayOffAction.request({
+                  date,
+                }),
+              );
+            }
+            setModalOpened();
+          }}>
           <img className="modal-btn-img" src={check} alt="img" />{' '}
-          <span className="modal-btn-text">Set as Day-Off</span>
+          <span className="modal-btn-text">
+            {currentDay ? 'I want to work' : 'Set as Day-Off'}
+          </span>
         </div>
-        <div className="modal-btn__dayoff" onClick={()=> setModalOpened()}>
+        <div className="modal-btn__dayoff" onClick={() => setModalOpened()}>
           {' '}
           <img className="modal-btn-img" src={back} alt="img" />
           <span className="modal-btn-text">Close</span>

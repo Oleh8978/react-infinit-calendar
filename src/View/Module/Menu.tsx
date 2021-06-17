@@ -2,28 +2,34 @@ import React, { useState } from 'react';
 
 // interfaces
 import { INavigationMenu } from './Models';
+import InternalLink from '../../Routing/Link';
 
 interface IProps {
   menuOptions: INavigationMenu[];
-  setIsclicked: (name: string) => void;
+  tabName: string;
+  id: string
 }
 
-const NavigationMenu: React.FC<IProps> = ({ menuOptions, setIsclicked }) => {
+const NavigationMenu: React.FC<IProps> = ({ menuOptions, tabName, id }) => {
   return (
     <div className="module-menucontainer">
       <div className={'module-menu-navigation'}>
         {menuOptions.map((menuItem) => {
           return (
-            <div
+            <InternalLink
+              to={'module-tab'}
+              params={{
+                id,
+                tabName: menuItem.slug
+              }}
               className={
-                menuItem.isActive
+                menuItem.slug === tabName
                   ? 'module-menu-navigation-item__active'
                   : 'module-menu-navigation-item'
               }
-              onClick={() => setIsclicked(menuItem.name)}
               key={menuItem.name}>
               {menuItem.name}
-            </div>
+            </InternalLink>
           );
         })}
       </div>

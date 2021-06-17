@@ -1,27 +1,45 @@
 import React, { useEffect, useState } from 'react';
-
+import { TimeSlotDTO, IDayWithTimeSlots } from '@ternala/frasier-types';
 import Task from './Task';
 import PrevUncompleted from './PrevUncompleted';
 
-import { data, prevDataUncompleted } from '../fakeData/fakedata';
+import { useSelector } from 'react-redux';
+import { getUserStartTime } from '../../../Controller/auth';
+import { defaultUserStartTime } from '../../../Config/constants';
 
-interface IProps {}
+interface IProps {
+  timeSlots: TimeSlotDTO[];
+  uncompletedDays?: IDayWithTimeSlots;
+}
 
-const TaskList: React.FC<IProps> = () => {
+const TaskList: React.FC<IProps> = ({ timeSlots, uncompletedDays }) => {
+  let userStartTime = useSelector(getUserStartTime) || defaultUserStartTime;
   const isAnyUncopleted = true;
   return (
     <div className={'modules-list'}>
       <div className={'modules-list__completed'}>
-        {data.tasks.map((item) => {
-          return (
-            <Task
-              key={item.date}
-              description={item.description}
-              date={item.date}
-              time={item.time}
-              status={item.status}
-            />
-          );
+        {timeSlots.map((timeSlot) => {
+          if (timeSlot.tasks.length) {
+            const task = (
+              <Task
+                moduleId={timeSlot.module.id}
+                key={'timeSlot-' + timeSlot.id}
+                description={
+                  timeSlot.module.title +
+                  (timeSlot.title ? ' - ' + timeSlot.title : '')
+                }
+                date={userStartTime}
+                time={timeSlot.duration}
+                isCompleted={
+                  !timeSlot.tasks.filter((task) => !task.executions.length)
+                    .length
+                }
+              />
+            );
+            userStartTime += timeSlot.duration;
+            return task;
+          }
+          return '';
         })}
       </div>
       {isAnyUncopleted ? (
@@ -30,15 +48,17 @@ const TaskList: React.FC<IProps> = () => {
             Previously Uncompleted
           </h1>
           <div className={'modules-list__uncompleted-list'}>
-            {prevDataUncompleted.map((item) => {
-              return (
-                <PrevUncompleted
-                  date={item.date}
-                  tasks={item.tasks}
-                  key={item.date}
-                />
-              );
-            })}
+            {uncompletedDays
+              ? Object.entries(uncompletedDays).map(([day, timeSlots]) => {
+                  return (
+                    <PrevUncompleted
+                      date={day}
+                      timeSlots={timeSlots}
+                      key={'uncompletedTimeSlots' + day}
+                    />
+                  );
+                })
+              : ''}
           </div>
         </div>
       ) : (

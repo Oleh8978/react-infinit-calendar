@@ -10,6 +10,8 @@ import Pen from './CustomButtons/Pen';
 import { Pages } from 'Routing/schema';
 
 import history from 'historyApi';
+import { useDispatch } from 'react-redux';
+import { push } from 'connected-react-router';
 
 interface IProps {
   rout?: string;
@@ -29,6 +31,7 @@ interface IProps {
 }
 
 const NavigationBar: React.FC<IProps> = ({ ...props }) => {
+  const dispatch = useDispatch();
   return (
     <>
       {props.isEditProfile ? (
@@ -84,7 +87,7 @@ const NavigationBar: React.FC<IProps> = ({ ...props }) => {
             ) : (
               <div
                 className="module-menu-back"
-                onClick={() => history.push(props.rout)}>
+                onClick={() => dispatch(push(props.rout))}>
                 <div className="module-menu-back__top" />
                 <div className="module-menu-back__bottom" />
               </div>

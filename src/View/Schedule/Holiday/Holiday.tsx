@@ -1,19 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { HolidayDTO } from '@ternala/frasier-types';
 
-import { holidays } from '../fakeData/fakedata';
+// Actions
+import { deleteHolidayDataAction } from '../../../Controller/holidays/actions';
 
 interface IProps {
+  holiday: HolidayDTO;
 }
 
-const Holiday: React.FC<IProps> = () => {
+const Holiday: React.FC<IProps> = ({ holiday }) => {
+  const dispatch = useDispatch();
   return (
     <div className="answer-holiday">
-      <h1 className="answer-holiday-header__top">{holidays[0].title}</h1>
+      <h1 className="answer-holiday-header__top">{holiday.title}</h1>
       <span className="answer-holiday-description">
-        It’s a federal holiday, but if you able to work click below
+        {holiday.message}
       </span>
       <span className="answer-holiday-icon">👇</span>
-      <div className="answer-holiday-btn">I Want to Work</div>
+      <div
+        className="answer-holiday-btn"
+        onClick={() => {
+          dispatch(
+            deleteHolidayDataAction.request({
+              holiday: holiday.id,
+            }),
+          );
+        }}>
+        I Want to Work
+      </div>
     </div>
   );
 };

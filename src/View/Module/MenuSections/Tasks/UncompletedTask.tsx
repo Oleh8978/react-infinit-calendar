@@ -1,48 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 // components
 import UncompletedListItem from './UncompletedListItem';
 
-// interfaces
-import { ICalendarData, IListCalendarItem } from './Models';
-
 // utils
-import { numDayShortMonth } from './utils';
+import { TimeSlotDTO } from '@ternala/frasier-types';
 
 interface IProps {
-  data: ICalendarData;
-  setCheckButton: (id: number) => void;
+  date: string;
+  timeSlots: TimeSlotDTO[];
+  toggleTask: (id: number, timeSlot: number, action: 'create' | 'remove') => void;
 }
 
-const UncompletedTask: React.FC<IProps> = ({ ...props }) => {
-  const [elements, setElements] = useState<ICalendarData | undefined>(
-    undefined,
-  );
-  useEffect(() => {
-    setElements(props.data);
-  }, [props.data]);
-  // console.log('elements ', elements)
+const UncompletedTask: React.FC<IProps> = ({ timeSlots, date, toggleTask }) => {
   return (
     <>
-      {elements && (
-        <div className={'tasks-uncompleted'}>
-          <span className="tasks-uncompleted-headeritem">
-            {numDayShortMonth(elements.time)}
-          </span>
-          {elements.tasks.map((item) => {
-            return item.items.map((elem) => {
-              if (elem.isChecked === false) {
-                return (
-                  <UncompletedListItem
-                    element={elem}
-                    setCheckButton={props.setCheckButton}
-                  />
-                );
-              }
-            });
-          })}
-        </div>
-      )}
+      <div className={'tasks-uncompleted'}>
+        <span className="tasks-uncompleted-headeritem">
+          {date}
+        </span>
+        {timeSlots?.map((timeSlot) => {
+          return timeSlot?.tasks.map((task) => {
+            if (!task?.executions?.length) {
+              return (
+                <UncompletedListItem
+                  task={task}
+                  toggleTask={(id: number, action: 'create' | 'remove') => toggleTask(id, timeSlot.id, action)}
+                />
+              );
+            }
+          });
+        })}
+      </div>
     </>
   );
 };

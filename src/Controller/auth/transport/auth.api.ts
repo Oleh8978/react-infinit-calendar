@@ -2,9 +2,9 @@ import { AuthUserLoginByTokenResponseDTO } from '@ternala/frasier-types/lib/inde
 import { DeviceCreateRequest } from '@ternala/frasier-types/lib/index';
 
 import { Config } from '../../../Config/API';
-import { authHeader, handleErrors, refreshHeader } from '../../../utils/API';
-import { getSavedAccess } from '../../../utils/manageAccess';
-import { getFCMToken } from '../../../utils/getFCMToken';
+import { authHeader, handleErrors, refreshHeader } from 'Utils/API';
+import { getSavedAccess } from 'Utils/manageAccess';
+import { getFCMToken } from 'Utils/getFCMToken';
 
 import { IAuthData, IDeviceCredentials } from '../model';
 
@@ -41,7 +41,8 @@ class API {
   public async loginByToken(
     accessToken: string,
   ): Promise<AuthUserLoginByTokenResponseDTO | string> {
-    const url = new URL(Config.MAIN_SERVICE_ENDPOINT + 'user/get-user');
+    const url = new URL(Config.MAIN_SERVICE_ENDPOINT + 'user/by-token');
+    console.log('url lgin by token ',url)
 
     return handleErrors(
       fetch(url.toString(), {
@@ -58,7 +59,7 @@ class API {
     deviceCredentials: DeviceCreateRequest,
   ): Promise<IAuthData | string> {
     return handleErrors(
-      fetch(Config.AUTH_SERVICE_ENDPOINT + 'refresh-token', {
+      fetch(Config.AUTH_SERVICE_ENDPOINT + 'user/refresh-token', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
