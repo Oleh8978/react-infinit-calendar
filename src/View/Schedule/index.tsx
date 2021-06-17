@@ -30,7 +30,7 @@ import {
   getUncompleted,
 } from '../../Controller/schedule';
 
-//utils
+//Utils
 import { generateArrayOfDates } from '../../Utils/generateArrayOfDates';
 
 // Interfaces

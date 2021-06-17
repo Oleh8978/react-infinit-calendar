@@ -6,8 +6,8 @@ import {
   AuthUserResponseDTO,
 } from '@ternala/frasier-types';
 
-// Exceptions
-import { BadRequest } from 'Utils/API/exceptions';
+// exeption
+import { BadRequest } from '../../../Utils/API/Exceptions';
 
 //APIs
 import { AuthAPI } from '../transport/auth.api';

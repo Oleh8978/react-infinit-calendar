@@ -13,7 +13,7 @@ import { DiscoveryDTO } from '@ternala/frasier-types';
 //Sagas
 import { DiscoveryListSaga } from './sagas/discovery';
 
-// utils
+// Utils
 import { concatWithUnique } from '../../Utils/concatWithUnique';
 
 export type DiscoveryListTypeAction = ActionType<typeof actions>;

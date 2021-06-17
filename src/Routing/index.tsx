@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { useTransition, animated } from 'react-spring';
 import { Scrollbars } from 'react-custom-scrollbars';
 
-// utils functions
+// Utils functions
 import { getSavedAccess } from 'Utils/manageAccess';
 
 // interfaces
