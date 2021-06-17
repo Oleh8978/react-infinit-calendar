@@ -1,5 +1,6 @@
-import { Unauthorized, BadRequest } from './exceptions';
+
 import jwt_decode from 'jwt-decode';
+import { BadRequest, Unauthorized } from './exceptions';
 // import {IAuthData} from "../../controllers/auth/models";
 // import {checkAccessTokenExpired} from "../../controllers/auth/sagas/auth";
 
@@ -16,7 +17,7 @@ export async function handleErrors<T = Record<string, never>>(
 ): Promise<T> {
   try {
     const res = await fetch;
-    console.log('respond from utils api index.ts', res)
+    console.log('respond from Utils api index.ts', res)
     if (!res.ok) {
       const error = await res.json();
 

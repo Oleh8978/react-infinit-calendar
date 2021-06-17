@@ -1,11 +1,13 @@
 import React from 'react';
 import moment, { Moment } from 'moment';
+import { HolidayDTO } from '@ternala/frasier-types/lib/modules/holiday/holiday.dto';
 
 interface IProps {
   day: Moment;
   isSelected: boolean;
   hasUncompleted: boolean;
   hasEvents: boolean;
+  holidays?: HolidayDTO[];
   selectDate: (date: Moment) => void;
   isCustom: boolean;
   index?: number;
@@ -18,9 +20,11 @@ const generateDayContent = ({
   isSelected,
   selectDate,
   hasEvents,
+  holidays,
   hasUncompleted,
 }: IProps) => {
   const isToday = moment().isSame(day, 'day');
+
   return (
     <>
       {isToday ? (
@@ -35,7 +39,8 @@ const generateDayContent = ({
       <div
         className={
           (isSelected ? 'calendar-day selected-card' : 'calendar-day') +
-          (hasEvents ? '' : ' without-tasks')
+          (hasEvents ? '' : ' without-tasks ')
+          // (hasFreeDay ? ' free-day ' : '')
         }
         onClick={() => selectDate(day)}>
         <div

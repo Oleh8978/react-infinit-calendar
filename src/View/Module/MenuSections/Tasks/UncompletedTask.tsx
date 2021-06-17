@@ -3,7 +3,7 @@ import React from 'react';
 // components
 import UncompletedListItem from './UncompletedListItem';
 
-// utils
+// Utils
 import { TimeSlotDTO } from '@ternala/frasier-types';
 
 interface IProps {

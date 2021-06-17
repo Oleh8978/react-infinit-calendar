@@ -13,8 +13,6 @@ import * as action from '../actions';
 
 // Utils
 import {
-  clearAccess,
-  saveAccess,
   getSavedAccess,
 } from 'Utils/manageAccess';
 

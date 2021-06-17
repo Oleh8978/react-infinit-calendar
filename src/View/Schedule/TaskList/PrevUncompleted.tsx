@@ -1,6 +1,6 @@
 import React from 'react';
 
-// utils
+// Utils
 import { getMonthNameShort } from '../Calendar/utils';
 import { TimeSlotDTO } from '@ternala/frasier-types';
 import InternalLink from '../../../Routing/Link';
