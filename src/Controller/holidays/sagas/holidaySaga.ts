@@ -1,0 +1,76 @@
+import { all, put, takeEvery } from 'redux-saga/effects';
+
+// Exceptions
+import { BadRequest } from 'utils/API/Exceptions';
+
+//APIs
+import { HolidayAPI } from '../transport/holiday.api';
+
+// Actions
+import * as action from '../actions';
+
+// Utils
+import {
+  getSavedAccess,
+} from '../../../utils/manageAccess';
+
+export function* getHolidayData({ payload }: ReturnType<typeof action.getHolidayDataAction.request>) {
+  yield put(
+    action.LoaderAction({
+      code: undefined,
+      error: false,
+      isLoading: true,
+      message: 'Loading...',
+    }),
+  );
+
+  try {
+    const HolidayData = yield HolidayAPI.getHoliday(
+      payload,
+      getSavedAccess().accessToken,
+    );
+
+    if (HolidayData) {
+      action.getHolidayDataAction.success({
+        ...payload,
+      });
+      yield put(
+        action.LoaderAction({
+          code: undefined,
+          error: false,
+          isLoading: false,
+          message: 'success loaded and put',
+        }),
+      );
+    } else {
+      yield put(
+        action.LoaderAction({
+          code: undefined,
+          error: false,
+          isLoading: false,
+          message: 'error while puting the data posted',
+        }),
+      );
+      throw new BadRequest();
+    }
+  } catch (error) {
+    console.log('error ', error);
+    yield put(
+      action.LoaderAction({
+        code: error.code,
+        error: true,
+        isLoading: false,
+        message: 'failure not loaded and not sent',
+      }),
+    );
+    action.getHolidayDataAction.failure({
+      code: error.statusCode,
+      message: 'Failure to load and sent updated data',
+      name: 'Post updated failure',
+    });
+  }
+}
+
+export function* getHolidayDataSaga() {
+  yield all([takeEvery(action.getHolidayDataAction.request, getHolidayData)]);
+}

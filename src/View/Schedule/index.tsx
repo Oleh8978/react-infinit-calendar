@@ -15,13 +15,41 @@ import { events } from './fakeData/fakedata';
 
 //utils
 import * as dateObject from './Calendar/utils';
+import { HolidayDTO, HolidayGetListRequest } from '@ternala/frasier-types';
+import { connect, useDispatch, useSelector } from 'react-redux';
+import { IStore } from '../../Controller/model';
+import { getHolidayDataAction } from '../../Controller/holidays/actions';
 
 interface IProps extends RouteComponentProps {
   absoluteBlock: string;
+  storedSearchParams: any;
+  getHolidayList: any;
+  holidays: any;
 }
 
-const Schedule: React.FC<IProps> = ({ absoluteBlock }) => {
+const Schedule: React.FC<IProps> = ({ absoluteBlock, ...props }) => {
   const [selectedDay, setSelectedDay] = useState<any>('');
+  const [holidays, setHolidays] = useState<HolidayDTO>(undefined);
+  //const [searchQuery, setSearchQuery] = useState<string>('');
+
+  console.log(props);
+
+  useEffect(() => {
+    if (!holidays) {
+      loadHolidays();
+      setHolidays(props.holidays);
+    }
+
+    console.log('holidays ', holidays);
+  }, [holidays]);
+
+  const dispatch = useDispatch();
+
+  const loadHolidays = (
+    callback?: any,
+  ) => {
+    dispatch(props.getHolidayList({ callback }));
+  };
 
   const getDayAndRecords = (day: any) => {
     setSelectedDay(String(day));
@@ -73,4 +101,12 @@ const Schedule: React.FC<IProps> = ({ absoluteBlock }) => {
   );
 };
 
-export default Schedule;
+//export default Schedule;
+export default connect(
+  (state: IStore) => ({
+    holidays: state.HolidayReducer.holidayObject.items,
+  }),
+  {
+    getHolidayList: getHolidayDataAction.request,
+  },
+)(Schedule);

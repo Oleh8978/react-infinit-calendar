@@ -23,6 +23,7 @@ import ConnectedAccount from 'View/Account/ConnectedAccount/index';
 import AboutPage from 'View/Account/About/index';
 import PrivacyPolicy from '../Component/PrivacyPolicy';
 import Terms from '../Component/Terms';
+import Holiday from '../View/Schedule/Holiday/Holiday';
 
 // Interfaces
 interface IRoute {
