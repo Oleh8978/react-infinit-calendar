@@ -240,6 +240,7 @@
 .task {
   width: 100%;
   &-completed {
+    display: block;
     height: fit-content;
     margin: 25px 15px 0px;
     background: $white;
@@ -330,6 +331,7 @@
 
     &-description {
       @include card-list-text-style;
+      display: block;
       margin: 0px 15px 10px;
       background-color: $white;
       border: 1px solid $divider-color;
