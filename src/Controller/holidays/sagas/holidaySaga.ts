@@ -1,7 +1,7 @@
 import { all, put, takeEvery } from 'redux-saga/effects';
 
 // Exceptions
-import { BadRequest } from '../../../Utils/API/Exceptions';
+import { BadRequest } from 'Utils/API/exceptions';
 
 //APIs
 import { HolidayAPI } from '../transport/holiday.api';

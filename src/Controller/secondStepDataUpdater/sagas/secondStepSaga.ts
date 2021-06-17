@@ -3,7 +3,7 @@ import { all, put, takeEvery, select } from 'redux-saga/effects';
 import { UserDataFullDTO } from '@ternala/frasier-types';
 
 // Exceptions
-import { BadRequest } from '../../../Utils/API/Exceptions';
+import { BadRequest } from 'Utils/API/exceptions';
 
 //APIs
 import { UpdateUserApi } from '../transport/secondStep.api';
@@ -13,8 +13,6 @@ import * as action from '../actions';
 
 // Utils
 import {
-  clearAccess,
-  saveAccess,
   getSavedAccess,
 } from 'Utils/manageAccess';
 

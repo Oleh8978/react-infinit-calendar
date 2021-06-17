@@ -7,7 +7,7 @@ import {
 } from '@ternala/frasier-types';
 
 // exeption
-import { BadRequest } from '../../../Utils/API/Exceptions';
+import { BadRequest } from 'Utils/API/exceptions';
 
 //APIs
 import { AuthAPI } from '../transport/auth.api';
