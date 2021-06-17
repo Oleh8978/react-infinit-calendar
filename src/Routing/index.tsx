@@ -57,7 +57,7 @@ interface Props {
 
 const Routing: React.FC<Props> = ({
   authStatus,
-  isNeededSecondStep,
+  // isNeededSecondStep,
   user,
   ...props
 }) => {
@@ -65,8 +65,9 @@ const Routing: React.FC<Props> = ({
   const [
     isNeeededSecondStepValue,
     setIsNeededSecondSteValue,
-  ] = useState<boolean>(true);
-  // const isNeededSecondStep = true;
+  // ] = useState<boolean>(true);
+] = useState<boolean>(false);
+  const isNeededSecondStep = false;
   useEffect(() => {
     console.log(' user ', user);
     const authData = getSavedAccess();
@@ -82,11 +83,11 @@ const Routing: React.FC<Props> = ({
       props.setAuthenticatedStatus({ status: false });
     }
 
-    if (isNeededSecondStep === true) {
-      setIsNeededSecondSteValue(true);
-    } else {
-      setIsNeededSecondSteValue(false);
-    }
+    // if (isNeededSecondStep === true) {
+    //   setIsNeededSecondSteValue(true);
+    // } else {
+    //   setIsNeededSecondSteValue(false);
+    // }
 
     if (props.isSecondStepPassed === true) {
       setPageOpened();

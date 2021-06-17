@@ -1,12 +1,11 @@
 import { all } from 'redux-saga/effects';
-import { createReducer, ActionType, getType } from 'typesafe-actions';
+import { createReducer, ActionType } from 'typesafe-actions';
 import { omit } from 'lodash';
 
 // Actions
 import * as actions from './actions';
 
 // Interfaces
-import { IStore } from '../model';
 import { IDiscoveryState } from './model';
 import { DiscoveryDTO } from '@ternala/frasier-types';
 
@@ -28,7 +27,15 @@ const initialState: IDiscoveryState = {
     counts: 0,
     items: [],
   },
-  storedSearchParams: null,
+  storedSearchParams: {
+    limit: '',
+    offset: '',
+    query: '',
+    sortType: '',
+    type: '',
+    categories: '',
+    ids: '',
+  },
   isLoading: {
     status: false,
   },
@@ -51,35 +58,53 @@ export const discoveryListReducer = createReducer<
   .handleAction(
     [actions.getDiscoveryList.success],
     (state: IDiscoveryState, { payload }): IDiscoveryState => {
-      const storedSearchParams = state.storedSearchParams;
-      const { searchParams }: any = payload.searchParams;
-
-      const discoveryList = {
-        ...state.discoveryList,
-      };
-
-      payload.response.items.forEach((elem) => {
-        if (
-          discoveryList.items.find(
-            (item) =>
-              item.article.id !== elem.article.id &&
-              item.journey.id !== elem.article.id,
-          )
-        ) {
-          discoveryList.items.push(elem);
-        } else {
-          return discoveryList.items;
-        }
-      });
+      const storedSearchParams = { ...state.storedSearchParams };
+      const { searchParams }: any = payload;
 
       let newDiscoveryList;
       if (
         JSON.stringify(omit(storedSearchParams, ['limit', 'offset'])) ===
         JSON.stringify(omit(searchParams, ['limit', 'offset']))
       ) {
+        const payloadResponseArray = [];
+
+        const articles = payload.response.items.filter(
+          (ele) => ele.article !== undefined,
+        );
+        if (articles.length !== 0) {
+          articles.map((item) => {
+            if (
+              state.discoveryList.items.find(
+                (elem) => elem.article.id !== item.article.id,
+              )
+            ) {
+              if (item !== undefined) {
+                return payloadResponseArray.push(item);
+              }
+            }
+          });
+        }
+        const journeys = payload.response.items.filter(
+          (ele) => ele.journey !== undefined,
+        );
+
+        if (journeys.length !== 0) {
+          journeys.map((item) => {
+            if (
+              state.discoveryList.items.filter(
+                (elem) => elem.journey.id === item.journey.id,
+              ).length === 0
+            ) {
+              if (item !== undefined) {
+                return payloadResponseArray.push(item);
+              }
+            }
+          });
+        }
+
         newDiscoveryList = concatWithUnique<DiscoveryDTO>(
           state.discoveryList.items || [],
-          payload.response.items.map((item) => item),
+          payloadResponseArray,
         );
       } else {
         newDiscoveryList = concatWithUnique<DiscoveryDTO>(
@@ -87,7 +112,6 @@ export const discoveryListReducer = createReducer<
           payload.response.items.map((item) => item),
         );
       }
-
       return {
         ...state,
         storedSearchParams: searchParams,
@@ -108,7 +132,3 @@ export const discoveryListReducer = createReducer<
     },
   );
 
-/* Selectors */
-// export const getDiscoveries = (state: IStore) => state.;
-// export const getPropertiesCount = (state: IStore) =>
-//   state.property.properties?.length || 0;

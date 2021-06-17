@@ -4,6 +4,9 @@ import { topics } from './FakeData/hardcodedData';
 
 import { ITopic } from './Models/DiscoveryModels';
 
+// components
+import Loader from 'Component/Loader';
+
 //interface
 import { ArticleDTO } from '@ternala/frasier-types';
 
@@ -144,15 +147,17 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
         <div className="discovery-menu-small-btn" onClick={() => scrollToTop()}>
           <span className="discovery-menu-small-btn-txt">All</span>
         </div>
-        {items.map((element) => {
-          return (
-            <div className="discovery-menu-small-item">
-              <span className="discovery-menu-small-item-txt">
-                {element.title}
-              </span>
-            </div>
-          );
-        })}
+        <>
+          {items.map((element) => {
+            return (
+              <div className="discovery-menu-small-item">
+                <span className="discovery-menu-small-item-txt">
+                  {element.title}
+                </span>
+              </div>
+            );
+          })}
+        </>
       </div>
     );
   };

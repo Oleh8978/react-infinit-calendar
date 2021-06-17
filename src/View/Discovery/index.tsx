@@ -18,9 +18,6 @@ import { IStore } from '../../Controller/model';
 import { ArticleDTO, DiscoveryDTO } from '@ternala/frasier-types';
 import { DiscoveryGetListRequest } from '@ternala/frasier-types';
 
-// HOC
-import useScrollListener from 'View/Schedule/Calendar/customHOC';
-
 interface IProps extends RouteComponentProps {
   storedSearchParams: any;
 }
@@ -32,71 +29,91 @@ const Discovery: React.FC<any> = ({ ...props }) => {
   const [articleCategories, setArticleCategories] = useState<ArticleDTO[]>(
     undefined,
   );
-  const [itemsCount, setItemsCount] = useState<number>(0);
+  const [smallLoader, setSmallLoader] = useState<boolean>(false);
+  const [isMoreStated, setISmoreStated] = useState<string>('start');
   const fieldRef = createRef() as RefObject<Scrollbars>;
 
-  const handleScroll = () => {
-    const scrolled = document.querySelector(
-      '.main-wrapper-discovery',
-    ) as HTMLElement;
+  const loadMoreItems = () => {
+    const {
+      getClientHeight,
+      getScrollHeight,
+      getScrollTop,
+      scrollToBottom,
+    } = fieldRef.current as Scrollbars;
     if (
-      props.itemsCount > discovery.length &&
-      props.isLoading.status === false
+      props.isLoading.status === false &&
+      smallLoader === false &&
+      getClientHeight() + getScrollTop() >= getScrollHeight() - 1 &&
+      searchQuery.trim().length === 0
     ) {
-      if (scrolled.scrollHeight - 700 <= scrolled.scrollTop) {
-        console.log('inn');
-        // props.loadMore('more');
-      }
+      setSmallLoader(true);
+      loadDiscoveries('more');
+      setISmoreStated('more');
+      setSmallLoader(false);
     }
   };
-  //   if (
-  //     !this.props.allItemsLoaded &&
-  //     !this.state.isLoading &&
-  //     (getClientHeight() + getScrollTop() >= getScrollHeight() - ITEMS_LOADER_HEIGHT)
-  //  ) {
-  //     this.setState(() => ({ isLoadingMore: true }))
-  //     scrollToBottom()
-  //     this.props.onLoadMore('more', () =>
-  //        this.setState(() => ({ isLoadingMore: false }))
-  //     )
-  //     this.props.onLoadMore('more')
-  //  }
 
-  // useScrollListener(fieldRef, handleScroll, 5000);
+  const searchQueryProcessor = (text: string) => {
+    setSearchQuery(text.trim());
+    if (text.trim().length !== 0) {
+      loadDiscoveries('start', searchQuery);
+    } else {
+      loadDiscoveries('start');
+    }
+  };
+
+  const onCloseHandler = () => {
+    loadDiscoveries('start');
+    setSearchQuery('');
+    setISmoreStated('start');
+  };
 
   useEffect(() => {
     if (props.discoveryList !== undefined) {
       setDiscovery(props.discoveryList);
-      setItemsCount(props.itemsCount);
+      setISmoreStated('start');
     }
 
-    if (articleCategories === undefined && discovery === undefined) {
+    if (articleCategories === undefined && discovery === undefined && searchQuery.trim().length === 0) {
       loadDiscovloadArticleCategoeries();
-      loadDiscoveries();
+      loadDiscoveries('start');
+    }
+    if (isMoreStated === 'more' && props.discoveryList !== undefined) {
+      setDiscovery(props.discoveryList);
     }
 
-    if (props.articleCategories !== undefined) {
+    if (
+      props.articleCategories !== undefined &&
+      articleCategories === undefined
+    ) {
       setArticleCategories(props.articleCategories);
+      setISmoreStated('start');
     }
-  }, [props.articleCategories, props.discoveryList]);
 
+    if (searchQuery.trim().length !== 0 && props.discoveryList) {
+      setDiscovery(props.discoveryList);
+    }
+  }, [props.articleCategories, props.discoveryList, isMoreStated, searchQuery]);
   const dispatch = useDispatch();
 
-  const loadDiscoveries = (callback?: any, loadMore?: string) => {
-    console.log(' inn load more ');
+  console.log('discovery ', props.discoveryList);
+
+  const loadDiscoveries = (
+    loadMore?: string,
+    searchQuery?: string,
+    callback?: any,
+  ) => {
     const searchParams: DiscoveryGetListRequest = {
       limit: 10,
-      offset: loadMore === 'more' ? discovery.length : 0,
+      offset: loadMore === 'more' ? Number(discovery.length) : 0,
       query: searchQuery,
     };
-
     if (
       JSON.stringify(omit(props.storedSearchParams, ['limit', 'offset'])) !==
       JSON.stringify(omit(searchParams, ['limit', 'offset']))
     ) {
-      searchParams.offset = 10;
+      searchParams.offset = 0;
     }
-
     dispatch(props.getDiscoveryList({ ...searchParams, callback }));
   };
 
@@ -136,11 +153,12 @@ const Discovery: React.FC<any> = ({ ...props }) => {
         maxHeight: '100%',
         display: 'flex',
       }}
+      onScroll={loadMoreItems}
       ref={fieldRef}
       renderView={(props) => (
         <div {...props} className={'main-wrapper-discovery'} />
       )}>
-      <SearchBar />
+      <SearchBar inputValueFromSearch={searchQueryProcessor} onCloseHandler={onCloseHandler}/>
       <div className={'discovery'}>
         <Menu marginAdder={marginAdder} articleCategories={articleCategories} />
         <DiscoveryTopicList
@@ -148,7 +166,6 @@ const Discovery: React.FC<any> = ({ ...props }) => {
           discoveryItems={discovery}
           isLoading={props.isLoading}
           itemsCount={props.itemsCount}
-          loadMore={loadDiscoveries}
         />
       </div>
     </Scrollbars>

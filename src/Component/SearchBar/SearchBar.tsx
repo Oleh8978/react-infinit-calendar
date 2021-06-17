@@ -3,11 +3,16 @@ import React, { useState } from 'react';
 import searchIcon from '../../Asset/images/searchIcon.svg';
 interface IProps {
   smallMenu?: boolean;
+  inputValueFromSearch?: (text:string) => void;
+  onCloseHandler?: () => void;
 }
 
-const SearchBar: React.FC<IProps> = ({ smallMenu }) => {
+const SearchBar: React.FC<IProps> = ({ smallMenu, ...props }) => {
   const [isOpened, setIsOpened] = useState<boolean>(false);
-  const [inputValue, setInputValue] = useState<string>('');
+
+  // const onCloseHandler = () => {
+  //   return props.onCloseHandler? props.onCloseHandler : console.log('close');
+  // } 
 
   return (
     <div
@@ -31,12 +36,13 @@ const SearchBar: React.FC<IProps> = ({ smallMenu }) => {
           <input
             type="text"
             className="searchbar-input"
-            onChange={(e) => setInputValue(e.target.value)}
+            onChange={(e) => props.inputValueFromSearch(e.target.value)}
           />
           <div
             className="searchbar-clear"
             onClick={() => {
               setIsOpened(false);
+              props.onCloseHandler();
             }}>
             <div className="searchbar-clear-left" />
             <div className="searchbar-clear-right" />

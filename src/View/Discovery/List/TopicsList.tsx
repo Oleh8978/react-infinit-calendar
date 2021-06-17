@@ -14,9 +14,6 @@ import history from 'historyApi';
 import { ArticleDTO, DiscoveryDTO } from '@ternala/frasier-types';
 import { ISetLoadingAction } from 'Controller/Discovery/model';
 
-// HOC
-import useScrollListener from 'View/Schedule/Calendar/customHOC';
-
 interface IProps {
   margin: number;
   discoveryItems: DiscoveryDTO[];
@@ -33,30 +30,13 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
     if (props.discoveryItems !== undefined) {
       setDiscoveryItems(props.discoveryItems);
     }
-    // document
-    //   .querySelector('.discovery-main-wrapper')
-    //   .addEventListener('scroll', () => handleScroll());
-    // return () => {
-    //   document
-    //     .querySelector('.discovery-main-wrapper')
-    //     .removeEventListener('scroll', () => handleScroll());
-    // };
   }, [props.discoveryItems]);
-
-  // const loadMoreDiscoveries = () => {
-  //   props.loadMore();
-  // };
-
-  const scrolledSetter = () => {
-    const scrolled = document.querySelector('.discovery-list').scrollTop;
-    console.log('height ', scrolled);
-  };
-
+console.log(' items ', discoveryItems)
   return (
     <div className={'discovery-list'} ref={fieldRef}>
       <span className="discovery-list-title">Full list</span>
       <>
-        {props.isLoading.status ? (
+        {props.isLoading.status === true && discoveryItems.length === 0 ? (
           <Loader isSmall={true} />
         ) : (
           <div className="discovery-list-holder">

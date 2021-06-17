@@ -11,9 +11,6 @@ export function* getDiscoveriesSaga({
   payload,
 }: ReturnType<typeof actions.getDiscoveryList.request>) {
   const accessToken: string | undefined = yield yield select(getAccessToken);
-  const additionalFields = {
-    property: payload.property,
-  };
 
   yield put(
     actions.setLoadingAction({
@@ -24,20 +21,6 @@ export function* getDiscoveriesSaga({
     if (!accessToken) throw new Error('Not authorized');
     const res = yield DiscoveryAPI.getDiscovery(payload, accessToken);
     if (!res && res.code) {
-      //   yield put(
-      //     getLeaseTransactionsAction.failure({
-      //       code: res.code,
-      //       message: res.message || 'Something was wrong',
-      //     }),
-      //   );
-      //   yield put(
-      //     addLeaseTransactionError({
-      //       id: loadId,
-      //       message: 'Failed to get leases!',
-      //       type: LoaderAction.lease.getList,
-      //       additionalFields,
-      //     }),
-      //   );
       yield put(
         actions.setLoadingAction({
           status: false,
@@ -49,51 +32,28 @@ export function* getDiscoveriesSaga({
           status: false,
         }),
       );
-      //   yield put(
-      //   getLeaseTransactionsAction.success({
-      //     response: res,
-      //     searchParams: payload,
-      //     additionalFields: {
-      //       property: payload.property,
-      //     },
-      //     isAll: payload.limit ? res.items.length < payload.limit : true,
-      //   }),
-      //   );
       yield put(
         actions.getDiscoveryList.success({
           response: res,
-          searchParams: payload,
-          isAll: payload.limit ? res.items.length < payload.limit : true,
+          searchParams: { ...payload },
         }),
       );
-      //   yield put(
-      //     removeLeaseTransactionLoader({
-      //       id: loadId,
-      //       additionalFields,
-      //     }),
-      //   );
     }
     if (typeof payload.callback === 'function') payload.callback();
   } catch (error) {
+    console.log('ERORR DISCOVERY', error);
     yield put(
       actions.setLoadingAction({
         status: false,
       }),
     );
-    // yield put(
-    //   getLeaseTransactionAction.failure({
-    //     code: error.code || 400,
-    //     message: error.message || error || 'Something was wrong',
-    //   }),
-    // );
-    // yield put(
-    //   addLeaseTransactionError({
-    //     id: loadId,
-    //     message: 'Failed to get leases!',
-    //     type: LoaderAction.lease.getList,
-    //     additionalFields,
-    //   }),
-    // );
+    yield put(
+      actions.getDiscoveryList.failure({
+        code: `error code ${error.code}`,
+        message: 'something went wrong ',
+        name: `error name is ${error}`,
+      }),
+    );
   }
 }
 

@@ -15,7 +15,7 @@ export const widgetName = 'discovery';
 
 // loading action
 export const setLoadingAction = createAction(
-  `${appName}/${widgetName}/SET_AUTHENTICATED_STATUS`,
+  `${appName}/${widgetName}/SET_ISLOADING_STATUS`,
 )<ISetLoadingAction>();
 
 // ** Action
@@ -28,7 +28,6 @@ export const getDiscoveryList = createAsyncAction(
   {
     response: DiscoveryGetListResponse;
     searchParams: DiscoveryGetListRequest;
-    isAll: boolean;
   },
   IException
 >();
