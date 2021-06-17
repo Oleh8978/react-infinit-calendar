@@ -6,7 +6,7 @@ import { useTransition, animated } from 'react-spring';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 // utils functions
-import { getSavedAccess } from 'Utils/manageAccess';
+import { getSavedAccess, clearAccess } from 'Utils/manageAccess';
 
 // interfaces
 import { IStore } from 'Controller/model';
@@ -30,9 +30,6 @@ import RoutingSchema, { IRoute } from './schema';
 import Login from '../View/Login';
 import Menu from '../Component/Menu';
 import Loader from 'Component/Loader';
-
-// clear access method
-import { clearAccess } from 'Utils/manageAccess';
 
 // Render all routes
 const generateRoutes = (routes: IRoute[]) => {
