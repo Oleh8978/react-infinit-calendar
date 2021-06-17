@@ -9,18 +9,15 @@ import { IHolidayState } from './models';
 //Sagas
 import { getHolidayDataSaga } from './sagas/holidaySaga';
 import * as action from './actions';
-import { HolidayGetListResponse } from '@ternala/frasier-types';
-
+import { IStore } from '../model';
+import { DayOffDTO, HolidayDTO } from '@ternala/frasier-types';
 
 export const HolidaySaga = function* () {
   yield all([getHolidayDataSaga()]);
 };
 
 const initialState: IHolidayState = {
-  holidayObject: {
-    items: [],
-    counts: 0,
-  },
+  holidays: [],
   Loader: {
     isLoading: false,
   },
@@ -31,7 +28,7 @@ export type HolidayActionType = ActionType<typeof action>;
 export const GetHolidayReducer = createReducer<
   IHolidayState,
   HolidayActionType
-  >(initialState)
+>(initialState)
   .handleAction(
     actions.LoaderAction,
     (state: IHolidayState, { payload }): IHolidayState => ({
@@ -45,7 +42,16 @@ export const GetHolidayReducer = createReducer<
     [actions.getHolidayDataAction.success],
     (state: IHolidayState, { payload }): IHolidayState => ({
       ...state,
-      holidayObject: {...payload},
+      holidays: payload.items,
+    }),
+  )
+  .handleAction(
+    [actions.deleteHolidayDataAction.success],
+    (state: IHolidayState, { payload }): IHolidayState => ({
+      ...state,
+      holidays: state.holidays.filter(
+        (holiday) => holiday.id !== payload.additionalFields.holiday,
+      ),
     }),
   )
   .handleAction(
@@ -55,3 +61,6 @@ export const GetHolidayReducer = createReducer<
       ...payload,
     }),
   );
+
+export const getHolidays = (state: IStore): HolidayDTO[] =>
+  state.HolidayReducer.holidays;

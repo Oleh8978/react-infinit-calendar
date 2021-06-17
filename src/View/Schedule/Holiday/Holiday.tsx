@@ -1,29 +1,29 @@
-import React, { useState, useEffect } from 'react';
-
-import { holidays } from '../fakeData/fakedata';
-import { DayOffDTO } from '@ternala/frasier-types';
+import React from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteDayOffAction } from '../../../Controller/schedule/actions';
+import { HolidayDTO } from '@ternala/frasier-types';
+
+// Actions
+import { deleteHolidayDataAction } from '../../../Controller/holidays/actions';
 
 interface IProps {
-  dayOff: DayOffDTO;
+  holiday: HolidayDTO;
 }
 
-const Holiday: React.FC<IProps> = ({ dayOff }) => {
+const Holiday: React.FC<IProps> = ({ holiday }) => {
   const dispatch = useDispatch();
   return (
     <div className="answer-holiday">
-      <h1 className="answer-holiday-header__top">{holidays[0].title}</h1>
+      <h1 className="answer-holiday-header__top">{holiday.title}</h1>
       <span className="answer-holiday-description">
-        It’s a federal holiday, but if you able to work click below
+        {holiday.message}
       </span>
       <span className="answer-holiday-icon">👇</span>
       <div
         className="answer-holiday-btn"
         onClick={() => {
           dispatch(
-            deleteDayOffAction.request({
-              ids: [dayOff.id],
+            deleteHolidayDataAction.request({
+              holiday: holiday.id,
             }),
           );
         }}>

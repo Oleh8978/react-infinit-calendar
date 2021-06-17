@@ -1,11 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { DayOffDTO } from '@ternala/frasier-types';
+import { useDispatch } from 'react-redux';
 
 // static images
 import imageDayOff from '../fakeData/dayOff/dayOff.png';
 
-interface IProps {}
+// Actions
+import { deleteDayOffAction } from '../../../Controller/schedule/actions';
 
-const DayOff: React.FC<IProps> = () => {
+interface IProps {
+  dayOff: DayOffDTO;
+}
+
+const DayOff: React.FC<IProps> = ({ dayOff }) => {
+  const dispatch = useDispatch();
   return (
     <div className="answer-dayoff">
       <h1 className="answer-dayoff-header__top">day-off</h1>
@@ -16,7 +24,17 @@ const DayOff: React.FC<IProps> = () => {
         </span>
         <span>If you want to continue working, click below.</span>
       </div>
-      <div className="answer-dayoff-btn">I Want to Work</div>
+      <div
+        className="answer-dayoff-btn"
+        onClick={() => {
+          dispatch(
+            deleteDayOffAction.request({
+              ids: [dayOff.id],
+            }),
+          );
+        }}>
+        I Want to Work
+      </div>
       <img src={imageDayOff} className="answer-dayoff-img" alt="img" />
     </div>
   );

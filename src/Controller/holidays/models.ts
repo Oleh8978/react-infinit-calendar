@@ -1,5 +1,6 @@
 import { HolidayGetListResponse } from '@ternala/frasier-types';
 import { createdAtSortFieldEnum } from '@ternala/frasier-types/lib/constants/sortFields';
+import { HolidayDTO } from '@ternala/frasier-types/lib/modules/holiday/holiday.dto';
 
 export interface IException {
   code: string | null;
@@ -8,7 +9,7 @@ export interface IException {
 }
 
 export interface IHolidayState {
-  holidayObject: HolidayGetListResponse;
+  holidays: HolidayDTO[];
   Loader: ILoader;
 }
 
