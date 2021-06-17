@@ -150,6 +150,22 @@
       &, &.selected-card{
         .calendar-day-dayweek{
           color: $purple-color;
+          opacity: 0.5;
+        }
+        .calendar-day-date{
+          color: $purple-color;
+          opacity: 0.5;
+        }
+      }
+    }
+    &.free-day {
+      &.selected-card{
+        border: 1px solid $empty-title-color;
+        background: #fff;
+      }
+      &, &.selected-card{
+        .calendar-day-dayweek{
+          color: $purple-color;
         }
         .calendar-day-date{
           color: $purple-color;

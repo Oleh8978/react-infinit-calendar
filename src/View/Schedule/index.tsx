@@ -94,6 +94,7 @@ const Schedule: React.FC<IProps> = ({ ...props }) => {
         daysInSchedule={daysInSchedule}
         schedule={schedule}
         uncompletedSchedule={uncompletedSchedule}
+        holidays={holidays}
       />
       <TaskList timeSlots={timeSlots} uncompletedDays={uncompletedSchedule} dayOff={isCurrentDayOff} holiday={isCurrentHoliday} />
       {/*{scheduleData(todayTimeSlots)}*/}

@@ -30,6 +30,67 @@ import Slider from '../../Module/MenuSections/Overview/HelpSection/Slider';
 
 type IProps = RouteComponentProps<{ id: string }>;
 
+
+export const generateContent = (section) => {
+  switch (section.type) {
+    case 'text':
+      return section.content ? (
+        <div className='overview-text' key={section.id}>{section.content ? parse(`${section.content}`) : ''}</div>
+      ) : ('');
+      break;
+    case 'image':
+      return (
+        <div className='jorneydiscovey-header-headerimgwrapper'>
+          <img
+            key={section.id}
+            src={section.url}
+            title={section.title}
+            className='jorneydiscovey-header-img'
+            alt='img'
+          />
+        </div>
+      );
+      break;
+    case 'iframe_popup':
+      return (
+        <VideoComponent
+          link={section.content}
+          img={section.url}
+          key={section.id}
+        />
+      );
+      break;
+    case 'embedded_iframe':
+      return (
+        <EmbeddedIframe
+          content={parse(`${section.content}`)}
+          key={section.id}
+        />
+      );
+      break;
+    case 'link_section':
+      return (
+        <AdditionalLink
+          img={link}
+          isCodeExist={false}
+          header={section.title}
+          link={section.url}
+          text={section.content ? parse(`${section.content}`) : ''}
+        />
+      );
+      break;
+    case 'showcase_widget':
+      return (
+        <Slider isMain={false} people={section.content || []} key={section.id} />
+      )
+      break;
+    default:
+      return section.content ? (
+        <div className='overview-text' key={section.id}>{section.content ? parse(`${section.content}`) : ''}</div>
+      ) : ('');
+  }
+};
+
 const Article: React.FC<IProps> = (props) => {
   const [isLoading, setLoading] = useState<boolean>(true);
   const [article, setArticle] = useState<ArticleDTO | undefined>();
@@ -61,66 +122,6 @@ const Article: React.FC<IProps> = (props) => {
   }, []);
 
   if (isLoading) return <Loader />;
-
-  const generateContent = (section) => {
-    switch (section.type) {
-      case 'text':
-        return section.content ? (
-          <div className='overview-text' key={section.id}>{section.content ? parse(`${section.content}`) : ''}</div>
-        ) : ('');
-        break;
-      case 'image':
-        return (
-          <div className='jorneydiscovey-header-headerimgwrapper'>
-            <img
-              key={section.id}
-              src={section.url}
-              title={section.title}
-              className='jorneydiscovey-header-img'
-              alt='img'
-            />
-          </div>
-        );
-        break;
-      case 'iframe_popup':
-        return (
-          <VideoComponent
-            link={section.content}
-            img={section.url}
-            key={section.id}
-          />
-        );
-        break;
-      case 'embedded_iframe':
-        return (
-          <EmbeddedIframe
-            content={parse(`${section.content}`)}
-            key={section.id}
-          />
-        );
-        break;
-      case 'link_section':
-        return (
-          <AdditionalLink
-            img={link}
-            isCodeExist={false}
-            header={section.title}
-            link={section.url}
-            text={section.content ? parse(`${section.content}`) : ''}
-          />
-        );
-        break;
-      case 'showcase_widget':
-        return (
-          <Slider isMain={false} people={section.content || []} key={section.id} />
-        )
-        break;
-      default:
-        return section.content ? (
-          <div className='overview-text' key={section.id}>{section.content ? parse(`${section.content}`) : ''}</div>
-        ) : ('');
-    }
-  };
 
   const myData = [].concat(article.sections)
 
