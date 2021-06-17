@@ -85,9 +85,9 @@ const Schedule: React.FC<IProps> = ({ ...props }) => {
   return (
     <div className={'schedule'}>
       {/*{isTaskCompleted ? <WellDone /> : <></>} TODO: Need to add notification, when all task is done by this day*/}
-      {isCurrentDayOff ? <DayOff dayOff={isCurrentDayOff} /> : <></>}
-      {isCurrentHoliday ? <Holiday holiday={isCurrentHoliday} /> : <></>}
-      {timeSlots.length === 0 ? <NoTasks /> : <></>}
+      {/*{isCurrentDayOff ? <DayOff dayOff={isCurrentDayOff} /> : <></>}*/}
+      {/*{isCurrentHoliday ? <Holiday holiday={isCurrentHoliday} /> : <></>}*/}
+      {/*{timeSlots.length === 0 ? <NoTasks /> : <></>}*/}
       <Calendar
         setSelectedDay={setSelectedDay}
         selectedDay={selectedDay}
@@ -95,7 +95,7 @@ const Schedule: React.FC<IProps> = ({ ...props }) => {
         schedule={schedule}
         uncompletedSchedule={uncompletedSchedule}
       />
-      <TaskList timeSlots={timeSlots} uncompletedDays={uncompletedSchedule} />
+      <TaskList timeSlots={timeSlots} uncompletedDays={uncompletedSchedule} dayOff={isCurrentDayOff} holiday={isCurrentHoliday} />
       {/*{scheduleData(todayTimeSlots)}*/}
     </div>
   );
