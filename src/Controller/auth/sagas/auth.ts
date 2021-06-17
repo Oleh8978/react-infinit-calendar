@@ -70,8 +70,8 @@ export function* signInSaga({
 
   try {
     let signInData;
-
     if ('accessToken' in payload) {
+      console.log('accessToken in payload', payload);
       const tokens: AuthRefreshRequestDTO = yield checkAccessTokenExpired({
         accessToken: payload.accessToken,
         refreshToken: payload.accessToken,
@@ -79,14 +79,24 @@ export function* signInSaga({
       });
       if (typeof tokens === 'string') throw new BadRequest();
       signInData = {
-        ...(yield AuthAPI.loginByToken(tokens.accessToken)),
+        user: (yield AuthAPI.loginByToken(tokens.accessToken)),
+        ...tokens
       };
+      console.log('signInData auth ', signInData)
       setAuthStateAction({
         isLoading: false,
         message: 'success access token in payload',
         error: false,
-      })
+      });
     } else {
+      console.log(
+        'payload.receivedToken, ',
+        payload.receivedToken,
+        'payload.signIntype,',
+        payload.signIntype,
+        'deviceCredentials, ',
+        deviceCredentials,
+      );
       signInData = yield AuthAPI.signIn(
         payload.receivedToken,
         payload.signIntype,
@@ -96,7 +106,7 @@ export function* signInSaga({
         isLoading: true,
         message: 'success access token not in payload',
         error: false,
-      })
+      });
     }
 
     if (signInData) {
@@ -106,7 +116,7 @@ export function* signInSaga({
           ...signInData,
           state: {
             isLoading: false,
-          }
+          },
         }),
       );
       saveAccess(signInData.accessToken, signInData.refreshToken);
@@ -115,7 +125,7 @@ export function* signInSaga({
         isLoading: false,
         message: 'sign in success',
         error: false,
-      })
+      });
     } else {
       throw new BadRequest();
     }
@@ -127,7 +137,7 @@ export function* signInSaga({
       }),
     );
   } catch (error) {
-    console.log('eroror receivd ', error)
+    console.log('eroror receivd ', error);
     clearAccess();
     if (error.statusCode === 401) {
       yield put(
