@@ -1,22 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import { TimeSlotDTO, IDayWithTimeSlots } from '@ternala/frasier-types';
+import { TimeSlotDTO, IDayWithTimeSlots, DayOffDTO } from '@ternala/frasier-types';
 import Task from './Task';
 import PrevUncompleted from './PrevUncompleted';
 
 import { useSelector } from 'react-redux';
 import { getUserStartTime } from '../../../Controller/auth';
 import { defaultUserStartTime } from '../../../Config/constants';
+import { HolidayDTO } from '@ternala/frasier-types/lib/modules/holiday/holiday.dto';
+import NoTasks from '../NoTasks/NoTasks';
+import DayOff from '../DayOff/DayOff';
+import Holiday from '../Holiday/Holiday';
 
 interface IProps {
   timeSlots: TimeSlotDTO[];
   uncompletedDays?: IDayWithTimeSlots;
+  dayOff?: DayOffDTO;
+  holiday?: HolidayDTO;
 }
 
-const TaskList: React.FC<IProps> = ({ timeSlots, uncompletedDays }) => {
+const TaskList: React.FC<IProps> = ({ timeSlots, uncompletedDays, dayOff, holiday }) => {
   let userStartTime = useSelector(getUserStartTime) || defaultUserStartTime;
   const isAnyUncopleted = true;
   return (
     <div className={'modules-list'}>
+      {timeSlots.length === 0 ? <NoTasks /> : <></>}
+      {dayOff ? <DayOff dayOff={dayOff} /> : <></>}
+      {holiday ? <Holiday holiday={holiday} /> : <></>}
       <div className={'modules-list__completed'}>
         {timeSlots.map((timeSlot) => {
           if (timeSlot.tasks.length) {

@@ -17,6 +17,7 @@ import useScrollListener from './customHOC';
 // date object functionality
 import * as dateObject from './utils';
 import { IDayWithTimeSlots } from '@ternala/frasier-types';
+import { HolidayDTO } from '@ternala/frasier-types/lib/modules/holiday/holiday.dto';
 
 export interface IHeaderDate {
   month: string;
@@ -34,6 +35,7 @@ interface IProps {
   daysInSchedule: Moment[];
   schedule: IDayWithTimeSlots;
   uncompletedSchedule: IDayWithTimeSlots;
+  holidays?: HolidayDTO[];
 }
 
 const Calendar: React.FC<IProps> = ({
@@ -42,6 +44,7 @@ const Calendar: React.FC<IProps> = ({
   daysInSchedule,
   uncompletedSchedule,
   schedule,
+                                      holidays,
 }) => {
   let selectedItem = 0;
 
@@ -287,6 +290,7 @@ const Calendar: React.FC<IProps> = ({
   };
 
   const dates = daysInSchedule.map((item, i, array) => {
+
     return (
       <SwiperSlide>
         <DayInCalendar
@@ -297,6 +301,7 @@ const Calendar: React.FC<IProps> = ({
             uncompletedSchedule[item.format(timeSlotDateFormat)],
           )}
           hasEvents={Boolean(schedule[item.format(timeSlotDateFormat)])}
+          holidays={holidays}
           selectDate={setSelectedDay}
           isCustom={false}
           isLast={array.length - 1 === i}

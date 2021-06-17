@@ -1,9 +1,7 @@
 import React from 'react';
 
-// components
-import { SectionContent } from '../../../../Component/SectionContent';
-
 import { ModuleExpandDTO } from '../../../../Controller/module/models';
+import { generateContent } from '../../../Discovery/Article';
 
 interface IProps {
   module: ModuleExpandDTO;
@@ -19,7 +17,7 @@ const Body: React.FC<IProps> = ({ module }) => {
             return 0;
           })
           .map((section) => (
-            <SectionContent section={section} key={section.id} />
+            generateContent(section)
           ))}
 
         {/*<Slider people={experts} isMain={true}/>*/}

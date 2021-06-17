@@ -1,5 +1,6 @@
 .schedule {
-  height: 100%;
+  //height: 100%;
+  position: relative;
 
   &-list {
     position: relative;
@@ -149,6 +150,22 @@
       &, &.selected-card{
         .calendar-day-dayweek{
           color: $purple-color;
+          opacity: 0.5;
+        }
+        .calendar-day-date{
+          color: $purple-color;
+          opacity: 0.5;
+        }
+      }
+    }
+    &.free-day {
+      &.selected-card{
+        border: 1px solid $empty-title-color;
+        background: #fff;
+      }
+      &, &.selected-card{
+        .calendar-day-dayweek{
+          color: $purple-color;
         }
         .calendar-day-date{
           color: $purple-color;
@@ -167,6 +184,7 @@
     margin-top: 26px;
     margin-bottom: 11px;
     margin-left: 15px;
+    z-index: 1;
   }
 
   &-contentmenu {
@@ -238,6 +256,7 @@
 .task {
   width: 100%;
   &-completed {
+    display: block;
     height: fit-content;
     margin: 25px 15px 0px;
     background: $white;
@@ -328,6 +347,7 @@
 
     &-description {
       @include card-list-text-style;
+      display: block;
       margin: 0px 15px 10px;
       background-color: $white;
       border: 1px solid $divider-color;
@@ -430,14 +450,19 @@
 
   &-dayoff,
   &-holiday {
-    //background: rgba($white, 0.95);
-    top: 0;
+    margin-top: 0;
+    position: absolute;
+    //z-index: 2;
+    top: 170px;
+
+    //top: 0;
     left: 0;
-    margin: 0;
-    margin-top: 39px;
+    //margin: 0;
+    //margin-top: 39px;
     padding-bottom: 60px;
     z-index: 0;
-    height: 100%;
+    //height: 100%;
+    height: calc(100% - 170px);
 
     &::after {
       position: absolute;
