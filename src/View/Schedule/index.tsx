@@ -30,8 +30,9 @@ import {
   getUncompleted,
 } from '../../Controller/schedule';
 
-//utils
+// utils
 import { generateArrayOfDates } from '../../Utils/generateArrayOfDates';
+import NoTasks from './NoTasks/NoTasks';
 
 // Interfaces
 interface IProps extends RouteComponentProps {
@@ -42,6 +43,7 @@ const Schedule: React.FC<IProps> = ({ ...props }) => {
   const startDate = moment().subtract(limitGetScheduleDays, 'days');
   const endDate = moment().add(limitGetScheduleDays, 'days');
   const daysInSchedule: Moment[] = generateArrayOfDates(startDate, endDate);
+
   const schedule = useSelector(getSchedule);
   const uncompletedSchedule = useSelector(getUncompleted);
   const daysOff = useSelector(getDaysOff);
@@ -54,13 +56,13 @@ const Schedule: React.FC<IProps> = ({ ...props }) => {
   useEffect(() => {
     dispatch(
       getScheduleAction.request({
-        date: selectedDay.toDate(),
+        date: moment().toDate(),
         limit: limitGetScheduleDays,
       }),
     );
     dispatch(
       getUncompletedTimeSlotsAction.request({
-        date: selectedDay.toDate(),
+        date: moment().toDate(),
       }),
     );
     dispatch(getDaysOffAction.request({}));
@@ -85,6 +87,7 @@ const Schedule: React.FC<IProps> = ({ ...props }) => {
       {/*{isTaskCompleted ? <WellDone /> : <></>} TODO: Need to add notification, when all task is done by this day*/}
       {isCurrentDayOff ? <DayOff dayOff={isCurrentDayOff} /> : <></>}
       {isCurrentHoliday ? <Holiday holiday={isCurrentHoliday} /> : <></>}
+      {timeSlots.length === 0 ? <NoTasks /> : <></>}
       <Calendar
         setSelectedDay={setSelectedDay}
         selectedDay={selectedDay}

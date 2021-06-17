@@ -321,6 +321,7 @@ const Task: React.FC<IProps> = ({ id }) => {
         days={days}
         selectDay={setSelectedDay}
         selectedDay={selectedDay}
+        uncompletedSchedule={module?.uncompletedTimeSlotData}
       />
       <div className="tasks-wrapper">
         {timeSlots && (
