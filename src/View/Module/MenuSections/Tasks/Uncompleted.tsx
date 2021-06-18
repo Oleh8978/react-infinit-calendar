@@ -23,9 +23,9 @@ const Uncompleted: React.FC<IProps> = ({ toggleTask, ...props }) => {
       <span className="tasks-uncompleted-header">Previously uncompleted</span>
       <div className="tasks-uncompleted-wrapper">
         {props.prevData
-          ? Object.entries(props.prevData).map(([day, timeSlots]) => {
-              return (
+          ? Object.entries(props.prevData).map(([day, timeSlots]) => timeSlots.length ? (
                 <UncompletedTask
+                  key={'tasks-uncompleted' + day}
                   date={day}
                   timeSlots={timeSlots}
                   toggleTask={(data: {
@@ -35,8 +35,10 @@ const Uncompleted: React.FC<IProps> = ({ toggleTask, ...props }) => {
                     callback: (state: boolean) => void;
                   }) => toggleTask({ ...data, date: day })}
                 />
-              );
-            })
+              ) : (
+                <></>
+              ),
+            )
           : ''}
       </div>
     </div>

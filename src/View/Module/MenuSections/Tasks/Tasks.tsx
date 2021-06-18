@@ -23,7 +23,7 @@ import {
 import { generateArrayOfDates } from '../../../../Utils/generateArrayOfDates';
 import { getModules } from '../../../../Controller/module';
 import { ModuleExpandDTO } from '../../../../Controller/module/models';
-import { TimeSlotDTO } from '@ternala/frasier-types';
+import { IDayWithTimeSlots, TimeSlotDTO } from '@ternala/frasier-types';
 
 interface IProps {
   tabName?: string;
@@ -35,8 +35,8 @@ const Task: React.FC<IProps> = ({ id }) => {
   const endDate = moment().add(limitGetScheduleDays, 'days');
   const daysInSchedule: Moment[] = generateArrayOfDates(startDate, endDate);
   const [timeSlots, setTimeSlots] = useState<TimeSlotDTO[]>([]);
+  const [uncompleted, setUncompleted] = useState<IDayWithTimeSlots>();
   const [days, setDays] = useState<Moment[]>([]);
-
   const [selectedDay, setSelectedDay] = useState<Moment | undefined>();
 
   const [module, setModule] = useState<ModuleExpandDTO | undefined>();
@@ -51,6 +51,18 @@ const Task: React.FC<IProps> = ({ id }) => {
       module?.timeSlotData?.[selectedDay?.format(timeSlotDateFormat)] || [],
     );
   }, [selectedDay, module]);
+
+  useEffect(() => {
+    if (module?.uncompletedTimeSlotData) {
+      setUncompleted(module?.uncompletedTimeSlotData);
+    }
+  }, [selectedDay]);
+
+  useEffect(() => {
+    if (!uncompleted) {
+      setUncompleted(module?.uncompletedTimeSlotData);
+    }
+  }, [module, module?.uncompletedTimeSlotData]);
 
   useEffect(() => {
     setModule(modules[id]);
@@ -82,7 +94,9 @@ const Task: React.FC<IProps> = ({ id }) => {
       if (!purposeDate) {
         purposeDate = now;
       }
-      setSelectedDay(purposeDate);
+      if (!selectedDay) {
+        setSelectedDay(purposeDate);
+      }
     }
   }, [modules, id, module?.timeSlotData]);
 
@@ -323,7 +337,7 @@ const Task: React.FC<IProps> = ({ id }) => {
         purposeDate: moment(date, timeSlotDateFormat).toDate(),
         timeSlot,
         module: module?.id,
-        callback
+        callback,
       }),
     );
   };
@@ -348,17 +362,14 @@ const Task: React.FC<IProps> = ({ id }) => {
             }) =>
               toggleTask({
                 ...data,
-                date: selectedDay.format(timeSlotDateFormat)
+                date: selectedDay.format(timeSlotDateFormat),
               })
             }
           />
         )}
         {module?.uncompletedTimeSlotData &&
         Object.keys(module?.uncompletedTimeSlotData).length > 0 ? (
-          <Uncompleted
-            prevData={module?.uncompletedTimeSlotData}
-            toggleTask={toggleTask}
-          />
+          <Uncompleted prevData={uncompleted} toggleTask={toggleTask} />
         ) : (
           <></>
         )}
