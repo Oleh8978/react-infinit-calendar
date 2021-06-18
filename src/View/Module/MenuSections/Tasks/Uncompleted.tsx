@@ -1,15 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 // components
 import UncompletedTask from './UncompletedTask';
 
 // interfaces
 import { IDayWithTimeSlots } from '@ternala/frasier-types';
-import PrevUncompleted from '../../../Schedule/TaskList/PrevUncompleted';
 
 interface IProps {
   prevData: IDayWithTimeSlots;
-  toggleTask: (data: {id: number, date: string, timeSlot: number, action: 'create' | 'remove'}) => void;
+  toggleTask: (data: {
+    id: number;
+    date: string;
+    timeSlot: number;
+    action: 'create' | 'remove';
+    callback: (state: boolean) => void;
+  }) => void;
 }
 
 const Uncompleted: React.FC<IProps> = ({ toggleTask, ...props }) => {
@@ -23,7 +28,12 @@ const Uncompleted: React.FC<IProps> = ({ toggleTask, ...props }) => {
                 <UncompletedTask
                   date={day}
                   timeSlots={timeSlots}
-                  toggleTask={(id, timeSlot, action: 'create' | 'remove') => toggleTask({id, date: day, timeSlot, action})}
+                  toggleTask={(data: {
+                    id;
+                    timeSlot;
+                    action: 'create' | 'remove';
+                    callback: (state: boolean) => void;
+                  }) => toggleTask({ ...data, date: day })}
                 />
               );
             })

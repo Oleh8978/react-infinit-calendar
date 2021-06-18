@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { TaskDTO } from '@ternala/frasier-types';
 
 // components
@@ -6,10 +6,26 @@ import Link from 'Routing/Link';
 
 interface IProps {
   task: TaskDTO;
-  toggleTask: (id: number, action: 'create' | 'remove') => void;
+  toggleTask: (data: {
+    id: number;
+    action: 'create' | 'remove';
+    callback: (state: boolean) => void;
+  }) => void;
 }
 
 const UncompletedListItem: React.FC<IProps> = ({ task, toggleTask }) => {
+  const [isSelected, setSelected] = useState<boolean>(
+    Boolean(task?.executions?.length),
+  );
+
+  useEffect(() => {
+    setSelected(!!task?.executions?.length);
+  }, [!!task?.executions?.length]);
+
+  const callback = (state: boolean) => {
+    setSelected(state);
+  };
+
   return (
     <>
       <div className="tasks-uncompleted-item" key={task.id + ''}>
@@ -18,9 +34,14 @@ const UncompletedListItem: React.FC<IProps> = ({ task, toggleTask }) => {
           <input
             type="checkbox"
             className="tasks-current-task-checkbox-check"
-            checked={!!task?.executions?.length}
+            checked={isSelected}
             onChange={() => {
-              toggleTask(task.id, !!task?.executions?.length ? 'remove' : "create");
+              toggleTask({
+                id: task.id,
+                action: isSelected ? 'remove' : 'create',
+                callback,
+              });
+              setSelected(!isSelected);
             }}
           />
         </div>
@@ -28,9 +49,7 @@ const UncompletedListItem: React.FC<IProps> = ({ task, toggleTask }) => {
           <span
             className="tasks-uncompleted-item-title"
             style={{
-              textDecoration: !!task?.executions?.length
-                ? 'line-through'
-                : 'unset',
+              textDecoration: isSelected ? 'line-through' : 'unset',
             }}>
             {task.title}
           </span>

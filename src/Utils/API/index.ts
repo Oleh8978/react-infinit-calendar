@@ -1,8 +1,5 @@
-
 import jwt_decode from 'jwt-decode';
 import { BadRequest, Unauthorized } from './exceptions';
-// import {IAuthData} from "../../controllers/auth/models";
-// import {checkAccessTokenExpired} from "../../controllers/auth/sagas/auth";
 
 export function isJWTTokenExpired(token: string) {
   const payload = jwt_decode(token) as { exp: number };
@@ -49,7 +46,7 @@ export async function handleErrors<T = Record<string, never>>(
 
 export function authHeader(token: string) {
   return {
-    'authorization': `Bearer ${token}`,
+    authorization: `Bearer ${token}`,
   };
 }
 

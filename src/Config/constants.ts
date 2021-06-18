@@ -13,8 +13,8 @@ export const LoaderAction = {
     toggleExecuteTask: 'execute task',
     getSchedule: 'get schedule',
     getUncompletedTimeSlots: 'get uncompleted time slots',
-  }
-}
+  },
+};
 
 export const limitGetScheduleDays = 3;
 export const limitGetModuleScheduleDays = 3;

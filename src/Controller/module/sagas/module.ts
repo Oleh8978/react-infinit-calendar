@@ -2,7 +2,8 @@ import { all, put, takeEvery, select } from 'redux-saga/effects';
 import {
   getScheduleAction,
   getUncompletedTimeSlotsAction,
-  getModuleAction, toggleExecuteTaskAction,
+  getModuleAction,
+  toggleExecuteTaskAction,
 } from '../actions';
 import { getAccessToken } from '../../auth';
 import uuid from 'Utils/uuid';
@@ -84,10 +85,12 @@ export function* toggleExecuteTaskSaga({
   try {
     if (!accessToken) throw new Error('Not authorized');
 
-    const res = payload.action === "create"
-      ? yield ModuleApi.createExecuteTask(payload, accessToken)
-      : yield ModuleApi.deleteExecuteTask(payload, accessToken);
+    const res =
+      payload.action === 'create'
+        ? yield ModuleApi.createExecuteTask(payload, accessToken)
+        : yield ModuleApi.deleteExecuteTask(payload, accessToken);
     if (!res && res.code) {
+      payload.callback(payload.action !== 'create');
       yield put(
         toggleExecuteTaskAction.failure({
           code: res.code,
@@ -105,7 +108,7 @@ export function* toggleExecuteTaskSaga({
       yield put(
         toggleExecuteTaskAction.success({
           response: res,
-          additionalFields: payload
+          additionalFields: payload,
         }),
       );
       yield put(

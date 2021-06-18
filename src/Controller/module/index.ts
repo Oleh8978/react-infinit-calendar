@@ -95,50 +95,107 @@ export const moduleReducer = createReducer<IModuleState, ActionTypes>(
         if (uncompleted) {
           const day =
             uncompleted[
-              moment(payload.additionalFields.purposeDate).format(timeSlotDateFormat)
+              moment(payload.additionalFields.purposeDate).format(
+                timeSlotDateFormat,
+              )
             ];
           if (day) {
-            uncompleted[
-              moment(payload.additionalFields.purposeDate).format(timeSlotDateFormat)
-            ] = day
-              ?.map((timeSlot) => {
-                if (timeSlot.id === payload.additionalFields.timeSlot) {
-                  let tasks = timeSlot.tasks;
-                  if (payload.additionalFields.action === 'create') {
-                    tasks = tasks.filter(
-                      (task) => task.id !== payload.response.task.id,
-                    );
-                  } else {
-                    tasks = [
-                      ...(timeSlot.tasks || []),
-                      {
-                        ...payload.response.task,
-                        executions: [],
-                        sections: [],
-                      },
-                    ];
+            const timeSlot = day.find(
+              (timeSlot) => timeSlot.id === payload.additionalFields.timeSlot,
+            );
+            if (timeSlot) {
+              uncompleted[
+                moment(payload.additionalFields.purposeDate).format(
+                  timeSlotDateFormat,
+                )
+              ] = day
+                ?.map((timeSlot) => {
+                  if (timeSlot.id === payload.additionalFields.timeSlot) {
+                    let tasks = timeSlot.tasks;
+                    if (payload.additionalFields.action === 'create') {
+                      tasks = tasks.filter(
+                        (task) => task.id !== payload.response.task.id,
+                      );
+                    } else {
+                      tasks = [
+                        ...(timeSlot.tasks || []),
+                        {
+                          ...('sections' in payload.response.task
+                            ? payload.response.task
+                            : {
+                                ...payload.response.task,
+                                sections: [],
+                              }),
+                          executions: [],
+                        },
+                      ];
+                    }
+                    if (tasks?.length) {
+                      return {
+                        ...timeSlot,
+                        tasks,
+                      };
+                    }
+                    return undefined;
                   }
-                  if (tasks?.length) {
-                    return {
-                      ...timeSlot,
-                      tasks,
-                    };
-                  }
-                  return undefined;
-                }
-                return timeSlot;
-              })
-              .filter(Boolean);
+                  return timeSlot;
+                })
+                .filter(Boolean);
+            } else {
+              if (
+                payload.additionalFields.action === 'remove' &&
+                'timeSlot' in payload.response.task
+              ) {
+                uncompleted[
+                  moment(payload.additionalFields.purposeDate).format(
+                    timeSlotDateFormat,
+                  )
+                ] = [
+                  ...day,
+                  {
+                    ...payload.response.task.timeSlot,
+                    tasks: [payload.response.task],
+                    module: state.moduleData[payload.additionalFields.module],
+                    journey:
+                      state.moduleData[payload.additionalFields.module].journey,
+                  },
+                ];
+              }
+            }
+          } else {
+            if (
+              payload.additionalFields.action === 'remove' &&
+              payload.response?.task &&
+              'timeSlot' in payload.response.task
+            ) {
+              uncompleted[
+                moment(payload.additionalFields.purposeDate).format(
+                  timeSlotDateFormat,
+                )
+              ] = [
+                {
+                  ...payload.response.task.timeSlot,
+                  tasks: [payload.response.task],
+                  module: state.moduleData[payload.additionalFields.module],
+                  journey:
+                    state.moduleData[payload.additionalFields.module].journey,
+                },
+              ];
+            }
           }
         }
         if (full) {
           const day =
             full[
-              moment(payload.additionalFields.purposeDate).format(timeSlotDateFormat)
+              moment(payload.additionalFields.purposeDate).format(
+                timeSlotDateFormat,
+              )
             ];
           if (day) {
             full[
-              moment(payload.additionalFields.purposeDate).format(timeSlotDateFormat)
+              moment(payload.additionalFields.purposeDate).format(
+                timeSlotDateFormat,
+              )
             ] = day.map((timeSlot) => {
               let tasks = timeSlot.tasks;
               if (timeSlot.id === payload.additionalFields.timeSlot) {

@@ -4,7 +4,7 @@ import { IException } from '../model';
 import {
   ModuleGetResponse,
   TaskExecuteCreateRequest,
-  TaskExecuteCreateResponse,
+  TaskExecuteCreateResponse, TaskExecuteDeleteResponse,
   TimeSlotGetListByModuleRequest,
   TimeSlotGetListExpandedResponse,
   TimeSlotGetPreviouslyUncompletedListRequest,
@@ -33,9 +33,10 @@ export const toggleExecuteTaskAction = createAsyncAction(
     timeSlot: number;
     module?: number;
     action: 'create' | 'remove';
+    callback: (state: boolean) => void;
   },
   {
-    response: TaskExecuteCreateResponse;
+    response: TaskExecuteCreateResponse | TaskExecuteDeleteResponse;
     additionalFields?: TaskExecuteCreateRequest & {
       timeSlot: number;
       module?: number;

@@ -11,7 +11,12 @@ import { defaultUserStartTime } from '../../../../Config/constants';
 
 interface IProps {
   timeSlots: TimeSlotDTO[];
-  toggleTask: (id: number, timeSlot: number, action: "create" | "remove") => void;
+  toggleTask: (data: {
+    id: number;
+    timeSlot: number;
+    action: 'create' | 'remove';
+    callback: (state: boolean) => void;
+  }) => void;
 }
 
 const Current: React.FC<IProps> = ({ timeSlots, ...props }) => {
@@ -24,9 +29,11 @@ const Current: React.FC<IProps> = ({ timeSlots, ...props }) => {
             tasks={timeSlot.tasks}
             time={userStartTime}
             duration={timeSlot.duration}
-            toggleTask={(id: number, action: 'create' | 'remove') =>
-              props.toggleTask(id, timeSlot.id, action)
-            }
+            toggleTask={(data: {
+              id: number;
+              action: 'create' | 'remove';
+              callback: (state: boolean) => void;
+            }) => props.toggleTask({ ...data, timeSlot: timeSlot.id })}
           />
         );
         userStartTime += timeSlot.duration;

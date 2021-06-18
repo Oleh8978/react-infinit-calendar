@@ -303,7 +303,19 @@ const Task: React.FC<IProps> = ({ id }) => {
   //   setSelectedDate(date);
   // };
 
-  const toggleTask = ({id, date, timeSlot, action}: {id: number, date: string, timeSlot: number, action: "create" | "remove"}) => {
+  const toggleTask = ({
+    id,
+    date,
+    timeSlot,
+    action,
+    callback,
+  }: {
+    id: number;
+    date: string;
+    timeSlot: number;
+    action: 'create' | 'remove';
+    callback: (state: boolean) => void;
+  }) => {
     dispatch(
       toggleExecuteTaskAction.request({
         action,
@@ -311,6 +323,7 @@ const Task: React.FC<IProps> = ({ id }) => {
         purposeDate: moment(date, timeSlotDateFormat).toDate(),
         timeSlot,
         module: module?.id,
+        callback
       }),
     );
   };
@@ -327,8 +340,16 @@ const Task: React.FC<IProps> = ({ id }) => {
         {timeSlots && (
           <Current
             timeSlots={timeSlots}
-            toggleTask={(id: number, timeSlot: number, action: "create" | "remove") =>
-              toggleTask({id, timeSlot, date: selectedDay.format(timeSlotDateFormat), action})
+            toggleTask={(data: {
+              id: number;
+              timeSlot: number;
+              action: 'create' | 'remove';
+              callback: (state: boolean) => void;
+            }) =>
+              toggleTask({
+                ...data,
+                date: selectedDay.format(timeSlotDateFormat)
+              })
             }
           />
         )}

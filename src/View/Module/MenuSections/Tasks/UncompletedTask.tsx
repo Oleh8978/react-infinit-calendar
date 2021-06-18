@@ -9,7 +9,12 @@ import { TimeSlotDTO } from '@ternala/frasier-types';
 interface IProps {
   date: string;
   timeSlots: TimeSlotDTO[];
-  toggleTask: (id: number, timeSlot: number, action: 'create' | 'remove') => void;
+  toggleTask: (data: {
+    id: number;
+    timeSlot: number;
+    action: 'create' | 'remove';
+    callback: (state: boolean) => void;
+  }) => void;
 }
 
 const UncompletedTask: React.FC<IProps> = ({ timeSlots, date, toggleTask }) => {
@@ -25,7 +30,16 @@ const UncompletedTask: React.FC<IProps> = ({ timeSlots, date, toggleTask }) => {
               return (
                 <UncompletedListItem
                   task={task}
-                  toggleTask={(id: number, action: 'create' | 'remove') => toggleTask(id, timeSlot.id, action)}
+                  toggleTask={(data: {
+                    id: number;
+                    action: 'create' | 'remove';
+                    callback: (state: boolean) => void;
+                  }) =>
+                    toggleTask({
+                      ...data,
+                      timeSlot: timeSlot.id,
+                    })
+                  }
                 />
               );
             }
