@@ -5,7 +5,7 @@ import { timeSlotDateFormat } from '@ternala/frasier-types/lib/constants';
 // Config
 import {
   limitGetModuleScheduleDays,
-  limitGetScheduleDays,
+  limitGetScheduleDays, LoaderAction,
 } from '../../../../Config/constants';
 
 // components
@@ -21,9 +21,10 @@ import {
   getUncompletedTimeSlotsAction,
 } from '../../../../Controller/module/actions';
 import { generateArrayOfDates } from '../../../../Utils/generateArrayOfDates';
-import { getModules } from '../../../../Controller/module';
+import { getLoader, getModules } from '../../../../Controller/module';
 import { ModuleExpandDTO } from '../../../../Controller/module/models';
 import { TimeSlotDTO } from '@ternala/frasier-types';
+import Loader from '../../../../Component/Loader';
 
 interface IProps {
   tabName?: string;
@@ -43,6 +44,7 @@ const Task: React.FC<IProps> = ({ id }) => {
   const now = moment();
 
   const modules = useSelector(getModules);
+  const loaders = useSelector(getLoader);
 
   const dispatch = useDispatch();
 
@@ -303,7 +305,12 @@ const Task: React.FC<IProps> = ({ id }) => {
   //   setSelectedDate(date);
   // };
 
-  const toggleTask = ({id, date, timeSlot, action}: {id: number, date: string, timeSlot: number, action: "create" | "remove"}) => {
+  const toggleTask = ({
+                        id,
+                        date,
+                        timeSlot,
+                        action,
+                      }: { id: number, date: string, timeSlot: number, action: 'create' | 'remove' }) => {
     dispatch(
       toggleExecuteTaskAction.request({
         action,
@@ -323,21 +330,25 @@ const Task: React.FC<IProps> = ({ id }) => {
         selectedDay={selectedDay}
         uncompletedSchedule={module?.uncompletedTimeSlotData}
       />
-      <div className="tasks-wrapper">
+      <div className='tasks-wrapper'>
         {timeSlots && (
-          <Current
-            timeSlots={timeSlots}
-            toggleTask={(id: number, timeSlot: number, action: "create" | "remove") =>
-              toggleTask({id, timeSlot, date: selectedDay.format(timeSlotDateFormat), action})
-            }
-          />
+          loaders.filter(item => item.type === LoaderAction.module.getSchedule).length > 0 ?
+            <Loader isSmall={true} /> :
+            <Current
+              timeSlots={timeSlots}
+              toggleTask={(id: number, timeSlot: number, action: 'create' | 'remove') =>
+                toggleTask({ id, timeSlot, date: selectedDay.format(timeSlotDateFormat), action })
+              }
+            />
         )}
         {module?.uncompletedTimeSlotData &&
         Object.keys(module?.uncompletedTimeSlotData).length > 0 ? (
-          <Uncompleted
-            prevData={module?.uncompletedTimeSlotData}
-            toggleTask={toggleTask}
-          />
+          loaders.filter(item => item.type === LoaderAction.module.getUncompletedTimeSlots).length > 0 ?
+            <Loader isSmall={true} /> :
+            <Uncompleted
+              prevData={module?.uncompletedTimeSlotData}
+              toggleTask={toggleTask}
+            />
         ) : (
           <></>
         )}

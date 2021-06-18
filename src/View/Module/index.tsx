@@ -6,7 +6,9 @@ import { RouteComponentProps } from 'react-router-dom';
 import NavigationBar from 'Component/NavigationBar';
 
 import { getModuleAction } from '../../Controller/module/actions';
-import { getModules } from '../../Controller/module';
+import { getLoader, getModules } from '../../Controller/module';
+import { LoaderAction } from '../../Config/constants';
+import Loader from '../../Component/Loader';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -15,6 +17,7 @@ const Module: React.FC<IProps> = (props) => {
   const idNumber = Number(id);
 
   const modules = useSelector(getModules);
+  const loaders = useSelector(getLoader);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -132,7 +135,11 @@ const Module: React.FC<IProps> = (props) => {
         // modalToogle={openWindow}
         // saveBtnFunctionality={saveBtnFunctionality}
       />
-      <div className={'module-body'}>{props.children}</div>
+      {console.log(loaders)}
+      {loaders.filter(item => item.type === LoaderAction.module.getModule).length > 0 ? (
+        <Loader isSmall={true} />
+      ) : (<div className={'module-body'}>{props.children}</div>)}
+
     </div>
   );
 };

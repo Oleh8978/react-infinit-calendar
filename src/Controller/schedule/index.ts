@@ -17,6 +17,7 @@ import {
 import { IAuthState } from '../auth/model';
 import { DayOffDTO, IDayWithTimeSlots } from '@ternala/frasier-types';
 import { concatWithUnique } from 'Utils/concatWithUnique';
+import { ILoader } from '../../Model';
 
 export type ScheduleActionType = ActionType<typeof actions>;
 type ActionTypes = ScheduleActionType | LoaderActionType;
@@ -105,3 +106,5 @@ export const getUncompleted = (state: IStore): IDayWithTimeSlots =>
   state.scheduleState.uncompletedTimeSlotData;
 export const getDaysOff = (state: IStore): DayOffDTO[] =>
   state.scheduleState.daysOff;
+export const getLoader = (state: IStore): ILoader[] =>
+  state.scheduleState.state.loaders;
