@@ -23,8 +23,8 @@ import ConnectedAccount from 'view/Account/ConnectedAccount/index';
 import AboutPage from 'view/Account/About/index';
 import PrivacyPolicy from '../component/PrivacyPolicy';
 import Terms from '../component/Terms';
-import ModuleTabContent from '../view/Module/ModuleTabContent';
-import Holiday from '../view/Schedule/Holiday/Holiday';
+import ModuleTabContent from 'view/Module/ModuleTabContent';
+import Holiday from 'view/Schedule/Holiday/Holiday';
 
 // Interfaces
 export interface IRoute {

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { createUUID } from '../view/Helpers/utils';
+import { createUUID } from 'view/Helpers/utils';
 
 interface IProps {
   bubbleValue: string;

@@ -1,9 +1,9 @@
 import parse from 'html-react-parser';
-import VideoComponent from '../view/Module/MenuSections/Overview/Video';
-import EmbeddedIframe from '../view/Module/MenuSections/Overview/EmbeddedIframe';
-import AdditionalLink from '../view/Module/MenuSections/Overview/AdditionalLink';
-import link from '../view/Module/MenuSections/staticHardcoded/link.png';
-import Slider from '../view/Module/MenuSections/Overview/HelpSection/Slider';
+import VideoComponent from 'view/Module/MenuSections/Overview/Video';
+import EmbeddedIframe from 'view/Module/MenuSections/Overview/EmbeddedIframe';
+import AdditionalLink from 'view/Module/MenuSections/Overview/AdditionalLink';
+import link from 'view/Module/MenuSections/staticHardcoded/link.png';
+import Slider from 'view/Module/MenuSections/Overview/HelpSection/Slider';
 import React from 'react';
 import { SectionShortDTO } from '@ternala/frasier-types';
 
