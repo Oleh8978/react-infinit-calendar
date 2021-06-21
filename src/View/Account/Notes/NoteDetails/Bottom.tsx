@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 // components
-import LInk from 'Routing/Link';
+import LInk from 'routing/Link';
 
 interface IProps {
   title: string;

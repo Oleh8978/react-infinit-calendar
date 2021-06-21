@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { HolidayDTO } from '@ternala/frasier-types';
 
 // Actions
-import { deleteHolidayDataAction } from '../../../Controller/holidays/actions';
+import { deleteHolidayDataAction } from '../../../controller/holidays/actions';
 
 interface IProps {
   holiday: HolidayDTO;

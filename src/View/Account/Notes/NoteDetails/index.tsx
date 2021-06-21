@@ -8,12 +8,12 @@ import {
 import { Editor } from 'react-draft-wysiwyg';
 
 // components
-import NavigationBar from 'Component/NavigationBar';
+import NavigationBar from 'component/NavigationBar';
 import BottomComponent from './Bottom';
-import ModalWindow from 'Component/modalWindow/modalWindow';
+import ModalWindow from 'component/modalWindow/modalWindow';
 
 // types
-import { Pages } from 'Routing/schema';
+import { Pages } from 'routing/schema';
 
 // static
 import { styleMap } from './static';

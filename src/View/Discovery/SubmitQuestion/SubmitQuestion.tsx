@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 // components
-import NavigationBar from 'Component/NavigationBar';
+import NavigationBar from 'component/NavigationBar';
 import BodySubmitQuestion from './BodySubmitQuestion';
 import ButtonSubmit from './SubmitBTN';
 import ModalWindowThanks from './ModalWindow';

@@ -12,26 +12,26 @@ import DayOff from './DayOff/DayOff';
 import Holiday from './Holiday/Holiday';
 
 // Config
-import { limitGetScheduleDays } from '../../Config/constants';
+import { limitGetScheduleDays } from '../../config/constants';
 
 // Actions
-import { getHolidayDataAction } from '../../Controller/holidays/actions';
+import { getHolidayDataAction } from '../../controller/holidays/actions';
 import {
   getDaysOffAction,
   getScheduleAction,
   getUncompletedTimeSlotsAction,
-} from '../../Controller/schedule/actions';
+} from '../../controller/schedule/actions';
 
 // Selectors
-import { getHolidays } from '../../Controller/holidays';
+import { getHolidays } from '../../controller/holidays';
 import {
   getDaysOff,
   getSchedule,
   getUncompleted,
-} from '../../Controller/schedule';
+} from '../../controller/schedule';
 
 // utils
-import { generateArrayOfDates } from '../../Utils/generateArrayOfDates';
+import { generateArrayOfDates } from '../../utils/generateArrayOfDates';
 import NoTasks from './NoTasks/NoTasks';
 
 // Interfaces

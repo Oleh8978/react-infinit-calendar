@@ -5,7 +5,7 @@ import { topics } from './FakeData/hardcodedData';
 import { ITopic } from './Models/DiscoveryModels';
 
 // components
-import Loader from 'Component/Loader';
+import Loader from 'component/Loader';
 
 //interface
 import { ArticleDTO } from '@ternala/frasier-types';

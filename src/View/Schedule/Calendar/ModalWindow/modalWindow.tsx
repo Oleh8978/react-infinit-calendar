@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 
 // static
-import check from 'Asset/images/confirm.png';
-import back from 'Asset/images/back.png';
+import check from 'asset/images/confirm.png';
+import back from 'asset/images/back.png';
 import { useDispatch, useSelector } from 'react-redux';
 
 // redux
-import { deleteDayOffAction, setDayOffAction } from '../../../../Controller/schedule/actions';
-import { getDaysOff } from '../../../../Controller/schedule';
+import { deleteDayOffAction, setDayOffAction } from '../../../../controller/schedule/actions';
+import { getDaysOff } from '../../../../controller/schedule';
 
 interface IProps {
   setModalOpened: () => void;

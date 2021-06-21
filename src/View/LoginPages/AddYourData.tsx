@@ -4,25 +4,25 @@ import { Scrollbars } from 'react-custom-scrollbars';
 
 // components
 import BodyEdditProfile from '../Account/EditProfile/BodyEdditProfile';
-import NavigationBarFirstPage from 'Component/NavBarFirstPage';
-import DeletePageBTN from 'Component/DeletePageBTN';
-import Loader from 'Component/Loader';
+import NavigationBarFirstPage from 'component/NavBarFirstPage';
+import DeletePageBTN from 'component/DeletePageBTN';
+import Loader from 'component/Loader';
 
 // interfaces
-import { IUser, IUserData } from 'Controller/auth/model';
+import { IUser, IUserData } from 'controller/auth/model';
 import { IvalidatorState } from './utils/models';
-import { IStore } from 'Controller/model';
-import { IUserDataExtended } from 'Controller/secondStepDataUpdater/models';
+import { IStore } from 'controller/model';
+import { IUserDataExtended } from 'controller/secondStepDataUpdater/models';
 
 // constants
 import { validation } from './utils/validation';
 import pen from '../Account/Settings/static/pen.png';
 
 // components
-import NoImageFound from 'View/LoginPages/NoImage';
+import NoImageFound from 'view/LoginPages/NoImage';
 
 // actions
-import { updateUserDataAction } from 'Controller/secondStepDataUpdater/actions';
+import { updateUserDataAction } from 'controller/secondStepDataUpdater/actions';
 
 // static 
 import onErorImage  from './imageAcountError/onErrorImage.png';

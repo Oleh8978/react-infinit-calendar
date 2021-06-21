@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { TaskDTO } from '@ternala/frasier-types';
 
 // components
-import Link from 'Routing/Link';
+import Link from 'routing/Link';
 
 interface IProps {
   task: TaskDTO;

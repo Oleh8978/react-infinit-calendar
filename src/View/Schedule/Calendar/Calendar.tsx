@@ -9,7 +9,7 @@ import DayInCalendar from './DayInCalendar';
 import ModalWindow from './ModalWindow/modalWindow';
 
 // images
-import calendarImg from 'Asset/images/calendar.svg';
+import calendarImg from 'asset/images/calendar.svg';
 
 // HOC
 import useScrollListener from './customHOC';
@@ -298,9 +298,9 @@ const Calendar: React.FC<IProps> = ({
           isSelected={item.isSame(selectedDay, 'day')}
           key={'day-' + item.format(timeSlotDateFormat)}
           hasUncompleted={Boolean(
-            uncompletedSchedule[item.format(timeSlotDateFormat)],
+            uncompletedSchedule?.[item?.format(timeSlotDateFormat)],
           )}
-          hasEvents={Boolean(schedule[item.format(timeSlotDateFormat)])}
+          hasEvents={Boolean(schedule?.[item?.format(timeSlotDateFormat)])}
           holidays={holidays}
           selectDate={setSelectedDay}
           isCustom={false}

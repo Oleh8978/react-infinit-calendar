@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 // component
-import NavigationBar from 'Component/NavigationBar';
+import NavigationBar from 'component/NavigationBar';
 
 interface IProps {}
 

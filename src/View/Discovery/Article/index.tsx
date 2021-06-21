@@ -5,25 +5,25 @@ import { useSelector } from 'react-redux';
 import parse from 'html-react-parser';
 
 // components
-import NavigationBar from 'Component/NavigationBar';
-import TipsComponent from 'View/Module/MenuSections/Overview/Tips';
-import List from 'View/Module/MenuSections/Overview/List';
-import Description from 'View/Module/MenuSections/Overview/Description';
-import VideoComponent from 'View/Module/MenuSections/Overview/Video';
-import TextComponent from 'View/Module/MenuSections/Overview/TextComponent';
-import AnswerNotFound from 'View/Discovery/AnswerNotFound/AnswerNotFound';
-import Loader from '../../../Component/Loader';
+import NavigationBar from 'component/NavigationBar';
+import TipsComponent from 'view/Module/MenuSections/Overview/Tips';
+import List from 'view/Module/MenuSections/Overview/List';
+import Description from 'view/Module/MenuSections/Overview/Description';
+import VideoComponent from 'view/Module/MenuSections/Overview/Video';
+import TextComponent from 'view/Module/MenuSections/Overview/TextComponent';
+import AnswerNotFound from 'view/Discovery/AnswerNotFound/AnswerNotFound';
+import Loader from '../../../component/Loader';
 import NotFound from '../../Static/NotFound';
 import AdditionalLink from '../../Module/MenuSections/Overview/AdditionalLink';
 
 // static
 import img from './static/main.png';
 
-import link from 'View/Module/MenuSections/staticHardcoded/link.png';
+import link from 'view/Module/MenuSections/staticHardcoded/link.png';
 
 // Transport
-import { ArticleAPI } from '../../../Controller/articles/transport/article.api';
-import { getAccessToken } from '../../../Controller/auth';
+import { ArticleAPI } from '../../../controller/articles/transport/article.api';
+import { getAccessToken } from '../../../controller/auth';
 import EmbeddedIframe from '../../Module/MenuSections/Overview/EmbeddedIframe';
 import Slider from '../../Module/MenuSections/Overview/HelpSection/Slider';
 

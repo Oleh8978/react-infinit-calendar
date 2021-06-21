@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import imageDayOff from '../fakeData/dayOff/dayOff.png';
 
 // Actions
-import { deleteDayOffAction } from '../../../Controller/schedule/actions';
+import { deleteDayOffAction } from '../../../controller/schedule/actions';
 
 interface IProps {
   dayOff: DayOffDTO;

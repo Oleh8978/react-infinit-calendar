@@ -3,8 +3,8 @@ import moment, { Moment } from 'moment';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // components
-import DayInCalendar from 'View/Schedule/Calendar/DayInCalendar';
-import { Split } from '../../../../Component/Calendar/Split';
+import DayInCalendar from 'view/Schedule/Calendar/DayInCalendar';
+import { Split } from '../../../../component/Calendar/Split';
 
 // date helper functionality
 
@@ -37,7 +37,7 @@ const generateDays: React.FC<IProps> = ({
               isSelected={day.isSame(selectedDay, 'day')}
               key={'day-' + day.format(timeSlotDateFormat)}
               hasUncompleted={Boolean(
-                uncompletedSchedule[day.format(timeSlotDateFormat)],
+                uncompletedSchedule?.[day?.format(timeSlotDateFormat)],
               )}
               hasEvents={true}
               selectDate={selectDay}

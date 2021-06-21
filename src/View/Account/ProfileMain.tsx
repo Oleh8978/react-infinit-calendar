@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 // components
-import Link from 'Routing/Link';
+import Link from 'routing/Link';
 
 // static
 import gear from './static/gear.svg';

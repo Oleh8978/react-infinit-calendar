@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { data } from 'View/Schedule/fakeData/fakedata';
+import { data } from 'view/Schedule/fakeData/fakedata';
 
 // components
 import ContactListItem from "./ContactListItem";

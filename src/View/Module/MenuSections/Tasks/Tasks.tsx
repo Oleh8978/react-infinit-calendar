@@ -6,7 +6,7 @@ import { timeSlotDateFormat } from '@ternala/frasier-types/lib/constants';
 import {
   limitGetModuleScheduleDays,
   limitGetScheduleDays,
-} from '../../../../Config/constants';
+} from '../../../../config/constants';
 
 // components
 import Calendar from './Calendar';
@@ -19,10 +19,10 @@ import {
   toggleExecuteTaskAction,
   getScheduleAction,
   getUncompletedTimeSlotsAction,
-} from '../../../../Controller/module/actions';
-import { generateArrayOfDates } from '../../../../Utils/generateArrayOfDates';
-import { getModules } from '../../../../Controller/module';
-import { ModuleExpandDTO } from '../../../../Controller/module/models';
+} from '../../../../controller/module/actions';
+import { generateArrayOfDates } from '../../../../utils/generateArrayOfDates';
+import { getModules } from '../../../../controller/module';
+import { ModuleExpandDTO } from '../../../../controller/module/models';
 import { IDayWithTimeSlots, TimeSlotDTO } from '@ternala/frasier-types';
 
 interface IProps {
@@ -348,7 +348,7 @@ const Task: React.FC<IProps> = ({ id }) => {
         days={days}
         selectDay={setSelectedDay}
         selectedDay={selectedDay}
-        uncompletedSchedule={module?.uncompletedTimeSlotData}
+        uncompletedSchedule={uncompleted}
       />
       <div className="tasks-wrapper">
         {timeSlots && (
@@ -367,9 +367,14 @@ const Task: React.FC<IProps> = ({ id }) => {
             }
           />
         )}
-        {module?.uncompletedTimeSlotData &&
-        Object.keys(module?.uncompletedTimeSlotData).length > 0 ? (
-          <Uncompleted prevData={uncompleted} toggleTask={toggleTask} />
+        {uncompleted && Object.keys(uncompleted).length > 0 ? (
+          <Uncompleted
+            prevData={{
+              ...uncompleted,
+              [moment(selectedDay).format(timeSlotDateFormat)]: undefined,
+            }}
+            toggleTask={toggleTask}
+          />
         ) : (
           <></>
         )}

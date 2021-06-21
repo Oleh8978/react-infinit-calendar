@@ -1,5 +1,5 @@
 // types
-import Pages from 'Routing/schema';
+import Pages from 'routing/schema';
 
 export interface ISetting {
   icon?: string;

@@ -1,14 +1,14 @@
 import React from 'react';
 
 // components
-import Link from 'Routing/Link';
+import Link from 'routing/Link';
 
 // interfaces
 import { IModule } from '../Models';
 
 // helpers
 import * as helpers from '../utils';
-import CircularProgressBar from '../../../Component/CircularProgressBar';
+import CircularProgressBar from '../../../component/CircularProgressBar';
 
 interface IProps {
   data: IModule;

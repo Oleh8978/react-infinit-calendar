@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { dataList } from '../FakeData/list/List';
 
 // components
-import Loader from 'Component/Loader';
+import Loader from 'component/Loader';
 import AnswerNotFound from '../AnswerNotFound/AnswerNotFound';
 
 // history
@@ -12,7 +12,7 @@ import history from 'historyApi';
 
 // interface
 import { ArticleDTO, DiscoveryDTO } from '@ternala/frasier-types';
-import { ISetLoadingAction } from 'Controller/Discovery/model';
+import { ISetLoadingAction } from 'controller/Discovery/model';
 
 interface IProps {
   margin: number;

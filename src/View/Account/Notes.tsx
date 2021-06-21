@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import note from "./static/note.svg"
 
 // components
-import Link from 'Routing/Link';
+import Link from 'routing/Link';
 
 interface IProps {}
 

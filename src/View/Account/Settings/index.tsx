@@ -1,7 +1,7 @@
 import React from 'react';
 
 // components
-import NavigationBar from 'Component/NavigationBar';
+import NavigationBar from 'component/NavigationBar';
 import AccountBody from './AccountBody';
 import SettingsBody from './SettingsBody';
 

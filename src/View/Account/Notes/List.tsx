@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 // components
-import Link from 'Routing/Link';
+import Link from 'routing/Link';
 
 import NotesListItem from './ListItem';
 
@@ -9,7 +9,7 @@ import NotesListItem from './ListItem';
 import { IListItem } from './Models';
 
 // fake data 
-import { data } from 'View/Schedule/fakeData/fakedata';
+import { data } from 'view/Schedule/fakeData/fakedata';
 
 interface IProps {
   data: IListItem[];

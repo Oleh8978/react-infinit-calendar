@@ -1,7 +1,7 @@
 import React from 'react';
 
 // components
-import HalfBTNPink from 'Component/HalfBtn';
+import HalfBTNPink from 'component/HalfBtn';
 
 // models
 import { IListSocialState } from '../EditProfile/Models';

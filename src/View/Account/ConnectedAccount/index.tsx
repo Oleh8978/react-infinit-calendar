@@ -1,10 +1,10 @@
 import React from 'react';
 
 // types
-import { Pages } from 'Routing/schema';
+import { Pages } from 'routing/schema';
 
 // components
-import NavigationBar from 'Component/NavigationBar';
+import NavigationBar from 'component/NavigationBar';
 import ConnectedAccountBody from './Body';
 
 interface IProps {}
