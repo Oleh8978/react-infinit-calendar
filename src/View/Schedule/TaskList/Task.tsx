@@ -3,8 +3,8 @@ import moment from 'moment';
 
 // history API
 import history from '../../../historyApi';
-import InternalLink from '../../../routing/Link';
-import { timeConvert } from '../../../utils/timeConverter';
+import InternalLink from '@app/routing/Link';
+import { timeConvert } from '@app/utils/timeConverter';
 
 interface IProps {
   date: number;

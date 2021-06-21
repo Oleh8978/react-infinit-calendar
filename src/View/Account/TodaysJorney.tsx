@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import WavePercentage from 'component/WavePercentage';
+import WavePercentage from '@app/component/WavePercentage';
 import { dataModulesProgress } from './hardcodedData/data';
 
 // interfaces

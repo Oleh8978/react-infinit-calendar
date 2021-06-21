@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactGoogleLogin from 'react-google-login';
 // components 
-import GoogleIcon from 'component/icon/GoogleIcon';
+import GoogleIcon from '@app/component/icon/GoogleIcon';
 // interfaces 
-import { ISignedData } from 'controller/auth/model';
+import { ISignedData } from '@app/controller/auth/model';
 // config files 
-import { googleClientId } from 'config';
+import { googleClientId } from '@app/config';
 
 type Props = {
   signIn: (state: ISignedData, type: string) => void;

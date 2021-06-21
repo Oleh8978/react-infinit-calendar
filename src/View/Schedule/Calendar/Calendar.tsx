@@ -9,7 +9,7 @@ import DayInCalendar from './DayInCalendar';
 import ModalWindow from './ModalWindow/modalWindow';
 
 // images
-import calendarImg from 'asset/images/calendar.svg';
+import calendarImg from '@app/asset/images/calendar.svg';
 
 // HOC
 import useScrollListener from './customHOC';

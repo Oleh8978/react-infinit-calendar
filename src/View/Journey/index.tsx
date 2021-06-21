@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 
 // components
-import NavigationBar from 'component/NavigationBar';
+import NavigationBar from '@app/component/NavigationBar';
 
 // components
-import JourneyHeader from 'view/Account/JourneyInfo/JourneyHeader';
-import JourneyDescription from 'view/Account/JourneyInfo/JourneyDescription';
-import TextComponent from 'view/Account/JourneyInfo/JourneyTextComponents';
-import JourneyListComponent from 'view/Account/JourneyInfo/JourneyListComponent';
+import JourneyHeader from '@app/view/Account/JourneyInfo/JourneyHeader';
+import JourneyDescription from '@app/view/Account/JourneyInfo/JourneyDescription';
+import TextComponent from '@app/view/Account/JourneyInfo/JourneyTextComponents';
+import JourneyListComponent from '@app/view/Account/JourneyInfo/JourneyListComponent';
 import JourneyFixedBottom from './JourneyFixdedBottom';
 
 // hardcoded data
-import { list } from 'view/Account/JourneyInfo/hardcoded/hardcodedData';
+import { list } from '@app/view/Account/JourneyInfo/hardcoded/hardcodedData';
 
 interface IProps {}
 

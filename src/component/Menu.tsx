@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import schema from 'routing/schema';
+import schema from '@app/routing/schema';
 
-import { IStore } from 'controller/model';
-import Link from 'routing/Link';
+import { IStore } from '@app/controller/model';
+import Link from '@app/routing/Link';
 // Icons
 
-import Logo from 'component/icon/Logo';
+import Logo from '@app/component/icon/Logo';
 import { menuItems, routsWhereShowMenu } from '../config';
 
 const Menu: React.FC = () => {

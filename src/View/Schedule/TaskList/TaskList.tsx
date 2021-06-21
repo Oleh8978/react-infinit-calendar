@@ -4,8 +4,8 @@ import Task from './Task';
 import PrevUncompleted from './PrevUncompleted';
 
 import { useSelector } from 'react-redux';
-import { getUserStartTime } from '../../../controller/auth';
-import { defaultUserStartTime } from '../../../config/constants';
+import { getUserStartTime } from '@app/controller/auth';
+import { defaultUserStartTime } from '@app/config/constants';
 import { HolidayDTO } from '@ternala/frasier-types/lib/modules/holiday/holiday.dto';
 import NoTasks from '../NoTasks/NoTasks';
 import DayOff from '../DayOff/DayOff';

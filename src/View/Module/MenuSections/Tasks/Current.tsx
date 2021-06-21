@@ -6,8 +6,8 @@ import { TimeSlotDTO } from '@ternala/frasier-types';
 import TimeSlot from './TimeSlot';
 
 // interfaces
-import { getUserStartTime } from '../../../../controller/auth';
-import { defaultUserStartTime } from '../../../../config/constants';
+import { getUserStartTime } from '@app/controller/auth';
+import { defaultUserStartTime } from '@app/config/constants';
 
 interface IProps {
   timeSlots: TimeSlotDTO[];

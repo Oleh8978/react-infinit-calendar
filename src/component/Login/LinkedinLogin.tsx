@@ -1,9 +1,9 @@
 import React from 'react';
 import { LinkedIn } from 'react-linkedin-login-oauth2';
 // componets 
-import LinkedInIcon from 'component/icon/LinkedInIcon';
+import LinkedInIcon from '@app/component/icon/LinkedInIcon';
 // interfaces 
-import { ISignedData } from 'controller/auth/model';
+import { ISignedData } from '@app/controller/auth/model';
 
 type Props = {
   signIn: (state: ISignedData, type: string) => void;

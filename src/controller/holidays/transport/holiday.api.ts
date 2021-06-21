@@ -5,11 +5,11 @@ import {
 } from '@ternala/frasier-types';
 
 // Config
-import { Config } from 'config/API';
+import { Config } from '@app/config/API';
 
 // Utils
-import { authHeader, handleErrors } from 'utils/API';
-import { appendSearchParams } from 'utils/appendSearchParams';
+import { authHeader, handleErrors } from '@app/utils/API';
+import { appendSearchParams } from '@app/utils/appendSearchParams';
 
 // Interfaces
 import { IHolidayListSearchParams } from '../models';

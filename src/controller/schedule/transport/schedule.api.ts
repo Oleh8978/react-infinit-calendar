@@ -4,9 +4,9 @@ import {
   DayOffGetListResponse,
   TimeSlotGetListRequest,
 } from '@ternala/frasier-types';
-import { Config } from '../../../config/API';
-import { authHeader, handleErrors } from 'utils/API';
-import { appendSearchParams } from 'utils/appendSearchParams';
+import { Config } from '@app/config/API';
+import { authHeader, handleErrors } from '@app/utils/API';
+import { appendSearchParams } from '@app/utils/appendSearchParams';
 
 class API {
   public async getTimeSlots(

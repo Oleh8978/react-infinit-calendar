@@ -3,7 +3,7 @@ import React from 'react';
 // components
 import Arrow from './ButtonTypes/Arrow';
 import Toogle from './ButtonTypes/Toogle';
-import Link from 'routing/Link';
+import Link from '@app/routing/Link';
 
 // interfaces
 import { ISetting } from './Models';

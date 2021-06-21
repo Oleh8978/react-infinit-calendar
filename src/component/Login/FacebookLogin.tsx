@@ -6,13 +6,13 @@ import {
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 
 // components
-import FacebookIcon from 'component/icon/FacebookIcon';
+import FacebookIcon from '@app/component/icon/FacebookIcon';
 
 // interfaces
-import { ISignedData } from 'controller/auth/model';
+import { ISignedData } from '@app/controller/auth/model';
 
 // config files
-import { facebookAppId, loginType } from 'config';
+import { facebookAppId, loginType } from '@app/config';
 
 type Props = {
   signIn: (state: ISignedData, type: string) => void;

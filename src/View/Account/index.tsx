@@ -2,7 +2,7 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
 // components
-import Link from 'routing/Link';
+import Link from '@app/routing/Link';
 
 // Custom components
 import Profile from './ProfileMain';

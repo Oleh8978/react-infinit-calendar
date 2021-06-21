@@ -7,14 +7,14 @@ import { Scrollbars } from 'react-custom-scrollbars';
 // components
 import Menu from './TopicMenu';
 import DiscoveryTopicList from './List/TopicsList';
-import SearchBar from '../../component/SearchBar/SearchBar';
+import SearchBar from '@app/component/SearchBar/SearchBar';
 
 // actions
-import { getDiscoveryList } from 'controller/Discovery/actions';
-import { getArticlesCategoriesAction } from 'controller/articleCategory/actions';
+import { getDiscoveryList } from '@app/controller/Discovery/actions';
+import { getArticlesCategoriesAction } from '@app/controller/articleCategory/actions';
 
 // interfaces
-import { IStore } from '../../controller/model';
+import { IStore } from '@app/controller/model';
 import { ArticleDTO, DiscoveryDTO } from '@ternala/frasier-types';
 import { DiscoveryGetListRequest } from '@ternala/frasier-types';
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 // custom components
-import PinkCustomButton from 'component/ButtonPink';
+import PinkCustomButton from '@app/component/ButtonPink';
 
 // static
 import chill from './static/chill.png';

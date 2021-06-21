@@ -1,6 +1,6 @@
 import { createAction, createAsyncAction } from 'typesafe-actions';
 
-import { appName } from '../../config/index';
+import { appName } from '@app/config/index';
 
 //Interfaces
 import { IException, ISetLoadingAction } from './model';

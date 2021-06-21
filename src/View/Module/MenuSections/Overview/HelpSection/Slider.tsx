@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 // components
-import Link from 'routing/Link';
+import Link from '@app/routing/Link';
 
 // interfaces
-import { IExperts } from 'view/Module/MenuSections/Overview/Models';
+import { IExperts } from '@app/view/Module/MenuSections/Overview/Models';
 
 interface IProps {
   people: IExperts[];

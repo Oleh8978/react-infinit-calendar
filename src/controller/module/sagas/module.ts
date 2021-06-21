@@ -6,9 +6,9 @@ import {
   toggleExecuteTaskAction,
 } from '../actions';
 import { getAccessToken } from '../../auth';
-import uuid from 'utils/uuid';
+import uuid from '@app/utils/uuid';
 import { addError, addLoader, removeLoader } from '../index';
-import { LoaderAction } from 'config/constants';
+import { LoaderAction } from '@app/config/constants';
 import { ModuleApi } from '../transport/module.api';
 
 export function* getModuleSaga({

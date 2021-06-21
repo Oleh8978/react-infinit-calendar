@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
 // components
-import NaviagtionBar from 'component/NavigationBar';
-import Slider from 'view/Module/MenuSections/Overview/HelpSection/Slider';
+import NaviagtionBar from '@app/component/NavigationBar';
+import Slider from '@app/view/Module/MenuSections/Overview/HelpSection/Slider';
 import ContactList from "./ContactListWrapper";
 
 // fake data
 import { data } from './fakeData';
-import { experts } from 'view/Module/MenuSections/staticHardcoded/data';
+import { experts } from '@app/view/Module/MenuSections/staticHardcoded/data';
 
 interface IProps {}
 

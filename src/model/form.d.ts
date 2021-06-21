@@ -1,4 +1,4 @@
-import { typeOfId } from 'config';
+import { typeOfId } from '@app/config';
 
 export interface IField {
   title: string;

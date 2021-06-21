@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ModuleExpandDTO } from '../../../../controller/module/models';
+import { ModuleExpandDTO } from '@app/controller/module/models';
 import { generateContent } from '../../../Discovery/Article';
 
 interface IProps {

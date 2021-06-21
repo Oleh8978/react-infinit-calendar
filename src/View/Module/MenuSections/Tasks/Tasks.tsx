@@ -6,7 +6,7 @@ import { timeSlotDateFormat } from '@ternala/frasier-types/lib/constants';
 import {
   limitGetModuleScheduleDays,
   limitGetScheduleDays,
-} from '../../../../config/constants';
+} from '@app/config/constants';
 
 // components
 import Calendar from './Calendar';
@@ -19,10 +19,10 @@ import {
   toggleExecuteTaskAction,
   getScheduleAction,
   getUncompletedTimeSlotsAction,
-} from '../../../../controller/module/actions';
-import { generateArrayOfDates } from '../../../../utils/generateArrayOfDates';
-import { getModules } from '../../../../controller/module';
-import { ModuleExpandDTO } from '../../../../controller/module/models';
+} from '@app/controller/module/actions';
+import { generateArrayOfDates } from '@app/utils/generateArrayOfDates';
+import { getModules } from '@app/controller/module';
+import { ModuleExpandDTO } from '@app/controller/module/models';
 import { IDayWithTimeSlots, TimeSlotDTO } from '@ternala/frasier-types';
 
 interface IProps {

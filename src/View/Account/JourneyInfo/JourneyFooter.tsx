@@ -1,7 +1,7 @@
 import React from 'react';
 
 // components
-import ButtonRed from 'component/ButtonRed';
+import ButtonRed from '@app/component/ButtonRed';
 
 interface IProps {}
 

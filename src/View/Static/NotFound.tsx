@@ -2,7 +2,7 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
 // Components
-import Link from 'routing/Link';
+import Link from '@app/routing/Link';
 
 // static
 import img from './static/404.png';

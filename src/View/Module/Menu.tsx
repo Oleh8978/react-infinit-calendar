@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 // interfaces
 import { INavigationMenu } from './Models';
-import InternalLink from '../../routing/Link';
+import InternalLink from '@app/routing/Link';
 
 interface IProps {
   menuOptions: INavigationMenu[];

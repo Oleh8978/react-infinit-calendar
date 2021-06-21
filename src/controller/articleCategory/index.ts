@@ -13,7 +13,7 @@ import { ArticleDTO } from '@ternala/frasier-types';
 import { ArticleCategoriesSaga } from './sagas/articleCategorySagas';
 
 // utils
-import { concatWithUnique } from 'utils/concatWithUnique';
+import { concatWithUnique } from '@app/utils/concatWithUnique';
 
 export type AericleActionType = ActionType<typeof actions>;
 

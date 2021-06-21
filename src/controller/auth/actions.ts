@@ -1,6 +1,6 @@
 import { createAction, createAsyncAction } from 'typesafe-actions';
 
-import { appName } from 'config';
+import { appName } from '@app/config';
 
 //Interfaces
 import {

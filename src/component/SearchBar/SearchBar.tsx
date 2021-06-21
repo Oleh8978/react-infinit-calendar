@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import searchIcon from '../../asset/images/searchIcon.svg';
+import searchIcon from '@app/asset/images/searchIcon.svg';
 interface IProps {
   smallMenu?: boolean;
   inputValueFromSearch?: (text:string) => void;

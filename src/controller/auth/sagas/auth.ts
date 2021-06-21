@@ -7,7 +7,7 @@ import {
 } from '@ternala/frasier-types';
 
 // exeption
-import { BadRequest } from 'utils/API/exceptions';
+import { BadRequest } from '@app/utils/API/exceptions';
 
 //APIs
 import { AuthAPI } from '../transport/auth.api';
@@ -24,9 +24,9 @@ import {
 } from '../actions';
 
 // Utils
-import { clearAccess, saveAccess } from 'utils/manageAccess';
-import { getCredentials } from 'utils/deviceCredentials';
-import { isJWTTokenExpired } from 'utils/API';
+import { clearAccess, saveAccess } from '@app/utils/manageAccess';
+import { getCredentials } from '@app/utils/deviceCredentials';
+import { isJWTTokenExpired } from '@app/utils/API';
 
 // Interfaces
 import { IAuthData, IDeviceCredentials } from '../model';

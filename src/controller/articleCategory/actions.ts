@@ -1,4 +1,4 @@
-import { appName } from 'config';
+import { appName } from '@app/config';
 import { createAsyncAction } from 'typesafe-actions';
 
 import {

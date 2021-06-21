@@ -5,10 +5,10 @@ import { RouteComponentProps, Redirect } from 'react-router-dom';
 import schema from './schema';
 
 // Selectors
-import { getAuthStatus } from 'controller/auth';
+import { getAuthStatus } from '@app/controller/auth';
 
 // Types
-import { IStore } from 'controller/model';
+import { IStore } from '@app/controller/model';
 
 interface ProtectedRouteProps extends RouteComponentProps {
   isAuthenticated?: boolean;

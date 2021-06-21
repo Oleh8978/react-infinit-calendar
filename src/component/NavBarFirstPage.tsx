@@ -7,16 +7,14 @@ import {
   setAuthenticatedStatus,
   loginByTokenAction,
   logOut,
-} from 'controller/auth/actions';
+} from '@app/controller/auth/actions';
 
 // types
-import { Pages } from 'routing/schema';
+import { Pages } from '@app/routing/schema';
 
 // interfaces
-import { IStore } from 'controller/model';
-
-import history from 'historyApi';
-import { logoutSaga } from 'controller/auth/sagas/auth';
+import { IStore } from '@app/controller/model';
+import { logoutSaga } from '@app/controller/auth/sagas/auth';
 
 interface IProps {
   logoutMethod: () => void;

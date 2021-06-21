@@ -1,10 +1,10 @@
 import React from 'react';
 
 // types
-import { Pages } from 'routing/schema';
+import { Pages } from '@app/routing/schema';
 
 // components
-import NavigationBar from 'component/NavigationBar';
+import NavigationBar from '@app/component/NavigationBar';
 import BodyEdditProfile from './BodyEdditProfile';
 
 interface IProps {}

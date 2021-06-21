@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
 // static
-import task from 'view/Account/static/tasks.svg';
+import task from '@app/view/Account/static/tasks.svg';
 
 // interfaces
-import { ModuleExpandDTO } from '../../../../controller/module/models';
+import { ModuleExpandDTO } from '@app/controller/module/models';
 
 interface IProps {
   module: ModuleExpandDTO;

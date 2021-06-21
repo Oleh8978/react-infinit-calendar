@@ -3,7 +3,7 @@ import React from 'react';
 // Utils
 import { getMonthNameShort } from '../Calendar/utils';
 import { TimeSlotDTO } from '@ternala/frasier-types';
-import InternalLink from '../../../routing/Link';
+import InternalLink from '@app/routing/Link';
 
 interface ITask {
   date: string;

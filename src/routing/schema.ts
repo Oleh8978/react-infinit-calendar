@@ -1,30 +1,30 @@
 import { ComponentType, ComponentProps } from 'react';
-import ProtectedRoute from 'routing/ProtectedRoute';
+import ProtectedRoute from '@app/routing/ProtectedRoute';
 import { matchPath, RouteComponentProps } from 'react-router-dom';
 
 //Views
-import Discovery from 'view/Discovery';
-import NotFound from 'view/Static/NotFound';
-import Schedule from 'view/Schedule';
-import Account from 'view/Account';
-import Module from 'view/Module';
-import Journey from 'view/Journey/index';
-import TaskInfo from 'view/Module/MenuSections/Tasks/TaskInfo';
-import JourneyInfo from 'view/Account/JourneyInfo/index';
-import Settings from 'view/Account/Settings/index';
-import Notes from 'view/Account/Notes/index';
-import SubmitQuestion from 'view/Discovery/SubmitQuestion/SubmitQuestion';
-import Article from 'view/Discovery/Article/index';
-import ReadMore from 'view/Module/MenuSections/ReadMore/ReadMore';
-import ExpertHelp from 'view/Module/MenuSections/ExpertHelp/ExpertHelp';
-import NoteDetails from 'view/Account/Notes/NoteDetails/index';
-import EdditProfile from 'view/Account/EditProfile/index';
-import ConnectedAccount from 'view/Account/ConnectedAccount/index';
-import AboutPage from 'view/Account/About/index';
-import PrivacyPolicy from '../component/PrivacyPolicy';
-import Terms from '../component/Terms';
-import ModuleTabContent from 'view/Module/ModuleTabContent';
-import Holiday from 'view/Schedule/Holiday/Holiday';
+import Discovery from '@app/view/Discovery';
+import NotFound from '@app/view/Static/NotFound';
+import Schedule from '@app/view/Schedule';
+import Account from '@app/view/Account';
+import Module from '@app/view/Module';
+import Journey from '@app/view/Journey/index';
+import TaskInfo from '@app/view/Module/MenuSections/Tasks/TaskInfo';
+import JourneyInfo from '@app/view/Account/JourneyInfo/index';
+import Settings from '@app/view/Account/Settings/index';
+import Notes from '@app/view/Account/Notes/index';
+import SubmitQuestion from '@app/view/Discovery/SubmitQuestion/SubmitQuestion';
+import Article from '@app/view/Discovery/Article/index';
+import ReadMore from '@app/view/Module/MenuSections/ReadMore/ReadMore';
+import ExpertHelp from '@app/view/Module/MenuSections/ExpertHelp/ExpertHelp';
+import NoteDetails from '@app/view/Account/Notes/NoteDetails/index';
+import EdditProfile from '@app/view/Account/EditProfile/index';
+import ConnectedAccount from '@app/view/Account/ConnectedAccount/index';
+import AboutPage from '@app/view/Account/About/index';
+import PrivacyPolicy from '@app/component/PrivacyPolicy';
+import Terms from '@app/component/Terms';
+import ModuleTabContent from '@app/view/Module/ModuleTabContent';
+import Holiday from '@app/view/Schedule/Holiday/Holiday';
 
 // Interfaces
 export interface IRoute {

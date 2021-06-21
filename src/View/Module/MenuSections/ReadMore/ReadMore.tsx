@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
 // components
-import NavigationBar from 'component/NavigationBar';
+import NavigationBar from '@app/component/NavigationBar';
 import TextWrapper from './TextWrapper';
-import List from 'view/Module/MenuSections/Overview/List';
+import List from '@app/view/Module/MenuSections/Overview/List';
 
 // hardoced
-import { data } from 'view/Module/MenuSections/staticHardcoded/data';
+import { data } from '@app/view/Module/MenuSections/staticHardcoded/data';
 
 interface IProps {}
 

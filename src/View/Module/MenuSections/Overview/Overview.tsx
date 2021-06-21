@@ -5,8 +5,8 @@ import Header from './Header';
 import Body from "./Body";
 import Tasks from '../Tasks/Tasks';
 import { useSelector } from 'react-redux';
-import { getModules } from '../../../../controller/module';
-import { ModuleExpandDTO } from '../../../../controller/module/models';
+import { getModules } from '@app/controller/module';
+import { ModuleExpandDTO } from '@app/controller/module/models';
 
 interface IProps {
   id: number;

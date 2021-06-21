@@ -1,7 +1,7 @@
 import React from 'react';
 
 // components
-import NavigationBar from 'component/NavigationBar';
+import NavigationBar from '@app/component/NavigationBar';
 import JourneyBody from './JourneyBody';
 
 interface IProps {}

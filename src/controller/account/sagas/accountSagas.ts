@@ -20,7 +20,7 @@ import {
   clearAccess,
   saveAccess,
   getSavedAccess,
-} from 'utils/manageAccess';
+} from '@app/utils/manageAccess';
 
 // Interfaces
 import { IAccountState } from '../models';

@@ -2,10 +2,10 @@ import React from 'react';
 
 // components
 import EdditProfileBodyComponent from './EditProfileComponents/EditProfileItemBody';
-import DeletePageBTN from 'component/DeletePageBTN';
+import DeletePageBTN from '@app/component/DeletePageBTN';
 
 // interfaces
-import { IUser } from 'controller/auth/model';
+import { IUser } from '@app/controller/auth/model';
 import { IvalidatorState } from '../../LoginPages/utils/models';
 
 // data schema

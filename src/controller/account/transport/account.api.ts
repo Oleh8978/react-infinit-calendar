@@ -1,8 +1,8 @@
 import { AuthUserLoginByTokenResponseDTO } from '@ternala/frasier-types/lib/index';
 
 // config file 
-import { Config } from '../../../config/API';
-import { authHeader, handleErrors, refreshHeader } from 'utils/API';
+import { Config } from '@app/config/API';
+import { authHeader, handleErrors, refreshHeader } from '@app/utils/API';
 
 
 class API {

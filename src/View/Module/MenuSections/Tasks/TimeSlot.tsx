@@ -6,7 +6,7 @@ import { Task } from './Task';
 
 // Utils
 import moment from 'moment';
-import { timeConvert } from 'utils/timeConverter';
+import { timeConvert } from '@app/utils/timeConverter';
 
 interface IProps {
   tasks: TaskDTO[];

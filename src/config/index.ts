@@ -1,8 +1,8 @@
-import { Pages } from '../routing/schema';
+import { Pages } from '@app/routing/schema';
 import { FunctionComponent } from 'react';
-import DiscoveryIcon from 'component/icon/DiscoveryIcon';
-import ScheduleIcon from 'component/icon/ScheduleIcon';
-import AccountIcon from 'component/icon/AccountIcon';
+import DiscoveryIcon from '@app/component/icon/DiscoveryIcon';
+import ScheduleIcon from '@app/component/icon/ScheduleIcon';
+import AccountIcon from '@app/component/icon/AccountIcon';
 
 export const appName = 'FrasierApp';
 

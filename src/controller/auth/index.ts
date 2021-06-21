@@ -4,7 +4,7 @@ import { all } from 'redux-saga/effects';
 import * as actions from '../auth/actions';
 
 // config
-import { defaultUserStartTime } from '../../config/constants';
+import { defaultUserStartTime } from '@app/config/constants';
 
 // interfaces
 import { IStore } from '../model';
@@ -14,8 +14,8 @@ import { IAuthState } from '../auth/model';
 import { authActionSaga, checkAccessTokenExpired } from './sagas/auth';
 
 // functionality
-import { getSavedAccess } from 'utils/manageAccess';
-import { getCredentials } from 'utils/deviceCredentials';
+import { getSavedAccess } from '@app/utils/manageAccess';
+import { getCredentials } from '@app/utils/deviceCredentials';
 
 export type AuthActionType = ActionType<typeof actions>;
 

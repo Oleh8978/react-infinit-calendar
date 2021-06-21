@@ -2,20 +2,20 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 // components
-import Logo from 'component/icon/Logo';
-import FacebookLoginComponent from '../component/Login/FacebookLogin';
-import GoogleLoginComponent from '../component/Login/GoogleLogin';
-import LinkedinLoginComponent from '../component/Login/LinkedinLogin';
+import Logo from '@app/component/icon/Logo';
+import FacebookLoginComponent from '@app/component/Login/FacebookLogin';
+import GoogleLoginComponent from '@app/component/Login/GoogleLogin';
+import LinkedinLoginComponent from '@app/component/Login/LinkedinLogin';
 import AddYourData from './LoginPages/AddYourData';
 
 // redux functionality
-import { signIn } from '../controller/auth/actions';
+import { signIn } from '@app/controller/auth/actions';
 
 // interfaces
-import { IStore } from '../controller/model';
-import { ISignedData } from '../controller/auth/model';
-import { IUser } from 'controller/auth/model';
-import Link from '../routing/Link';
+import { IStore } from '@app/controller/model';
+import { ISignedData } from '@app/controller/auth/model';
+import { IUser } from '@app/controller/auth/model';
+import Link from '@app/routing/Link';
 
 interface IProps {
   authStatus: boolean;

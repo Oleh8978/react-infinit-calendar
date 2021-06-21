@@ -2,7 +2,7 @@ import { createAction, createAsyncAction } from 'typesafe-actions';
 // interfaces
 import { IException, IUserDataExtended, IIsSecondStepPassed } from './models';
 
-import { appName } from 'config';
+import { appName } from '@app/config';
 
 // const for ath actions
 export const widgetName = 'updateUser';

@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
 // components
-import Link from 'routing/Link';
+import Link from '@app/routing/Link';
 import Pen from './CustomButtons/Pen';
 
 // types
-import { Pages } from 'routing/schema';
+import { Pages } from '@app/routing/schema';
 
-import history from 'historyApi';
+import history from '../historyApi';
 import { useDispatch } from 'react-redux';
 import { push } from 'connected-react-router';
 

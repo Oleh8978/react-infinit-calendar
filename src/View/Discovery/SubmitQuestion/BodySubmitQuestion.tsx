@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 
 // components
-import SelectBox from 'component/Dropdown/Dropdown';
+import SelectBox from '@app/component/Dropdown/Dropdown';
 
 interface IProps {
   isDropdownError: boolean;

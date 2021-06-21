@@ -1,4 +1,4 @@
-import { IAuthData } from '../controller/auth/model';
+import { IAuthData } from '@app/controller/auth/model';
 
 import { authTypeEnum } from '@ternala/frasier-types/lib/constants/main';
 

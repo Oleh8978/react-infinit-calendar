@@ -1,4 +1,4 @@
-import { toggleExecuteTaskAction } from '../controller/module/actions';
+import { toggleExecuteTaskAction } from '@app/controller/module/actions';
 
 export const LoaderAction = {
   schedule: {

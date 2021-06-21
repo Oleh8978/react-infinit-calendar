@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 
 // custom components
-import NavigationBar from 'component/NavigationBar';
+import NavigationBar from '@app/component/NavigationBar';
 
-import { getModuleAction } from '../../controller/module/actions';
-import { getModules } from '../../controller/module';
+import { getModuleAction } from '@app/controller/module/actions';
+import { getModules } from '@app/controller/module';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 

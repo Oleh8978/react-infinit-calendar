@@ -2,7 +2,7 @@ import { DevicePlatformEnum } from '@ternala/frasier-types';
 import { UserDTO, AuthUserResponseDTO } from '@ternala/frasier-types';
 
 // Configs
-import { loginType } from 'config';
+import { loginType } from '@app/config';
 import { IState } from '../model';
 
 export interface IAuthState {

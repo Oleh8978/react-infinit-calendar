@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
 
 // static
-import play from 'view/Module/MenuSections/staticHardcoded/play.svg';
-import videoBg from 'view/Module/MenuSections/staticHardcoded/video-bg.png';
+import play from '@app/view/Module/MenuSections/staticHardcoded/play.svg';
+import videoBg from '@app/view/Module/MenuSections/staticHardcoded/video-bg.png';
 
 interface IProps {
   link: string;

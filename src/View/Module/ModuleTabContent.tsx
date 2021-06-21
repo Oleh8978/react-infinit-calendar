@@ -9,8 +9,8 @@ import Tasks from './MenuSections/Tasks/Tasks';
 // Config
 import { menuOptions } from './constants';
 import { useDispatch } from 'react-redux';
-import { getScheduleAction } from '../../controller/module/actions';
-import { limitGetScheduleDays } from '../../config/constants';
+import { getScheduleAction } from '@app/controller/module/actions';
+import { limitGetScheduleDays } from '@app/config/constants';
 
 type IProps = RouteComponentProps<{ id: string; tabName: string }>;
 

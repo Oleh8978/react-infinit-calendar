@@ -1,7 +1,7 @@
 import { createAction, createAsyncAction } from 'typesafe-actions';
 // interfaces
 
-import { appName } from 'config';
+import { appName } from '@app/config';
 import { IException } from './models';
 import {
   HolidayDeleteRequest,

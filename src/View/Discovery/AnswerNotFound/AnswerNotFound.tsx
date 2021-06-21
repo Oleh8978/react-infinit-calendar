@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 // components
-import Link from 'routing/Link';
+import Link from '@app/routing/Link';
 
 // static images
 import imageAnswerNotFound from '../FakeData/notFound/answerNotFound.png';

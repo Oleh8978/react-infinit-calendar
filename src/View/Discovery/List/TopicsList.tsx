@@ -4,15 +4,15 @@ import { Link } from 'react-router-dom';
 import { dataList } from '../FakeData/list/List';
 
 // components
-import Loader from 'component/Loader';
+import Loader from '@app/component/Loader';
 import AnswerNotFound from '../AnswerNotFound/AnswerNotFound';
 
 // history
-import history from 'historyApi';
+import history from '@app/historyApi';
 
 // interface
 import { ArticleDTO, DiscoveryDTO } from '@ternala/frasier-types';
-import { ISetLoadingAction } from 'controller/Discovery/model';
+import { ISetLoadingAction } from '@app/controller/Discovery/model';
 
 interface IProps {
   margin: number;

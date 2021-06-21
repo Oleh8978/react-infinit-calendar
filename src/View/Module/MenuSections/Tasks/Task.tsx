@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Link from '../../../../routing/Link';
+import Link from '@app/routing/Link';
 import { TaskDTO } from '@ternala/frasier-types';
 
 export interface IProps {

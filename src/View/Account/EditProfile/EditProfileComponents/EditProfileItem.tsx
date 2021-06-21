@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
 // types
-import { Pages } from 'routing/schema';
+import { Pages } from '@app/routing/schema';
 
 // interfaces
 import { IItem, IZones } from '../Models';
-import { IUser } from 'controller/auth/model';
+import { IUser } from '@app/controller/auth/model';
 import { IvalidatorState } from '../../../LoginPages/utils/models';
 
 interface IProps {

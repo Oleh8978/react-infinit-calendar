@@ -6,30 +6,30 @@ import { useTransition, animated } from 'react-spring';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 // utils functions
-import { getSavedAccess, clearAccess } from 'utils/manageAccess';
+import { getSavedAccess, clearAccess } from '@app/utils/manageAccess';
 
 // interfaces
-import { IStore } from 'controller/model';
+import { IStore } from '@app/controller/model';
 import {
   ISetAuthenticatedStatus,
   IUser,
   IAuthData,
-} from 'controller/auth/model';
+} from '@app/controller/auth/model';
 
 // Actions
 import {
   setAuthenticatedStatus,
   loginByTokenAction,
   setIsneedSecondStep,
-} from 'controller/auth/actions';
+} from '@app/controller/auth/actions';
 
 // Routing schema
 import RoutingSchema, { IRoute } from './schema';
 
 // components
-import Login from 'view/Login';
-import Menu from '../component/Menu';
-import Loader from 'component/Loader';
+import Login from '@app/view/Login';
+import Menu from '@app/component/Menu';
+import Loader from '@app/component/Loader';
 
 // Render all routes
 const generateRoutes = (routes: IRoute[]) => {

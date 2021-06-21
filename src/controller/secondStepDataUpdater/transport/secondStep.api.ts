@@ -1,9 +1,9 @@
 import { UserDataFullDTO } from '@ternala/frasier-types';
 
-import { Config } from '../../../config/API';
+import { Config } from '@app/config/API';
 
 // helpers for headers etc
-import { authHeader, handleErrors, refreshHeader } from 'utils/API';
+import { authHeader, handleErrors, refreshHeader } from '@app/utils/API';
 
 // interfaces 
 import { IUserDataExtended } from '../models';
