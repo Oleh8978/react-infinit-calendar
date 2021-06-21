@@ -3,8 +3,8 @@ import moment, { Moment } from 'moment';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // components
-import DayInCalendar from 'view/Schedule/Calendar/DayInCalendar';
-import { Split } from '../../../../component/Calendar/Split';
+import DayInCalendar from '@app/view/Schedule/Calendar/DayInCalendar';
+import { Split } from '@app/component/Calendar/Split';
 
 // date helper functionality
 

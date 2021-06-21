@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { data } from 'view/Schedule/fakeData/fakedata';
+import { data } from '@app/view/Schedule/fakeData/fakedata';
 
 // components
-import ContactListItem from "./ContactListItem";
+import ContactListItem from './ContactListItem';
 
 // interfaces
 import { IContact } from './Models';

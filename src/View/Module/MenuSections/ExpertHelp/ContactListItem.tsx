@@ -5,7 +5,7 @@ import Mail from './Icons/Mail';
 import Phone from './Icons/Phone';
 
 // hardcoded
-import { data } from 'view/Schedule/fakeData/fakedata';
+import { data } from '@app/view/Schedule/fakeData/fakedata';
 
 // interfaces
 import { IContact } from './Models';
