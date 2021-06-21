@@ -15,7 +15,7 @@ import { ArticleCategoriesSaga } from './sagas/articleCategorySagas';
 // utils
 import { concatWithUnique } from '@app/utils/concatWithUnique';
 
-export type AericleActionType = ActionType<typeof actions>;
+export type ArticleActionType = ActionType<typeof actions>;
 
 export const ArticleSaga = function* () {
   yield all([ArticleCategoriesSaga()]);
@@ -35,7 +35,7 @@ const initialState: IAcrticleCategoryState = {
 
 export const ArticleReducer = createReducer<
   IAcrticleCategoryState,
-  AericleActionType
+  ArticleActionType
 >(initialState).handleAction(
   [actions.getArticlesCategoriesAction.success],
   (state: IAcrticleCategoryState, { payload }): IAcrticleCategoryState => {
