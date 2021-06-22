@@ -10,6 +10,6 @@ export const appendSearchParams = function concatArrayWithUnique<TypeElement>(
     url.searchParams.append('sortType', searchParams.sortType);
   if (searchParams.sortField)
     url.searchParams.append('sortField', searchParams.sortField);
-
+  if (searchParams.type) url.searchParams.append('type', searchParams.type);
   return url;
 };

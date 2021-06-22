@@ -1,5 +1,5 @@
 import { all } from 'redux-saga/effects';
-import { createReducer, ActionType } from 'typesafe-actions';
+import { createReducer, ActionType, getType } from 'typesafe-actions';
 import { omit } from 'lodash';
 
 // Actions
@@ -28,66 +28,67 @@ const initialState: IAcrticleCategoryState = {
     items: [],
   },
   storedSearchParams: null,
-  isLoading: false,
-  anyErrors: false,
-  error: undefined,
+  isLoading: {
+    status: false,
+    anyErrors: false,
+    error: undefined,
+  },
 };
 
 export const ArticleReducer = createReducer<
   IAcrticleCategoryState,
   ArticleActionType
->(initialState).handleAction(
-  [actions.getArticlesCategoriesAction.success],
-  (state: IAcrticleCategoryState, { payload }): IAcrticleCategoryState => {
-    const storedSearchParams = state.storedSearchParams;
-    const { searchParams }: any = payload.searchParams;
+>(initialState)
+  .handleAction(actions.setLoadingAction, (store, { payload }) => ({
+    ...store,
+    isLoading: { ...payload },
+  }))
+  .handleAction(
+    [actions.getArticlesCategoriesAction.success],
+    (state: IAcrticleCategoryState, { payload }): IAcrticleCategoryState => {
+      const storedSearchParams = state.storedSearchParams;
+      const { searchParams }: any = payload.searchParams;
 
-    const articleCategoriesObjectList = {
-      ...state.articleCategoriesObject,
-    };
+      const articleItemsList = [];
 
-    payload.response.items.forEach((elem) => {
+      payload.response.items.map((ele) => {
+        if (
+          state.articleCategoriesObject.items.find(
+            (item) => item.id === ele.id,
+          ) === undefined
+        ) {
+          return articleItemsList.push(ele);
+        }
+      });
+
+      let articleCategoryList;
       if (
-        articleCategoriesObjectList.items.find((item) => item.id !== elem.id)
+        JSON.stringify(omit(storedSearchParams, ['limit', 'offset'])) ===
+        JSON.stringify(omit(searchParams, ['limit', 'offset']))
       ) {
-        articleCategoriesObjectList.items.push(elem);
+        articleCategoryList = concatWithUnique<ArticleDTO>(
+          state.articleCategoriesObject.items || [],
+          articleItemsList,
+        );
       } else {
-        return articleCategoriesObjectList.items;
+        articleCategoryList = concatWithUnique<ArticleDTO>(
+          [],
+          articleItemsList,
+        );
       }
 
-    });
-
-    let articleCategoryList;
-    if (
-      JSON.stringify(omit(storedSearchParams, ['limit', 'offset'])) ===
-      JSON.stringify(omit(searchParams, ['limit', 'offset']))
-    ) {
-        articleCategoryList = concatWithUnique<ArticleDTO>(
-        state.articleCategoriesObject.items || [],
-        payload.response.items.map((item) => item),
-      );
-    } else {
-        articleCategoryList = concatWithUnique<ArticleDTO>(
-        [],
-        payload.response.items.map((item) => item),
-      );
-    }
-
-    return {
-      ...state,
-      storedSearchParams: searchParams,
-      articleCategoriesObject: {
-        counts: payload.response.counts,
-        items: articleCategoryList,
-      },
-      isLoading: false,
-      anyErrors: false,
-      error: undefined,
-    };
-  },
-);
-
-/* Selectors */
-// export const getDiscoveries = (state: IStore) => state.;
-// export const getPropertiesCount = (state: IStore) =>
-//   state.property.properties?.length || 0;
+      return {
+        ...state,
+        storedSearchParams: searchParams,
+        articleCategoriesObject: {
+          counts: payload.response.counts,
+          items: articleCategoryList,
+        },
+        isLoading: {
+          status: false,
+          anyErrors: false,
+          error: undefined,
+        },
+      };
+    },
+  );

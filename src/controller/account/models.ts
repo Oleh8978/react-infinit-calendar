@@ -24,11 +24,11 @@ export interface IUser {
 }
 
 export interface IUserData {
-  firstName: string;
-  image: string;
-  lastName: string;
-  email: string;
-  phone: string;
+  firstName?: string;
+  image?: string;
+  lastName?: string;
+  email?: string;
+  phone?: string;
 }
 
 export interface IJourneyConnections {

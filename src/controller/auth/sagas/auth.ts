@@ -71,7 +71,6 @@ export function* signInSaga({
   try {
     let signInData;
     if ('accessToken' in payload) {
-      console.log('accessToken in payload', payload);
       const tokens: AuthRefreshRequestDTO = yield checkAccessTokenExpired({
         accessToken: payload.accessToken,
         refreshToken: payload.accessToken,
@@ -82,21 +81,12 @@ export function* signInSaga({
         user: (yield AuthAPI.loginByToken(tokens.accessToken)),
         ...tokens
       };
-      console.log('signInData auth ', signInData)
       setAuthStateAction({
         isLoading: false,
         message: 'success access token in payload',
         error: false,
       });
     } else {
-      console.log(
-        'payload.receivedToken, ',
-        payload.receivedToken,
-        'payload.signIntype,',
-        payload.signIntype,
-        'deviceCredentials, ',
-        deviceCredentials,
-      );
       signInData = yield AuthAPI.signIn(
         payload.receivedToken,
         payload.signIntype,
@@ -110,7 +100,6 @@ export function* signInSaga({
     }
 
     if (signInData) {
-      console.log('sign in data ', signInData);
       yield put(
         signIn.success({
           ...signInData,
@@ -137,7 +126,7 @@ export function* signInSaga({
       }),
     );
   } catch (error) {
-    console.log('eroror receivd ', error);
+    console.log('ERRROR AUTHENTIFICATION ', error);
     clearAccess();
     if (error.statusCode === 401) {
       yield put(
@@ -217,8 +206,6 @@ export function* logoutSaga() {
   const accessToken: string | undefined = yield yield select(getAccessToken);
   const refreshToken: string | undefined = yield select(getRefreshToken);
   const deviceCredentials: DeviceCreateRequest = yield getCredentials();
-  // console.log('accessToken ', accessToken);
-  // console.log('refreshToken ', refreshToken)
   try {
     if (!refreshToken || !accessToken) throw new Error("Haven't refresh token");
     const res = yield AuthAPI.logout(deviceCredentials);
@@ -250,7 +237,7 @@ export function* logoutSaga() {
       );
     }
   } catch (error) {
-    console.error(error);
+    console.error("ERROR LOGOUT ", error);
     yield put(logOut.failure('failure'));
     yield put(
       setAuthStateAction({
