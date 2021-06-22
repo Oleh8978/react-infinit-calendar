@@ -12,7 +12,7 @@ import DayOff from './DayOff/DayOff';
 import Holiday from './Holiday/Holiday';
 
 // Config
-import { limitGetScheduleDays } from '@app/config/constants';
+import { limitGetScheduleDays, LoaderAction } from '@app/config/constants';
 
 // Actions
 import { getHolidayDataAction } from '@app/controller/holidays/actions';
@@ -26,6 +26,7 @@ import {
 import { getHolidays } from '@app/controller/holidays';
 import {
   getDaysOff,
+  getLoader,
   getSchedule,
   getUncompleted,
 } from '@app/controller/schedule';
@@ -33,6 +34,9 @@ import {
 // utils
 import { generateArrayOfDates } from '@app/utils/generateArrayOfDates';
 import NoTasks from './NoTasks/NoTasks';
+import Loader from '@app/component/Loader';
+import { IStore } from '@app/controller/model';
+import { ILoader } from '@app/model';
 
 // Interfaces
 interface IProps extends RouteComponentProps {
@@ -48,9 +52,11 @@ const Schedule: React.FC<IProps> = ({ ...props }) => {
   const uncompletedSchedule = useSelector(getUncompleted);
   const daysOff = useSelector(getDaysOff);
   const holidays = useSelector(getHolidays);
+  const loader = useSelector(getLoader);
 
   const [selectedDay, setSelectedDay] = useState<Moment>(moment());
   const [timeSlots, setTimeSlots] = useState<TimeSlotDTO[]>([]);
+  //const [hasLoader, setLoader] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -67,6 +73,12 @@ const Schedule: React.FC<IProps> = ({ ...props }) => {
     );
     dispatch(getDaysOffAction.request({}));
     dispatch(getHolidayDataAction.request({}));
+
+    // loader.map(loaderItem => {
+    //   console.log(loaderItem.type)
+    //   console.log(loaderItem.type === 'get schedule')
+    //   //loaderItem.type === 'get schedule' ? setLoader(true) : setLoader(false);
+    // })
   }, []);
   useEffect(() => {
     setTimeSlots(
@@ -83,22 +95,25 @@ const Schedule: React.FC<IProps> = ({ ...props }) => {
   );
 
   return (
-    <div className={'schedule'}>
-      {/*{isTaskCompleted ? <WellDone /> : <></>} TODO: Need to add notification, when all task is done by this day*/}
-      {/*{isCurrentDayOff ? <DayOff dayOff={isCurrentDayOff} /> : <></>}*/}
-      {/*{isCurrentHoliday ? <Holiday holiday={isCurrentHoliday} /> : <></>}*/}
-      {/*{timeSlots.length === 0 ? <NoTasks /> : <></>}*/}
-      <Calendar
-        setSelectedDay={setSelectedDay}
-        selectedDay={selectedDay}
-        daysInSchedule={daysInSchedule}
-        schedule={schedule}
-        uncompletedSchedule={uncompletedSchedule}
-        holidays={holidays}
-      />
-      <TaskList timeSlots={timeSlots} uncompletedDays={uncompletedSchedule} dayOff={isCurrentDayOff} holiday={isCurrentHoliday} />
-      {/*{scheduleData(todayTimeSlots)}*/}
-    </div>
+        <div className={'schedule'}>
+          {/*{isTaskCompleted ? <WellDone /> : <></>} TODO: Need to add notification, when all task is done by this day*/}
+          {/*{isCurrentDayOff ? <DayOff dayOff={isCurrentDayOff} /> : <></>}*/}
+          {/*{isCurrentHoliday ? <Holiday holiday={isCurrentHoliday} /> : <></>}*/}
+          {/*{timeSlots.length === 0 ? <NoTasks /> : <></>}*/}
+          <Calendar
+            setSelectedDay={setSelectedDay}
+            selectedDay={selectedDay}
+            daysInSchedule={daysInSchedule}
+            schedule={schedule}
+            uncompletedSchedule={uncompletedSchedule}
+            holidays={holidays}
+          />
+          {loader.filter(item => item.type === LoaderAction.schedule.getSchedule).length > 0 ?
+            (<Loader isSmall={true} />) : (
+            <TaskList timeSlots={timeSlots} uncompletedDays={uncompletedSchedule} dayOff={isCurrentDayOff} holiday={isCurrentHoliday} loader={loader}/>
+          )}
+         {/*{scheduleData(todayTimeSlots)}*/}
+        </div>
   );
 };
 
