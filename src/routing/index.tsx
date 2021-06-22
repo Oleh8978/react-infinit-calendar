@@ -80,10 +80,8 @@ const Routing: React.FC<Props> = ({
   ...props
 }) => {
   const [userData, setUserData] = useState<IUser>(undefined);
-  const [
-    isNeeededSecondStepValue,
-    setIsNeededSecondSteValue,
-  ] = useState<boolean>(true);
+  const [isNeeededSecondStepValue, setIsNeededSecondSteValue] =
+    useState<boolean>(true);
 
   useEffect(() => {
     const authData = getSavedAccess();
