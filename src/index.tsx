@@ -8,22 +8,22 @@ import 'swiper/swiper.scss';
 import { startJs } from './startJS';
 
 // SCSS
-import 'Asset/scss/main.scss';
+import './asset/scss/main.scss';
 
 // Vitals
 import reportWebVitals from './reportWebVitals';
 
-// Config
-import { Config } from './Config/API';
+// config
+import { Config } from '@app/config/API';
 
 // Store
-import store from './Controller/store';
+import store from '@app/controller/store';
 
 // History
 import history from './historyApi';
 
 // Root view
-import Routing from './Routing';
+import Routing from '@app/routing';
 import App from './App';
 
 Config.init({
