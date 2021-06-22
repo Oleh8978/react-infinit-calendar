@@ -1,18 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { TimeSlotDTO, IDayWithTimeSlots, DayOffDTO } from '@ternala/frasier-types';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import { HolidayDTO } from '@ternala/frasier-types/lib/modules/holiday/holiday.dto';
-import Task from './Task';
-import PrevUncompleted from './PrevUncompleted';
+import {
+  TimeSlotDTO,
+  IDayWithTimeSlots,
+  DayOffDTO,
+  HolidayDTO,
+} from '@ternala/frasier-types';
 
-import { getUserStartTime } from '@app/controller/auth';
+// Config
 import { defaultUserStartTime, LoaderAction } from '@app/config/constants';
+
+// Components
 import NoTasks from '../NoTasks/NoTasks';
 import DayOff from '../DayOff/DayOff';
 import Holiday from '../Holiday/Holiday';
-import { ILoader } from '@app/model';
 import Loader from '@app/component/Loader';
+import PrevUncompleted from './PrevUncompleted';
+import Task from './Task';
+
+// Actions
 import { getHolidayLoader } from '@app/controller/holidays';
+import { getUserStartTime } from '@app/controller/auth';
+
+// Interfaces
+import { ILoader } from '@app/model';
 
 interface IProps {
   timeSlots: TimeSlotDTO[];
@@ -21,7 +32,13 @@ interface IProps {
   holiday?: HolidayDTO;
   loader?: ILoader[];
 }
-const TaskList: React.FC<IProps> = ({ timeSlots, uncompletedDays, dayOff, holiday, loader }) => {
+const TaskList: React.FC<IProps> = ({
+  timeSlots,
+  uncompletedDays,
+  dayOff,
+  holiday,
+  loader,
+}) => {
   let userStartTime = useSelector(getUserStartTime) || defaultUserStartTime;
   const isAnyUncopleted = true;
   const holidayLoader = useSelector(getHolidayLoader).isLoading;
@@ -29,9 +46,25 @@ const TaskList: React.FC<IProps> = ({ timeSlots, uncompletedDays, dayOff, holida
   return (
     <div className={'modules-list'}>
       {timeSlots.length === 0 ? <NoTasks /> : <></>}
-      {dayOff ? (loader.filter(item => item.type === LoaderAction.schedule.getDaysOff).length > 0 ?
-        <Loader isAbsolute={true} isSmall={true} /> : <DayOff dayOff={dayOff} />) : <></>}
-      {holiday ? (holidayLoader ? <Loader isAbsolute={true} isSmall={true} /> : <Holiday holiday={holiday} />) : <></>}
+      {dayOff ? (
+        loader.filter((item) => item.type === LoaderAction.schedule.getDaysOff)
+          .length > 0 ? (
+          <Loader isAbsolute={true} isSmall={true} />
+        ) : (
+          <DayOff dayOff={dayOff} />
+        )
+      ) : (
+        <></>
+      )}
+      {holiday ? (
+        holidayLoader ? (
+          <Loader isAbsolute={true} isSmall={true} />
+        ) : (
+          <Holiday holiday={holiday} />
+        )
+      ) : (
+        <></>
+      )}
       <div className={'modules-list__completed'}>
         {timeSlots.map((timeSlot) => {
           if (timeSlot.tasks.length) {
@@ -57,27 +90,33 @@ const TaskList: React.FC<IProps> = ({ timeSlots, uncompletedDays, dayOff, holida
           return '';
         })}
       </div>
-      {isAnyUncopleted ? ((loader.filter(item => item.type === LoaderAction.schedule.getUncompletedTimeSlots).length > 0 && (!holiday || !dayOff)) ?
-        (<Loader isSmall={true} />) : (
-        <div className={'modules-list__uncompleted'}>
-          <h1 className={'modules-list__uncompleted-header'}>
-            Previously Uncompleted
-          </h1>
-          <div className={'modules-list__uncompleted-list'}>
-            {uncompletedDays
-              ? Object.entries(uncompletedDays).map(([day, timeSlots]) => {
-                  return (
-                    <PrevUncompleted
-                      date={day}
-                      timeSlots={timeSlots}
-                      key={'uncompletedTimeSlots' + day}
-                    />
-                  );
-                })
-              : ''}
+      {isAnyUncopleted ? (
+        loader.filter(
+          (item) => item.type === LoaderAction.schedule.getUncompletedTimeSlots,
+        ).length > 0 &&
+        (!holiday || !dayOff) ? (
+          <Loader isSmall={true} />
+        ) : (
+          <div className={'modules-list__uncompleted'}>
+            <h1 className={'modules-list__uncompleted-header'}>
+              Previously Uncompleted
+            </h1>
+            <div className={'modules-list__uncompleted-list'}>
+              {uncompletedDays
+                ? Object.entries(uncompletedDays).map(([day, timeSlots]) => {
+                    return (
+                      <PrevUncompleted
+                        date={day}
+                        timeSlots={timeSlots}
+                        key={'uncompletedTimeSlots' + day}
+                      />
+                    );
+                  })
+                : ''}
+            </div>
           </div>
-        </div>
-      )) : (
+        )
+      ) : (
         <></>
       )}
     </div>
