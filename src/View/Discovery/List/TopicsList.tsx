@@ -31,7 +31,7 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
       setDiscoveryItems(props.discoveryItems);
     }
   }, [props.discoveryItems]);
-console.log(' items ', discoveryItems)
+
   return (
     <div className={'discovery-list'} ref={fieldRef}>
       <span className="discovery-list-title">Full list</span>

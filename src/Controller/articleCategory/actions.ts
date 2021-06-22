@@ -1,5 +1,5 @@
 import { appName } from 'Config';
-import { createAsyncAction } from 'typesafe-actions';
+import { createAsyncAction, createAction } from 'typesafe-actions';
 
 import {
   ArticleCreateResponse,
@@ -14,10 +14,15 @@ import {
   ArticleGetListRequest,
 } from '@ternala/frasier-types';
 
-import { IException } from './models';
+import { IException, ISetLoadingAction } from './models';
 
 /* Actions */
 export const widgetName = 'article';
+
+// Action Loader
+export const setLoadingAction = createAction(
+  `${appName}/${widgetName}/SET_ISLOADING_STATUS`,
+)<ISetLoadingAction>();
 
 // ** Action
 export const getArticlesCategoriesAction = createAsyncAction(
@@ -34,7 +39,7 @@ export const getArticlesCategoriesAction = createAsyncAction(
   IException
 >();
 
-/// these actions below are nto working /// 
+/// these actions below are nto working ///
 
 export const updateArticleAction = createAsyncAction(
   `${appName}/${widgetName}/UPDATE_ARTICLE_REQUEST`,

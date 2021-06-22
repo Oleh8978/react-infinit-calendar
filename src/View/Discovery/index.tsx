@@ -18,6 +18,9 @@ import { IStore } from '../../Controller/model';
 import { ArticleDTO, DiscoveryDTO } from '@ternala/frasier-types';
 import { DiscoveryGetListRequest } from '@ternala/frasier-types';
 
+// constants
+import { discoveryEntityTypeEnum } from '@ternala/frasier-types/lib/constants/main';
+
 interface IProps extends RouteComponentProps {
   storedSearchParams: any;
 }
@@ -31,6 +34,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
   );
   const [smallLoader, setSmallLoader] = useState<boolean>(false);
   const [isMoreStated, setISmoreStated] = useState<string>('start');
+  const [ids, setIds] = useState<number[]>([]);
   const fieldRef = createRef() as RefObject<Scrollbars>;
 
   const loadMoreItems = () => {
@@ -74,7 +78,11 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       setISmoreStated('start');
     }
 
-    if (articleCategories === undefined && discovery === undefined && searchQuery.trim().length === 0) {
+    if (
+      articleCategories === undefined &&
+      discovery === undefined &&
+      searchQuery.trim().length === 0
+    ) {
       loadDiscovloadArticleCategoeries();
       loadDiscoveries('start');
     }
@@ -82,10 +90,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       setDiscovery(props.discoveryList);
     }
 
-    if (
-      props.articleCategories !== undefined &&
-      articleCategories === undefined
-    ) {
+    if (props.articleCategories !== undefined) {
       setArticleCategories(props.articleCategories);
       setISmoreStated('start');
     }
@@ -96,18 +101,27 @@ const Discovery: React.FC<any> = ({ ...props }) => {
   }, [props.articleCategories, props.discoveryList, isMoreStated, searchQuery]);
   const dispatch = useDispatch();
 
-  console.log('discovery ', props.discoveryList);
-
   const loadDiscoveries = (
     loadMore?: string,
     searchQuery?: string,
     callback?: any,
   ) => {
-    const searchParams: DiscoveryGetListRequest = {
-      limit: 10,
-      offset: loadMore === 'more' ? Number(discovery.length) : 0,
-      query: searchQuery,
-    };
+    let searchParams: DiscoveryGetListRequest;
+
+    ids.length > 0
+      ? (searchParams = {
+          limit: 10,
+          offset: loadMore === 'more' ? Number(discovery.length) : 0,
+          query: searchQuery,
+          categories: ids,
+          type: discoveryEntityTypeEnum.article,
+        })
+      : (searchParams = {
+          // const searchParams: DiscoveryGetListRequest = {
+          limit: 10,
+          offset: loadMore === 'more' ? Number(discovery.length) : 0,
+          query: searchQuery,
+        });
     if (
       JSON.stringify(omit(props.storedSearchParams, ['limit', 'offset'])) !==
       JSON.stringify(omit(searchParams, ['limit', 'offset']))
@@ -117,13 +131,10 @@ const Discovery: React.FC<any> = ({ ...props }) => {
     dispatch(props.getDiscoveryList({ ...searchParams, callback }));
   };
 
-  const loadDiscovloadArticleCategoeries = (
-    // loadType: ItemsLoadType = 'start',
-    callback?: any,
-  ) => {
+  const loadDiscovloadArticleCategoeries = (callback?: any) => {
     const searchParams: DiscoveryGetListRequest = {
-      limit: 10,
-      offset: 10,
+      limit: 100,
+      offset: 0,
       query: searchQuery,
     };
 
@@ -144,6 +155,14 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       setMargin(20);
     }
   };
+
+  const arraySetter = (id: number) => {
+    if (ids.filter((elem) => elem === id).length === 0) {
+      ids.push(id);
+      setIds(ids);
+      loadDiscoveries();
+    }
+  };
   return (
     <Scrollbars
       style={{
@@ -158,9 +177,17 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       renderView={(props) => (
         <div {...props} className={'main-wrapper-discovery'} />
       )}>
-      <SearchBar inputValueFromSearch={searchQueryProcessor} onCloseHandler={onCloseHandler}/>
+      <SearchBar
+        inputValueFromSearch={searchQueryProcessor}
+        onCloseHandler={onCloseHandler}
+      />
       <div className={'discovery'}>
-        <Menu marginAdder={marginAdder} articleCategories={articleCategories} />
+        <Menu
+          marginAdder={marginAdder}
+          articleCategories={articleCategories}
+          loadDiscovloadArticleCategoeries={loadDiscovloadArticleCategoeries}
+          arraySetter={arraySetter}
+        />
         <DiscoveryTopicList
           margin={margin}
           discoveryItems={discovery}
@@ -179,6 +206,7 @@ export default connect(
     articleCategories: state.ArticleReducer.articleCategoriesObject.items,
     itemsCount: state.discoveryListReducer.discoveryList.counts,
     isLoading: state.discoveryListReducer.isLoading,
+    topicListLoader: state.ArticleReducer.isLoading.status,
   }),
   {
     getDiscoveryList: getDiscoveryList.request,

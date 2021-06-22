@@ -42,7 +42,6 @@ class API {
     accessToken: string,
   ): Promise<AuthUserLoginByTokenResponseDTO | string> {
     const url = new URL(Config.MAIN_SERVICE_ENDPOINT + 'user/by-token');
-    console.log('url lgin by token ',url)
 
     return handleErrors(
       fetch(url.toString(), {
@@ -73,11 +72,7 @@ class API {
   public async logout(
     deviceCredentials: DeviceCreateRequest,
   ): Promise<boolean | string> {
-    console.log(
-      'getSavedAccess().refreshToken ',
-      getSavedAccess().refreshToken,
-    );
-    console.log('deviceCredentials ', deviceCredentials);
+
     return handleErrors(
       fetch(Config.AUTH_SERVICE_ENDPOINT + 'logout', {
         method: 'POST',

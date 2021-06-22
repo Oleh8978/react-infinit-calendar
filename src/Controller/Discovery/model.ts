@@ -19,7 +19,7 @@ export interface IDiscoveryState {
 
 export interface IDiscoveryObject {
   counts: number;
-  items: DiscoveryDTO[];
+  items: DiscoveryDTO[] | any[];
 }
 
 export interface IItemList {

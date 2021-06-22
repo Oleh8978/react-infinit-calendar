@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
 import { push } from 'connected-react-router';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { useTransition, animated } from 'react-spring';
 import { Scrollbars } from 'react-custom-scrollbars';
 
@@ -15,6 +15,7 @@ import {
   IUser,
   IAuthData,
 } from 'Controller/auth/model';
+import { IUserData } from 'Controller/account/models';
 
 // Actions
 import {
@@ -53,11 +54,12 @@ interface Props {
   isSecondStepPassed: any;
   loginByTokenAction: (data: IAuthData) => void;
   setIsneedSecondStep: () => void;
+  userData?: IUserData;
 }
 
 const Routing: React.FC<Props> = ({
   authStatus,
-  // isNeededSecondStep,
+  isNeededSecondStep,
   user,
   ...props
 }) => {
@@ -65,34 +67,37 @@ const Routing: React.FC<Props> = ({
   const [
     isNeeededSecondStepValue,
     setIsNeededSecondSteValue,
-  // ] = useState<boolean>(true);
-] = useState<boolean>(false);
-  const isNeededSecondStep = false;
+  ] = useState<boolean>(true);
+
   useEffect(() => {
-    console.log(' user ', user);
     const authData = getSavedAccess();
     if (authData.accessToken && authData.refreshToken) {
       if (authStatus === false) {
         props.loginByTokenAction(authData);
       }
 
-      if (user !== undefined && userData === undefined) {
+      if (
+        (user !== undefined && userData === undefined) ||
+        (user !== undefined &&
+          userData !== undefined &&
+          userData.createdAt.trim().length === 0)
+      ) {
         setUserData(user);
       }
     } else {
       props.setAuthenticatedStatus({ status: false });
     }
 
-    // if (isNeededSecondStep === true) {
-    //   setIsNeededSecondSteValue(true);
-    // } else {
-    //   setIsNeededSecondSteValue(false);
-    // }
+    if (isNeededSecondStep === true) {
+      setIsNeededSecondSteValue(true);
+    } else {
+      setIsNeededSecondSteValue(false);
+    }
 
     if (props.isSecondStepPassed === true) {
       setPageOpened();
     }
-  }, [props.isSecondStepPassed, user]);
+  }, [props.isSecondStepPassed, user, props.userData]);
 
   const location = useLocation();
 
@@ -101,8 +106,6 @@ const Routing: React.FC<Props> = ({
     // enter: { opacity: 1, left: 0, top: 0 },
     // leave: { opacity: 0, left: 0, top: 0 },
   });
-  // console.log('isNeededSecondStep ', isNeededSecondStep);
-  // console.log('authStatus ', authStatus);
 
   const setPageOpened = () => {
     setIsNeededSecondSteValue(false);
@@ -141,8 +144,6 @@ const Routing: React.FC<Props> = ({
   if (authStatus && !isNeeededSecondStepValue)
     return (
       <>
-        {/* {authStatus && isLoginPageOpened ? (
-        {/* for the form usage take a look on the prev row*/}
         {props.loader ? (
           <Loader />
         ) : (
@@ -188,7 +189,8 @@ export default connect(
     isNeededSecondStep: state.authState.user.isNeedSecondStep,
     isSecondStepPassed: state.updateSteUserAfterSignIn.isSecondStepPassed,
     user: state.authState.user,
-    usr: state,
+    userData: state.userReducer.user.userData,
+    userDataLoader: state.userReducer.isLoading.status,
   }),
   {
     setAuthenticatedStatus,

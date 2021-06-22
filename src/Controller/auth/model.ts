@@ -71,27 +71,6 @@ export interface ISignInData {
   receivedToken: string;
 }
 
-// export interface IRespond {
-//   accessToken: string;
-//   refreshToken: string;
-//   userData?: IuserData;
-// }
-
-// export interface IuserData {
-//   city?: string | null | any;
-//   email?: string;
-//   firstName?: string;
-//   id?: number;
-//   image?: string;
-//   lastName?: string;
-//   phone?: string | any | null;
-//   startTime?: number;
-//   state?: string | any | null;
-//   street?: string | any | null;
-//   timezone?: string;
-//   zipCode?: string | any | null;
-// }
-
 export interface ISignInInterface {
   receivedToken: string;
   signIntype: string;

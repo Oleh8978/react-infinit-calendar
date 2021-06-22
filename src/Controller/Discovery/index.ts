@@ -68,39 +68,47 @@ export const discoveryListReducer = createReducer<
       ) {
         const payloadResponseArray = [];
 
-        const articles = payload.response.items.filter(
-          (ele) => ele.article !== undefined,
+        const journeyState = state.discoveryList.items.filter(
+          (item) =>
+            Object.keys(item).filter((key) => key === 'journey').length !== 0,
         );
-        if (articles.length !== 0) {
-          articles.map((item) => {
-            if (
-              state.discoveryList.items.find(
-                (elem) => elem.article.id !== item.article.id,
-              )
-            ) {
-              if (item !== undefined) {
-                return payloadResponseArray.push(item);
-              }
-            }
-          });
-        }
-        const journeys = payload.response.items.filter(
-          (ele) => ele.journey !== undefined,
+        console.log('journeyState', journeyState);
+        const journeyPayloadState = payload.response.items.filter(
+          (item) =>
+            Object.keys(item).filter((key) => key === 'journey').length !== 0,
         );
 
-        if (journeys.length !== 0) {
-          journeys.map((item) => {
-            if (
-              state.discoveryList.items.filter(
-                (elem) => elem.journey.id === item.journey.id,
-              ).length === 0
-            ) {
-              if (item !== undefined) {
-                return payloadResponseArray.push(item);
-              }
-            }
-          });
-        }
+        const articleState = state.discoveryList.items.filter(
+          (articleObject) =>
+            Object.keys(articleObject).filter((key) => key === 'article')
+              .length !== 0,
+        );
+
+        const articlePayload = payload.response.items.filter(
+          (articlepayloadObject) =>
+            Object.keys(articlepayloadObject).filter((key) => key === 'article')
+              .length !== 0,
+        );
+
+        journeyPayloadState.map((item) => {
+          if (
+            journeyState.find(
+              (element) => element.journey.id === item.journey.id,
+            ) === undefined
+          ) {
+            payloadResponseArray.push(item);
+          }
+        });
+
+        articlePayload.map((item) => {
+          if (
+            articleState.find(
+              (element) => element.article.id === item.article.id,
+            ) === undefined
+          ) {
+            payloadResponseArray.push(item);
+          }
+        });
 
         newDiscoveryList = concatWithUnique<DiscoveryDTO>(
           state.discoveryList.items || [],
@@ -131,4 +139,3 @@ export const discoveryListReducer = createReducer<
       };
     },
   );
-

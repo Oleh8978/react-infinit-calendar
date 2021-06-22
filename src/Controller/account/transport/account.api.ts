@@ -11,6 +11,7 @@ class API {
     accessToken: string,
   ): Promise<AuthUserLoginByTokenResponseDTO | string> {
     const url = new URL(Config.MAIN_SERVICE_ENDPOINT + 'user/by-token');
+    // const url ='https://api.frasier.ternala.com/api/v1/user/by-token'
     console.log('url lgin by token ',url)
 
     return handleErrors(
