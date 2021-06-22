@@ -10,7 +10,7 @@ import {
 import { Config } from '@app/config/API';
 
 // Exceptions
-import { BadRequest } from '@app/utils/API/Exceptions';
+import { BadRequest } from '@app/utils/API/exceptions';
 
 //APIs
 import { userDataAPI } from '../transport/account.api';

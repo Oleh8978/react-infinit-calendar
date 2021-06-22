@@ -12,11 +12,11 @@ import fakeFace from './static/fakeFace.png';
 
 // interfaces
 import { IName } from './Models';
-import { IStore } from 'Controller/model';
-import { IUser, IUserData } from 'Controller/auth/model';
+import { IStore } from '@app/controller/model';
+import { IUser, IUserData } from '@app/controller/auth/model';
 
 // get user data by token action
-import { getUserAction } from 'Controller/account/actions';
+import { getUserAction } from '@app/controller/account/actions';
 
 interface IProps {
   user: IUser;
