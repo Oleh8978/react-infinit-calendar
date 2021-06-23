@@ -120,7 +120,7 @@ class RoutingSchema {
     },
     {
       name: 'journey',
-      path: '/journey',
+      path: '/journey/:id',
       isExact: true,
       component: ProtectedRoute(Journey, 'ANONYMOUS_USERS'),
     },

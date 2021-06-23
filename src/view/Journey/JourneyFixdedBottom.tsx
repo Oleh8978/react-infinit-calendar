@@ -1,24 +1,51 @@
 import React, { useEffect, useState } from 'react';
+import ConfirmationWindow from '@app/component/modalWindow/confirmationWindow';
 
-interface IProps {}
+interface IProps {
+  price?: number;
+  trialPeriod?: number;
+  setIsStartPopup: (boolean) => void;
+  setIsStopPopup: (boolean) => void;
+}
 
-const JourneyFixedBottom: React.FC<IProps> = () => {
+const JourneyFixedBottom: React.FC<IProps> = ({ ...props }) => {
+ // const [isStartPopup, setIsStartPopup] = useState<boolean>(false);
+ // const [isStopPopup, setIsStopPopup] = useState<boolean>(false);
+
   return (
-    <div className="jorneydiscoveymain-bottom">
-      <div className="jorneydiscoveymain-bottom-pink">
-        <span className="jorneydiscoveymain-bottom-pink-text">
-          Start 17-Day Trial Version
+    <>
+    { props.price && props.price !== 0 ? (
+        <div className='jorneydiscoveymain-bottom'>
+          <button className='jorneydiscoveymain-bottom-pink' onClick={() => props.setIsStartPopup(true)}>
+        <span className='jorneydiscoveymain-bottom-pink-text'>
+          Start {props.trialPeriod}-Day Trial Version
         </span>
-      </div>
-      <div className="jorneydiscoveymain-bottom-pink-full">
-        <span className="jorneydiscoveymain-bottom-pink-full-text">
+          </button>
+          <button className='jorneydiscoveymain-bottom-pink-full'>
+        <span className='jorneydiscoveymain-bottom-pink-full-text'>
           Purchase Full Journey for Only
         </span>{' '}
-        <span className="jorneydiscoveymain-bottom-pink-full-text-price">
-        {' '}$4.99
+            <span className='jorneydiscoveymain-bottom-pink-full-text-price'>
+        {' '}${props.price}
         </span>
-      </div>
-    </div>
+          </button>
+        </div>
+      ) : (
+        <div className='jorneydiscoveymain-bottom'>
+          <button className='jorneydiscoveymain-bottom-pink' onClick={() => props.setIsStartPopup(true)}>
+            <span className='jorneydiscoveymain-bottom-pink-text'>
+              Start This Journey
+            </span>
+          </button>
+          <div className='jorneydiscoveymain-bottom-pink-full'>
+            <span className='jorneydiscoveymain-bottom-pink-full-text'>
+              Free
+            </span>
+          </div>
+        </div>
+      )
+    }
+    </>
   );
 };
 

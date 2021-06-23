@@ -3,12 +3,14 @@ import React from 'react';
 // hardcoded
 import img from './hardcoded/journeyMain.png';
 
-interface IProps {}
+interface IProps {
+  img?: string;
+}
 
-const JourneyHeader: React.FC<IProps> = () => {
+const JourneyHeader: React.FC<IProps> = ({...props}) => {
   return (
     <div className={'journeyinfo-body-header'}>
-      <img src={img} className={'journeyinfo-body-header-img'} alt="img" />
+      <img src={props.img} className={'journeyinfo-body-header-img'} alt="img" />
     </div>
   );
 };

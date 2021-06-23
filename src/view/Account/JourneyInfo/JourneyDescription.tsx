@@ -1,6 +1,6 @@
 import React from 'react';
 
-// components 
+// components
 import JourneyHoursCalculation from './JourneyHoursCalcul'
 
 // dayweeks
@@ -9,6 +9,7 @@ import { dayWeeks } from './data';
 interface IProps {
   hashours?: boolean
   text: string;
+  workDays?: number[];
 }
 
 const JourneyDescription: React.FC<IProps> = ({...props}) => {

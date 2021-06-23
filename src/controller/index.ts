@@ -12,6 +12,7 @@ import { DiscoverySaga, discoveryListReducer } from './Discovery/index';
 import { ArticleReducer, ArticleSaga } from './articleCategory/index';
 import { GetHolidayReducer, HolidaySaga } from './holidays';
 import { accountUserSaga, userReducer } from './account/index';
+import { GetJourneyReducer, JourneySaga } from '@app/controller/journey';
 
 export const rootSaga = function* () {
   yield all([
@@ -23,6 +24,7 @@ export const rootSaga = function* () {
     scheduleSaga(),
     moduleSaga(),
     HolidaySaga(),
+    JourneySaga(),
   ]);
 };
 
@@ -37,4 +39,5 @@ export const rootReducer = (history: History): Reducer =>
     ArticleReducer: ArticleReducer,
     HolidayReducer: GetHolidayReducer,
     userReducer: userReducer,
+    JourneyReducer: GetJourneyReducer,
   });

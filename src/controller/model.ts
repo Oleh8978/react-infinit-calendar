@@ -10,6 +10,7 @@ import { IDiscoveryState } from './Discovery/model';
 import { IAcrticleCategoryState } from './articleCategory/models';
 import { IHolidayState } from './holidays/models';
 import { IAccountState } from './account/models';
+import { IJourneyState } from '@app/controller/journey/models';
 
 export interface IStore {
   router: RouterState;
@@ -22,6 +23,7 @@ export interface IStore {
   ArticleReducer: IAcrticleCategoryState;
   userReducer: IAccountState;
   HolidayReducer: IHolidayState;
+  JourneyReducer: IJourneyState;
 }
 
 export interface ISimpleState {
