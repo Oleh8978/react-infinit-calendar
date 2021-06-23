@@ -1,18 +1,23 @@
 import React from 'react';
 
 // components
-import JourneyHoursCalculation from './JourneyHoursCalcul'
+import JourneyHoursCalculation from './JourneyHoursCalcul';
 
 // dayweeks
 import { dayWeeks } from './data';
+import moment from 'moment';
 
 interface IProps {
-  hashours?: boolean
+  hashours?: boolean;
   text: string;
   workDays?: number[];
 }
 
-const JourneyDescription: React.FC<IProps> = ({...props}) => {
+const JourneyDescription: React.FC<IProps> = ({ ...props }) => {
+  const defaultWeekdays = Array(...(Array(7))).map(function(_, i) {
+    return moment(i, 'e').startOf('week').isoWeekday(i + 1).format('ddd');
+  });
+
   return (
     <div className={'journeyinfo-body-wrapper'}>
       <div className={'journeyinfo-body-wrapper-title'}>
@@ -22,24 +27,26 @@ const JourneyDescription: React.FC<IProps> = ({...props}) => {
       </div>
       {props.hashours ? <JourneyHoursCalculation /> : <> </>}
       <div className={'journeyinfo-body-wrapper-dayweek'}>
-        {dayWeeks.map((item) => {
-          return (
-            <div
-              className={
-                item.isSelected
-                  ? 'journeyinfo-body-wrapper-dayweek-day'
-                  : 'journeyinfo-body-wrapper-dayweek-day__selected'
-              }>
+        {defaultWeekdays.map((dayItem, index) => {
+          if(props.workDays.includes(index)) {
+            return (<div
+              className={'journeyinfo-body-wrapper-dayweek-day__selected'}>
               <span
-                className={
-                  item.isSelected
-                    ? 'journeyinfo-body-wrapper-dayweek-day-text'
-                    : 'journeyinfo-body-wrapper-dayweek-day__selected-text'
-                }>
-                {item.name}
+                className={'journeyinfo-body-wrapper-dayweek-day__selected-text'}>
+                {dayItem}
               </span>
-            </div>
-          );
+            </div>)
+          } else {
+            return (
+              <div
+                className={'journeyinfo-body-wrapper-dayweek-day'}>
+              <span
+                className={'journeyinfo-body-wrapper-dayweek-day-text'}>
+                {dayItem}
+              </span>
+              </div>
+            )
+          }
         })}
       </div>
     </div>
