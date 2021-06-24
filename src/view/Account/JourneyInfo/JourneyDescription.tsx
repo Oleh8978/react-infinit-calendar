@@ -11,6 +11,10 @@ interface IProps {
   hashours?: boolean;
   text: string;
   workDays?: number[];
+  duration?: number;
+  maxDaySpent?: number;
+  minDaySpent?: number;
+  isEndless?: boolean;
 }
 
 const JourneyDescription: React.FC<IProps> = ({ ...props }) => {
@@ -25,7 +29,11 @@ const JourneyDescription: React.FC<IProps> = ({ ...props }) => {
           {props.text}
         </span>
       </div>
-      {props.hashours ? <JourneyHoursCalculation /> : <> </>}
+      {props.hashours ? <JourneyHoursCalculation
+        duration={props.duration}
+        maxDaySpent={props.maxDaySpent}
+        minDaySpent={props.minDaySpent}
+      /> : <> </>}
       <div className={'journeyinfo-body-wrapper-dayweek'}>
         {defaultWeekdays.map((dayItem, index) => {
           if(props.workDays.includes(index)) {

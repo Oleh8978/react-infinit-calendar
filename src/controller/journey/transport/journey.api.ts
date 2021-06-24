@@ -7,7 +7,6 @@ import { Config } from '@app/config/API';
 
 // utils
 import { authHeader, handleErrors } from '@app/utils/API';
-import { appendSearchParams } from '@app/utils/appendSearchParams';
 
 class API {
   public async getJourney(

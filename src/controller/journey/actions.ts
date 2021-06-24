@@ -15,12 +15,6 @@ export const getJourneyDataAction = createAsyncAction(
   `${appName}/${widgetName}/GET_JOURNEY_FAILED`,
 )<number, JourneyGetResponse, IException>();
 
-export const getJourneyStatisticAction = createAsyncAction(
-  `${appName}/${widgetName}/GET_JOURNEY_STATISTIC_REQUEST`,
-  `${appName}/${widgetName}/GET_JOURNEY_STATISTIC_SUCCESS`,
-  `${appName}/${widgetName}/GET_JOURNEY_STATISTIC_FAILED`,
-)<StatisticByJourneyRequest, StatisticGetJourneyResponse, IException>();
-
 export const LoaderAction = createAction(`${widgetName}/SET_LOADER_ACTION`)<{
   code?: number | undefined | string;
   message?: string;

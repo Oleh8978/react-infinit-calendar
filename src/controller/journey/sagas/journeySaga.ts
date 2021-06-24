@@ -1,4 +1,4 @@
-import { all, put, takeEvery } from 'redux-saga/effects';
+import { all, put, select, takeEvery } from 'redux-saga/effects';
 
 // exceptions
 import { BadRequest } from '@app/utils/API/exceptions';
@@ -11,6 +11,7 @@ import * as action from '../actions';
 
 // utils
 import { getSavedAccess } from '@app/utils/manageAccess';
+import { getAccessToken, getRefreshToken } from '@app/controller/auth';
 
 export function* getJourneyData({ payload }: ReturnType<typeof action.getJourneyDataAction.request>) {
   yield put(
@@ -23,10 +24,13 @@ export function* getJourneyData({ payload }: ReturnType<typeof action.getJourney
   );
 
   try {
+    const accessToken: string | undefined = yield yield select(getAccessToken);
+
     const res = yield JourneyAPI.getJourney(
       payload,
-      getSavedAccess().accessToken,
+      accessToken,
     );
+
 
     if (res) {
       yield put(action.getJourneyDataAction.success(res));
@@ -50,6 +54,7 @@ export function* getJourneyData({ payload }: ReturnType<typeof action.getJourney
       throw new BadRequest();
     }
   } catch (error) {
+
     console.log('error ', error);
     yield put(
       action.LoaderAction({
