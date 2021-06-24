@@ -21,6 +21,7 @@ const Module: React.FC<IProps> = (props) => {
 
   const dispatch = useDispatch();
   useEffect(() => {
+    console.log('load module');
     dispatch(
       getModuleAction.request({
         id: idNumber,

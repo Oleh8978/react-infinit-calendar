@@ -84,6 +84,10 @@ const Routing: React.FC<Props> = ({
     useState<boolean>(true);
 
   useEffect(() => {
+    console.log('remount routing');
+  }, []);
+
+  useEffect(() => {
     const authData = getSavedAccess();
     if (authData.accessToken && authData.refreshToken) {
       if (authStatus === false) {
@@ -163,30 +167,31 @@ const Routing: React.FC<Props> = ({
         ) : (
           <div className={'main-layout'}>
             <div className="wrap-main">
-              {transition((style, item) => (
-                <animated.div
-                  key={String(item)}
-                  style={style}
-                  className="main"
-                  id={'main'}>
-                  <Scrollbars
-                    style={{
-                      width: '100%',
-                      maxWidth: 639,
-                      height: '100%',
-                      maxHeight: '100%',
-                      display: 'flex',
-                    }}
-                    renderView={(props) => (
-                      <div {...props} className={'main-wrapper'} />
-                    )}>
-                    <Switch location={item}>
-                      {Routes}
-                      <Redirect to={RoutingSchema.getLink('discovery')} />
-                    </Switch>
-                  </Scrollbars>
-                </animated.div>
-              ))}
+              {/*{transition((style, item) => (*/}
+              <div
+                // key={String(item)}
+                // style={style}
+                className="main"
+                id={'main'}>
+                <Scrollbars
+                  style={{
+                    width: '100%',
+                    maxWidth: 639,
+                    height: '100%',
+                    maxHeight: '100%',
+                    display: 'flex',
+                  }}
+                  renderView={(props) => (
+                    <div {...props} className={'main-wrapper'} />
+                  )}>
+                  {console.log('remount scrollbar')}
+                  <Switch>
+                    {Routes}
+                    <Redirect to={RoutingSchema.getLink('discovery')} />
+                  </Switch>
+                </Scrollbars>
+              </div>
+              {/*))}*/}
             </div>
             <Menu />
           </div>
