@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import moment, { Moment } from 'moment';
 import { timeSlotDateFormat } from '@ternala/frasier-types/lib/constants';
+import { useDispatch, useSelector } from 'react-redux';
 
 // Config
 import {
   limitGetModuleScheduleDays,
   limitGetScheduleDays,
+  LoaderAction
 } from '@app/config/constants';
 
 // components
@@ -14,16 +16,16 @@ import Current from './Current';
 import Uncompleted from './Uncompleted';
 
 // interfaces
-import { useDispatch, useSelector } from 'react-redux';
 import {
   toggleExecuteTaskAction,
   getScheduleAction,
   getUncompletedTimeSlotsAction,
 } from '@app/controller/module/actions';
 import { generateArrayOfDates } from '@app/utils/generateArrayOfDates';
-import { getModules } from '@app/controller/module';
+import { getLoader, getModules } from '@app/controller/module';
 import { ModuleExpandDTO } from '@app/controller/module/models';
 import { IDayWithTimeSlots, TimeSlotDTO } from '@ternala/frasier-types';
+import Loader from '@app/component/Loader';
 
 interface IProps {
   tabName?: string;
@@ -43,6 +45,7 @@ const Task: React.FC<IProps> = ({ id }) => {
   const now = moment();
 
   const modules = useSelector(getModules);
+  const loaders = useSelector(getLoader);
 
   const dispatch = useDispatch();
 
@@ -350,9 +353,11 @@ const Task: React.FC<IProps> = ({ id }) => {
         selectedDay={selectedDay}
         uncompletedSchedule={uncompleted}
       />
-      <div className="tasks-wrapper">
+      <div className='tasks-wrapper'>
         {timeSlots && (
-          <Current
+          loaders.filter(item => item.type === LoaderAction.module.getSchedule).length > 0 ?
+            <Loader isSmall={true} /> :
+            <Current
             timeSlots={timeSlots}
             toggleTask={(data: {
               id: number;
@@ -368,7 +373,9 @@ const Task: React.FC<IProps> = ({ id }) => {
           />
         )}
         {uncompleted && Object.keys(uncompleted).length > 0 ? (
-          <Uncompleted
+          loaders.filter(item => item.type === LoaderAction.module.getUncompletedTimeSlots).length > 0 ?
+            <Loader isSmall={true} /> :
+            <Uncompleted
             prevData={{
               ...uncompleted,
               [moment(selectedDay).format(timeSlotDateFormat)]: undefined,

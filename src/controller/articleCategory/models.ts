@@ -1,4 +1,8 @@
-import { ArticleDTO, ArticleGetListResponse, JourneyShortDTO } from '@ternala/frasier-types';
+import {
+  ArticleDTO,
+  ArticleGetListResponse,
+  JourneyShortDTO,
+} from '@ternala/frasier-types';
 
 import { createdAtSortFieldEnum } from '@ternala/frasier-types/lib/constants/sortFields';
 import { discoveryEntityTypeEnum } from '@ternala/frasier-types/lib/constants/main';
@@ -6,9 +10,7 @@ import { discoveryEntityTypeEnum } from '@ternala/frasier-types/lib/constants/ma
 export interface IAcrticleCategoryState {
   articleCategoriesObject: ArticleGetListResponse;
   storedSearchParams: null | IArticleListSearchParanms;
-  isLoading: boolean;
-  anyErrors: boolean;
-  error: string | undefined;
+  isLoading: ISetLoadingAction;
 }
 
 export interface IArticlesCategoryObject {
@@ -20,25 +22,6 @@ export interface IArticlesCategoryObject {
   createdAt: string | Date;
   articles: ArticleDTO[];
 }
-
-// {
-//   "id": 1,
-//   "title": "Title",
-//   "icon": "Icon",
-//   "color": "Color",
-//   "orderNumber": 2,
-//   "createdAt": "Mon Apr 19 2021 13:47:45 GMT+0300 (Eastern European Summer Time)",
-//   "articles": [
-//     {
-//       "id": 1,
-//       "title": "Title",
-//       "image": "Image",
-//       "appearance": "small",
-//       "startShowingDate": "Mon Apr 19 2021 13:47:45 GMT+0300 (Eastern European Summer Time)",
-//       "createdAt": "Mon Apr 19 2021 13:47:45 GMT+0300 (Eastern European Summer Time)"
-//     }
-//   ]
-// }
 
 export interface IArticleListSearchParanms {
   limit?: string | number;
@@ -55,4 +38,10 @@ export interface IException {
   code: string;
   message: string;
   name?: string;
+}
+
+export interface ISetLoadingAction {
+  status: boolean;
+  anyErrors: boolean;
+  error: string;
 }

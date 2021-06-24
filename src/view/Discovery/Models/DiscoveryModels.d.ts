@@ -1,5 +1,6 @@
 export interface ITopic {
-  image: string,
+  id: number;
+  icon: string,
   color: string,
   title: string
 }

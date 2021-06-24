@@ -55,17 +55,51 @@ export const userReducer = createReducer<IAccountState, AccountActionType>(
     [actions.getUserAction.request],
     (state: IAccountState, { payload }): IAccountState => ({
       ...state,
+      user: {
+        id: 0,
+        isCanSendEmail: false,
+        isCanSendPush: false,
+        isNeedSecondStep: false,
+        journeyConnections: [],
+        userData: null,
+      },
+      isLoading: {
+        status: true,
+      },
+      exceptions: {
+        code: '',
+        message: '',
+        name: '',
+      },
     }),
   )
   .handleAction(
     [actions.getUserAction.success],
     (state: IAccountState, { payload }): IAccountState => ({
       ...state,
+      user: { ...payload },
+      isLoading: {
+        status: false,
+      },
+      exceptions: {
+        code: '',
+        message: '',
+        name: '',
+      },
     }),
   )
   .handleAction(
     [actions.getUserAction.failure],
     (state: IAccountState, { payload }): IAccountState => ({
       ...state,
+      user: { ...state.user },
+      isLoading: {
+        status: false,
+      },
+      exceptions: {
+        code: payload.code,
+        message: payload.message,
+        name: payload.name,
+      },
     }),
   );

@@ -4,7 +4,7 @@ import { all } from 'redux-saga/effects';
 import * as actions from './actions';
 
 // interfaces
-import { IHolidayState } from './models';
+import { IHolidayState, ILoader } from './models';
 
 //Sagas
 import { getHolidayDataSaga } from './sagas/holidaySaga';
@@ -64,3 +64,5 @@ export const GetHolidayReducer = createReducer<
 
 export const getHolidays = (state: IStore): HolidayDTO[] =>
   state.HolidayReducer.holidays;
+export const getHolidayLoader = (state: IStore): ILoader =>
+  state.HolidayReducer.Loader;

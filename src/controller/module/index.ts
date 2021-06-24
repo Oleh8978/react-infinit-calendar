@@ -14,6 +14,7 @@ import { LoaderActionType, IStore } from '../model';
 
 // Sagas
 import { moduleActionSaga } from './sagas/module';
+import { ILoader } from '@app/model';
 
 export type ModuleActionType = ActionType<typeof actions>;
 type ActionTypes = ModuleActionType | LoaderActionType;
@@ -252,3 +253,5 @@ export const removeLoader = loaderActions.actions.removeLoader;
 
 export const getModules = (state: IStore): IModuleState['moduleData'] =>
   state.moduleState.moduleData;
+export const getLoader = (state: IStore): ILoader[] =>
+  state.moduleState.state.loaders;
