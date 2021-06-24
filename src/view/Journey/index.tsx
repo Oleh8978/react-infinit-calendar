@@ -28,9 +28,7 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
   const [isTrialPeriodStarted, setIsTrialPeriodStarted] = useState<boolean>(false);
   const [hasHours, setHasHours] = useState<boolean>(false);
   const [statistic, setStatistic] = useState<any | undefined>();
-  //const [journey, setJourney] = useState<any | undefined>();
 
- //const journeyObj = useSelector(getJourney);
   const journey = useSelector(getJourney);
   const tokenPromise = useSelector(getAccessToken);
   const loader = useSelector(getJourneyLoader);
@@ -39,14 +37,6 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
 
   useEffect(() => {
     dispatch(getJourneyDataAction.request(id));
-    // if (journey === undefined) {
-    //   dispatch(getJourneyDataAction.request(id));
-    // }
-    //
-    // if(journeyObj !== undefined) {
-    //   console.log('journeyObj ', journeyObj)
-    //   setJourney(journeyObj);
-    // }
 
     tokenPromise.then((token) => {
       if (token !== undefined) {
@@ -62,10 +52,10 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
 
   }, []);
 
-  console.log('item');
-  console.log(statistic);
-  console.log('journey');
-  console.log(journey);
+  // console.log('item');
+  // console.log(statistic);
+  // console.log('journey');
+  // console.log(journey);
 
   const setIsStartPopup = (boolean) => {
     setStartPopup(boolean);

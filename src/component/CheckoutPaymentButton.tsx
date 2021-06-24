@@ -7,7 +7,7 @@ const CheckoutPayment: React.FC<IProps> = ({ ...props }) => {
 
   return (
     <div className='checkout-payment'>
-      <button className='checkout-payment-button'>
+      <button className='checkout-payment-button jorneydiscoveymain-bottom-yellow'>
         <span className='checkout-payment-button-text'>
           PayPal
         </span>
