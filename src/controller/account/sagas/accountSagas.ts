@@ -6,8 +6,11 @@ import {
   AuthUserResponseDTO,
 } from '@ternala/frasier-types';
 
-// exceptions
-//import { BadRequest } from 'utils/API/exceptions';
+// config file
+import { Config } from '@app/config/API';
+
+// Exceptions
+import { BadRequest } from '@app/utils/API/exceptions';
 
 //APIs
 import { userDataAPI } from '../transport/account.api';
@@ -15,20 +18,17 @@ import { userDataAPI } from '../transport/account.api';
 // actions
 import * as actions from '../actions';
 
-// utils
+// models
+import { IUser } from '../models';
+
+// Utils
 import {
   clearAccess,
   saveAccess,
   getSavedAccess,
 } from '@app/utils/manageAccess';
 
-// Interfaces
-import { IAccountState } from '../models';
-import { IException, IStore } from '../../model';
-
-export function* getUserData({
-  payload,
-}: ReturnType<typeof actions.getUserAction.request>) {
+export function* getUserData() {
   yield put(
     actions.setLoadingAction({
       status: true,
@@ -37,100 +37,36 @@ export function* getUserData({
 
   try {
     const tokens = getSavedAccess();
-    const userData = {
-      ...(yield userDataAPI.getDataByToken(tokens.accessToken)),
-    };
-    console.log('userData ', userData);
-    // if ('accessToken' in payload) {
-    //   console.log('accessToken in payload', payload);
-    //   const tokens: AuthRefreshRequestDTO = yield checkAccessTokenExpired({
-    //     accessToken: payload.accessToken,
-    //     refreshToken: payload.accessToken,
-    //     deviceCredentials,
-    //   });
-    //   if (typeof tokens === 'string') throw new BadRequest();
-    //   signInData = {
-    //     user: yield AuthAPI.loginByToken(tokens.accessToken),
-    //     ...tokens,
-    //   };
-    //   console.log('signInData auth ', signInData);
-    //   setAuthStateAction({
-    //     isLoading: false,
-    //     message: 'success access token in payload',
-    //     error: false,
-    //   });
-    // } else {
-    //   console.log(
-    //     'payload.receivedToken, ',
-    //     payload.receivedToken,
-    //     'payload.signIntype,',
-    //     payload.signIntype,
-    //     'deviceCredentials, ',
-    //     deviceCredentials,
-    //   );
-    //   signInData = yield AuthAPI.signIn(
-    //     payload.receivedToken,
-    //     payload.signIntype,
-    //     deviceCredentials,
-    //   );
-    //   setAuthStateAction({
-    //     isLoading: true,
-    //     message: 'success access token not in payload',
-    //     error: false,
-    //   });
-    // }
+    if (!tokens.accessToken) throw new Error('Not authorized');
+    const userData: IUser = yield userDataAPI.getDataByToken(
+      tokens.accessToken,
+    );
 
-    // if (signInData) {
-    //   console.log('sign in data ', signInData);
-    //   yield put(
-    //     signIn.success({
-    //       ...signInData,
-    //       state: {
-    //         isLoading: false,
-    //       },
-    //     }),
-    //   );
-    //   saveAccess(signInData.accessToken, signInData.refreshToken);
-    //   yield put(setAuthenticatedStatus({ status: true }));
-    //   setAuthStateAction({
-    //     isLoading: false,
-    //     message: 'sign in success',
-    //     error: false,
-    //   });
-    // } else {
-    //   throw new BadRequest();
-    // }
-    // yield put(
-    //   setAuthStateAction({
-    //     isLoading: false,
-    //     message: 'success',
-    //     error: false,
-    //   }),
-    // );
+    if (userData !== undefined && userData.id !== 0) {
+      yield put(actions.getUserAction.success(userData));
+    }
+    yield put(
+      actions.setLoadingAction({
+        status: false,
+      }),
+    );
   } catch (error) {
-    console.log('eroror receivd ', error);
-    // clearAccess();
-    // if (error.statusCode === 401) {
-    //   yield put(
-    //     setAuthStateAction({
-    //       code: error.statusCode,
-    //       isLoading: false,
-    //       message: 'Something wrong with the account ',
-    //       error: true,
-    //     }),
-    //   );
-    // } else {
-    //   yield put(
-    //     setAuthStateAction({
-    //       isLoading: false,
-    //       message: 'Something wrong with the account ',
-    //       error: true,
-    //     }),
-    //   );
-    // }
+    console.log('USERDATA ERROR ', error);
+    yield put(
+      actions.setLoadingAction({
+        status: false,
+      }),
+    );
+    yield put(
+      actions.getUserAction.failure({
+        code: `Error from user data get ${error.code}`,
+        message: 'Error in user data get controller ',
+        name: `Error name ${error}`,
+      }),
+    );
   }
 }
 
 export function* accountSaga() {
-  yield all([getSavedAccess()]);
+  yield all([getUserData()]);
 }

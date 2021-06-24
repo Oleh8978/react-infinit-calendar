@@ -26,10 +26,9 @@ class API {
 
     if (Array.isArray(discoverySearchParams['categories'])) {
       discoverySearchParams['categories']?.forEach((item) => {
-        url.searchParams.append(`${'categories'}[]`, String(item));
+        url.searchParams.append(`${'categories[]'}`, String(item));
       });
     }
-
     return handleErrors(
       fetch(url.toString(), {
         method: 'GET',

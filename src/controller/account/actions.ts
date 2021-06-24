@@ -3,7 +3,7 @@ import { createAction, createAsyncAction } from 'typesafe-actions';
 import { appName } from '@app/config';
 
 //Interfaces
-import { IException, ISetLoadingAction } from './models';
+import { IException, ISetLoadingAction, IUser } from './models';
 import {
   UserDataCreateRequest,
   UserDataUpdateRequest,
@@ -19,18 +19,14 @@ export const widgetName = 'user';
 
 // loading action
 export const setLoadingAction = createAction(
-  `${appName}/${widgetName}/SET_AUTHENTICATED_STATUS`,
+  `${appName}/${widgetName}/SET-ACCOUNT_LOADINACTION`,
 )<ISetLoadingAction>();
 
 export const getUserAction = createAsyncAction(
   `${appName}/${widgetName}/GET_USER_REQUEST`,
   `${appName}/${widgetName}/GET_USER_SUCCESS`,
-  `${appName}/${widgetName}/GET_USER_FILED`,
-)<
-  UserDataCreateRequest & { callback?: any },
-  UserDataGetResponse,
-  IException
->();
+  `${appName}/${widgetName}/GET_USER_FAILED`,
+)<null, IUser, IException>();
 
 // export const updateUserAction = createAsyncAction(
 //   `${appName}/${widgetName}/UPDATE_USER_REQUEST`,

@@ -13,14 +13,15 @@ import { ArticleDTO } from '@ternala/frasier-types';
 interface IProps {
   marginAdder: (isSmall: boolean) => void;
   articleCategories: ArticleDTO[] | undefined;
+  loadDiscovloadArticleCategoeries: (point: string) => void;
+  arraySetter?: (id: number) => void;
 }
 
-const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
+const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
   const [smallMenu, setSmallMenu] = useState<boolean>(false);
-  const [ArticleList, setArticleList] = useState<ArticleDTO[]>([]);
+  const [articleCategories, setrticleCategories] = useState<any>([]);
 
   const scrollTracker = () => {
-    // console.log('inn', document.querySelector('.main-wrapper').scrollTop);
     if (document.querySelector('.main-wrapper-discovery').scrollTop > 400) {
       setSmallMenu(true);
       marginAdder(true);
@@ -34,6 +35,12 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
     document.querySelector('.main-wrapper-discovery').scrollTo(0, 0);
   };
 
+  const LoadMoreTracker = () => {
+    const element = document.querySelector(
+      '.discovery-menu-wrapper',
+    ) as HTMLElement;
+    console.log('element.offsetLeft ', element.offsetLeft);
+  };
   const moseMover = (ele) => {
     let pos = { top: 0, left: 0, x: 0, y: 0 };
 
@@ -41,7 +48,6 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
       pos = {
         left: ele.scrollLeft,
         top: ele.scrollTop,
-        // Get the current mouse position
         x: e.clientX,
         y: e.clientY,
       };
@@ -67,6 +73,8 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
 
     // Attach the handler
     if (ele !== null) ele.addEventListener('mousedown', mouseDownHandler);
+    // functionlity to track sroll offfset
+    LoadMoreTracker();
   };
 
   useEffect(() => {
@@ -84,13 +92,18 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
         scrollTracker();
       });
 
+    if (props.articleCategories !== undefined) {
+      setrticleCategories(props.articleCategories);
+    }
+
     return () => {
       const main = document.querySelector('.main-wrapper-discovery');
 
       if (main !== null)
         main.removeEventListener('scroll', () => scrollTracker());
     };
-  }, []);
+  }, [props.articleCategories]);
+
   const bigMenuRender = (arr: ITopic[]) => {
     const arrSorted = [];
     for (let i = 0; i < arr.length; i += 2) {
@@ -99,20 +112,22 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
           <div className={'topic-items-container'}>
             <div
               className={'topic-item__top'}
-              style={{ backgroundColor: arr[i].color }}>
+              style={{ backgroundColor: arr[i].color }}
+              onClick={() => props.arraySetter(arr[i].id)}>
               <div className="topic-item-img">
                 <div className="topic-item-img-wrapper">
-                  <img src={arr[i].image} alt="img" />
+                  <img src={arr[i].icon} alt="img" />
                 </div>
               </div>
               <span className="topic-item-text">{arr[i].title}</span>
             </div>
             <div
               className={'topic-item__bottom'}
-              style={{ backgroundColor: arr[i + 1].color }}>
+              style={{ backgroundColor: arr[i + 1].color }}
+              onClick={() => props.arraySetter(arr[i + 1].id)}>
               <div className="topic-item-img">
                 <div className="topic-item-img-wrapper">
-                  <img src={arr[i + 1].image} alt="img" />
+                  <img src={arr[i + 1].icon} alt="img" />
                 </div>
               </div>
               <span className="topic-item-text">{arr[i + 1].title}</span>
@@ -127,10 +142,11 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
         <div className={'topic-items-container'}>
           <div
             className={'topic-item__top'}
-            style={{ backgroundColor: arr[arr.length - 1].color }}>
+            style={{ backgroundColor: arr[arr.length - 1].color }}
+            onClick={() => props.arraySetter(arr[arr.length - 1].id)}>
             <div className="topic-item-img">
               <div className="topic-item-img-wrapper">
-                <img src={arr[arr.length - 1].image} alt="img" />
+                <img src={arr[arr.length - 1].icon} alt="img" />
               </div>
             </div>
             <span className="topic-item-text">{arr[arr.length - 1].title}</span>
@@ -150,7 +166,9 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
         <>
           {items.map((element) => {
             return (
-              <div className="discovery-menu-small-item">
+              <div
+                className="discovery-menu-small-item"
+                onClick={() => props.arraySetter(element.id)}>
                 <span className="discovery-menu-small-item-txt">
                   {element.title}
                 </span>
@@ -171,19 +189,27 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder }) => {
           top: '50px',
           display: smallMenu ? 'flex' : 'none',
         }}>
-        <div
-          className={
-            'discovery-menu-wrapper__small menu-animated scrollbar__hidden'
-          }>
-          {smallMenuRender(topics)}
-        </div>
+        <>
+          {articleCategories !== undefined && (
+            <div
+              className={
+                'discovery-menu-wrapper__small menu-animated scrollbar__hidden'
+              }>
+              {smallMenuRender(articleCategories)}
+            </div>
+          )}
+        </>
       </div>
 
       <div className={'discovery-menu'}>
         <span className={'discovery-select'}>Select your topic interest</span>
-        <div className={'discovery-menu-wrapper scrollbar__hidden'}>
-          {bigMenuRender(topics)}
-        </div>
+        <>
+          {articleCategories !== undefined && (
+            <div className={'discovery-menu-wrapper scrollbar__hidden'}>
+              {bigMenuRender(articleCategories)}
+            </div>
+          )}
+        </>
       </div>
     </>
   );
