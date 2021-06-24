@@ -9,6 +9,8 @@ import { UpdateAfterSignInRequestReducer } from './secondStepDataUpdater/index';
 import { DiscoverySaga, discoveryListReducer } from './Discovery/index';
 import { ArticleReducer, ArticleSaga } from './articleCategory/index';
 import { accountUserSaga, userReducer } from './account/index';
+import { todaySatisticSaga, statisticReducer } from './statistic/index';
+import { listFOStatisticSaga, statisticListReducer } from './statisticList/index';
 
 export const rootSaga = function* () {
   yield all([
@@ -17,6 +19,8 @@ export const rootSaga = function* () {
     DiscoverySaga(),
     ArticleSaga(),
     accountUserSaga(),
+    todaySatisticSaga(),
+    listFOStatisticSaga(),
   ]);
 };
 
@@ -28,4 +32,6 @@ export const rootReducer = (history: History): Reducer =>
     discoveryListReducer: discoveryListReducer,
     ArticleReducer: ArticleReducer,
     userReducer: userReducer,
+    statisticReducer: statisticReducer,
+    statisticListReducer: statisticListReducer,
   });

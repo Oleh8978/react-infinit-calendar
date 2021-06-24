@@ -6,9 +6,6 @@ import {
   AuthUserResponseDTO,
 } from '@ternala/frasier-types';
 
-// config file
-import { Config } from '../../../Config/API';
-
 // Exceptions
 import { BadRequest } from 'utils/API/Exceptions';
 
@@ -24,7 +21,9 @@ import { IUser } from '../models';
 // Utils
 import { getSavedAccess } from '../../../utils/manageAccess';
 
-export function* getUserData() {
+export function* getUserData({
+  payload,
+}: ReturnType<typeof actions.getUserAction.request>) {
   yield put(
     actions.setLoadingAction({
       status: true,
@@ -38,9 +37,10 @@ export function* getUserData() {
       tokens.accessToken,
     );
 
-    if (userData !== undefined && userData.id !== 0) {
+    if (userData !== undefined) {
       yield put(actions.getUserAction.success(userData));
     }
+    console.log('user data ', userData);
     yield put(
       actions.setLoadingAction({
         status: false,
@@ -64,5 +64,5 @@ export function* getUserData() {
 }
 
 export function* accountSaga() {
-  yield all([getUserData()]);
+  yield all([takeEvery(actions.getUserAction.request, getUserData)]);
 }

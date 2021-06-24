@@ -122,15 +122,25 @@ export const authReducer = createReducer<IAuthState, AuthActionType>(
     }),
   )
   .handleAction(
-    [actions.refreshTokenAction.success],
+    [actions.deleteProfile.success],
     (state: IAuthState, { payload }): IAuthState => ({
       ...state,
-      accessToken: payload.accessToken,
-      refreshToken: payload.refreshToken,
-      isAuthenticated: true,
+      ...payload,
+      accessToken: '',
+      refreshToken: '',
+      isAuthenticated: false,
       error: undefined,
+      user: {},
     }),
-  )
+  );
+// .handleAction(
+//   [actions.deleteProfile.failure],
+//   (state: IAuthState, { payload }): IAuthState => ({
+//     ...state,
+//     error: payload,
+//     isAuthenticated: false,
+//   }),
+// );
 
 /* Selectors */
 

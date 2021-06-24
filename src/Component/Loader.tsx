@@ -2,6 +2,7 @@ import React from 'react';
 
 export interface IProps {
   isSmall?: boolean;
+  styleComp?: number;
 }
 
 export const Loader: React.FC<IProps> = ({ ...props }) => {
@@ -9,7 +10,11 @@ export const Loader: React.FC<IProps> = ({ ...props }) => {
     <>
       {props.isSmall ? (
         <div className="smallWrapper">
-          <div className={'loader'}>
+          <div
+            className={'loader'}
+            style={{
+              height: props.styleComp ? `${props.styleComp}px` : 'auto',
+            }}>
             <span></span>
             <span></span>
             <span></span>

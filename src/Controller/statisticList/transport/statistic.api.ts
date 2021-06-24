@@ -1,19 +1,14 @@
 import { AuthUserLoginByTokenResponseDTO } from '@ternala/frasier-types/lib/index';
 
-// config file 
 import { Config } from '../../../Config/API';
-import { authHeader, handleErrors, refreshHeader } from '../../../utils/API';
-
+import { authHeader, handleErrors } from '../../../utils/API';
 
 class API {
-
-  public async getDataByToken(
+  public async GetStatisticList(
     accessToken: string,
   ): Promise<AuthUserLoginByTokenResponseDTO | string> {
-    console.log('url lgin by token config file ',Config.MAIN_SERVICE_ENDPOINT)
+    const url = new URL(Config.MAIN_SERVICE_ENDPOINT + 'statistic/list');
 
-    const url = new URL(Config.MAIN_SERVICE_ENDPOINT + 'user/by-token');
-console.log('url ', url )
     return handleErrors(
       fetch(url.toString(), {
         method: 'GET',
@@ -24,4 +19,4 @@ console.log('url ', url )
     );
   }
 }
-export const userDataAPI = new API();
+export const StatisticsListAPI = new API();

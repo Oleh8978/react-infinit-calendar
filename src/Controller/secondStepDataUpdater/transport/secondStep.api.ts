@@ -13,7 +13,6 @@ class API {
     userData: IUserDataExtended,
     accessToken: string,
   ): Promise<IUserDataExtended | string> {
-    console.log('user data ', userData)
     const url = new URL(Config.MAIN_SERVICE_ENDPOINT + 'user/data');
 
     return handleErrors(

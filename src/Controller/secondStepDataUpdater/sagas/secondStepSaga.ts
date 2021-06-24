@@ -26,14 +26,20 @@ export function* updateUserData({
 }: ReturnType<typeof action.updateUserDataAction.request>) {
   yield put(
     action.LoaderAction({
-      code: undefined,
-      error: false,
-      isLoading: true,
-      message: 'Loading...',
+      status: true,
+      code: '',
+      message: '',
     }),
   );
 
   try {
+    yield put(
+      action.LoaderAction({
+        status: true,
+        code: '',
+        message: '',
+      }),
+    );
     const UserData = yield UpdateUserApi.updateUserAfterLogIn(
       { ...payload },
       getSavedAccess().accessToken,
@@ -46,20 +52,18 @@ export function* updateUserData({
       yield put(action.setIsSecondStepPassed({ isSecondStepPassed: true }));
       yield put(
         action.LoaderAction({
-          code: undefined,
-          error: false,
-          isLoading: false,
-          message: 'success loaded and put',
+          status: false,
+          code: '',
+          message: '',
         }),
       );
     } else {
       yield put(action.setIsSecondStepPassed({ isSecondStepPassed: false }));
       yield put(
         action.LoaderAction({
-          code: undefined,
-          error: false,
-          isLoading: false,
-          message: 'error while puting the data posted',
+          status: false,
+          code: '',
+          message: '',
         }),
       );
       throw new BadRequest();
@@ -69,10 +73,9 @@ export function* updateUserData({
     console.log('error ', error);
     yield put(
       action.LoaderAction({
-        code: error.code,
-        error: true,
-        isLoading: false,
-        message: 'failure not loaded and not sent',
+        status: false,
+        code: '',
+        message: '',
       }),
     );
     action.updateUserDataAction.failure({

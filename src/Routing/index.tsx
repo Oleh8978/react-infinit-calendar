@@ -6,7 +6,7 @@ import { useTransition, animated } from 'react-spring';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 // utils functions
-import { getSavedAccess } from 'utils/manageAccess';
+import { getSavedAccess, clearAccess } from 'utils/manageAccess';
 
 // interfaces
 import { IStore } from 'Controller/model';
@@ -22,6 +22,7 @@ import {
   setAuthenticatedStatus,
   loginByTokenAction,
   setIsneedSecondStep,
+  logOut
 } from 'Controller/auth/actions';
 
 // Routing schema
@@ -31,9 +32,6 @@ import RoutingSchema from './schema';
 import Login from '../View/Login';
 import Menu from '../Component/Menu';
 import Loader from 'Component/Loader';
-
-// clear access method
-import { clearAccess } from 'utils/manageAccess';
 
 // Render all routes
 const Routes = RoutingSchema.getSchema.map(
@@ -68,6 +66,8 @@ const Routing: React.FC<Props> = ({
     isNeeededSecondStepValue,
     setIsNeededSecondSteValue,
   ] = useState<boolean>(true);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const authData = getSavedAccess();
@@ -117,6 +117,7 @@ const Routing: React.FC<Props> = ({
 
   const logoutMethod = () => {
     props.setAuthenticatedStatus({ status: false });
+    dispatch(logOut.request({}));
     clearAccess();
   };
 

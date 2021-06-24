@@ -14,6 +14,8 @@ interface IProps {
   isFirstpage?: boolean;
   user?: IUser;
   validatorFunctionality?: (key: string, value: string) => void;
+  setObjectState?: (key: string, value: string) => void;
+  observer?: () => void;
 }
 
 const EdditBodyElementItem: React.FC<IProps> = ({ ...props }) => {
@@ -54,8 +56,16 @@ const EdditBodyElementItem: React.FC<IProps> = ({ ...props }) => {
   };
 
   const handleChange = (event) => {
+    if (!props.isFirstpage) {
+      props.setObjectState(props.data.subname, event.target.value);
+      props.observer();
+    }
     setValue(event.target.value);
     validator(props.data.subname, event.target.value);
+  };
+
+  const dropOnChangeValue = (event) => {
+    props.setObjectState(props.data.subname, event.target.value);
   };
 
   const validate = () => {
@@ -83,7 +93,8 @@ const EdditBodyElementItem: React.FC<IProps> = ({ ...props }) => {
         {props.data.isSelect ? (
           <select
             className="edditprofile-body-itemWrapper-element-container-select
-          edditprofile-body-itemWrapper-element-container-input">
+          edditprofile-body-itemWrapper-element-container-input"
+            onChange={dropOnChangeValue}>
             {props.timeZones.map((item) => {
               return (
                 <option>

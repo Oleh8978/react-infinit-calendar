@@ -20,11 +20,11 @@ const Account: React.FC<IProps> = () => {
     <div className={'profile-wrapper'}>
       <Profile />
       <div className="profile-body-wrapper">
-        <AnalisticKPI />
+        {/* <AnalisticKPI /> */}
         {/* <NoDataFound /> */}
         <TodaysJourney />
-        <Notes />
-        <Tips />
+        {/* <Notes /> */}
+        {/* <Tips /> */}
         <MyJourneys />
       </div>
     </div>

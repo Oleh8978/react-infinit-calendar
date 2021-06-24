@@ -4,20 +4,20 @@ import React from 'react';
 import Link from 'Routing/Link';
 
 // interfaces
-import { IModule } from '../Models';
+import { IJourney } from 'Controller/statisticList/models';
 
 // helpers
 import * as helpers from '../utils';
 import CircularProgressBar from '../../../Component/CircularProgressBar';
 
 interface IProps {
-  data: IModule;
+  data: IJourney;
 }
 
 const JorneyComponent: React.FC<IProps> = ({ ...props }) => {
   return (
     <>
-      {props.data.hours ? (
+      {props.data.statistic.endDate ? (
         <Link to={'journey-info'}>
           <div className={'single-jorney-component__column'}>
             <div className={'single-jorney-component__column-header'}>
@@ -35,7 +35,8 @@ const JorneyComponent: React.FC<IProps> = ({ ...props }) => {
                     className={
                       'single-jorney-component__column-body__left-text__top-numbers'
                     }>
-                    {props.data.hoursSpent} / {props.data.hours}
+                    {props.data.statistic.spent} /{' '}
+                    {props.data.statistic.maxSpent}
                   </span>
                   <span
                     className={
@@ -54,9 +55,9 @@ const JorneyComponent: React.FC<IProps> = ({ ...props }) => {
                       'single-jorney-component__column-body__left-text__bottom-date'
                     }>
                     {helpers.dateCreatorSlashes(
-                      new Date(props.data.ends).getDate(),
-                      new Date(props.data.ends).getMonth() + 1,
-                      new Date(props.data.ends).getFullYear(),
+                      new Date(props.data.statistic.endDate).getDate(),
+                      new Date(props.data.statistic.endDate).getMonth() + 1,
+                      new Date(props.data.statistic.endDate).getFullYear(),
                     )}
                   </span>
                   <span
@@ -68,7 +69,15 @@ const JorneyComponent: React.FC<IProps> = ({ ...props }) => {
                 </div>
               </div>
               <div className={'single-jorney-component__column-body__right'}>
-                <CircularProgressBar sqSize={110} percentage={Math.round(props.data.hoursSpent / props.data.hours * 100)} strokeColor={props.data.color || '#83DCBC'}/>
+                <CircularProgressBar
+                  sqSize={110}
+                  percentage={Math.round(
+                    (props.data.statistic.spent /
+                      props.data.statistic.maxSpent) *
+                      100,
+                  )}
+                  strokeColor={props.data.accentColor || '#83DCBC'}
+                />
               </div>
             </div>
           </div>
@@ -87,7 +96,7 @@ const JorneyComponent: React.FC<IProps> = ({ ...props }) => {
                   className={
                     'single-jorney-component__row-body__left-text__top-numbers'
                   }>
-                  {props.data.hoursSpent}
+                  {props.data.statistic.spent}
                 </span>
                 <span
                   className={
