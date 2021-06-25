@@ -146,7 +146,7 @@ const Module: React.FC<IProps> = (props) => {
       {loaders.filter((item) => item.type === LoaderAction.module.getModule)
         .length > 0 ? (
         <Loader isSmall={true} />
-      ) : modules[idNumber].isExpired ? (
+      ) : modules?.[idNumber]?.isExpired ? (
         <TrialExpired />
       ) : (
         <div className={'module-body'}>{props.children}</div>
