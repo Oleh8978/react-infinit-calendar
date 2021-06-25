@@ -24,7 +24,7 @@ const PrevUncompleted: React.FC<IProps> = ({ date, timeSlots }) => {
           <InternalLink
             to={'module-tab'}
             params={{
-              id: String(timeSlot.module.id),
+              id: String(timeSlot.module?.id),
               tabName: 'task',
             }}
             className={'task-previous-description'}
