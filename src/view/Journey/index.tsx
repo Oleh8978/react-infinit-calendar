@@ -11,12 +11,17 @@ import JourneyListComponent from '@app/view/Account/JourneyInfo/JourneyListCompo
 import JourneyFixedBottom from './JourneyFixdedBottom';
 
 import { getJourney, getJourneyLoader } from '@app/controller/journey';
-import { getJourneyDataAction } from '@app/controller/journey/actions';
+import {
+  deleteJourneyConnectAction,
+  getJourneyDataAction,
+  setJourneyConnectAction,
+} from '@app/controller/journey/actions';
 import { getAccessToken } from '@app/controller/auth';
 import { StatisticAPI } from '@app/controller/statistic/transport/statistic.api';
 import { RouteComponentProps } from 'react-router-dom';
 import Loader from '@app/component/Loader';
 import ConfirmationWindow from '@app/component/modalWindow/confirmationWindow';
+import { deleteDayOffAction, setDayOffAction } from '@app/controller/schedule/actions';
 
 type IProps = RouteComponentProps<{ id: string }>;
 
@@ -68,12 +73,22 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
     setStartPopup(false);
     //const newDate = new Date();
     setIsTrialPeriodStarted(true);
+    dispatch(
+      setJourneyConnectAction.request({
+        journey: id, isPaid: false, startDate: undefined, user: 5
+      }),
+    );
   };
 
   const stopTrial = () => {
     setStopPopup(false);
     setIsTrialPeriodStarted(false);
     setIsTrialPeriod(false);
+    dispatch(
+      deleteJourneyConnectAction.request({
+        ids: [id],
+      }),
+    );
   };
 
   return (

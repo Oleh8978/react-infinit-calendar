@@ -1,5 +1,12 @@
 import {
+  ArticleGetResponse,
+  DayOffCreateRequest,
+  DayOffDeleteRequest,
+  DayOffDeleteResponse,
   JourneyGetResponse,
+  JourneyUserConnectCreateRequest,
+  JourneyUserConnectCreateResponse,
+  JourneyUserConnectDeleteRequest, JourneyUserConnectDeleteResponse,
 } from '@ternala/frasier-types';
 
 // config
@@ -21,6 +28,47 @@ class API {
         headers: {
           ...authHeader(accessToken),
           'Content-Type': 'application/json',
+        },
+      }),
+    );
+  }
+
+  public async setJourneyConnect(
+    { ...data }: JourneyUserConnectCreateRequest,
+    accessToken: string,
+  ): Promise<JourneyUserConnectCreateResponse | string> {
+    const url = new URL(Config.MAIN_SERVICE_ENDPOINT + `journey/${data.journey}/connect`);
+
+    return handleErrors(
+      fetch(url.toString(), {
+        method: 'POST',
+        body: JSON.stringify({
+          id: data.journey,
+        }),
+        headers: {
+          'Content-type': 'application/json',
+          ...authHeader(accessToken),
+        },
+      }),
+    );
+  }
+
+  public async deleteJourneyConnect(
+    data: JourneyUserConnectDeleteRequest,
+    accessToken: string,
+  ): Promise<JourneyUserConnectDeleteResponse | string> {
+    const url = new URL(Config.MAIN_SERVICE_ENDPOINT + `journey/delete/connect/${data.ids}`);
+    console.log('data: ', data);
+
+    return handleErrors(
+      fetch(url.toString(), {
+        method: 'DELETE',
+        body: JSON.stringify({
+          ids: data.ids,
+        }),
+        headers: {
+          'Content-type': 'application/json',
+          ...authHeader(accessToken),
         },
       }),
     );
