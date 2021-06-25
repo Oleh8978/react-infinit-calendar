@@ -4,15 +4,15 @@ import { connect, useDispatch } from 'react-redux';
 // components
 import JorneyComponent from './JorneyComponent/JorneyComponent';
 import CompletedJourneys from './Completed/CompletedJourneys';
-import Loader from 'Component/Loader';
+import Loader from '@app/component/Loader';
 
 // Actions
-import { getStatisticList } from 'Controller/statisticList/actions';
+import { getStatisticList } from '@app/controller/statisticList/actions';
 
 // interfaces
 import { IModule } from './Models';
-import { IStore } from 'Controller/model';
-import { IJourney } from 'Controller/statisticList/models';
+import { IStore } from '@app/controller/model';
+import { IJourney } from '@app/controller/statisticList/models';
 
 interface IProps {}
 

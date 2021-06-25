@@ -7,15 +7,15 @@ import { Pages } from '@app/routing/schema';
 // components
 import NavigationBar from '@app/component/NavigationBar';
 import BodyEdditProfile from './BodyEdditProfile';
-import Loader from 'Component/Loader';
+import Loader from '@app/component/Loader';
 
 // action
-import { updateUserDataAction } from 'Controller/secondStepDataUpdater/actions';
-import { loginByTokenAction } from 'Controller/auth/actions';
+import { updateUserDataAction } from '@app/controller/secondStepDataUpdater/actions';
+import { loginByTokenAction } from '@app/controller/auth/actions';
 
 // interfaces
-import { IUser } from 'Controller/auth/model';
-import { IStore } from 'Controller/model';
+import { IUser } from '@app/controller/auth/model';
+import { IStore } from '@app/controller/model';
 
 interface IProps {}
 

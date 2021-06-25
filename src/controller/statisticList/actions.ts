@@ -1,6 +1,6 @@
 import { createAction, createAsyncAction } from 'typesafe-actions';
 
-import { appName } from 'Config';
+import { appName } from '@app/config';
 
 //Interfaces
 import { ILoaderState, IErrorState, IStatisticsListState, IJourney} from './models';

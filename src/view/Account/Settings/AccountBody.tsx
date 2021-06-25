@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
 
 // components
-import Loader from 'Component/Loader';
+import Loader from '@app/component/Loader';
 
 // inetrfaces
-import { IStore } from 'Controller/model';
-import { IUserData } from 'Controller/auth/model';
+import { IStore } from '@app/controller/model';
+import { IUserData } from '@app/controller/auth/model';
 
 // Actions
-import { loginByTokenAction } from 'Controller/auth/actions';
+import { loginByTokenAction } from '@app/controller/auth/actions';
 
 // static
 import pen from './static/pen.png';

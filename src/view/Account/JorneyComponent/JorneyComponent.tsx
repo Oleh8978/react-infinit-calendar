@@ -4,7 +4,7 @@ import React from 'react';
 import Link from '@app/routing/Link';
 
 // interfaces
-import { IJourney } from 'Controller/statisticList/models';
+import { IJourney } from '@app/controller/statisticList/models';
 
 // helpers
 import * as helpers from '../utils';

@@ -1,7 +1,7 @@
 import { AuthUserLoginByTokenResponseDTO } from '@ternala/frasier-types/lib/index';
 
-import { Config } from '../../../Config/API';
-import { authHeader, handleErrors } from '../../../utils/API';
+import { Config } from '@app/config/API';
+import { authHeader, handleErrors } from '@app/utils/API';
 
 class API {
   public async GetStatistic(

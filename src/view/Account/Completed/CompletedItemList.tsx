@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 // interfaces
 import { IListItemCompleted } from '../Models';
-import { IJourney } from 'Controller/statisticList/models';
+import { IJourney } from '@app/controller/statisticList/models';
 
 // hardcodedData
 import { dataModulesCompleted } from '../hardcodedData/data';

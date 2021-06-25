@@ -10,7 +10,7 @@ import {
   TimeSlotGetListRequest,
   TimeSlotGetPreviouslyUncompletedListRequest,
 } from '@ternala/frasier-types';
-import { Config } from '../../../config/API';
+import { Config } from '@app/config/API';
 import { authHeader, handleErrors } from '@app/utils/API';
 import { appendSearchParams } from '@app/utils/appendSearchParams';
 

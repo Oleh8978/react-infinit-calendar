@@ -4,14 +4,14 @@ import WavePercentage from '@app/component/WavePercentage';
 import { dataModulesProgress } from './hardcodedData/data';
 
 // components
-import Loader from 'Component/Loader';
+import Loader from '@app/component/Loader';
 
 // Actions
-import { getStatisticToday } from 'Controller/statistic/actions';
+import { getStatisticToday } from '@app/controller/statistic/actions';
 
 // interfaces
 import { IModuleProgress } from './Models';
-import { IStore } from 'Controller/model';
+import { IStore } from '@app/controller/model';
 
 interface IProps {}
 

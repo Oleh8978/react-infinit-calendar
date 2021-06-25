@@ -12,8 +12,8 @@ import { IvalidatorState } from '../../LoginPages/utils/models';
 import { IFullObjectState, IboolState } from './Models';
 
 // actions
-import { loginByTokenAction, deleteProfile } from 'Controller/auth/actions';
-import { updateUserDataAction } from 'Controller/secondStepDataUpdater/actions';
+import { loginByTokenAction, deleteProfile } from '@app/controller/auth/actions';
+import { updateUserDataAction } from '@app/controller/secondStepDataUpdater/actions';
 
 // data schema
 import * as editList from './static';
@@ -23,7 +23,7 @@ import { validation } from '../../LoginPages/utils/validation';
 import { editProfileState, editProfileStateEquality } from './utils/constnats';
 
 // helpers
-import { getSavedAccess } from 'utils/manageAccess';
+import { getSavedAccess } from '@app/utils/manageAccess';
 
 interface IProps {
   isFirstpage?: boolean;

@@ -6,7 +6,7 @@ import {
 } from '@ternala/frasier-types';
 
 // Exceptions
-import { BadRequest } from 'utils/API/Exceptions';
+import { BadRequest } from '@app/utils/API/exceptions';
 
 //APIs
 import { StatisticsAPI } from '../transport/statistic.api';
@@ -16,7 +16,7 @@ import { getAccessToken, getRefreshToken } from '../../auth/index';
 import * as actions from '../actions';
 
 // Utils
-import { getCredentials } from '../../../utils/deviceCredentials';
+import { getCredentials } from '@app/utils/deviceCredentials';
 
 // Interfaces
 import { IstatisticToday } from '../models';

@@ -4,22 +4,22 @@ import { connect, useDispatch } from 'react-redux';
 // components
 import SettingsBlock from './SettingsBlock';
 import LogOut from './ButtonTypes/LogOut';
-import Loader from 'Component/Loader';
+import Loader from '@app/component/Loader';
 
 // interfaces
-import { IStore } from 'Controller/model';
+import { IStore } from '@app/controller/model';
 
 // settings
 import * as settingsConfig from './settingsConfig';
 
 // utils functions
-import { clearAccess } from 'utils/manageAccess';
+import { clearAccess } from '@app/utils/manageAccess';
 
 // actions
 import {
   setAuthenticatedStatus,
   logOut,
-} from 'Controller/auth/actions';
+} from '@app/controller/auth/actions';
 
 interface IProps {}
 

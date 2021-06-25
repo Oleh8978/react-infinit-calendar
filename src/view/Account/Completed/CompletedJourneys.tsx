@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import JourneyCompletedItem from './CompletedItemList';
 
 // interfaces
-import { IJourney } from 'Controller/statisticList/models';
+import { IJourney } from '@app/controller/statisticList/models';
 
 interface IProps {
   listData: IJourney[];
