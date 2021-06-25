@@ -38,6 +38,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
   const [isMoreStated, setISmoreStated] = useState<string>('start');
   const [ids, setIds] = useState<number[]>([]);
   const fieldRef = createRef() as RefObject<Scrollbars>;
+  const [forse, setForse] = useState<boolean>(false);
 
   const loadMoreItems = () => {
     const {
@@ -50,7 +51,9 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       props.isLoading.status === false &&
       smallLoader === false &&
       getClientHeight() + getScrollTop() >= getScrollHeight() - 1 &&
-      searchQuery.trim().length === 0
+      searchQuery.trim().length === 0 &&
+      props.itemsCount !== 0 &&
+      props.itemsCount !== discovery.length
     ) {
       loadDiscoveries('more');
       setISmoreStated('more');
@@ -115,12 +118,19 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       setSmallLoader(false);
       setIsDown(false);
     }
+
+    if (forse === true) {
+      setDiscovery(undefined);
+      loadDiscoveries('start');
+      setForse(false);
+    }
   }, [
     props.articleCategories,
     props.discoveryList,
     isMoreStated,
     searchQuery,
     smallLoader,
+    forse,
   ]);
   const dispatch = useDispatch();
 
@@ -131,7 +141,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
   ) => {
     let searchParams: DiscoveryGetListRequest;
 
-    ids.length > 0
+    discovery !== undefined && ids.length > 0
       ? (searchParams = {
           limit: 10,
           offset: loadMore === 'more' ? Number(discovery.length) : 0,
@@ -140,7 +150,6 @@ const Discovery: React.FC<any> = ({ ...props }) => {
           type: discoveryEntityTypeEnum.article,
         })
       : (searchParams = {
-          // const searchParams: DiscoveryGetListRequest = {
           limit: 10,
           offset: loadMore === 'more' ? Number(discovery.length) : 0,
           query: searchQuery,
@@ -181,12 +190,22 @@ const Discovery: React.FC<any> = ({ ...props }) => {
 
   const arraySetter = (id: number) => {
     if (ids.filter((elem) => elem === id).length === 0) {
+      setIds([]);
       ids.push(id);
       setIds(ids);
       loadDiscoveries();
+    } else {
+      setIds([]);
+      setForse(true);
     }
   };
 
+  const allSetter = () => {
+    setIds([]);
+    setForse(true);
+  };
+  console.log(' discovery list', discovery)
+  console.log(' articleCategories list', articleCategories)
   return (
     <Scrollbars
       style={{
@@ -219,6 +238,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
                 loadDiscovloadArticleCategoeries
               }
               arraySetter={arraySetter}
+              allSetter={allSetter}
             />
 
             <DiscoveryTopicList
