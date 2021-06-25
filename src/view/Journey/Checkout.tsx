@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
-
 // components
 import NavigationBar from '@app/component/NavigationBar';
 import CheckoutPayment from '@app/component/CheckoutPaymentButton';
 import CheckoutBody from '@app/view/Journey/CheckoutBody';
-import { getJourneyDataAction } from '@app/controller/journey/actions';
 import { StatisticAPI } from '@app/controller/statistic/transport/statistic.api';
 import { useSelector } from 'react-redux';
 import { getAccessToken } from '@app/controller/auth';
@@ -22,7 +20,7 @@ const Checkout: React.FC<IProps> = ({ ...props }) => {
   useEffect(() => {
     tokenPromise.then((token) => {
       if (token !== undefined) {
-        StatisticAPI.getStatistic(id, token).then((item) => {
+        StatisticAPI.getStatisticByJourney(id, token).then((item) => {
           if (typeof item !== 'string') {
             setStatistic(item);
           }
