@@ -89,7 +89,6 @@ class API {
     accessToken: string,
   ): Promise<DayOffDeleteResponse | string> {
     const url = new URL(Config.MAIN_SERVICE_ENDPOINT + `day-off/delete`);
-    console.log('data: ', data);
 
     return handleErrors(
       fetch(url.toString(), {

@@ -2,13 +2,21 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 
+// config
+import { LoaderAction } from '@app/config/constants';
+
 // custom components
 import NavigationBar from '@app/component/NavigationBar';
-
-import { getModuleAction } from '@app/controller/module/actions';
-import { getLoader, getModules } from '@app/controller/module';
-import { LoaderAction } from '@app/config/constants';
 import Loader from '@app/component/Loader';
+
+// Actions
+import { getModuleAction } from '@app/controller/module/actions';
+
+// Selectors
+import { getLoader, getModules } from '@app/controller/module';
+
+// View
+import TrialExpired from '@app/view/Schedule/TrialExpired/TrialExpired';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -135,11 +143,14 @@ const Module: React.FC<IProps> = (props) => {
         // modalToogle={openWindow}
         // saveBtnFunctionality={saveBtnFunctionality}
       />
-      {console.log(loaders)}
-      {loaders.filter(item => item.type === LoaderAction.module.getModule).length > 0 ? (
+      {loaders.filter((item) => item.type === LoaderAction.module.getModule)
+        .length > 0 ? (
         <Loader isSmall={true} />
-      ) : (<div className={'module-body'}>{props.children}</div>)}
-
+      ) : modules?.[idNumber]?.isExpired ? (
+        <TrialExpired />
+      ) : (
+        <div className={'module-body'}>{props.children}</div>
+      )}
     </div>
   );
 };

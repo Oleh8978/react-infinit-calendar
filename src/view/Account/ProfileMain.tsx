@@ -3,27 +3,25 @@ import { connect, useDispatch } from 'react-redux';
 
 // components
 import Link from '@app/routing/Link';
+import Loader from '@app/component/Loader';
 
 // static
 import gear from './static/gear.svg';
-
-// fake data
-import fakeFace from './static/fakeFace.png';
+import onErorImage from '../LoginPages/imageAcountError/onErrorImage.png';
 
 // interfaces
-import { IName } from './Models';
 import { IStore } from '@app/controller/model';
 import { IUser, IUserData } from '@app/controller/auth/model';
 
-// get user data by token action
-import { getUserAction } from '@app/controller/account/actions';
+// Actions
+import { loginByTokenAction } from '@app/controller/auth/actions';
 
 interface IProps {
   user: IUser;
   getUserAction: any;
 }
 
-const Profile: React.FC<IProps> = ({ ...props }) => {
+const Profile: React.FC<any> = ({ ...props }) => {
   const [userData, setUserData] = useState<IUserData>(undefined);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -31,19 +29,24 @@ const Profile: React.FC<IProps> = ({ ...props }) => {
       setUserData(props.user.userData);
     }
 
-    if (props.user.userData === undefined) {
-      console.log('inn');
+    if (props.user.userData === undefined && props.user.id === 0) {
       dispatch(props.getUserAction);
     }
   }, [props.user.id]);
-  console.log('props.userData ', props.user);
-  console.log('user data from local ', userData);
   return (
     <>
       {userData ? (
         <div className={'profile__top'}>
           <div className={'profile__top-img-wrapper'}>
-            <img src={fakeFace} className={'profile-img'} alt="img" />
+            <img
+              src={userData.image}
+              className={'profile-img'}
+              alt="img"
+              onError={(e: any) => {
+                e.target.onError = null;
+                e.target.src = onErorImage;
+              }}
+            />
           </div>
           <div className={'profile__top-name'}>
             <span className={'profile__top-f-name'}>{userData.firstName}</span>
@@ -66,11 +69,9 @@ const Profile: React.FC<IProps> = ({ ...props }) => {
   );
 };
 
-// export default Profile;
-
 export default connect(
   (state: IStore) => ({
-    user: state.userReducer.user,
+    user: state.authState.user,
   }),
-  { getUserAction: getUserAction.request },
+  { loginByTokenAction },
 )(Profile);

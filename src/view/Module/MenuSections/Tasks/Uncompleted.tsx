@@ -1,16 +1,18 @@
 import React from 'react';
+import moment, { Moment } from 'moment';
 
 // components
 import UncompletedTask from './UncompletedTask';
 
 // interfaces
 import { IDayWithTimeSlots } from '@ternala/frasier-types';
+import { timeSlotDateFormat } from '@ternala/frasier-types/lib/constants';
 
 interface IProps {
   prevData: IDayWithTimeSlots;
   toggleTask: (data: {
     id: number;
-    date: string;
+    date: Moment;
     timeSlot: number;
     action: 'create' | 'remove';
     callback: (state: boolean) => void;
@@ -22,6 +24,7 @@ const Uncompleted: React.FC<IProps> = ({ toggleTask, ...props }) => {
     <div className={'tasks-uncompleted'}>
       <span className="tasks-uncompleted-header">Previously uncompleted</span>
       <div className="tasks-uncompleted-wrapper">
+        {console.log('props.prevData: ', props.prevData)}
         {props.prevData
           ? Object.entries(props.prevData).map(([day, timeSlots]) =>
               timeSlots?.length ? (
@@ -34,7 +37,12 @@ const Uncompleted: React.FC<IProps> = ({ toggleTask, ...props }) => {
                     timeSlot;
                     action: 'create' | 'remove';
                     callback: (state: boolean) => void;
-                  }) => toggleTask({ ...data, date: day })}
+                  }) =>
+                    toggleTask({
+                      ...data,
+                      date: moment(day, timeSlotDateFormat),
+                    })
+                  }
                 />
               ) : (
                 <></>

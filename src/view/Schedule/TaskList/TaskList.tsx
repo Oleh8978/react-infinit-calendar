@@ -7,7 +7,7 @@ import {
   HolidayDTO,
 } from '@ternala/frasier-types';
 
-// Config
+// config
 import { defaultUserStartTime, LoaderAction } from '@app/config/constants';
 
 // Components
@@ -67,7 +67,11 @@ const TaskList: React.FC<IProps> = ({
       )}
       <div className={'modules-list__completed'}>
         {timeSlots.map((timeSlot) => {
-          if (timeSlot.tasks.length) {
+          if (
+            timeSlot.tasks.length &&
+            timeSlot.module !== null &&
+            timeSlot.module !== undefined
+          ) {
             const task = (
               <Task
                 moduleId={timeSlot.module.id}

@@ -1,10 +1,12 @@
 import React from 'react';
 
-interface IProps {}
+interface IProps {
+  logoutMethod: () => void;
+}
 
-const LogOut: React.FC<IProps> = () => {
+const LogOut: React.FC<IProps> = ({ ...props }) => {
   return (
-    <div className={'log-out'}>
+    <div className={'log-out'} onClick={() => props.logoutMethod()}>
       <span className={'log-out-btn'}>Log out</span>
     </div>
   );

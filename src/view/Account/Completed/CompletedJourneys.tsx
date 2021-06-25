@@ -4,15 +4,13 @@ import React, { useState, useEffect } from 'react';
 import JourneyCompletedItem from './CompletedItemList';
 
 // interfaces
-import { IListItemCompleted } from '../Models';
+import { IJourney } from '@app/controller/statisticList/models';
 
-// hardcodedData
-import { dataModulesCompleted } from '../hardcodedData/data';
+interface IProps {
+  listData: IJourney[];
+}
 
-interface IProps {}
-
-const CompletedJourneys: React.FC<IProps> = () => {
-  const [data, setData] = useState<IListItemCompleted[]>(dataModulesCompleted);
+const CompletedJourneys: React.FC<IProps> = ({ ...props }) => {
 
   const moseMover = (ele) => {
     let pos = { top: 0, left: 0, x: 0, y: 0 };
@@ -56,11 +54,12 @@ const CompletedJourneys: React.FC<IProps> = () => {
     <div className={'profile-myjourneys-completed'}>
       <span className={'profile-myjourneys-header'}>Completed journeys </span>
       {/* <div className={'profile-myjourneys-completed-container'}> */}
-        <div className={'profile-myjourneys-completed-wrapper'}>
-          {data.map((item) => {
+      <div className={'profile-myjourneys-completed-wrapper'}>
+        {props.listData &&
+          props.listData.map((item) => {
             return <JourneyCompletedItem data={item} />;
           })}
-        </div>
+      </div>
       {/* </div> */}
     </div>
   );

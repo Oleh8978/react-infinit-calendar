@@ -26,7 +26,7 @@ export const getUserAction = createAsyncAction(
   `${appName}/${widgetName}/GET_USER_REQUEST`,
   `${appName}/${widgetName}/GET_USER_SUCCESS`,
   `${appName}/${widgetName}/GET_USER_FAILED`,
-)<null, IUser, IException>();
+)<any, IUser, IException>();
 
 // export const updateUserAction = createAsyncAction(
 //   `${appName}/${widgetName}/UPDATE_USER_REQUEST`,

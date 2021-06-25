@@ -10,10 +10,10 @@ class API {
   public async getDataByToken(
     accessToken: string,
   ): Promise<AuthUserLoginByTokenResponseDTO | string> {
-    const url = new URL(Config.MAIN_SERVICE_ENDPOINT + 'user/by-token');
-    // const url ='https://api.frasier.ternala.com/api/v1/user/by-token'
-    console.log('url lgin by token ',url)
+    console.log('url lgin by token config file ',Config.MAIN_SERVICE_ENDPOINT)
 
+    const url = new URL(Config.MAIN_SERVICE_ENDPOINT + 'user/by-token');
+console.log('url ', url )
     return handleErrors(
       fetch(url.toString(), {
         method: 'GET',

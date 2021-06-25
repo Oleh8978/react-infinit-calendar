@@ -163,7 +163,7 @@ const AddYourData: React.FC<any> = ({ ...props }) => {
 export default connect(
   (state: IStore) => ({
     isSecondStepPassed: state.updateSteUserAfterSignIn.isSecondStepPassed,
-    loader: state.updateSteUserAfterSignIn.isLoading,
+    loader: state.updateSteUserAfterSignIn.loaderState.status,
   }),
   {
     updateUserDataAction: updateUserDataAction.request,

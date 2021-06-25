@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import moment, { Moment } from 'moment';
 import { timeSlotDateFormat } from '@ternala/frasier-types/lib/constants';
 import { useDispatch, useSelector } from 'react-redux';
+import { omit } from 'lodash';
 
-// Config
+// config
 import {
   limitGetModuleScheduleDays,
   limitGetScheduleDays,
-  LoaderAction
+  LoaderAction,
 } from '@app/config/constants';
 
 // components
@@ -328,7 +329,7 @@ const Task: React.FC<IProps> = ({ id }) => {
     callback,
   }: {
     id: number;
-    date: string;
+    date: Moment;
     timeSlot: number;
     action: 'create' | 'remove';
     callback: (state: boolean) => void;
@@ -337,7 +338,7 @@ const Task: React.FC<IProps> = ({ id }) => {
       toggleExecuteTaskAction.request({
         action,
         task: id,
-        purposeDate: moment(date, timeSlotDateFormat).toDate(),
+        purposeDate: date.toDate(),
         timeSlot,
         module: module?.id,
         callback,
@@ -345,6 +346,9 @@ const Task: React.FC<IProps> = ({ id }) => {
     );
   };
 
+  const uncompletedWithoutSelectedDay = omit(uncompleted, [
+    moment(selectedDay).format(timeSlotDateFormat),
+  ]);
   return (
     <div className={'tasks'}>
       <Calendar
@@ -353,35 +357,39 @@ const Task: React.FC<IProps> = ({ id }) => {
         selectedDay={selectedDay}
         uncompletedSchedule={uncompleted}
       />
-      <div className='tasks-wrapper'>
-        {timeSlots && (
-          loaders.filter(item => item.type === LoaderAction.module.getSchedule).length > 0 ?
-            <Loader isSmall={true} /> :
+      <div className="tasks-wrapper">
+        {timeSlots &&
+          (loaders.filter(
+            (item) => item.type === LoaderAction.module.getSchedule,
+          ).length > 0 ? (
+            <Loader isSmall={true} />
+          ) : (
             <Current
-            timeSlots={timeSlots}
-            toggleTask={(data: {
-              id: number;
-              timeSlot: number;
-              action: 'create' | 'remove';
-              callback: (state: boolean) => void;
-            }) =>
-              toggleTask({
-                ...data,
-                date: selectedDay.format(timeSlotDateFormat),
-              })
-            }
-          />
-        )}
-        {uncompleted && Object.keys(uncompleted).length > 0 ? (
-          loaders.filter(item => item.type === LoaderAction.module.getUncompletedTimeSlots).length > 0 ?
-            <Loader isSmall={true} /> :
+              timeSlots={timeSlots}
+              toggleTask={(data: {
+                id: number;
+                timeSlot: number;
+                action: 'create' | 'remove';
+                callback: (state: boolean) => void;
+              }) => {
+                toggleTask({
+                  ...data,
+                  date: selectedDay,
+                });
+              }}
+            />
+          ))}
+        {uncompletedWithoutSelectedDay && Object.keys(uncompletedWithoutSelectedDay).length > 0 ? (
+          loaders.filter(
+            (item) => item.type === LoaderAction.module.getUncompletedTimeSlots,
+          ).length > 0 ? (
+            <Loader isSmall={true} />
+          ) : (
             <Uncompleted
-            prevData={{
-              ...uncompleted,
-              [moment(selectedDay).format(timeSlotDateFormat)]: undefined,
-            }}
-            toggleTask={toggleTask}
-          />
+              prevData={uncompletedWithoutSelectedDay}
+              toggleTask={toggleTask}
+            />
+          )
         ) : (
           <></>
         )}

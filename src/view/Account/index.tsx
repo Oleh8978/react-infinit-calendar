@@ -23,8 +23,8 @@ const Account: React.FC<IProps> = () => {
         <AnalisticKPI />
         {/* <NoDataFound /> */}
         <TodaysJourney />
-        <Notes />
-        <Tips />
+        {/* <Notes /> */}
+        {/* <Tips /> */}
         <MyJourneys />
       </div>
     </div>

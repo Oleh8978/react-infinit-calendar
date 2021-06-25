@@ -1,6 +1,6 @@
 import React from 'react';
 
-// Utils
+// utils
 import { getMonthNameShort } from '../Calendar/utils';
 import { TimeSlotDTO } from '@ternala/frasier-types';
 import InternalLink from '@app/routing/Link';
@@ -24,7 +24,7 @@ const PrevUncompleted: React.FC<IProps> = ({ date, timeSlots }) => {
           <InternalLink
             to={'module-tab'}
             params={{
-              id: String(timeSlot.module.id),
+              id: String(timeSlot.module?.id),
               tabName: 'task',
             }}
             className={'task-previous-description'}

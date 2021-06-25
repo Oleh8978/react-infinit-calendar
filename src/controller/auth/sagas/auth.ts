@@ -19,11 +19,12 @@ import {
   setAuthenticatedStatus,
   setAuthStateAction,
   logOut,
+  deleteProfile,
   refreshTokenAction,
   loginByTokenAction,
 } from '../actions';
 
-// Utils
+// utils
 import { clearAccess, saveAccess } from '@app/utils/manageAccess';
 import { getCredentials } from '@app/utils/deviceCredentials';
 import { isJWTTokenExpired } from '@app/utils/API';
@@ -78,8 +79,8 @@ export function* signInSaga({
       });
       if (typeof tokens === 'string') throw new BadRequest();
       signInData = {
-        user: (yield AuthAPI.loginByToken(tokens.accessToken)),
-        ...tokens
+        user: yield AuthAPI.loginByToken(tokens.accessToken),
+        ...tokens,
       };
       setAuthStateAction({
         isLoading: false,
@@ -98,7 +99,7 @@ export function* signInSaga({
         error: false,
       });
     }
-
+    console.log('sign in data ', signInData);
     if (signInData) {
       yield put(
         signIn.success({
@@ -208,7 +209,7 @@ export function* logoutSaga() {
   const deviceCredentials: DeviceCreateRequest = yield getCredentials();
   try {
     if (!refreshToken || !accessToken) throw new Error("Haven't refresh token");
-    const res = yield AuthAPI.logout(deviceCredentials);
+    const res = yield AuthAPI.logout(deviceCredentials, refreshToken);
     yield put(
       setAuthStateAction({
         isLoading: true,
@@ -237,7 +238,7 @@ export function* logoutSaga() {
       );
     }
   } catch (error) {
-    console.error("ERROR LOGOUT ", error);
+    console.error('ERROR LOGOUT ', error);
     yield put(logOut.failure('failure'));
     yield put(
       setAuthStateAction({
@@ -249,11 +250,60 @@ export function* logoutSaga() {
   }
 }
 
+export function* deleteAccountSaga() {
+  const accessToken: string | undefined = yield yield select(getAccessToken);
+  const refreshToken: string | undefined = yield select(getRefreshToken);
+  try {
+    if (!refreshToken || !accessToken) throw new Error("Haven't refresh token");
+    const res = yield AuthAPI.deleteProfile(accessToken);
+    yield put(
+      setAuthStateAction({
+        isLoading: true,
+        message: 'We are deleting profile ',
+        error: true,
+      }),
+    );
+
+    if (!res && res.code) {
+      yield put(
+        deleteProfile.failure(res),
+      );
+      yield put(
+        setAuthStateAction({
+          isLoading: false,
+          message: 'Something wrong with the delete',
+          error: true,
+        }),
+      );
+    } else {
+      yield put(deleteProfile.success('success'));
+      yield put(
+        setAuthStateAction({
+          isLoading: false,
+          message: 'Successfully deleted ',
+          error: true,
+        }),
+      );
+    }
+  } catch (error) {
+    console.error('ERROR DELETE ', error);
+    deleteProfile.failure(error),
+      yield put(
+        setAuthStateAction({
+          isLoading: false,
+          message: `An error catched ${error} with code ${error.code}`,
+          error: true,
+        }),
+      );
+  }
+}
+
 export function* authActionSaga() {
   yield all([
     takeEvery(signIn.request, signInSaga),
     takeEvery(refreshTokenAction.request, refreshTokenSaga),
     takeEvery(loginByTokenAction, signInSaga),
+    takeEvery(deleteProfile.request, deleteAccountSaga),
     takeEvery(logOut.request, logoutSaga),
   ]);
 }

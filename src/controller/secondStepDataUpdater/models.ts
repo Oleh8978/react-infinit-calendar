@@ -1,5 +1,3 @@
-import { UserDataFullDTO } from '@ternala/frasier-types';
-
 export interface IException {
   code: string | null;
   message: string | null;
@@ -8,8 +6,7 @@ export interface IException {
 
 export interface IUpdateState {
   userData: IUserDataExtended;
-  isLoading: boolean;
-  exceptions: undefined | IException;
+  loaderState: ILoaderState;
   isSecondStepPassed: boolean;
 }
 
@@ -29,8 +26,12 @@ export interface IUserDataExtended {
   id: number | null;
 }
 
-
 export interface IIsSecondStepPassed {
-  isSecondStepPassed: boolean
+  isSecondStepPassed: boolean;
 }
 
+export interface ILoaderState {
+  status: boolean;
+  code: string;
+  message: string;
+}

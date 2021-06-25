@@ -4,7 +4,7 @@ import { TaskDTO } from '@ternala/frasier-types';
 // components
 import { Task } from './Task';
 
-// Utils
+// utils
 import moment from 'moment';
 import { timeConvert } from '@app/utils/timeConverter';
 

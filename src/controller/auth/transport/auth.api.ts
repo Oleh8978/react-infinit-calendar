@@ -71,14 +71,14 @@ class API {
 
   public async logout(
     deviceCredentials: DeviceCreateRequest,
+    refreshToken: string,
   ): Promise<boolean | string> {
-
     return handleErrors(
-      fetch(Config.AUTH_SERVICE_ENDPOINT + 'logout', {
+      fetch(Config.AUTH_SERVICE_ENDPOINT + 'user/logout', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          ...refreshHeader(getSavedAccess().refreshToken),
+          ...refreshHeader(refreshToken),
         },
         // body: JSON.stringify(deviceCredentials),
         body: JSON.stringify({
@@ -88,6 +88,18 @@ class API {
             fingerprint: 'hash',
           },
         }),
+      }),
+    );
+  }
+
+  public async deleteProfile(authToken: string): Promise<boolean | string> {
+    return handleErrors(
+      fetch(Config.MAIN_SERVICE_ENDPOINT + 'user/delete', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          ...authHeader(authToken),
+        },
       }),
     );
   }

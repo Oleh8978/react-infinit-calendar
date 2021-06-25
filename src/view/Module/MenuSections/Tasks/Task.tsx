@@ -50,11 +50,14 @@ export const Task: React.FC<IProps> = ({ toggleTask, task }) => {
           {task.title}
         </span>
         {task?.sections?.length > 0 ? (
-          <Link className="tasks-current-task-text-link" to={'read-more'}>
+          <Link
+            to={'task'}
+            params={{ id: String(task.id) }}
+            className="tasks-current-task-text-link">
             Read more
           </Link>
         ) : (
-          <> </>
+          <></>
         )}
       </div>
     </div>

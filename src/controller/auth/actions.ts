@@ -15,7 +15,7 @@ import {
 } from './model';
 
 // const for ath actions
-export const widgetName = 'auth';
+export const widgetName = 'AUTH';
 
 // ** Action
 export const setAuthenticatedStatus = createAction(
@@ -29,6 +29,12 @@ export const setIsneedSecondStep = createAction(
 export const loginByTokenAction = createAction(
   `${appName}/${widgetName}/LOGIN_TOKEN_REQUEST`,
 )<IAuthData>();
+
+export const deleteProfile = createAsyncAction(
+  `${appName}/${widgetName}/DELETE_ACOUNT_REQUEST`,
+  `${appName}/${widgetName}/DELETE_ACOUNT_SUCCESS`,
+  `${appName}/${widgetName}/DELETE_ACTOUNT_FAILED`,
+)<any, any, any>();
 
 export const refreshTokenAction = createAsyncAction(
   `${appName}/${widgetName}/REFRESH_TOKEN_REQUEST`,
@@ -48,7 +54,7 @@ export const logOut = createAsyncAction(
   `${appName}/${widgetName}/SIGN_OUT_REQUEST`,
   `${appName}/${widgetName}/SIGN_OUT_SUCCESS`,
   `${appName}/${widgetName}/SIGN_OUT_FAILED`,
-)<string, string, any>();
+)<any, string, any>();
 
 export const setAuthStateAction = createAction(`${widgetName}/SET_AUTH_STATE`)<{
   code?: number | undefined;

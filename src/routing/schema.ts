@@ -25,6 +25,8 @@ import PrivacyPolicy from '@app/component/PrivacyPolicy';
 import Terms from '@app/component/Terms';
 import ModuleTabContent from '@app/view/Module/ModuleTabContent';
 import Holiday from '@app/view/Schedule/Holiday/Holiday';
+import Task from '@app/view/Task';
+import Checkout from '@app/view/Journey/Checkout';
 
 // Interfaces
 export interface IRoute {
@@ -120,7 +122,7 @@ class RoutingSchema {
     },
     {
       name: 'journey',
-      path: '/journey',
+      path: '/journey/:id',
       isExact: true,
       component: ProtectedRoute(Journey, 'ANONYMOUS_USERS'),
     },
@@ -132,9 +134,9 @@ class RoutingSchema {
     },
     {
       name: 'task',
-      path: '/task',
+      path: '/task/:id',
       isExact: true,
-      component: ProtectedRoute(TaskInfo, 'ANONYMOUS_USERS'),
+      component: ProtectedRoute(Task, 'ANONYMOUS_USERS'),
     },
     {
       name: 'settings',
@@ -189,6 +191,12 @@ class RoutingSchema {
       path: '/terms',
       isExact: true,
       component: ProtectedRoute(Terms, 'ANONYMOUS_USERS'),
+    },
+    {
+      name: 'checkout',
+      path: '/journey/:id/checkout',
+      isExact: false,
+      component: ProtectedRoute(Checkout, 'ANONYMOUS_USERS'),
     },
     {
       name: 'notFound',
