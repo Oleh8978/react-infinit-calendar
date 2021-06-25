@@ -6,13 +6,11 @@ interface IProps {
 const CheckoutPayment: React.FC<IProps> = ({ ...props }) => {
 
   return (
-    <div className='checkout-payment'>
-      <button className='checkout-payment-button jorneydiscoveymain-bottom-yellow'>
+      <button className='checkout-payment-button'>
         <span className='checkout-payment-button-text'>
           PayPal
         </span>
       </button>
-    </div>
   );
 };
 

@@ -4,8 +4,8 @@ import React from 'react';
 import JourneyHoursCalculation from './JourneyHoursCalcul';
 
 // dayweeks
-import { dayWeeks } from './data';
 import moment from 'moment';
+import TextComponent from '@app/view/Account/JourneyInfo/JourneyTextComponents';
 
 interface IProps {
   hashours?: boolean;
@@ -15,6 +15,7 @@ interface IProps {
   maxDaySpent?: number;
   minDaySpent?: number;
   isEndless?: boolean;
+  data?: string;
 }
 
 const JourneyDescription: React.FC<IProps> = ({ ...props }) => {
@@ -57,6 +58,9 @@ const JourneyDescription: React.FC<IProps> = ({ ...props }) => {
           }
         })}
       </div>
+      <TextComponent
+        data={props.data}
+      />
     </div>
   );
 };

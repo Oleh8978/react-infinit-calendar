@@ -1,4 +1,11 @@
 .checkout {
+  height: 100%;
+  //min-height: var(--vhFull);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+
   &-body {
     margin: 15px;
     display: flex;
@@ -89,6 +96,37 @@
         line-height: 20px;
         color: $secondary-purple-text-color;
       }
+    }
+  }
+
+  &-bottom-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    padding: 15px;
+    border-top: 1px solid rgba($text-color, 0.15);
+    background-color: $white;
+  }
+
+  &-payment-button {
+    display: flex;
+    justify-content: center;
+    border: none;
+    background: #FEC537;
+    border-radius: 4px;
+    padding: 17px 20px 15px;
+    width: 100%;
+
+    &-text {
+      font-family: $Spartan;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 18px;
+      color: $text-color;
     }
   }
 }

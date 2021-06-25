@@ -309,10 +309,13 @@
       // margin-left: 20px;
       border-bottom: 1px solid $divider-color;
       align-items: center;
+      max-height: 290px;
+      overflow: hidden;
 
       @media screen and (max-width: 650px) {
         margin-right: 0px;
         margin-left: 0px;
+        max-height: 190px;
       }
 
       &-img {
@@ -321,6 +324,7 @@
         width: 100%;
         margin-left: auto;
         margin-right: auto;
+        object-fit: cover;
       }
     }
 
@@ -396,7 +400,7 @@
     }
 
     &-textcomponent {
-      margin: 20px 20px auto;
+      margin: 20px 0 auto;
 
       @media screen and (max-width: 650px) {
         margin: 15px 15px auto;
@@ -700,12 +704,22 @@
           font-size: 14px;
           line-height: 18px;
           color: $color-btn-with-background;
+          margin-right: 5px;
 
           &-price {
             @include card-list-text-style;
             color: $white;
           }
         }
+      }
+    }
+
+    &-red {
+      background-color: $red-color;
+      border-color: $red-color;
+
+      .jorneydiscoveymain-bottom-pink-text {
+        color: $white;
       }
     }
   }

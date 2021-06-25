@@ -20,7 +20,7 @@ const JourneyFixedBottom: React.FC<IProps> = ({ ...props }) => {
       <div className='jorneydiscoveymain-bottom'>
         {props.trialPeriod && props.trialPeriod !== 0 ? (
             props.isTrialPeriodStarted ? (
-                <button className='jorneydiscoveymain-bottom-red' onClick={() => props.setIsStopPopup(true)}>
+                <button className='jorneydiscoveymain-bottom-red jorneydiscoveymain-bottom-pink' onClick={() => props.setIsStopPopup(true)}>
             <span className='jorneydiscoveymain-bottom-pink-text'>
               Stop This Journey
             </span>
@@ -48,9 +48,9 @@ const JourneyFixedBottom: React.FC<IProps> = ({ ...props }) => {
           <Link to={`${props.id}/checkout`} className='jorneydiscoveymain-bottom-pink-full'>
             <span className='jorneydiscoveymain-bottom-pink-full-text'>
               Purchase Full Journey for Only
-            </span>{' '}
+            </span>
             <span className='jorneydiscoveymain-bottom-pink-full-text-price'>
-        {' '}${props.price}
+         ${props.price}
             </span>
           </Link>
         ) : (

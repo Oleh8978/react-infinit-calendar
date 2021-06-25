@@ -7,7 +7,6 @@ import NavigationBar from '@app/component/NavigationBar';
 // components
 import JourneyHeader from '@app/view/Account/JourneyInfo/JourneyHeader';
 import JourneyDescription from '@app/view/Account/JourneyInfo/JourneyDescription';
-import TextComponent from '@app/view/Account/JourneyInfo/JourneyTextComponents';
 import JourneyListComponent from '@app/view/Account/JourneyInfo/JourneyListComponent';
 import JourneyFixedBottom from './JourneyFixdedBottom';
 
@@ -52,10 +51,10 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
 
   }, []);
 
-  // console.log('item');
-  // console.log(statistic);
-  // console.log('journey');
-  // console.log(journey);
+  console.log('item');
+  console.log(statistic);
+  console.log('journey');
+  console.log(journey);
 
   const setIsStartPopup = (boolean) => {
     setStartPopup(boolean);
@@ -109,10 +108,8 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
             duration={statistic.journey.statistic.maxSpent}
             maxDaySpent={statistic.journey.statistic.maxDaySpent}
             minDaySpent={statistic.journey.statistic.minDaySpent}
+            data={journey.subTitle}
           />
-        <TextComponent
-          data={journey.subTitle}
-        />
         {/*<JourneyListComponent data={list} />*/}
         <div className='jorneydiscoveymain-bottom-wrapper'>
           <JourneyFixedBottom

@@ -32,8 +32,8 @@ const Checkout: React.FC<IProps> = ({ ...props }) => {
 
   }, []);
 
-  console.log('statistic');
-  console.log(statistic);
+  // console.log('statistic');
+  // console.log(statistic);
 
   return (
     <>
