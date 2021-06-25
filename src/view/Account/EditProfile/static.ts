@@ -37,7 +37,7 @@ export const BillingAddress = {
     {
       name: 'City',
       isRequired: false,
-      submane: 'city',
+      subname: 'city',
     },
     {
       name: 'State',
