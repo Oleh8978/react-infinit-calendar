@@ -33,7 +33,7 @@ const EdditProfile: React.FC<any> = ({ ...props }) => {
   };
 
   const saveBtnFunctionality = () => {
-    // console.log('inn', userData);
+    console.log('inn', userData);
     setUpdater(true);
     dispatch(props.updateUserDataAction(userData));
     setISSaveBtnActiveState(false);

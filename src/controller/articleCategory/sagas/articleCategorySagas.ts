@@ -11,24 +11,26 @@ export function* getDiscoveriesSaga({
   payload,
 }: ReturnType<typeof actions.getArticlesCategoriesAction.request>) {
   const accessToken: string | undefined = yield yield select(getAccessToken);
-  yield put(
-    actions.setLoadingAction({
-      status: true,
-      anyErrors: false,
-      error: `No errors got because loading is started`,
-    }),
-  );
+
   try {
     if (!accessToken) throw new Error('Not authorized');
     const res = yield ArticleCategoryAPI.getArticleCategories(
       payload,
       accessToken,
     );
+
+    yield put(
+      actions.setLoadingAction({
+        status: true,
+        anyErrors: false,
+        error: `No errors got because loading is started`,
+      }),
+    );
     if (!res && res.code) {
       yield put(
         actions.setLoadingAction({
-          status: true,
-          anyErrors: true,
+          status: false,
+          anyErrors: false,
           error: ` error code is ${res.code}`,
         }),
       );
