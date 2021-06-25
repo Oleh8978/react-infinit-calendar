@@ -75,7 +75,7 @@ const BodyEdditProfile: React.FC<any> = ({ ...props }) => {
 
   const updateUserData = () => {
     if (isAllSiealdsArefiledOut && userData !== undefined) {
-      console.log('user data ', userData);
+      // console.log('editProfileStateObject ', editProfileStateObject);
       props.setUserData({
         firstName: editProfileStateObject.firstName,
         lastName: editProfileStateObject.lastName,
@@ -83,6 +83,10 @@ const BodyEdditProfile: React.FC<any> = ({ ...props }) => {
         email: editProfileStateObject.email,
         phone: editProfileStateObject.phone,
         timezone: editProfileStateObject.timezone,
+        street: editProfileStateObject.street,
+        zipCode: editProfileStateObject.zipCode,
+        city: editProfileStateObject.city,
+        state: editProfileStateObject.state,
         startTime: Number(editProfileStateObject.startTime),
         id: userData.id,
       });
@@ -99,11 +103,11 @@ const BodyEdditProfile: React.FC<any> = ({ ...props }) => {
     }
 
     setEditProfileStateObject(editProfileStateObject);
-    updateUserData();
   };
 
   useEffect(() => {
     if (userData === undefined && props.user.userData !== undefined) {
+      console.log('props.user data', props.user)
       setUserData(props.user.userData);
       for (const [keyUser, valueUser] of Object.entries(props.user.userData)) {
         for (const [keyEditProf, valueEditProf] of Object.entries(
@@ -125,11 +129,11 @@ const BodyEdditProfile: React.FC<any> = ({ ...props }) => {
           refreshToken: getSavedAccess().refreshToken,
         }),
       );
-      console.log('inn');
     }
   }, [props.user.id, props.updater]);
 
   const observer = () => {
+    updateUserData();
     const array = [];
     Object.entries(editProfileStateObject).map((elem) => {
       array.push({
@@ -184,6 +188,7 @@ const BodyEdditProfile: React.FC<any> = ({ ...props }) => {
             <EdditProfileBodyComponent
               data={editList.BillingAddress}
               isFirstpage={props.isFirstpage}
+              user={props.user}
               setObjectState={setObjectState}
               observer={observer}
             />
