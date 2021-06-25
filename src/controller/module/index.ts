@@ -168,7 +168,10 @@ export const moduleReducer = createReducer<IModuleState, ActionTypes>(
               payload.additionalFields.action === 'remove' &&
               payload.response?.task &&
               'timeSlot' in payload.response.task &&
-              moment().isBefore(payload.additionalFields.purposeDate, 'day')
+              moment(payload.additionalFields.purposeDate).isBefore(
+                moment(),
+                'day',
+              )
             ) {
               uncompleted[
                 moment(payload.additionalFields.purposeDate).format(

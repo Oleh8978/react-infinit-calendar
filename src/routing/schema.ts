@@ -25,6 +25,7 @@ import PrivacyPolicy from '@app/component/PrivacyPolicy';
 import Terms from '@app/component/Terms';
 import ModuleTabContent from '@app/view/Module/ModuleTabContent';
 import Holiday from '@app/view/Schedule/Holiday/Holiday';
+import Task from '@app/view/Task';
 
 // Interfaces
 export interface IRoute {
@@ -132,9 +133,9 @@ class RoutingSchema {
     },
     {
       name: 'task',
-      path: '/task',
+      path: '/task/:id',
       isExact: true,
-      component: ProtectedRoute(TaskInfo, 'ANONYMOUS_USERS'),
+      component: ProtectedRoute(Task, 'ANONYMOUS_USERS'),
     },
     {
       name: 'settings',

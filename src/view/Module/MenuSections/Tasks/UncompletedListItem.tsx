@@ -54,7 +54,10 @@ const UncompletedListItem: React.FC<IProps> = ({ task, toggleTask }) => {
             {task.title}
           </span>
           {task?.sections?.length > 0 ? (
-            <Link to={'read-more'} className="tasks-current-task-text-link">
+            <Link
+              to={'task'}
+              params={{ id: String(task.id) }}
+              className="tasks-current-task-text-link">
               Read more
             </Link>
           ) : (

@@ -84,10 +84,6 @@ const Routing: React.FC<Props> = ({
   const [isNeeededSecondStepValue, setIsNeededSecondSteValue] =
     useState<boolean>(true);
 
-  useEffect(() => {
-    console.log('remount routing');
-  }, []);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -188,7 +184,6 @@ const Routing: React.FC<Props> = ({
                   renderView={(props) => (
                     <div {...props} className={'main-wrapper'} />
                   )}>
-                  {console.log('remount scrollbar')}
                   <Switch>
                     {Routes}
                     <Redirect to={RoutingSchema.getLink('discovery')} />

@@ -23,7 +23,7 @@ const generateDays: React.FC<IProps> = ({
   days,
   selectedDay,
   selectDay,
-  uncompletedSchedule
+  uncompletedSchedule,
 }: IProps) => {
   let prevDay;
   return (
@@ -37,7 +37,19 @@ const generateDays: React.FC<IProps> = ({
               isSelected={day.isSame(selectedDay, 'day')}
               key={'day-' + day.format(timeSlotDateFormat)}
               hasUncompleted={Boolean(
-                uncompletedSchedule?.[day?.format(timeSlotDateFormat)],
+                uncompletedSchedule?.[day?.format(timeSlotDateFormat)]?.reduce(
+                  (acc, timeSlot) =>
+                    acc +
+                    (timeSlot
+                      ? timeSlot.tasks.reduce(
+                          (acc, task) =>
+                            acc +
+                            (task ? (task.executions?.length ? 0 : 1) : 0),
+                          0,
+                        )
+                      : 0),
+                  0,
+                ),
               )}
               hasEvents={true}
               selectDate={selectDay}
@@ -76,7 +88,6 @@ const Calendar: React.FC<IProps> = (props) => {
       </div>
       {props.days?.length && selectedDay ? (
         <div className={'tasks-calendar scrollbar__hidden'}>
-          {console.log('swiperOptions: ', swiperOptions)}
           <div className="wrapper">
             <Swiper {...swiperOptions}>{generateDays(props)}</Swiper>
           </div>

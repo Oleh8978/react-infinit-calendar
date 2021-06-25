@@ -74,13 +74,16 @@ class API {
   }
 
   public async getTimeSlots(
-    { date, ...data }: TimeSlotGetListByModuleRequest,
+    { date, module, ...data }: TimeSlotGetListByModuleRequest,
     accessToken: string,
   ): Promise<TimeSlotGetListExpandedResponse | string> {
-    let url = new URL(Config.MAIN_SERVICE_ENDPOINT + `time-slot/list-by-days`);
+    let url = new URL(
+      Config.MAIN_SERVICE_ENDPOINT + `time-slot/list-by-module`,
+    );
 
     url = appendSearchParams(url, data);
     if(date) url.searchParams.append('date', String(date))
+    if(module) url.searchParams.append('module', String(module))
 
     return handleErrors(
       fetch(url.toString(), {
@@ -92,13 +95,14 @@ class API {
     );
   }
   public async getUncompletedTimeSlots(
-    { date, ...data }: TimeSlotGetPreviouslyUncompletedListRequest,
+    { date, module, ...data }: TimeSlotGetPreviouslyUncompletedListRequest,
     accessToken: string,
   ): Promise<TimeSlotGetListExpandedResponse | string> {
     let url = new URL(Config.MAIN_SERVICE_ENDPOINT + `time-slot/list-previously-uncompleted`);
 
     url = appendSearchParams(url, data);
-    if(date) url.searchParams.append('date', String(date))
+    if (date) url.searchParams.append('date', String(date));
+    if (module) url.searchParams.append('module', String(module));
 
     return handleErrors(
       fetch(url.toString(), {

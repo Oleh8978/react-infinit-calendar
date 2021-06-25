@@ -11,7 +11,8 @@ const Body: React.FC<IProps> = ({ module }) => {
   return (
     <>
       <div className="overview-body">
-        {module?.sections?.sort((el1, el2) => {
+        {module?.sections
+          ?.sort((el1, el2) => {
             if (el1.orderNumber < el2.orderNumber) return -1;
             if (el1.orderNumber > el2.orderNumber) return 1;
             return 0;
