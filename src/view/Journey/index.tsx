@@ -44,7 +44,7 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
 
     tokenPromise.then((token) => {
       if (token !== undefined) {
-        StatisticAPI.getStatistic(id, token).then((item) => {
+        StatisticAPI.getStatisticByJourney(id, token).then((item) => {
           if (typeof item !== 'string') {
             setStatistic(item);
             setHasHours(item.journey.statistic.maxSpent > 0);
@@ -53,7 +53,6 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
         });
       }
     });
-
   }, []);
 
   console.log('item');
