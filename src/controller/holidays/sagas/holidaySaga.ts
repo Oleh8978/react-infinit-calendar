@@ -1,6 +1,6 @@
 import { all, put, takeEvery } from 'redux-saga/effects';
 
-// Exceptions
+// exceptions
 import { BadRequest } from '@app/utils/API/exceptions';
 
 //APIs
@@ -9,7 +9,7 @@ import { HolidayAPI } from '../transport/holiday.api';
 // Actions
 import * as action from '../actions';
 
-// Utils
+// utils
 import { getSavedAccess } from '@app/utils/manageAccess';
 
 export function* getHolidayData({

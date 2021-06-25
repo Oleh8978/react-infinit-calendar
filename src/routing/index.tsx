@@ -25,7 +25,7 @@ import {
   logOut
 } from '@app/controller/auth/actions';
 
-// Routing schema
+// routing schema
 import RoutingSchema, { IRoute } from './schema';
 
 // components

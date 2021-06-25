@@ -2,7 +2,7 @@ import { all, put, takeEvery, select } from 'redux-saga/effects';
 // types
 import { UserDataFullDTO } from '@ternala/frasier-types';
 
-// Exceptions
+// exceptions
 import { BadRequest } from '@app/utils/API/exceptions';
 
 //APIs
@@ -11,7 +11,7 @@ import { UpdateUserApi } from '../transport/secondStep.api';
 // Actions
 import * as action from '../actions';
 
-// Utils
+// utils
 import {
   getSavedAccess,
 } from '@app/utils/manageAccess';

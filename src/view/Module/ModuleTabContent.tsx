@@ -6,7 +6,7 @@ import Help from './MenuSections/Help/Help';
 import Notes from './MenuSections/Notes/Notes';
 import Tasks from './MenuSections/Tasks/Tasks';
 
-// Config
+// config
 import { menuOptions } from './constants';
 import { useDispatch } from 'react-redux';
 import { getScheduleAction } from '@app/controller/module/actions';

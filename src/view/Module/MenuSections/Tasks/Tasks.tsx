@@ -4,7 +4,7 @@ import { timeSlotDateFormat } from '@ternala/frasier-types/lib/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { omit } from 'lodash';
 
-// Config
+// config
 import {
   limitGetModuleScheduleDays,
   limitGetScheduleDays,

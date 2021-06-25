@@ -7,7 +7,7 @@ import {
   HolidayDTO,
 } from '@ternala/frasier-types';
 
-// Config
+// config
 import { defaultUserStartTime, LoaderAction } from '@app/config/constants';
 
 // Components
