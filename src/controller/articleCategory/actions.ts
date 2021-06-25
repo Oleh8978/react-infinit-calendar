@@ -21,7 +21,7 @@ export const widgetName = 'article';
 
 // Action Loader
 export const setLoadingAction = createAction(
-  `${appName}/${widgetName}/SET_ISLOADING_STATUS`,
+  `${appName}/${widgetName}/SET_ARTICLE_CATEGORIES_ISLOADING_STATUS`,
 )<ISetLoadingAction>();
 
 // ** Action

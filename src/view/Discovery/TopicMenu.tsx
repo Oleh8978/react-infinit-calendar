@@ -39,7 +39,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
     const element = document.querySelector(
       '.discovery-menu-wrapper',
     ) as HTMLElement;
-    console.log('element.offsetLeft ', element.offsetLeft);
+    // console.log('element.offsetLeft ', element.offsetLeft);
   };
   const moseMover = (ele) => {
     let pos = { top: 0, left: 0, x: 0, y: 0 };
@@ -179,7 +179,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
       </div>
     );
   };
-
+  console.log('articleCategories ', articleCategories);
   return (
     <>
       <div
