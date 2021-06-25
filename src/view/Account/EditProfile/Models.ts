@@ -25,3 +25,31 @@ export interface IListSocialState {
   name: string;
   isLinked: boolean;
 }
+
+export interface IFullObjectState {
+  city: string | null;
+  email: string | null;
+  firstName: string | null;
+  image: string | null;
+  lastName: string | null;
+  phone: string | null;
+  startTime: string | null;
+  state: string | null;
+  street: string | null;
+  timezone: string | null;
+  zipCode: string | null;
+}
+
+export interface IboolState {
+  city: boolean;
+  email: boolean;
+  firstName: boolean;
+  image: boolean;
+  lastName: boolean;
+  phone: boolean;
+  startTime: boolean;
+  state: boolean;
+  street: boolean;
+  timezone: boolean;
+  zipCode: boolean;
+}

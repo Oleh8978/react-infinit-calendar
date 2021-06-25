@@ -22,6 +22,7 @@ import {
   setAuthenticatedStatus,
   loginByTokenAction,
   setIsneedSecondStep,
+  logOut
 } from '@app/controller/auth/actions';
 
 // Routing schema
@@ -87,6 +88,8 @@ const Routing: React.FC<Props> = ({
     console.log('remount routing');
   }, []);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const authData = getSavedAccess();
     if (authData.accessToken && authData.refreshToken) {
@@ -135,6 +138,7 @@ const Routing: React.FC<Props> = ({
 
   const logoutMethod = () => {
     props.setAuthenticatedStatus({ status: false });
+    dispatch(logOut.request({}));
     clearAccess();
   };
 

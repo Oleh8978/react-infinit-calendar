@@ -3,7 +3,6 @@ import { all } from 'redux-saga/effects';
 // actions
 import * as actions from './actions';
 // interfaces
-import { IStore } from '../model';
 import { IAccountState } from './models';
 
 //Sagas
@@ -51,28 +50,20 @@ export const userReducer = createReducer<IAccountState, AccountActionType>(
     ...store,
     isLoading: payload,
   }))
-  .handleAction(
-    [actions.getUserAction.request],
-    (state: IAccountState, { payload }): IAccountState => ({
-      ...state,
-      user: {
-        id: 0,
-        isCanSendEmail: false,
-        isCanSendPush: false,
-        isNeedSecondStep: false,
-        journeyConnections: [],
-        userData: null,
-      },
-      isLoading: {
-        status: true,
-      },
-      exceptions: {
-        code: '',
-        message: '',
-        name: '',
-      },
-    }),
-  )
+  // .handleAction(
+  //   [actions.getUserAction.request],
+  //   (state: IAccountState): IAccountState => ({
+  //     ...state,
+  //     isLoading: {
+  //       status: true,
+  //     },
+  //     exceptions: {
+  //       code: '',
+  //       message: '',
+  //       name: '',
+  //     },
+  //   }),
+  // )
   .handleAction(
     [actions.getUserAction.success],
     (state: IAccountState, { payload }): IAccountState => ({

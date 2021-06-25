@@ -17,6 +17,8 @@ interface IProps {
   isFirstpage?: boolean;
   user?: IUser;
   validatorFunctionality?: (key: string, value: string) => void;
+  setObjectState?: (key: string, value: string) => void;
+  observer?: () => void;
 }
 
 const EdditProfileBodyComponent: React.FC<IProps> = ({ ...props }) => {
@@ -35,6 +37,8 @@ const EdditProfileBodyComponent: React.FC<IProps> = ({ ...props }) => {
                 isFirstpage={props.isFirstpage}
                 user={props.user}
                 validatorFunctionality={props.validatorFunctionality}
+                setObjectState={props.setObjectState}
+                observer={props.observer}
               />
             );
           })}
