@@ -8,6 +8,7 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import Menu from './TopicMenu';
 import DiscoveryTopicList from './List/TopicsList';
 import SearchBar from '@app/component/SearchBar/SearchBar';
+import Loader from '@app/component/Loader';
 
 // actions
 import { getDiscoveryList } from '@app/controller/Discovery/actions';
@@ -33,6 +34,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
     undefined,
   );
   const [smallLoader, setSmallLoader] = useState<boolean>(false);
+  const [isDown, setIsDown] = useState<boolean>(false);
   const [isMoreStated, setISmoreStated] = useState<string>('start');
   const [ids, setIds] = useState<number[]>([]);
   const fieldRef = createRef() as RefObject<Scrollbars>;
@@ -50,10 +52,20 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       getClientHeight() + getScrollTop() >= getScrollHeight() - 1 &&
       searchQuery.trim().length === 0
     ) {
-      setSmallLoader(true);
       loadDiscoveries('more');
       setISmoreStated('more');
-      setSmallLoader(false);
+
+      if (
+        discovery &&
+        props.itemsCount &&
+        discovery.length === props.itemsCount
+      ) {
+        setIsDown(false);
+        setSmallLoader(false);
+      } else {
+        setIsDown(true);
+        setSmallLoader(true);
+      }
     }
   };
 
@@ -98,7 +110,18 @@ const Discovery: React.FC<any> = ({ ...props }) => {
     if (searchQuery.trim().length !== 0 && props.discoveryList) {
       setDiscovery(props.discoveryList);
     }
-  }, [props.articleCategories, props.discoveryList, isMoreStated, searchQuery]);
+
+    if (isDown === true) {
+      setSmallLoader(false);
+      setIsDown(false);
+    }
+  }, [
+    props.articleCategories,
+    props.discoveryList,
+    isMoreStated,
+    searchQuery,
+    smallLoader,
+  ]);
   const dispatch = useDispatch();
 
   const loadDiscoveries = (
@@ -163,6 +186,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       loadDiscoveries();
     }
   };
+
   return (
     <Scrollbars
       style={{
@@ -177,24 +201,35 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       renderView={(props) => (
         <div {...props} className={'main-wrapper-discovery'} />
       )}>
-      <SearchBar
-        inputValueFromSearch={searchQueryProcessor}
-        onCloseHandler={onCloseHandler}
-      />
-      <div className={'discovery'}>
-        <Menu
-          marginAdder={marginAdder}
-          articleCategories={articleCategories}
-          loadDiscovloadArticleCategoeries={loadDiscovloadArticleCategoeries}
-          arraySetter={arraySetter}
-        />
-        <DiscoveryTopicList
-          margin={margin}
-          discoveryItems={discovery}
-          isLoading={props.isLoading}
-          itemsCount={props.itemsCount}
-        />
-      </div>
+      {props.topicListLoader ||
+      articleCategories === undefined ||
+      (articleCategories !== undefined && articleCategories.length === 0) ? (
+        <Loader isSmall={true} />
+      ) : (
+        <>
+          <SearchBar
+            inputValueFromSearch={searchQueryProcessor}
+            onCloseHandler={onCloseHandler}
+          />
+          <div className={'discovery'}>
+            <Menu
+              marginAdder={marginAdder}
+              articleCategories={articleCategories}
+              loadDiscovloadArticleCategoeries={
+                loadDiscovloadArticleCategoeries
+              }
+              arraySetter={arraySetter}
+            />
+
+            <DiscoveryTopicList
+              margin={margin}
+              discoveryItems={discovery}
+              isLoading={props.isLoading}
+              itemsCount={props.itemsCount}
+            />
+          </div>
+        </>
+      )}
     </Scrollbars>
   );
 };

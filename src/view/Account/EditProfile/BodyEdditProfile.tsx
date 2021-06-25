@@ -12,7 +12,10 @@ import { IvalidatorState } from '../../LoginPages/utils/models';
 import { IFullObjectState, IboolState } from './Models';
 
 // actions
-import { loginByTokenAction, deleteProfile } from '@app/controller/auth/actions';
+import {
+  loginByTokenAction,
+  deleteProfile,
+} from '@app/controller/auth/actions';
 import { updateUserDataAction } from '@app/controller/secondStepDataUpdater/actions';
 
 // data schema
@@ -59,7 +62,6 @@ const BodyEdditProfile: React.FC<any> = ({ ...props }) => {
       setValidationObject(validationObject);
       setValidity();
     }
-    updateUserData();
   };
 
   const setValidity = () => {
@@ -73,6 +75,7 @@ const BodyEdditProfile: React.FC<any> = ({ ...props }) => {
 
   const updateUserData = () => {
     if (isAllSiealdsArefiledOut && userData !== undefined) {
+      console.log('user data ', userData);
       props.setUserData({
         firstName: editProfileStateObject.firstName,
         lastName: editProfileStateObject.lastName,
@@ -96,6 +99,7 @@ const BodyEdditProfile: React.FC<any> = ({ ...props }) => {
     }
 
     setEditProfileStateObject(editProfileStateObject);
+    updateUserData();
   };
 
   useEffect(() => {
