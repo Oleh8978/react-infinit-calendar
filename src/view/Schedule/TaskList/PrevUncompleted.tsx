@@ -20,21 +20,25 @@ const PrevUncompleted: React.FC<IProps> = ({ date, timeSlots }) => {
     <div className={'task-previous'}>
       <div className={'task-previous-date'}>{date}</div>
       {timeSlots.map((timeSlot) => {
-        return (
-          <InternalLink
-            to={'module-tab'}
-            params={{
-              id: String(timeSlot.module.id),
-              tabName: 'task',
-            }}
-            className={'task-previous-description'}
-            key={'task-previous-description' + timeSlot?.id}>
-            <span>
-              {timeSlot?.module?.title +
-                (timeSlot?.title ? ' - ' + timeSlot.title : '')}
-            </span>
-          </InternalLink>
-        );
+        console.log('timeSlots ', timeSlots)
+        console.log('timeSlot.module ', timeSlot.module)
+        if (timeSlot.module !== null) {
+          return (
+            <InternalLink
+              to={'module-tab'}
+              params={{
+                id: String(timeSlot.module.id),
+                tabName: 'task',
+              }}
+              className={'task-previous-description'}
+              key={'task-previous-description' + timeSlot?.id}>
+              <span>
+                {timeSlot?.module?.title +
+                  (timeSlot?.title ? ' - ' + timeSlot.title : '')}
+              </span>
+            </InternalLink>
+          );
+        }
       })}
     </div>
   );

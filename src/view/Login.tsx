@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Scrollbars } from 'react-custom-scrollbars';
 
 // components
 import Logo from '@app/component/icon/Logo';
@@ -36,7 +37,17 @@ const Login: React.FC<any> = ({ ...props }) => {
       {(!props.isNeededSecondStep && !props.authStatus) ||
       (props.isNeededSecondStep && !props.authStatus) ? (
         <>
-          <div className={'login'}>
+          <Scrollbars
+            style={{
+              width: '100%',
+              maxWidth: 860,
+              height: '100%',
+              maxHeight: '100%',
+              display: 'flex',
+              marginRight: 'auto',
+              marginLeft: 'auto',
+            }}
+            renderView={(props) => <div {...props} className={'login'} />}>
             <div className={'login-header'}>
               <Logo className={'logo'} />
             </div>
@@ -61,7 +72,9 @@ const Login: React.FC<any> = ({ ...props }) => {
               <div className={'login-body-footer'}>
                 <span className={'login-body-footer-text'}>
                   By continuing you agree with our{' '}
-                  <Link to={'terms'} className={'login-body-footer-text-link'}>terms</Link>{' '}
+                  <Link to={'terms'} className={'login-body-footer-text-link'}>
+                    terms
+                  </Link>{' '}
                   and{' '}
                   <Link
                     to={'privacy-policy'}
@@ -71,12 +84,16 @@ const Login: React.FC<any> = ({ ...props }) => {
                 </span>
               </div>
             </div>
-          </div>
+          </Scrollbars>
         </>
       ) : (
         <>
           {props.isNeededSecondStep ? (
-            <AddYourData user={props.user} logoutMethod={props.logoutMethod} setPageOpened = {props.setPageOpened}/>
+            <AddYourData
+              user={props.user}
+              logoutMethod={props.logoutMethod}
+              setPageOpened={props.setPageOpened}
+            />
           ) : (
             <></>
           )}
