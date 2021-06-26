@@ -154,7 +154,7 @@ const Module: React.FC<IProps> = (props) => {
             display: 'flex',
           }}>
           {modules?.[idNumber]?.isExpired ? (
-            <TrialExpired />
+            <TrialExpired id={modules?.[idNumber]?.journey?.id} />
           ) : (
             <div className={'module-body'}>{props.children}</div>
           )}

@@ -8,8 +8,6 @@ import { TimeSlotDTO } from '@ternala/frasier-types';
 // Components
 import Calendar from './Calendar/Calendar';
 import TaskList from './TaskList/TaskList';
-import DayOff from './DayOff/DayOff';
-import Holiday from './Holiday/Holiday';
 
 // config
 import { limitGetScheduleDays, LoaderAction } from '@app/config/constants';
@@ -33,17 +31,14 @@ import {
 
 // utils
 import { generateArrayOfDates } from '@app/utils/generateArrayOfDates';
-import NoTasks from '../../component/pages/schedule/NoTasks';
 import Loader from '@app/component/Loader';
-import { IStore } from '@app/controller/model';
-import { ILoader } from '@app/model';
 
 // Interfaces
 interface IProps extends RouteComponentProps {
   absoluteBlock: string;
 }
 
-const Schedule: React.FC<IProps> = ({ ...props }) => {
+const Schedule: React.FC<IProps> = () => {
   const startDate = moment().subtract(limitGetScheduleDays, 'days');
   const endDate = moment().add(limitGetScheduleDays, 'days');
   const daysInSchedule: Moment[] = generateArrayOfDates(startDate, endDate);
