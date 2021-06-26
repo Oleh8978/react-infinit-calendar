@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 interface IProps {
   text: string;
@@ -8,7 +8,7 @@ interface IProps {
 const ButtonRed: React.FC<IProps> = ({ ...props }) => {
   return (
     <div className={'btn-red'}>
-        <span className={'btn-red-text'}>{props.text}</span>
+      <span className={'btn-red-text'}>{props.text}</span>
     </div>
   );
 };

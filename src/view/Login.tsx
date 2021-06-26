@@ -14,7 +14,6 @@ import { signIn } from '@app/controller/auth/actions';
 
 // interfaces
 import { IStore } from '@app/controller/model';
-import { ISignedData } from '@app/controller/auth/model';
 import { IUser } from '@app/controller/auth/model';
 import Link from '@app/routing/Link';
 
@@ -27,7 +26,7 @@ interface IProps {
   setPageOpened: () => void;
 }
 
-const Login: React.FC<any> = ({ ...props }) => {
+const Login: React.FC<IProps> = ({ ...props }) => {
   const singInFunction = (data: any, type: string) => {
     props.signIn({ receivedToken: data.accessToken, signIntype: type });
   };

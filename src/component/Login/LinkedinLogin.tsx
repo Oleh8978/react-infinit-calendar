@@ -1,8 +1,10 @@
 import React from 'react';
 import { LinkedIn } from 'react-linkedin-login-oauth2';
-// componets 
+
+// Components
 import LinkedInIcon from '@app/component/icon/LinkedInIcon';
-// interfaces 
+
+// Interfaces
 import { ISignedData } from '@app/controller/auth/model';
 
 type Props = {
@@ -38,8 +40,13 @@ const LinkedinLoginComponent: React.FC<Props> = ({ signIn }) => {
       renderElement={({ onClick, disabled }) => (
         <div className={'linked-inn-btn'}>
           <LinkedInIcon />
-          <button className={'linked-inn-btn-main'}onClick={onClick} disabled={disabled}>
-            <span className={'linked-inn-btn-main-txt'}>Continue with LinkedIn</span>
+          <button
+            className={'linked-inn-btn-main'}
+            onClick={onClick}
+            disabled={disabled}>
+            <span className={'linked-inn-btn-main-txt'}>
+              Continue with LinkedIn
+            </span>
           </button>
         </div>
       )}

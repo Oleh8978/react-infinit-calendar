@@ -1,16 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+// interface IProps {
+// }
 
-interface IProps {
-}
-
-const CheckoutPayment: React.FC<IProps> = ({ ...props }) => {
-
+const CheckoutPayment: React.FC = () => {
   return (
-      <button className='checkout-payment-button'>
-        <span className='checkout-payment-button-text'>
-          PayPal
-        </span>
-      </button>
+    <button className="checkout-payment-button">
+      <span className="checkout-payment-button-text">PayPal</span>
+    </button>
   );
 };
 

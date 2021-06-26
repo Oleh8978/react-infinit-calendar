@@ -12,7 +12,7 @@ import FacebookIcon from '@app/component/icon/FacebookIcon';
 import { ISignedData } from '@app/controller/auth/model';
 
 // config files
-import { facebookAppId, loginType } from '@app/config';
+import { facebookAppId } from '@app/config';
 
 type Props = {
   signIn: (state: ISignedData, type: string) => void;
@@ -57,7 +57,9 @@ const FacebookLoginComponent: React.FC<Props> = ({ signIn }) => {
       render={(renderProps) => (
         <div className={'facebook-btn-body'} onClick={renderProps.onClick}>
           <FacebookIcon />
-          <span className={'facebook-btn-body-txt'}>Continue with Facebook</span>
+          <span className={'facebook-btn-body-txt'}>
+            Continue with Facebook
+          </span>
         </div>
       )}
     />

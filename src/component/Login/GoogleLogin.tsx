@@ -1,10 +1,13 @@
 import React from 'react';
 import ReactGoogleLogin from 'react-google-login';
-// components 
+
+// Components
 import GoogleIcon from '@app/component/icon/GoogleIcon';
-// interfaces 
+
+// Interfaces
 import { ISignedData } from '@app/controller/auth/model';
-// config files 
+
+// Config
 import { googleClientId } from '@app/config';
 
 type Props = {
@@ -17,13 +20,8 @@ const GoogleLoginComponent: React.FC<Props> = ({ signIn }) => {
     let signedData: ISignedData = { type: 'google' };
     if (!response.error) {
       if (response.profileObj) {
-        const {
-          email,
-          familyName,
-          givenName,
-          imageUrl,
-          googleId,
-        } = response.profileObj;
+        const { email, familyName, givenName, imageUrl, googleId } =
+          response.profileObj;
         signedData = {
           id: googleId,
           firstName: givenName,
@@ -47,7 +45,9 @@ const GoogleLoginComponent: React.FC<Props> = ({ signIn }) => {
           disabled={renderProps.disabled}
           onClick={renderProps.onClick}>
           <GoogleIcon />
-          <span className={'auth__google-button-txt'}>Continue with Google</span>
+          <span className={'auth__google-button-txt'}>
+            Continue with Google
+          </span>
         </button>
       )}
       buttonText="Login"
