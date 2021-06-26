@@ -24,7 +24,6 @@ const Uncompleted: React.FC<IProps> = ({ toggleTask, ...props }) => {
     <div className={'tasks-uncompleted'}>
       <span className="tasks-uncompleted-header">Previously uncompleted</span>
       <div className="tasks-uncompleted-wrapper">
-        {console.log('props.prevData: ', props.prevData)}
         {props.prevData
           ? Object.entries(props.prevData).map(([day, timeSlots]) =>
               timeSlots?.length ? (

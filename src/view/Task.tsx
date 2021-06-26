@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { ArticleDTO, TaskFullDTO } from '@ternala/frasier-types';
+import { TaskFullDTO } from '@ternala/frasier-types';
 import { useSelector } from 'react-redux';
 
 // components
 import NavigationBar from '@app/component/NavigationBar';
-import AnswerNotFound from '@app/view/Discovery/AnswerNotFound/AnswerNotFound';
 import Loader from '@app/component/Loader';
 
 // Transport
@@ -18,10 +17,11 @@ type IProps = RouteComponentProps<{ id: string }>;
 
 const Task: React.FC<IProps> = (props) => {
   const [isLoading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<null | string>(null);
   const [task, setTask] = useState<TaskFullDTO | undefined>();
   const id = Number(props.match.params.id);
 
-  if (isNaN(id))
+  if (isNaN(id) || error)
     return (
       <NotFound
         history={props.history}
@@ -36,11 +36,15 @@ const Task: React.FC<IProps> = (props) => {
     setLoading(true);
 
     tokenPromise.then((token) => {
-      TaskAPI.getTask(id, token).then((task) => {
-        if (typeof task !== 'string') {
-          setTask(task);
-          setLoading(false);
+      TaskAPI.getTask(id, token).then((res) => {
+        if (typeof res !== 'string') {
+          setTask(res);
+          setError(null);
+        } else {
+          setError(res);
+          console.log('error: ', error);
         }
+        setLoading(false);
       });
     });
   }, []);
@@ -51,7 +55,10 @@ const Task: React.FC<IProps> = (props) => {
 
   return (
     <div className={'jorneydiscovey'}>
-      <NavigationBar name={task.title} rout={`/module/${task?.timeSlot?.module?.id}/task`} />
+      <NavigationBar
+        name={task.title}
+        rout={`/module/${task?.timeSlot?.module?.id}/task`}
+      />
       <div className={'jorneydiscovey-body'}>
         {myData
           .sort((el1, el2) => {

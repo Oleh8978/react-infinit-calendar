@@ -1,8 +1,17 @@
 .module {
   //height: 100vh;
   //height: calc(var(--vhFull) - 55px);
-  height: fit-content;
-  min-height: 100vh;
+  //height: fit-content;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &-content{
+    position: relative;
+    flex: 1 auto;
+    overflow: hidden;
+  }
 
   &-menu {
     z-index: 10;

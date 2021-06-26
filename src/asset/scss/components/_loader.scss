@@ -45,6 +45,25 @@
   align-items: center;
   justify-content: center;
 
+  &.custom{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(255,255,255, .9);
+    transform: translateX(-200vw);
+    opacity: 0;
+    transition: opacity .3s .3s, transform 0s .6s;
+    z-index: 99999;
+
+    &.show{
+      opacity: 1;
+      transform: translateX(0);
+      transition: opacity .3s, transform 0s 0s;
+    }
+  }
+
   &.absoluteLoader {
     top: 170px;
     left: 0px;

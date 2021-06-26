@@ -4,13 +4,15 @@ export interface IProps {
   isSmall?: boolean;
   styleComp?: number;
   isAbsolute?: boolean;
+  className?: string;
+  isShow?: boolean;
 }
 
-export const Loader: React.FC<IProps> = ({ ...props }) => {
+export const Loader: React.FC<IProps> = ({ className, isShow, ...props }) => {
   return (
     <>
       {props.isSmall ? (
-        <div className={props.isAbsolute ? 'smallWrapper absoluteLoader' : 'smallWrapper'}>
+        <div className={(className || "") + (isShow ? " show" : "") + " smallWrapper" + (props.isAbsolute ? ' absoluteLoader' : '')}>
           <div
             className={'loader'}
             style={{

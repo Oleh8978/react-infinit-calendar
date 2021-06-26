@@ -33,7 +33,7 @@ import {
 
 // utils
 import { generateArrayOfDates } from '@app/utils/generateArrayOfDates';
-import NoTasks from './NoTasks/NoTasks';
+import NoTasks from '../../component/pages/schedule/NoTasks';
 import Loader from '@app/component/Loader';
 import { IStore } from '@app/controller/model';
 import { ILoader } from '@app/model';

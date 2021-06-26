@@ -11,7 +11,7 @@ import {
 import { defaultUserStartTime, LoaderAction } from '@app/config/constants';
 
 // Components
-import NoTasks from '../NoTasks/NoTasks';
+import NoTasks from '../../../component/pages/schedule/NoTasks';
 import DayOff from '../DayOff/DayOff';
 import Holiday from '../Holiday/Holiday';
 import Loader from '@app/component/Loader';
