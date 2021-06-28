@@ -27,6 +27,11 @@ const TodaysJourney: React.FC<any> = ({ ...props }) => {
       setStatistic(props.statistic);
     }
   }, [props.statistic.today]);
+  if (statistic !== undefined) {
+    console.log('statistic.today ', statistic.today
+    )
+  }
+ 
   return (
     <>
       {statistic ? (
@@ -87,8 +92,8 @@ const TodaysJourney: React.FC<any> = ({ ...props }) => {
                     className={
                       'profile-journey-progress__right-textwrapper__top'
                     }>
-                    {statistic.today.maxTaskCount} /
-                    {statistic.today.completedTaskCount}
+                    {statistic.today.completedTaskCount}/
+                    {statistic.today.maxTaskCount}
                   </span>
                   <span
                     className={
