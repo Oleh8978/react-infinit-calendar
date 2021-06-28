@@ -43,7 +43,8 @@ const TodaysJourney: React.FC<any> = ({ ...props }) => {
                     neededPercent={
                       statistic.today.spent > 0 && statistic.today.maxSpent
                         ? Math.round(
-                            (statistic.spent / statistic.maxSpent) * 100,
+                            (statistic.today.spent / statistic.today.maxSpent) *
+                              100,
                           )
                         : 1
                     }
@@ -86,8 +87,8 @@ const TodaysJourney: React.FC<any> = ({ ...props }) => {
                     className={
                       'profile-journey-progress__right-textwrapper__top'
                     }>
-                    {statistic.today.completedTaskCount} /{' '}
-                    {statistic.today.maxTaskCount}
+                    {statistic.today.maxTaskCount} /
+                    {statistic.today.completedTaskCount}
                   </span>
                   <span
                     className={

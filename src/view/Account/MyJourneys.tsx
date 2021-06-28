@@ -46,7 +46,9 @@ const MyJourneys: React.FC<any> = ({ ...props }) => {
                   return <JorneyComponent data={item} />;
                 })}
           </div>
-          {listData ? (
+          {listData &&
+          listData.filter((item) => item.statistic.isCompleted === true)
+            .length > 0 ? (
             <CompletedJourneys
               listData={listData.filter(
                 (item) => item.statistic.isCompleted === true,
