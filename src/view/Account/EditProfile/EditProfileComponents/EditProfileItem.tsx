@@ -58,13 +58,13 @@ const EdditBodyElementItem: React.FC<IProps> = ({ ...props }) => {
   const handleChange = (event) => {
     if (!props.isFirstpage) {
       props.setObjectState(props.data.subname, event.target.value);
-      props.observer();
     }
     setValue(event.target.value);
     validator(props.data.subname, event.target.value);
   };
 
   const dropOnChangeValue = (event) => {
+    props.observer();
     props.setObjectState(props.data.subname, event.target.value);
   };
 

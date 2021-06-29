@@ -13,7 +13,8 @@ import { ArticleReducer, ArticleSaga } from './articleCategory/index';
 import { GetHolidayReducer, HolidaySaga } from './holidays';
 import { accountUserSaga, userReducer } from './account/index';
 import { todaySatisticSaga, statisticReducer } from './statistic/index';
-import { listFOStatisticSaga, statisticListReducer } from './statisticList/index';
+import { statisticListReducer } from './statisticList/index';
+import { currentStatisctic } from './statisticList/sagas/statisticSaga';
 import { GetJourneyReducer, JourneySaga } from '@app/controller/journey';
 
 export const rootSaga = function* () {
@@ -24,7 +25,7 @@ export const rootSaga = function* () {
     ArticleSaga(),
     accountUserSaga(),
     todaySatisticSaga(),
-    listFOStatisticSaga(),
+    currentStatisctic(),
     scheduleSaga(),
     moduleSaga(),
     HolidaySaga(),

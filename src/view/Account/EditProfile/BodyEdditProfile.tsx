@@ -49,6 +49,7 @@ const BodyEdditProfile: React.FC<any> = ({ ...props }) => {
     setEditProfileStateObject,
   ] = useState<IFullObjectState>(editProfileState);
   const dispatch = useDispatch();
+  const [timeZone, setTimeZone] = useState<string>('');
 
   const validatorFunctionality = (key: string, value: string) => {
     const element = validationObject.find((item) => item.name === key);
@@ -75,7 +76,6 @@ const BodyEdditProfile: React.FC<any> = ({ ...props }) => {
 
   const updateUserData = () => {
     if (isAllSiealdsArefiledOut && userData !== undefined) {
-      // console.log('editProfileStateObject ', editProfileStateObject);
       props.setUserData({
         firstName: editProfileStateObject.firstName,
         lastName: editProfileStateObject.lastName,
@@ -101,13 +101,12 @@ const BodyEdditProfile: React.FC<any> = ({ ...props }) => {
         editProfileStateObject[keyEditProf] = value;
       }
     }
-
+    setTimeZone(value)
     setEditProfileStateObject(editProfileStateObject);
   };
 
   useEffect(() => {
     if (userData === undefined && props.user.userData !== undefined) {
-      console.log('props.user data', props.user)
       setUserData(props.user.userData);
       for (const [keyUser, valueUser] of Object.entries(props.user.userData)) {
         for (const [keyEditProf, valueEditProf] of Object.entries(
@@ -130,7 +129,11 @@ const BodyEdditProfile: React.FC<any> = ({ ...props }) => {
         }),
       );
     }
-  }, [props.user.id, props.updater]);
+    if (props.changeStateOfTheSvaeBtn) {
+      observer();
+    }
+
+  }, [props.user.id, props.updater, timeZone]);
 
   const observer = () => {
     updateUserData();
@@ -166,7 +169,6 @@ const BodyEdditProfile: React.FC<any> = ({ ...props }) => {
   };
 
   const deleteProfile = () => {
-    console.log('deleted');
     props.deleteProfile({});
   };
 

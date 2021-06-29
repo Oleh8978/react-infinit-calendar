@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { ModuleExpandDTO } from '@app/controller/module/models';
+
 export interface IProps {
   isSmall?: boolean;
   styleComp?: number;
