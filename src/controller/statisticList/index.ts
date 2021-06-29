@@ -5,13 +5,6 @@ import * as actions from './actions';
 // interfaces
 import { IStatisticsListState } from './models';
 
-//Sagas
-import { statisticListSaga } from './sagas/statisticSaga';
-
-export const listFOStatisticSaga = function* () {
-  yield all([statisticListSaga()]);
-};
-
 export type AuthActionType = ActionType<typeof actions>;
 
 const initialState: IStatisticsListState = {

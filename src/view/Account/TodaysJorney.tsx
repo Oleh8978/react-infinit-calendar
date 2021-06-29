@@ -43,7 +43,7 @@ const TodaysJourney: React.FC<any> = ({ ...props }) => {
                     neededPercent={
                       statistic.today.spent > 0 && statistic.today.maxSpent
                         ? Math.round(
-                            (statistic.spent / statistic.maxSpent) * 100,
+                            (statistic.today.spent / statistic.today.maxSpent) * 100,
                           )
                         : 1
                     }

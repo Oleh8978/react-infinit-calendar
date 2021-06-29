@@ -77,6 +77,6 @@ export function* statisticListSaga() {
   }
 }
 
-export function* todayStatisticsSaga() {
+export function* currentStatisctic() {
   yield all([takeEvery(actions.getStatisticList.request, statisticListSaga)]);
 }

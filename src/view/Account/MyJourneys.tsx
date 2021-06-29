@@ -21,7 +21,7 @@ const MyJourneys: React.FC<any> = ({ ...props }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (listData === undefined) {
+    if (listData === undefined && props.listStaticitc.journeys === undefined) {
       dispatch(getStatisticList.request({}));
     }
 
@@ -29,11 +29,12 @@ const MyJourneys: React.FC<any> = ({ ...props }) => {
       setListData(props.listStaticitc.journeys);
     }
   }, [props.listStaticitc.journeys]);
-  console.log('local data my journeys ', listData);
-  console.log('data incoming ', props.listStaticitc.journeys);
+
   return (
     <div className={'profile-myjourneys'}>
-      <span className={'profile-myjourneys-header'}>My journeys </span>
+      {listData && listData.length !== 0 && (
+        <span className={'profile-myjourneys-header'}>My journeys </span>
+      )}
       {props.loader ? (
         <Loader />
       ) : (
@@ -64,6 +65,7 @@ const MyJourneys: React.FC<any> = ({ ...props }) => {
 export default connect(
   (state: IStore) => ({
     listStaticitc: state.statisticListReducer.journeyObject,
+    state: state,
     loader: state.statisticListReducer.loaderState.status,
   }),
   { getStatisticList },
