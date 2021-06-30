@@ -28,7 +28,10 @@ interface IProps {
 
 const Login: React.FC<IProps> = ({ ...props }) => {
   const singInFunction = (data: any, type: string) => {
-    props.signIn({ receivedToken: data, signIntype: type });
+    props.signIn({
+      receivedToken: type === 'linkedIn' ? data : data.accessToken,
+      signIntype: type,
+    });
   };
 
   return (

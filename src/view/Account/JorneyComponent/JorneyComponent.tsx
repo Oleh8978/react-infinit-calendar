@@ -1,7 +1,8 @@
 import React from 'react';
 
 // components
-import Link from '@app/routing/Link';
+// import Link from '@app/routing/Link';
+import { Link } from 'react-router-dom';
 
 // interfaces
 import { IJourney } from '@app/controller/statisticList/models';
@@ -18,7 +19,7 @@ const JorneyComponent: React.FC<IProps> = ({ ...props }) => {
   return (
     <>
       {props.data.statistic.endDate ? (
-        <Link to={'journey-info'}>
+        <Link to={`/journey-info/${props.data.id}`}>
           <div className={'single-jorney-component__column'}>
             <div className={'single-jorney-component__column-header'}>
               <span className={'single-jorney-component__column-header-text'}>
@@ -83,7 +84,7 @@ const JorneyComponent: React.FC<IProps> = ({ ...props }) => {
           </div>
         </Link>
       ) : (
-        <Link to={'journey-info'}>
+        <Link to={`/journey-info/${props.data.id}`}>
           <div className={'single-jorney-component__row'}>
             <div className={'single-jorney-component__row-header'}>
               <span className={'single-jorney-component__row-header-text'}>
