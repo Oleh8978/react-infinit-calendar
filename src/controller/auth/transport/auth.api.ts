@@ -31,14 +31,17 @@ class API {
           'Content-Type': 'application/json',
           // ...authHeader(receivedToken),
         },
-        body: JSON.stringify({
-          authToken: receivedToken,
-          deviceCredentials: deviceCredentials,
-          redirectURL:
-            String(signIntype) === 'linkedin'
-              ? 'https://frasier.ternala.com/linkedin'
-              : '',
-        }),
+        body:
+          String(signIntype) === 'linkedin'
+            ? JSON.stringify({
+                authToken: receivedToken,
+                deviceCredentials: deviceCredentials,
+                redirectURL: String(signIntype),
+              })
+            : JSON.stringify({
+                authToken: receivedToken,
+                deviceCredentials: deviceCredentials,
+              }),
       }),
     );
   }
