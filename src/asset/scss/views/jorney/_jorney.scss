@@ -302,6 +302,39 @@
     display: flex;
     flex-flow: column;
 
+    &-progress {
+      display: flex;
+      flex-direction: column;
+
+      &-numbers {
+        display: flex;
+        font-family: $Spartan;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 20px;
+        color: $text-color;
+
+        &-text {
+          font-family: $NotoSansSC;
+          font-weight: 500;
+          font-size: 12px;
+          line-height: 17px;
+          color: $secondary-purple-text-color;
+          width: 100%;
+        }
+
+        &-wrap {
+          display: flex;
+          margin: 25px 0 5px;
+        }
+
+        &-item {
+          display: flex;
+          flex-wrap: wrap;
+        }
+      }
+    }
+
     &-header {
       display: flex;
       flex-flow: row;

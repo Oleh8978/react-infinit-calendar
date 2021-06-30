@@ -1,0 +1,34 @@
+.tab {
+  display: flex;
+  flex-direction: column;
+  margin: 30px 0;
+
+  &-titles {
+    display: flex;
+    justify-content: space-between;
+    background: $white;
+    border: 1px solid $divider-color;
+    border-radius: 18px;
+    padding: 6px 8px;
+  }
+
+  &-title {
+    background: $white;
+    border-radius: 14px;
+    font-family: $Spartan;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 13px;
+    letter-spacing: -0.045em;
+    color: $text-color;
+    padding: 10px 10px 8px;
+    margin: 0 auto;
+    text-align: center;
+    transition: all 0.3s ease;
+
+    &--active {
+      background: $empty-title-color;
+      color: $white;
+    }
+  }
+}

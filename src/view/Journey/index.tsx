@@ -21,7 +21,7 @@ import { StatisticAPI } from '@app/controller/statistic/transport/statistic.api'
 import { RouteComponentProps } from 'react-router-dom';
 import Loader from '@app/component/Loader';
 import ConfirmationWindow from '@app/component/modalWindow/confirmationWindow';
-import { deleteDayOffAction, setDayOffAction } from '@app/controller/schedule/actions';
+import { JourneyGetResponse, StatisticGetJourneyResponse } from '@ternala/frasier-types';
 
 type IProps = RouteComponentProps<{ id: string }>;
 
@@ -31,7 +31,7 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
   const [isTrialPeriod, setIsTrialPeriod] = useState<boolean>(false);
   const [isTrialPeriodStarted, setIsTrialPeriodStarted] = useState<boolean>(false);
   const [hasHours, setHasHours] = useState<boolean>(false);
-  const [statistic, setStatistic] = useState<any | undefined>();
+  const [statistic, setStatistic] = useState<StatisticGetJourneyResponse | undefined>();
 
   const journey = useSelector(getJourney);
   const tokenPromise = useSelector(getAccessToken);
@@ -39,8 +39,18 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
   const id = Number(props.match.params.id);
   const dispatch = useDispatch();
 
+
+  console.log('journey.status')
+  console.log(journey.status)
+  // if(journey.status) {
+  //   setIsTrialPeriodStarted(journey.status.isTrial);
+  // }
+
   useEffect(() => {
     dispatch(getJourneyDataAction.request(id));
+    if(journey.status) {
+      setIsTrialPeriodStarted(journey.status.isTrial);
+    }
 
     tokenPromise.then((token) => {
       if (token !== undefined) {
@@ -55,10 +65,12 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
     });
   }, []);
 
+
   console.log('item');
   console.log(statistic);
   console.log('journey');
   console.log(journey);
+
 
   const setIsStartPopup = (boolean) => {
     setStartPopup(boolean);
@@ -115,15 +127,14 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
         ) : (<></>)}
         <NavigationBar name={'Journey Info'} rout={'/'} />
         <JourneyHeader img={journey.image} />
+
           <JourneyDescription
-            text={journey.title}
+            statistic={statistic}
+            journey={journey}
+            isTrialStarted={isTrialPeriodStarted}
             hashours={hasHours}
-            workDays={journey.workDays}
-            duration={statistic.journey.statistic.maxSpent}
-            maxDaySpent={statistic.journey.statistic.maxDaySpent}
-            minDaySpent={statistic.journey.statistic.minDaySpent}
-            data={journey.subTitle}
           />
+
         {/*<JourneyListComponent data={list} />*/}
         <div className='jorneydiscoveymain-bottom-wrapper'>
           <JourneyFixedBottom
