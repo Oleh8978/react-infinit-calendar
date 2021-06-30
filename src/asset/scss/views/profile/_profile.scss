@@ -387,3 +387,7 @@
     width: auto;
   }
 }
+
+input[type="file"] {
+  display: none;
+}
