@@ -16,10 +16,9 @@ import * as settingsConfig from './settingsConfig';
 import { clearAccess } from '@app/utils/manageAccess';
 
 // actions
-import {
-  setAuthenticatedStatus,
-  logOut,
-} from '@app/controller/auth/actions';
+import { setAuthenticatedStatus, logOut } from '@app/controller/auth/actions';
+
+import { updateUserDataAction } from '@app/controller/secondStepDataUpdater/actions';
 
 interface IProps {}
 
@@ -28,6 +27,16 @@ const SettingsBody: React.FC<IProps> = ({ ...props }) => {
   const logoutMethod = () => {
     dispatch(setAuthenticatedStatus({ status: false }));
     dispatch(logOut.request({}));
+    dispatch(
+      updateUserDataAction.success({
+        user: 0,
+        id: 0,
+        firstName: '',
+        lastName: '',
+        email: '',
+        image: '',
+      }),
+    );
     clearAccess();
   };
 
