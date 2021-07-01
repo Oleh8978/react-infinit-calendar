@@ -26,11 +26,11 @@ const JourneyDescription: React.FC<IProps> = ({ journey, statistic, hashours, is
   });
 
   const tabData = [
-    {id : '1',
+    { id : '1',
       tabTitle: "Statistics",
       tabContent: <JourneyStatisticTable data={statistic.modules} />
     },
-    {id : '2',
+    { id : '2',
       tabTitle: "Description",
       tabContent: <TextComponent data={journey.subTitle} />
     }
@@ -59,8 +59,8 @@ const JourneyDescription: React.FC<IProps> = ({ journey, statistic, hashours, is
                 <span className='journeyinfo-body-progress-numbers-text'>tasks</span>
               </div>
               <div className='journeyinfo-body-progress-numbers-item'>
-                <span className='journeyinfo-body-progress-numbers'>{moment(journey.status.trialEndDate).format("MM/DD/YY")}</span>
-                <span className='journeyinfo-body-progress-numbers-text'>ends</span>
+                <span className='journeyinfo-body-progress-numbers'>{journey.status ? moment(journey.status.trialEndDate).format("MM/DD/YY") : 'Endless'}</span>
+                <span className='journeyinfo-body-progress-numbers-text'>{journey.status ? 'ends' : 'duration'}</span>
               </div>
             </div>
           </div>

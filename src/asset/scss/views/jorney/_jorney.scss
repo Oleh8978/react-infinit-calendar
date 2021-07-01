@@ -561,6 +561,46 @@
   }
 }
 
+.journeytable {
+  table {
+    width: 100%;
+  }
+
+  tr {
+    padding: 15px 10px 15px 0;
+    border-bottom: 1px solid $divider-color;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &-title {
+    font-family: $NotoSansSC;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 17px;
+    text-transform: uppercase;
+    color: $secondary-grey-text-color;
+  }
+
+  &-hours {
+    font-family: $Spartan;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: right;
+    color: $text-color;
+  }
+
+  &-percent {
+    font-family: $Spartan;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: right;
+    color: $secondary-purple-text-color;
+  }
+}
+
 .jorneydiscovey {
   display: flex;
   flex-flow: column;
@@ -659,6 +699,7 @@
 
   &-bottom {
     display: flex;
+    //flex-wrap: wrap;
     flex-flow: row;
     @media screen and (max-width: 850px) {
       flex-flow: column;
@@ -674,15 +715,31 @@
       width: 100%;
       max-width: 638px;
       bottom: 0;
-      width: 100%;
       height: 95px;
       background-color: $white;
+      display: flex;
+      flex-direction: column;
 
       @media screen and (max-width: 850px) {
         flex-flow: column;
         padding-left: 15px;
         padding-right: 15px;
         height: 145px;
+      }
+
+      .trial-info {
+        text-align: center;
+        width: 100%;
+        font-family: $Spartan;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 18px;
+        color: $empty-title-color;
+        margin-bottom: 30px;
+
+        &-error {
+          color: $red-color;
+        }
       }
     }
 
@@ -724,11 +781,13 @@
         width: 100%;
         margin-left: 10px;
         cursor: pointer;
+        //max-width: 48%;
 
         @media screen and (max-width: 850px) {
           margin-top: 15px;
           margin-bottom: 15px;
           margin-left: 0px;
+          //max-width: none;
         }
 
         &-text {
@@ -751,10 +810,15 @@
     &-red {
       background-color: $red-color;
       border-color: $red-color;
+      //max-width: 48%;
 
       .jorneydiscoveymain-bottom-pink-text {
         color: $white;
       }
+
+      //@media screen and (max-width: 850px) {
+      //  max-width: none;
+      //}
     }
   }
 }

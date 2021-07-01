@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
+import { ITabData } from '@app/model';
 
 // components
 
 interface IProps {
-  data: any;
+  data: ITabData[];
 }
 
 const Tab: React.FC<IProps> = ({...props}) => {
-  const [isActive, setIsActive] = useState<boolean>(true);
+  const [isActive, setIsActive] = useState<string>('2');
 
   const TabTitle = (props) => {
     return(

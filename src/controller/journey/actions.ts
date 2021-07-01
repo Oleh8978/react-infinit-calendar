@@ -26,10 +26,10 @@ export const setJourneyConnectAction = createAsyncAction(
   `${appName}/${widgetName}/SET_JOURNEY_CONNECT_SUCCESS`,
   `${appName}/${widgetName}/SET_JOURNEY_CONNECT_FAILED`,
 )<
-  JourneyUserConnectCreateRequest,
+  {id: number},
   {
     response: JourneyUserConnectCreateResponse;
-    additionalFields: JourneyUserConnectCreateRequest;
+    additionalFields: {id: number};
   },
   IException
   >();

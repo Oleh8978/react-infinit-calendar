@@ -22,6 +22,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import Loader from '@app/component/Loader';
 import ConfirmationWindow from '@app/component/modalWindow/confirmationWindow';
 import { JourneyGetResponse, StatisticGetJourneyResponse } from '@ternala/frasier-types';
+import moment from 'moment';
 
 type IProps = RouteComponentProps<{ id: string }>;
 
@@ -65,6 +66,12 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
     });
   }, []);
 
+  useEffect(() => {
+    if(journey.status) {
+      setIsTrialPeriodStarted(journey.status.isTrial);
+    }
+  }, [journey])
+
 
   console.log('item');
   console.log(statistic);
@@ -82,11 +89,10 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
 
   const startTrial = () => {
     setStartPopup(false);
-    //const newDate = new Date();
     setIsTrialPeriodStarted(true);
     dispatch(
       setJourneyConnectAction.request({
-        journey: id, isPaid: false, startDate: undefined, user: 5
+        id,
       }),
     );
   };
@@ -111,7 +117,7 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
           <ConfirmationWindow firstButton={'I Want to Hold Off'}
                               secondButton={'Good, Let’s Proceed'}
                               text={'This journey will start on'}
-                              title={'Monday, Jan 27'}
+                              title={journey.status ? moment(journey.status.startDate).format("dddd, MMM Do") : ''}
                               firstAction={() => setStartPopup(false)}
                               secondAction={startTrial}
           />
@@ -142,6 +148,7 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
             trialPeriod={journey.trialPeriod}
             hasTrialPeriod={isTrialPeriod}
             isTrialPeriodStarted={isTrialPeriodStarted}
+            trialEndDate={journey.status?.trialEndDate}
             setIsStartPopup={setIsStartPopup}
             setIsStopPopup={setIsStopPopup}
             id={id} />
