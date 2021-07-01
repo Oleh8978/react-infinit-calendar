@@ -122,7 +122,7 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
                         (element) => String(element) === 'journey',
                       ) !== undefined
                     ) {
-                      console.log('id: ', item.journey.id);
+                      // console.log('id: ', item.journey.id);
                       return (
                         <Link
                           to={'journey'}
