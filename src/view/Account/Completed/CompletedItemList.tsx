@@ -5,9 +5,6 @@ import { Link } from 'react-router-dom';
 import { IListItemCompleted } from '../Models';
 import { IJourney } from '@app/controller/statisticList/models';
 
-// hardcodedData
-import { dataModulesCompleted } from '../hardcodedData/data';
-
 // helpers
 import * as helpers from '../utils';
 
