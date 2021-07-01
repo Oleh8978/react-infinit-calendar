@@ -19,8 +19,9 @@ const JourneyCompletedItem: React.FC<IProps> = ({ ...props }) => {
   );
   console.log('props.data ', props.data);
   return (
-    // <div className={'journey-completed-item'}>
-      <Link to={`/journey-info/${props.data.id}`} className={'journey-completed-item'}>
+    <Link
+      to={`/journey-info/${props.data.id}`}
+      className={'journey-completed-item'}>
       <div className={'journey-completed-item-header'}>
         Completed {selectedIcon}
       </div>
@@ -88,7 +89,6 @@ const JourneyCompletedItem: React.FC<IProps> = ({ ...props }) => {
           )}
         </div>
       </div>
-    {/* </div> */}
     </Link>
   );
 };

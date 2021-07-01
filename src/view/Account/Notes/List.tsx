@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
-// components
-import Link from '@app/routing/Link';
-
 import NotesListItem from './ListItem';
 
 // interfaces
 import { IListItem } from './Models';
-
-// fake data 
-import { data } from '@app/view/Schedule/fakeData/fakedata';
 
 interface IProps {
   data: IListItem[];

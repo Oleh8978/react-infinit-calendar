@@ -6,7 +6,6 @@ import { Pages } from '@app/routing/schema';
 // interfaces
 import { IItem, IZones } from '../Models';
 import { IUser } from '@app/controller/auth/model';
-import { IvalidatorState } from '../../../LoginPages/utils/models';
 
 // utils 
 import { entryValidator } from './utils/utils';
