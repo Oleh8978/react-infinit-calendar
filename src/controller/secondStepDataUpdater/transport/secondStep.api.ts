@@ -12,7 +12,6 @@ class API {
     accessToken: string,
   ): Promise<IUserDataExtended | string> {
     const url = new URL(Config.MAIN_SERVICE_ENDPOINT + 'user/data');
-    console.log('')
     const formData: any = new FormData();
     for (const [key, value] of Object.entries(userData)) {
       formData.append(key, value);
