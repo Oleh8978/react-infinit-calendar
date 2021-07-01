@@ -73,7 +73,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
   };
 
   const searchQueryProcessor = (text: string) => {
-    setSearchQuery(text.trim());
+    setSearchQuery(text.trim().toLowerCase());
     if (text.trim().length !== 0) {
       loadDiscoveries('start', searchQuery);
     } else {
