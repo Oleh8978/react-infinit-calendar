@@ -1,15 +1,11 @@
 import React from 'react';
 
-// types
-import { Pages } from '@app/routing/schema';
-
 // components
 import EdditBodyElementItem from './EditProfileItem';
 
 // interfaces
 import { IData, IZones } from '../Models';
 import { IUser } from '@app/controller/auth/model';
-import { IvalidatorState } from '../../../LoginPages/utils/models';
 
 interface IProps {
   data: IData;
