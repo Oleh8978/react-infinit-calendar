@@ -13,7 +13,7 @@ import './asset/scss/main.scss';
 // Vitals
 import reportWebVitals from './reportWebVitals';
 
-// Config
+// config
 import { Config } from '@app/config/API';
 
 // Store

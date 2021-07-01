@@ -24,7 +24,7 @@ import {
   loginByTokenAction,
 } from '../actions';
 
-// Utils
+// utils
 import { clearAccess, saveAccess } from '@app/utils/manageAccess';
 import { getCredentials } from '@app/utils/deviceCredentials';
 import { isJWTTokenExpired } from '@app/utils/API';

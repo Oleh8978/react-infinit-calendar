@@ -1,6 +1,6 @@
 import React, { useState, useEffect, createRef, RefObject } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { omit, isEmpty } from 'lodash';
+import { omit } from 'lodash';
 import { connect, useDispatch } from 'react-redux';
 import { Scrollbars } from 'react-custom-scrollbars';
 

@@ -21,7 +21,7 @@ const Task: React.FC<IProps> = ({
   time,
   moduleId,
 }) => {
-  const [clap, setClap] = useState<string>('👏');
+  // const [clap, setClap] = useState<string>('👏');
 
   const navigationModule = () => {
     console.log('history ', history);
@@ -58,7 +58,7 @@ const Task: React.FC<IProps> = ({
                 </span>{' '}
                 <span className="task-completed__info-text-completed-clap">
                   {' '}
-                  {clap}
+                  {'👏'}
                 </span>
               </div>
             </div>

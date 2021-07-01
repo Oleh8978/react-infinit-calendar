@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-
-import { dataList } from '../FakeData/list/List';
+import Link from '@app/routing/Link';
 
 // components
 import Loader from '@app/component/Loader';
 import AnswerNotFound from '../AnswerNotFound/AnswerNotFound';
 
-// history
-import history from '@app/historyApi';
-
 // interface
-import { ArticleDTO, DiscoveryDTO } from '@ternala/frasier-types';
+import { DiscoveryDTO } from '@ternala/frasier-types';
 import { ISetLoadingAction } from '@app/controller/Discovery/model';
 
 interface IProps {
@@ -87,7 +82,9 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
                               alt="image"
                             />
                             <span className="card-text-wrapper-link">
-                              <Link to={`article/${item.article.id}`}>
+                              <Link
+                                to={'article'}
+                                params={{ id: String(item.article.id) }}>
                                 <h1 className="card-text-link">
                                   {item.article.title}
                                 </h1>
@@ -125,8 +122,11 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
                         (element) => String(element) === 'journey',
                       ) !== undefined
                     ) {
+                      console.log('id: ', item.journey.id);
                       return (
-                        <>
+                        <Link
+                          to={'journey'}
+                          params={{ id: String(item.journey.id) }}>
                           <div className="discovery-list-item-holder">
                             <div className="discovery-list-item-imgwrapper">
                               <img
@@ -150,7 +150,7 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
                               </span>
                             </div>
                           </div>
-                        </>
+                        </Link>
                       );
                     }
                   },

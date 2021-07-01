@@ -1,27 +1,35 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
+import { Scrollbars } from 'react-custom-scrollbars';
+
+// config
+import { LoaderAction } from '@app/config/constants';
 
 // custom components
 import NavigationBar from '@app/component/NavigationBar';
-
-import { getModuleAction } from '@app/controller/module/actions';
-import { getLoader, getModules } from '@app/controller/module';
-import { LoaderAction } from '@app/config/constants';
 import Loader from '@app/component/Loader';
 
-interface IProps extends RouteComponentProps<{ id: string }> {}
+// Actions
+import { getModuleAction } from '@app/controller/module/actions';
+
+// Selectors
+import { getLoader, getModules } from '@app/controller/module';
+
+// View
+import TrialExpired from '@app/view/Schedule/TrialExpired/TrialExpired';
+
+type IProps = RouteComponentProps<{ id: string }>;
 
 const Module: React.FC<IProps> = (props) => {
   const { id } = props.match.params;
   const idNumber = Number(id);
 
-  const modules = useSelector(getModules);
+  const modules: any = useSelector(getModules);
   const loaders = useSelector(getLoader);
 
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log('load module');
     dispatch(
       getModuleAction.request({
         id: idNumber,
@@ -136,11 +144,31 @@ const Module: React.FC<IProps> = (props) => {
         // modalToogle={openWindow}
         // saveBtnFunctionality={saveBtnFunctionality}
       />
-      {console.log(loaders)}
-      {loaders.filter(item => item.type === LoaderAction.module.getModule).length > 0 ? (
-        <Loader isSmall={true} />
-      ) : (<div className={'module-body'}>{props.children}</div>)}
-
+      <div className="module-content">
+        <Scrollbars
+          style={{
+            width: '100%',
+            maxWidth: 639,
+            height: '100%',
+            maxHeight: '100%',
+            display: 'flex',
+          }}>
+          {modules?.[idNumber]?.isExpired ? (
+            <TrialExpired id={modules?.[idNumber]?.journey?.id} />
+          ) : (
+            <div className={'module-body'}>{props.children}</div>
+          )}
+        </Scrollbars>
+        <Loader
+          isSmall={true}
+          className={'custom'}
+          isShow={
+            loaders.filter(
+              (item) => item.type === LoaderAction.module.getModule,
+            ).length > 0
+          }
+        />
+      </div>
     </div>
   );
 };

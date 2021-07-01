@@ -4,10 +4,10 @@ import {
   HolidayGetResponse,
 } from '@ternala/frasier-types';
 
-// Config
+// config
 import { Config } from '@app/config/API';
 
-// Utils
+// utils
 import { authHeader, handleErrors } from '@app/utils/API';
 import { appendSearchParams } from '@app/utils/appendSearchParams';
 

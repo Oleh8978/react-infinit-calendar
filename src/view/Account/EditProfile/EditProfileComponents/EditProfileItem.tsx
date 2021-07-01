@@ -8,6 +8,9 @@ import { IItem, IZones } from '../Models';
 import { IUser } from '@app/controller/auth/model';
 import { IvalidatorState } from '../../../LoginPages/utils/models';
 
+// utils 
+import { entryValidator } from './utils/utils';
+
 interface IProps {
   data: IItem;
   timeZones?: IZones[];
@@ -58,13 +61,13 @@ const EdditBodyElementItem: React.FC<IProps> = ({ ...props }) => {
   const handleChange = (event) => {
     if (!props.isFirstpage) {
       props.setObjectState(props.data.subname, event.target.value);
-      props.observer();
     }
-    setValue(event.target.value);
+    setValue(entryValidator(props.data.subname, event.target.value));
     validator(props.data.subname, event.target.value);
   };
 
   const dropOnChangeValue = (event) => {
+    props.observer();
     props.setObjectState(props.data.subname, event.target.value);
   };
 

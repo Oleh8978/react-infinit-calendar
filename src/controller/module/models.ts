@@ -1,10 +1,10 @@
-import { IDayWithTimeSlots, ModuleDTO } from '@ternala/frasier-types';
+import { IDayWithTimeSlots, ModuleGetResponse } from '@ternala/frasier-types';
 
 export const model = '';
 
 import { defaultState } from '../based';
 
-export interface ModuleExpandDTO extends ModuleDTO{
+export interface ModuleExpandDTO extends ModuleGetResponse{
   timeSlotData?: IDayWithTimeSlots;
   uncompletedTimeSlotData?: IDayWithTimeSlots;
 }

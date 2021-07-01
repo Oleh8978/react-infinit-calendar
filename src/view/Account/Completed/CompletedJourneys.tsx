@@ -11,7 +11,6 @@ interface IProps {
 }
 
 const CompletedJourneys: React.FC<IProps> = ({ ...props }) => {
-
   const moseMover = (ele) => {
     let pos = { top: 0, left: 0, x: 0, y: 0 };
 
@@ -52,7 +51,9 @@ const CompletedJourneys: React.FC<IProps> = ({ ...props }) => {
 
   return (
     <div className={'profile-myjourneys-completed'}>
-      <span className={'profile-myjourneys-header'}>Completed journeys </span>
+      {props.listData && props.listData.length !== 0 && (
+        <span className={'profile-myjourneys-header'}>Completed journeys </span>
+      )}
       {/* <div className={'profile-myjourneys-completed-container'}> */}
       <div className={'profile-myjourneys-completed-wrapper'}>
         {props.listData &&

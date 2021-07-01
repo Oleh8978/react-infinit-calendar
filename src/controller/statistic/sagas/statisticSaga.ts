@@ -9,7 +9,7 @@ import {
 import { BadRequest } from '@app/utils/API/exceptions';
 
 //APIs
-import { StatisticsAPI } from '../transport/statistic.api';
+import { StatisticAPI } from '../transport/statistic.api';
 
 // Actions
 import { getAccessToken, getRefreshToken } from '../../auth/index';
@@ -52,7 +52,7 @@ export function* statisticSaga() {
       //   clearAccess();
       throw new BadRequest();
     } else {
-      statisticData = yield StatisticsAPI.GetStatistic(accessToken);
+      statisticData = yield StatisticAPI.getStatistic(accessToken);
       yield put(actions.getStatisticToday.success({ ...statisticData }));
       console.log('statisticData');
       yield put(

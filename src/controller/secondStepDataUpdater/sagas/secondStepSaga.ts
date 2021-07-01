@@ -2,7 +2,7 @@ import { all, put, takeEvery, select } from 'redux-saga/effects';
 // types
 import { UserDataFullDTO } from '@ternala/frasier-types';
 
-// Exceptions
+// exceptions
 import { BadRequest } from '@app/utils/API/exceptions';
 
 //APIs
@@ -11,10 +11,8 @@ import { UpdateUserApi } from '../transport/secondStep.api';
 // Actions
 import * as action from '../actions';
 
-// Utils
-import {
-  getSavedAccess,
-} from '@app/utils/manageAccess';
+// utils
+import { getSavedAccess } from '@app/utils/manageAccess';
 
 // Interfaces
 import { IException, IStore } from '../../model';
@@ -44,9 +42,11 @@ export function* updateUserData({
     );
 
     if (UserData) {
-      action.updateUserDataAction.success({
-        ...payload,
-      });
+      yield put(
+        action.updateUserDataAction.success({
+          ...UserData,
+        }),
+      );
       yield put(action.setIsSecondStepPassed({ isSecondStepPassed: true }));
       yield put(
         action.LoaderAction({

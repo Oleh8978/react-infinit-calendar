@@ -1,23 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 // Actions
-import {
-  setAuthenticatedStatus,
-  loginByTokenAction,
-  logOut,
-} from '@app/controller/auth/actions';
+import { setAuthenticatedStatus, logOut } from '@app/controller/auth/actions';
 
-// types
-import { Pages } from '@app/routing/schema';
-
-// interfaces
-import { IStore } from '@app/controller/model';
-import { logoutSaga } from '@app/controller/auth/sagas/auth';
-
-interface IProps {
-  logoutMethod: () => void;
-}
+// interface IProps {
+//   logoutMethod: () => void;
+// }
 
 const NavigationBarFirstPage: React.FC<any> = ({ ...props }) => {
   return (
@@ -35,13 +24,13 @@ const NavigationBarFirstPage: React.FC<any> = ({ ...props }) => {
           </div>
         </div>
         <div className="module-menu-col2">Profile information</div>
-        <div className="module-menu-col3"></div>
+        <div className="module-menu-col3" />
       </div>
     </>
   );
 };
 
-export default connect((state: IStore) => ({}), {
+export default connect(() => ({}), {
   setAuthenticatedStatus,
   logOut: logOut.request,
 })(NavigationBarFirstPage);
