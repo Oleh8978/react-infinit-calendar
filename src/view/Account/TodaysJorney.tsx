@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import WavePercentage from '@app/component/WavePercentage';
-import { dataModulesProgress } from './hardcodedData/data';
 
 // components
 import Loader from '@app/component/Loader';
