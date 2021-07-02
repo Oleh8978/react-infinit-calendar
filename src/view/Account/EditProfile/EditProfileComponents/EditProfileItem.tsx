@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import InputMask from 'react-input-mask';
+import { TextField } from '@material-ui/core';
 
 // types
 import { Pages } from '@app/routing/schema';
@@ -7,7 +9,7 @@ import { Pages } from '@app/routing/schema';
 import { IItem, IZones } from '../Models';
 import { IUser } from '@app/controller/auth/model';
 
-// utils 
+// utils
 import { entryValidator } from './utils/utils';
 
 interface IProps {
@@ -74,6 +76,78 @@ const EdditBodyElementItem: React.FC<IProps> = ({ ...props }) => {
     value ? setError(false) : setError(true);
   };
 
+  const fieldReturner = () => {
+    if (props.data.subname === 'phone') {
+      return (
+        <InputMask
+          maskChar={null}
+          mask={'+9-999-999-9999'}
+          onChange={handleChange}
+          value={value || props.data.default || ''}
+          className="edditprofile-body-itemWrapper-element-container-input"
+        />
+      );
+    } else if (props.data.subname === 'email') {
+      return <>Email</>;
+    } else if (props.data.subname === 'startTime') {
+      return (
+        <>
+          <TextField
+            id="time"
+            type="time"
+            defaultValue={value || props.data.default || ''}
+            onChange={handleChange}
+            className="edditprofile-body-itemWrapper-element-container-input"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            inputProps={{
+              step: 300, // 5 min
+            }}
+          />
+        </>
+      );
+    } else if (props.data.isSelect) {
+      return (
+        <select
+          className="edditprofile-body-itemWrapper-element-container-select
+    edditprofile-body-itemWrapper-element-container-input"
+          onChange={dropOnChangeValue}>
+          {props.timeZones.map((item) => {
+            return (
+              <option>
+                ({item.offset}) {item.name}
+              </option>
+            );
+          })}
+        </select>
+      );
+    } else if (props.data.subname === 'zipCode') {
+      return (
+        <InputMask
+          maskChar={null}
+          mask={'999999999'}
+          onChange={handleChange}
+          value={value || props.data.default || ''}
+          className="edditprofile-body-itemWrapper-element-container-input"
+        />
+      );
+    } else {
+      return (
+        <>
+          <input
+            onBlur={props.data.isRequired ? validate : null}
+            onChange={handleChange}
+            type={props.data.isEmail ? 'email' : 'text'}
+            className="edditprofile-body-itemWrapper-element-container-input"
+            placeholder={props.data.name}
+            value={value || props.data.default || ''}
+          />{' '}
+        </>
+      );
+    }
+  };
+
   return (
     <div className={'edditprofile-body-itemWrapper-element'}>
       <div className="edditprofile-body-itemWrapper-element-container">
@@ -92,29 +166,7 @@ const EdditBodyElementItem: React.FC<IProps> = ({ ...props }) => {
             )}
           </>
         </span>
-        {props.data.isSelect ? (
-          <select
-            className="edditprofile-body-itemWrapper-element-container-select
-          edditprofile-body-itemWrapper-element-container-input"
-            onChange={dropOnChangeValue}>
-            {props.timeZones.map((item) => {
-              return (
-                <option>
-                  ({item.offset}) {item.name}
-                </option>
-              );
-            })}
-          </select>
-        ) : (
-          <input
-            onBlur={props.data.isRequired ? validate : null}
-            onChange={handleChange}
-            type={props.data.isEmail ? 'email' : 'text'}
-            className="edditprofile-body-itemWrapper-element-container-input"
-            placeholder={props.data.name}
-            value={value || props.data.default || ''}
-          />
-        )}
+        <>{fieldReturner()}</>
       </div>
     </div>
   );

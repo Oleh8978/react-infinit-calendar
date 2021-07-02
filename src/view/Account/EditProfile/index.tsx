@@ -20,8 +20,11 @@ import { IStore } from '@app/controller/model';
 interface IProps {}
 
 const EdditProfile: React.FC<any> = ({ ...props }) => {
+  // const [isSaveBtnActivState, setISSaveBtnActiveState] = useState<boolean>(
+  //   false,
+  // );
   const [isSaveBtnActivState, setISSaveBtnActiveState] = useState<boolean>(
-    false,
+    true,
   );
   const [userData, setUserData] = useState<IUser>(undefined);
   const [updater, setUpdater] = useState<boolean>(false);

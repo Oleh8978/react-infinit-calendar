@@ -21,7 +21,7 @@ export const entryValidator = (name: string, text: string) => {
     case 'state':
       return text.replace(/[^a-zA-Z ]/g, '');
     case 'startTime':
-      break;
+      return text
     default:
       return text.trim();
   }
