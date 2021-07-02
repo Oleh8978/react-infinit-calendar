@@ -4,7 +4,7 @@ interface IProps {
   firstAction?: () => void;
   secondAction?: () => void;
   text?: string;
-  title?: string;
+  title?: string | Date;
   firstButton: string;
   secondButton: string;
 }
