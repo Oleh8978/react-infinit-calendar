@@ -10,7 +10,11 @@ import { IJourneyState, ILoader } from './models';
 import * as action from './actions';
 import { IStore } from '../model';
 import { getJourneyDataSaga } from '@app/controller/journey/sagas/journeySaga';
-import { JourneyDTO } from '@ternala/frasier-types';
+import { JourneyDTO, JourneyGetResponse } from '@ternala/frasier-types';
+import { JourneyUserConnectShortDTO } from '@ternala/frasier-types/lib/modules/journey/userConnect';
+import { SectionShortDTO } from '@ternala/frasier-types/lib/modules/section';
+import { TimeSlotShortDTO } from '@ternala/frasier-types/lib/modules/timeSlot';
+import { ModuleShortDTO } from '@ternala/frasier-types/lib/modules/module';
 
 export const JourneySaga = function* () {
   yield all([getJourneyDataSaga()]);
@@ -26,6 +30,10 @@ const initialState: IJourneyState = {
     createdAt: new Date(),
     isNeedPaid: false,
     startShowingDate: new Date(),
+    userConnections: [],
+    sections: [],
+    timeSlots: [],
+    modules: [],
   },
   Loader: {
     isLoading: false,
@@ -62,7 +70,7 @@ export const GetJourneyReducer = createReducer<
     }),
   );
 
-export const getJourney = (state: IStore): JourneyDTO =>
+export const getJourney = (state: IStore): JourneyGetResponse =>
   state.JourneyReducer.journey;
 export const getJourneyLoader = (state: IStore): ILoader =>
   state.JourneyReducer.Loader;
