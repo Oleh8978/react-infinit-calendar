@@ -26,6 +26,7 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
       setDiscoveryItems(props.discoveryItems);
     }
   }, [props.discoveryItems]);
+
   return (
     <>
       {props.isLoading.status === true && props.discoveryItems === undefined ? (
@@ -122,7 +123,7 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
                         (element) => String(element) === 'journey',
                       ) !== undefined
                     ) {
-                      console.log('id: ', item.journey.id);
+                      // console.log('id: ', item.journey.id);
                       return (
                         <Link
                           to={'journey'}

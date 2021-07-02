@@ -33,6 +33,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
   const [articleCategories, setArticleCategories] = useState<ArticleDTO[]>(
     undefined,
   );
+  const [isJourneyClicked, setIsJourneyClicked] = useState<boolean>(false);
   const [smallLoader, setSmallLoader] = useState<boolean>(false);
   const [isDown, setIsDown] = useState<boolean>(false);
   const [isMoreStated, setISmoreStated] = useState<string>('start');
@@ -51,11 +52,10 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       props.isLoading.status === false &&
       smallLoader === false &&
       getClientHeight() + getScrollTop() >= getScrollHeight() - 1 &&
-      searchQuery.trim().length === 0 &&
       props.itemsCount !== 0 &&
       props.itemsCount !== discovery.length
     ) {
-      loadDiscoveries('more');
+      loadDiscoveries('more', searchQuery);
       setISmoreStated('more');
 
       if (
@@ -75,20 +75,20 @@ const Discovery: React.FC<any> = ({ ...props }) => {
   const searchQueryProcessor = (text: string) => {
     setSearchQuery(text.trim().toLowerCase());
     if (text.trim().length !== 0) {
-      loadDiscoveries('start', searchQuery);
+      loadDiscoveries('start', text.trim());
     } else {
-      loadDiscoveries('start');
+      loadDiscoveries('start', '');
     }
   };
 
   const onCloseHandler = () => {
-    loadDiscoveries('start');
+    loadDiscoveries('start', '');
     setSearchQuery('');
     setISmoreStated('start');
   };
 
   useEffect(() => {
-    if (props.discoveryList !== undefined) {
+    if (props.discoveryList !== undefined && ids.length === 0) {
       setDiscovery(props.discoveryList);
       setISmoreStated('start');
     }
@@ -99,13 +99,18 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       searchQuery.trim().length === 0
     ) {
       loadDiscovloadArticleCategoeries();
-      loadDiscoveries('start');
+      loadDiscoveries('start', searchQuery);
+
     }
     if (isMoreStated === 'more' && props.discoveryList !== undefined) {
       setDiscovery(props.discoveryList);
     }
 
-    if (props.articleCategories !== undefined) {
+    if (
+      props.articleCategories !== undefined &&
+      ids.length === 0 &&
+      isJourneyClicked === false
+    ) {
       setArticleCategories(props.articleCategories);
       setISmoreStated('start');
     }
@@ -121,8 +126,12 @@ const Discovery: React.FC<any> = ({ ...props }) => {
 
     if (forse === true) {
       setDiscovery(undefined);
-      loadDiscoveries('start');
+      loadDiscoveries('start', searchQuery);
       setForse(false);
+    }
+
+    if (ids.length !== 0 && props.discoveryList !== undefined) {
+      setDiscovery(props.discoveryList);
     }
   }, [
     props.articleCategories,
@@ -141,19 +150,29 @@ const Discovery: React.FC<any> = ({ ...props }) => {
   ) => {
     let searchParams: DiscoveryGetListRequest;
 
-    discovery !== undefined && ids.length > 0
-      ? (searchParams = {
-          limit: 10,
-          offset: loadMore === 'more' ? Number(discovery.length) : 0,
-          query: searchQuery,
-          categories: ids,
-          type: discoveryEntityTypeEnum.article,
-        })
-      : (searchParams = {
-          limit: 10,
-          offset: loadMore === 'more' ? Number(discovery.length) : 0,
-          query: searchQuery,
-        });
+    if (discovery !== undefined && ids.length > 0) {
+      searchParams = {
+        limit: 10,
+        offset: loadMore === 'more' ? Number(discovery.length) : 0,
+        query: searchQuery,
+        categories: ids,
+        type: discoveryEntityTypeEnum.article,
+      };
+    } else if (isJourneyClicked) {
+      searchParams = {
+        limit: 10,
+        offset: loadMore === 'more' ? Number(discovery.length) : 0,
+        query: searchQuery,
+        type: discoveryEntityTypeEnum.journey,
+      };
+    } else {
+      searchParams = {
+        limit: 10,
+        offset: loadMore === 'more' ? Number(discovery.length) : 0,
+        query: searchQuery,
+      };
+    }
+
     if (
       JSON.stringify(omit(props.storedSearchParams, ['limit', 'offset'])) !==
       JSON.stringify(omit(searchParams, ['limit', 'offset']))
@@ -188,24 +207,78 @@ const Discovery: React.FC<any> = ({ ...props }) => {
     }
   };
 
-  const arraySetter = (id: number) => {
-    if (ids.filter((elem) => elem === id).length === 0) {
+  const arraySetter = (id: number, element: string) => {
+    if (
+      ids.filter((elem) => elem === id).length === 0 &&
+      articleCategories
+        .filter((elem) => elem.id === id)[0]
+        .title.toLowerCase() !== 'journeys'
+    ) {
+      setIds([id]);
+      dispatch(
+        props.getDiscoveryList({
+          limit: 10,
+          offset: 0,
+          query: searchQuery,
+          categories: [id],
+          type: discoveryEntityTypeEnum.article,
+        }),
+      );
+      setDiscovery(undefined);
+      setIsJourneyClicked(false);
+    } else if (
+      articleCategories
+        .filter((elem) => elem.id === id)[0]
+        .title.toLowerCase() === 'journeys' &&
+      isJourneyClicked === false
+    ) {
       setIds([]);
-      ids.push(id);
-      setIds(ids);
-      loadDiscoveries();
+      setIsJourneyClicked(true);
+      dispatch(
+        props.getDiscoveryList({
+          limit: 10,
+          offset: 0,
+          query: searchQuery,
+          type: discoveryEntityTypeEnum.journey,
+        }),
+      );
+      setDiscovery(undefined);
+    } else if (
+      articleCategories
+        .filter((elem) => elem.id === id)[0]
+        .title.toLowerCase() === 'journeys' &&
+      isJourneyClicked === true
+    ) {
+      setIds([]);
+      setIsJourneyClicked(false);
+      dispatch(
+        props.getDiscoveryList({
+          limit: 10,
+          offset: 0,
+          query: searchQuery,
+        }),
+      );
+      setDiscovery(undefined);
     } else {
       setIds([]);
       setForse(true);
+      setIsJourneyClicked(false);
     }
   };
 
   const allSetter = () => {
+    dispatch(
+      props.getDiscoveryList({
+        limit: 10,
+        offset: 0,
+        query: searchQuery,
+      }),
+    );
+    setDiscovery(undefined);
     setIds([]);
     setForse(true);
   };
-  console.log(' discovery list', discovery)
-  console.log(' articleCategories list', articleCategories)
+
   return (
     <Scrollbars
       style={{
