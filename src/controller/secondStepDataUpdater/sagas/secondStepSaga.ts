@@ -12,9 +12,7 @@ import { UpdateUserApi } from '../transport/secondStep.api';
 import * as action from '../actions';
 
 // utils
-import {
-  getSavedAccess,
-} from '@app/utils/manageAccess';
+import { getSavedAccess } from '@app/utils/manageAccess';
 
 // Interfaces
 import { IException, IStore } from '../../model';
@@ -44,9 +42,11 @@ export function* updateUserData({
     );
 
     if (UserData) {
-      action.updateUserDataAction.success({
-        ...payload,
-      });
+      yield put(
+        action.updateUserDataAction.success({
+          ...UserData,
+        }),
+      );
       yield put(action.setIsSecondStepPassed({ isSecondStepPassed: true }));
       yield put(
         action.LoaderAction({

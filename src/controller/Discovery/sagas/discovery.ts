@@ -39,10 +39,8 @@ export function* getDiscoveriesSaga({
         }),
       );
     }
-    console.log('payload ################################', res)
     if (typeof payload.callback === 'function') payload.callback();
   } catch (error) {
-    console.log('error and payload ################################', payload)
     console.log('ERORR DISCOVERY', error);
     yield put(
       actions.setLoadingAction({

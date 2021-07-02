@@ -52,13 +52,14 @@ const Task: React.FC<IProps> = ({ id }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setTimeSlots(
-      module?.timeSlotData?.[selectedDay?.format(timeSlotDateFormat)] || [],
-    );
+    if (selectedDay === undefined && module !== undefined)
+      setTimeSlots(
+        module?.timeSlotData?.[selectedDay?.format(timeSlotDateFormat)] || [],
+      );
   }, [selectedDay, module]);
 
   useEffect(() => {
-    if (module?.uncompletedTimeSlotData) {
+    if (module?.uncompletedTimeSlotData && uncompleted === undefined) {
       setUncompleted(module?.uncompletedTimeSlotData);
     }
   }, [selectedDay]);
@@ -103,6 +104,7 @@ const Task: React.FC<IProps> = ({ id }) => {
         setSelectedDay(purposeDate);
       }
     }
+    console.log('module up', modules);
   }, [modules, id, module?.timeSlotData]);
 
   useEffect(() => {
@@ -120,6 +122,7 @@ const Task: React.FC<IProps> = ({ id }) => {
         module: id,
       }),
     );
+    console.log('module ', module, 'id ', id);
   }, [id]);
 
   // const dataChecker = (day: ICalendarData): boolean => {

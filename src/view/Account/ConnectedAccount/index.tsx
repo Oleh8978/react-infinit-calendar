@@ -1,8 +1,5 @@
 import React from 'react';
 
-// types
-import { Pages } from '@app/routing/schema';
-
 // components
 import NavigationBar from '@app/component/NavigationBar';
 import ConnectedAccountBody from './Body';

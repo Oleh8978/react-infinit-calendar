@@ -7,7 +7,7 @@ import * as staticConfig from '../EditProfile/static';
 import ItemBody from './ItemBody';
 
 // models
-import { IListSocial, IListSocialState } from '../EditProfile/Models';
+import { IListSocialState } from '../EditProfile/Models';
 
 interface IProps {}
 

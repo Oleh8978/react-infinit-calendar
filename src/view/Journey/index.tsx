@@ -21,15 +21,25 @@ import { StatisticAPI } from '@app/controller/statistic/transport/statistic.api'
 import { RouteComponentProps } from 'react-router-dom';
 import Loader from '@app/component/Loader';
 import ConfirmationWindow from '@app/component/modalWindow/confirmationWindow';
-import { deleteDayOffAction, setDayOffAction } from '@app/controller/schedule/actions';
+import {
+  deleteDayOffAction,
+  setDayOffAction,
+} from '@app/controller/schedule/actions';
 
-type IProps = RouteComponentProps<{ id: string }>;
+interface IRoute {
+  route?: string;
+}
+
+type IProps = RouteComponentProps<{ id: string }> & IRoute;
 
 const Journey: React.FC<IProps> = ({ ...props }) => {
+  console.log('props ', props);
   const [isStartPopup, setStartPopup] = useState<boolean>(false);
   const [isStopPopup, setStopPopup] = useState<boolean>(false);
   const [isTrialPeriod, setIsTrialPeriod] = useState<boolean>(false);
-  const [isTrialPeriodStarted, setIsTrialPeriodStarted] = useState<boolean>(false);
+  const [isTrialPeriodStarted, setIsTrialPeriodStarted] = useState<boolean>(
+    false,
+  );
   const [hasHours, setHasHours] = useState<boolean>(false);
   const [statistic, setStatistic] = useState<any | undefined>();
 
@@ -74,7 +84,10 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
     setIsTrialPeriodStarted(true);
     dispatch(
       setJourneyConnectAction.request({
-        journey: id, isPaid: false, startDate: undefined, user: 5
+        journey: id,
+        isPaid: false,
+        startDate: undefined,
+        user: 5,
       }),
     );
   };
@@ -92,29 +105,39 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
 
   return (
     <>
-      {(journey !== undefined && statistic !== undefined) ?
-      (<div className={'jorneydiscoveymain'}>
-        {loader.isLoading ? (<Loader isSmall={true} isAbsolute={true} />) : (<></>)}
-        {isStartPopup ? (
-          <ConfirmationWindow firstButton={'I Want to Hold Off'}
-                              secondButton={'Good, Let’s Proceed'}
-                              text={'This journey will start on'}
-                              title={'Monday, Jan 27'}
-                              firstAction={() => setStartPopup(false)}
-                              secondAction={startTrial}
-          />
-        ) : (<></>)}
-        {isStopPopup ? (
-          <ConfirmationWindow firstButton={'Yes, I am Fine With That'}
-                              secondButton={'No, Let’s Keep It Going'}
-                              text={'All of your progress will be erased.'}
-                              title={'Are you sure?'}
-                              firstAction={stopTrial}
-                              secondAction={() => setStopPopup(false)}
-          />
-        ) : (<></>)}
-        <NavigationBar name={'Journey Info'} rout={'/'} />
-        <JourneyHeader img={journey.image} />
+      {journey !== undefined && statistic !== undefined ? (
+        <div className={'jorneydiscoveymain'}>
+          {loader.isLoading ? (
+            <Loader isSmall={true} isAbsolute={true} />
+          ) : (
+            <></>
+          )}
+          {isStartPopup ? (
+            <ConfirmationWindow
+              firstButton={'I Want to Hold Off'}
+              secondButton={'Good, Let’s Proceed'}
+              text={'This journey will start on'}
+              title={'Monday, Jan 27'}
+              firstAction={() => setStartPopup(false)}
+              secondAction={startTrial}
+            />
+          ) : (
+            <></>
+          )}
+          {isStopPopup ? (
+            <ConfirmationWindow
+              firstButton={'Yes, I am Fine With That'}
+              secondButton={'No, Let’s Keep It Going'}
+              text={'All of your progress will be erased.'}
+              title={'Are you sure?'}
+              firstAction={stopTrial}
+              secondAction={() => setStopPopup(false)}
+            />
+          ) : (
+            <></>
+          )}
+          <NavigationBar name={'Journey Info'} rout={'/'} />
+          <JourneyHeader img={journey.image} />
           <JourneyDescription
             text={journey.title}
             hashours={hasHours}
@@ -124,21 +147,24 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
             minDaySpent={statistic.journey.statistic.minDaySpent}
             data={journey.subTitle}
           />
-        {/*<JourneyListComponent data={list} />*/}
-        <div className='jorneydiscoveymain-bottom-wrapper'>
-          <JourneyFixedBottom
-            price={journey.price}
-            trialPeriod={journey.trialPeriod}
-            hasTrialPeriod={isTrialPeriod}
-            isTrialPeriodStarted={isTrialPeriodStarted}
-            setIsStartPopup={setIsStartPopup}
-            setIsStopPopup={setIsStopPopup}
-            id={id} />
+          {/*<JourneyListComponent data={list} />*/}
+          <div className="jorneydiscoveymain-bottom-wrapper">
+            <JourneyFixedBottom
+              price={journey.price}
+              trialPeriod={journey.trialPeriod}
+              hasTrialPeriod={isTrialPeriod}
+              isTrialPeriodStarted={isTrialPeriodStarted}
+              setIsStartPopup={setIsStartPopup}
+              setIsStopPopup={setIsStopPopup}
+              id={id}
+            />
+          </div>
         </div>
-      </div>) : (<Loader isSmall={true} isAbsolute={true} />)
-      }
+      ) : (
+        <Loader isSmall={true} isAbsolute={true} />
+      )}
     </>
-  )
-}
+  );
+};
 
 export default Journey;

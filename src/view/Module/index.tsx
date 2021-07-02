@@ -25,7 +25,7 @@ const Module: React.FC<IProps> = (props) => {
   const { id } = props.match.params;
   const idNumber = Number(id);
 
-  const modules = useSelector(getModules);
+  const modules: any = useSelector(getModules);
   const loaders = useSelector(getLoader);
 
   const dispatch = useDispatch();
