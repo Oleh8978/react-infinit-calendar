@@ -73,5 +73,25 @@ class API {
       }),
     );
   }
+
+  public async buyJourney(
+    { journey }: { journey: number },
+    accessToken: string,
+  ): Promise<JourneyUserConnectCreateResponse | string> {
+    const url = new URL(Config.MAIN_SERVICE_ENDPOINT + `payment/journey`);
+
+    return handleErrors(
+      fetch(url.toString(), {
+        method: 'POST',
+        body: JSON.stringify({
+          journey,
+        }),
+        headers: {
+          'Content-type': 'application/json',
+          ...authHeader(accessToken),
+        },
+      }),
+    );
+  }
 }
 export const JourneyAPI = new API();

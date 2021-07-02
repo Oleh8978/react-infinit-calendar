@@ -6,9 +6,10 @@ import NavigationBar from '@app/component/NavigationBar';
 import CheckoutPayment from '@app/component/CheckoutPaymentButton';
 import CheckoutBody from '@app/view/Journey/CheckoutBody';
 import { StatisticAPI } from '@app/controller/statistic/transport/statistic.api';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getAccessToken } from '@app/controller/auth';
 import Loader from '@app/component/Loader';
+import { buyJourneyAction, setJourneyConnectAction } from '@app/controller/journey/actions';
 
 type IProps = RouteComponentProps<{ id: string }>;
 
@@ -16,8 +17,10 @@ const Checkout: React.FC<IProps> = ({ ...props }) => {
   const [statistic, setStatistic] = useState<any | undefined>();
   const tokenPromise = useSelector(getAccessToken);
   const id = Number(props.match.params.id);
+  const dispatch = useDispatch();
 
   useEffect(() => {
+
     tokenPromise.then((token) => {
       if (token !== undefined) {
         StatisticAPI.getStatisticByJourney(id, token).then((item) => {
@@ -30,8 +33,13 @@ const Checkout: React.FC<IProps> = ({ ...props }) => {
 
   }, []);
 
-  // console.log('statistic');
-  // console.log(statistic);
+  const redirectToPayPal = () => {
+    dispatch(
+      buyJourneyAction.request({
+        journey: id,
+      }),
+    );
+  }
 
   return (
     <>
@@ -46,7 +54,7 @@ const Checkout: React.FC<IProps> = ({ ...props }) => {
             minDaySpent={statistic.journey.statistic.minDaySpent}
             price={statistic.journey.price} />
           <div className='checkout-bottom-wrapper'>
-            <CheckoutPayment />
+            <CheckoutPayment redirectToPayPal={redirectToPayPal} />
           </div>
         </div> : <Loader isSmall={true} isAbsolute={true} />
       }

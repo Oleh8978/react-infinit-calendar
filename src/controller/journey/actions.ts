@@ -5,9 +5,8 @@ import { appName } from '@app/config';
 import { IException } from './models';
 import {
   JourneyGetResponse,
-  JourneyUserConnectCreateRequest,
   JourneyUserConnectCreateResponse,
-  JourneyUserConnectDeleteRequest, JourneyUserConnectDeleteResponse,
+  JourneyUserConnectDeleteRequest, JourneyUserConnectDeleteResponse, PaymentBuyResponse,
 } from '@ternala/frasier-types';
 
 // const for ath actions
@@ -22,9 +21,9 @@ export const getJourneyDataAction = createAsyncAction(
 
 
 export const setJourneyConnectAction = createAsyncAction(
-  `${appName}/${widgetName}/SET_JOURNEY_CONNECT_REQUEST`,
-  `${appName}/${widgetName}/SET_JOURNEY_CONNECT_SUCCESS`,
-  `${appName}/${widgetName}/SET_JOURNEY_CONNECT_FAILED`,
+    `${appName}/${widgetName}/CREATE_JOURNEY_CONNECT_REQUEST`,
+  `${appName}/${widgetName}/CREATE_JOURNEY_CONNECT_SUCCESS`,
+  `${appName}/${widgetName}/CREATE_JOURNEY_CONNECT_FAILED`,
 )<
   {id: number},
   {
@@ -43,6 +42,20 @@ export const deleteJourneyConnectAction = createAsyncAction(
   {
     response: JourneyUserConnectDeleteResponse;
     additionalFields: JourneyUserConnectDeleteRequest;
+  },
+  IException
+  >();
+
+
+export const buyJourneyAction = createAsyncAction(
+  `${appName}/${widgetName}/BUY_JOURNEY_REQUEST`,
+  `${appName}/${widgetName}/BUY_JOURNEY_SUCCESS`,
+  `${appName}/${widgetName}/BUY_JOURNEY_FAILED`,
+)<
+  {journey: number},
+  {
+    response: PaymentBuyResponse;
+    additionalFields: {journey: number};
   },
   IException
   >();
