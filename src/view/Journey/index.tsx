@@ -114,46 +114,47 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
 
   return (
     <>
-      {(journey !== undefined && statistic !== undefined) ?
-      (<div className={'jorneydiscoveymain'}>
-        {loader.isLoading ? (<Loader isSmall={true} isAbsolute={true} />) : (<></>)}
-        {isStartPopup ? (
-          <ConfirmationWindow firstButton={'I Want to Hold Off'}
-                              secondButton={'Good, Let’s Proceed'}
-                              text={'This journey will start on'}
-                              title={journey.status ? moment(journey.status.startDate).format("dddd, MMM Do") : ''}
-                              firstAction={() => setStartPopup(false)}
-                              secondAction={startTrial}
-          />
-        ) : (<></>)}
-        {isStopPopup ? (
-          <ConfirmationWindow firstButton={'Yes, I am Fine With That'}
-                              secondButton={'No, Let’s Keep It Going'}
-                              text={'All of your progress will be erased.'}
-                              title={'Are you sure?'}
-                              firstAction={stopTrial}
-                              secondAction={() => setStopPopup(false)}
-          />
-        ) : (<></>)}
-        <NavigationBar name={'Journey Info'} rout={'/'} />
-        <JourneyHeader img={journey.image} />
+      {(journey !== undefined && statistic !== undefined) ? (
+        <div className={'jorneydiscoveymain'}>
+          {loader.isLoading ? (<Loader isSmall={true} isAbsolute={true} />) : (<></>)}
+          {isStartPopup ? (
+            <ConfirmationWindow firstButton={'I Want to Hold Off'}
+                                secondButton={'Good, Let’s Proceed'}
+                                text={'This journey will start on'}
+                                title={journey.status ? moment(journey.status.startDate).format("dddd, MMM Do") : ''}
+                                firstAction={() => setStartPopup(false)}
+                                secondAction={startTrial}
+            />
+          ) : (<></>)}
+          {isStopPopup ? (
+            <ConfirmationWindow firstButton={'Yes, I am Fine With That'}
+                                secondButton={'No, Let’s Keep It Going'}
+                                text={'All of your progress will be erased.'}
+                                title={'Are you sure?'}
+                                firstAction={stopTrial}
+                                secondAction={() => setStopPopup(false)}
+            />
+          ) : (<></>)}
+          <NavigationBar name={'Journey Info'} rout={'/'} />
+          <JourneyHeader img={journey.image} />
           <JourneyDescription
             statistic={statistic}
             journey={journey}
             isTrialStarted={isTrialPeriodStarted}
             hashours={hasHours}
           />
-        {/*<JourneyListComponent data={list} />*/}
-        <div className='jorneydiscoveymain-bottom-wrapper'>
-          <JourneyFixedBottom
-            price={journey.price}
-            trialPeriod={journey.trialPeriod}
-            hasTrialPeriod={isTrialPeriod}
-            isTrialPeriodStarted={isTrialPeriodStarted}
-            trialEndDate={journey.status?.trialEndDate}
-            setIsStartPopup={setIsStartPopup}
-            setIsStopPopup={setIsStopPopup}
-            id={id} />
+          {/*<JourneyListComponent data={list} />*/}
+          <div className='jorneydiscoveymain-bottom-wrapper'>
+            <JourneyFixedBottom
+              price={journey.price}
+              trialPeriod={journey.trialPeriod}
+              hasTrialPeriod={isTrialPeriod}
+              isTrialPeriodStarted={isTrialPeriodStarted}
+              trialEndDate={journey.status?.trialEndDate}
+              setIsStartPopup={setIsStartPopup}
+              setIsStopPopup={setIsStopPopup}
+              id={id} />
+          </div>
         </div>
       ) : (
         <Loader isSmall={true} isAbsolute={true} />
