@@ -26,6 +26,7 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
       setDiscoveryItems(props.discoveryItems);
     }
   }, [props.discoveryItems]);
+
   return (
     <>
       {props.isLoading.status === true && props.discoveryItems === undefined ? (

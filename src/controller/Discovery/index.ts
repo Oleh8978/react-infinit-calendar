@@ -72,7 +72,6 @@ export const discoveryListReducer = createReducer<
           (item) =>
             Object.keys(item).filter((key) => key === 'journey').length !== 0,
         );
-        console.log('journeyState', journeyState);
         const journeyPayloadState = payload.response.items.filter(
           (item) =>
             Object.keys(item).filter((key) => key === 'journey').length !== 0,

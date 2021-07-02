@@ -52,11 +52,10 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       props.isLoading.status === false &&
       smallLoader === false &&
       getClientHeight() + getScrollTop() >= getScrollHeight() - 1 &&
-      searchQuery.trim().length === 0 &&
       props.itemsCount !== 0 &&
       props.itemsCount !== discovery.length
     ) {
-      loadDiscoveries('more');
+      loadDiscoveries('more', searchQuery);
       setISmoreStated('more');
 
       if (
@@ -76,23 +75,22 @@ const Discovery: React.FC<any> = ({ ...props }) => {
   const searchQueryProcessor = (text: string) => {
     setSearchQuery(text.trim());
     if (text.trim().length !== 0) {
-      loadDiscoveries('start', searchQuery);
+      loadDiscoveries('start', text.trim());
     } else {
-      loadDiscoveries('start');
+      loadDiscoveries('start', '');
     }
   };
 
   const onCloseHandler = () => {
-    loadDiscoveries('start');
+    loadDiscoveries('start', '');
     setSearchQuery('');
     setISmoreStated('start');
   };
 
   useEffect(() => {
-    if (props.discoveryList !== undefined) {
+    if (props.discoveryList !== undefined && ids.length === 0) {
       setDiscovery(props.discoveryList);
       setISmoreStated('start');
-      console.log('start ************************')
     }
 
     if (
@@ -101,36 +99,39 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       searchQuery.trim().length === 0
     ) {
       loadDiscovloadArticleCategoeries();
-      loadDiscoveries('start');
-      console.log('start  articleCategories === undefined **********************')
+      loadDiscoveries('start', searchQuery);
+
     }
     if (isMoreStated === 'more' && props.discoveryList !== undefined) {
-      console.log('start  props.discoveryList ************************')
       setDiscovery(props.discoveryList);
     }
 
-    if (props.articleCategories !== undefined) {
-      console.log('props.articleCategories !== undefined ********************')
+    if (
+      props.articleCategories !== undefined &&
+      ids.length === 0 &&
+      isJourneyClicked === false
+    ) {
       setArticleCategories(props.articleCategories);
       setISmoreStated('start');
     }
 
     if (searchQuery.trim().length !== 0 && props.discoveryList) {
-      console.log('searchQuery.trim().length !== 0 *******************')
       setDiscovery(props.discoveryList);
     }
 
     if (isDown === true) {
-      console.log('isDown === true ******************')
       setSmallLoader(false);
       setIsDown(false);
     }
 
     if (forse === true) {
-      console.log('forse === true *******************')
       setDiscovery(undefined);
-      loadDiscoveries('start');
+      loadDiscoveries('start', searchQuery);
       setForse(false);
+    }
+
+    if (ids.length !== 0 && props.discoveryList !== undefined) {
+      setDiscovery(props.discoveryList);
     }
   }, [
     props.articleCategories,
@@ -150,7 +151,6 @@ const Discovery: React.FC<any> = ({ ...props }) => {
     let searchParams: DiscoveryGetListRequest;
 
     if (discovery !== undefined && ids.length > 0) {
-      console.log('discovery !== undefined && ids.length > 0 $$$$$$$$$$$$$$$$$')
       searchParams = {
         limit: 10,
         offset: loadMore === 'more' ? Number(discovery.length) : 0,
@@ -159,7 +159,13 @@ const Discovery: React.FC<any> = ({ ...props }) => {
         type: discoveryEntityTypeEnum.article,
       };
     } else if (isJourneyClicked) {
-      console.log('isJourneyClicked $$$$$$$$$$$$$$$$$')
+      searchParams = {
+        limit: 10,
+        offset: loadMore === 'more' ? Number(discovery.length) : 0,
+        query: searchQuery,
+        type: discoveryEntityTypeEnum.journey,
+      };
+    } else {
       searchParams = {
         limit: 10,
         offset: loadMore === 'more' ? Number(discovery.length) : 0,
@@ -208,23 +214,52 @@ const Discovery: React.FC<any> = ({ ...props }) => {
         .filter((elem) => elem.id === id)[0]
         .title.toLowerCase() !== 'journeys'
     ) {
-      console.log('array setter ######### first case ')
-      setIds([]);
-      ids.push(id);
-      setIds(ids);
-      loadDiscoveries();
+      setIds([id]);
+      dispatch(
+        props.getDiscoveryList({
+          limit: 10,
+          offset: 0,
+          query: searchQuery,
+          categories: [id],
+          type: discoveryEntityTypeEnum.article,
+        }),
+      );
+      setDiscovery(undefined);
       setIsJourneyClicked(false);
     } else if (
       articleCategories
         .filter((elem) => elem.id === id)[0]
-        .title.toLowerCase() === 'journeys'
+        .title.toLowerCase() === 'journeys' &&
+      isJourneyClicked === false
     ) {
-      console.log('array setter ######### second case ')
       setIds([]);
       setIsJourneyClicked(true);
-      loadDiscoveries();
+      dispatch(
+        props.getDiscoveryList({
+          limit: 10,
+          offset: 0,
+          query: searchQuery,
+          type: discoveryEntityTypeEnum.journey,
+        }),
+      );
+      setDiscovery(undefined);
+    } else if (
+      articleCategories
+        .filter((elem) => elem.id === id)[0]
+        .title.toLowerCase() === 'journeys' &&
+      isJourneyClicked === true
+    ) {
+      setIds([]);
+      setIsJourneyClicked(false);
+      dispatch(
+        props.getDiscoveryList({
+          limit: 10,
+          offset: 0,
+          query: searchQuery,
+        }),
+      );
+      setDiscovery(undefined);
     } else {
-      console.log('array setter ######### third case ')
       setIds([]);
       setForse(true);
       setIsJourneyClicked(false);
@@ -232,11 +267,18 @@ const Discovery: React.FC<any> = ({ ...props }) => {
   };
 
   const allSetter = () => {
+    dispatch(
+      props.getDiscoveryList({
+        limit: 10,
+        offset: 0,
+        query: searchQuery,
+      }),
+    );
+    setDiscovery(undefined);
     setIds([]);
     setForse(true);
   };
-  // console.log(' discovery list @@@@@@@@@@@@', discovery);
-  // console.log(' articleCategories list@@@@@@@@@', articleCategories);
+
   return (
     <Scrollbars
       style={{
