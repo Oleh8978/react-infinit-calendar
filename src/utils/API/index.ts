@@ -1,7 +1,8 @@
 import jwt_decode from 'jwt-decode';
 import { BadRequest, Unauthorized } from './exceptions';
+import { authTypeEnum } from '@ternala/frasier-types/lib/constants';
 
-export function isJWTTokenExpired(token: string) {
+export function isJWTTokenExpired(token: string): boolean {
   const payload = jwt_decode(token) as { exp: number };
   const accessTokenExpDate = payload.exp;
   const nowTime = Math.floor(new Date().getTime() / 1000);
@@ -14,9 +15,15 @@ export async function handleErrors<T = Record<string, never>>(
 ): Promise<T> {
   try {
     const res = await fetch;
-    console.log('respond from utils api index.ts', res)
     if (!res.ok) {
       const error = await res.json();
+
+      if (res.status === 422) {
+        throw {
+          code: res.status,
+          response: error,
+        };
+      }
 
       if (error?.statusCode) {
         if (error.statusCode === 403 || error.statusCode === 401) {
@@ -44,14 +51,18 @@ export async function handleErrors<T = Record<string, never>>(
   }
 }
 
-export function authHeader(token: string) {
+export function authHeader(token: string): {
+  [authTypeEnum.access]: string;
+} {
   return {
-    authorization: `Bearer ${token}`,
+    [authTypeEnum.access]: `Bearer ${token}`,
   };
 }
 
-export function refreshHeader(token: string) {
+export function refreshHeader(token: string): {
+  [authTypeEnum.refresh]: string;
+} {
   return {
-    'refresh-token': `Bearer ${token}`,
+    [authTypeEnum.refresh]: `Bearer ${token}`,
   };
 }

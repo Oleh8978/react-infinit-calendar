@@ -34,16 +34,16 @@ class API {
   }
 
   public async setJourneyConnect(
-    { ...data }: JourneyUserConnectCreateRequest,
+    { id }: { id: number },
     accessToken: string,
   ): Promise<JourneyUserConnectCreateResponse | string> {
-    const url = new URL(Config.MAIN_SERVICE_ENDPOINT + `journey/${data.journey}/connect`);
+    const url = new URL(Config.MAIN_SERVICE_ENDPOINT + `journey/${id}/connect`);
 
     return handleErrors(
       fetch(url.toString(), {
         method: 'POST',
         body: JSON.stringify({
-          id: data.journey,
+          id,
         }),
         headers: {
           'Content-type': 'application/json',
@@ -65,6 +65,26 @@ class API {
         method: 'DELETE',
         body: JSON.stringify({
           ids: data.ids,
+        }),
+        headers: {
+          'Content-type': 'application/json',
+          ...authHeader(accessToken),
+        },
+      }),
+    );
+  }
+
+  public async buyJourney(
+    { journey }: { journey: number },
+    accessToken: string,
+  ): Promise<JourneyUserConnectCreateResponse | string> {
+    const url = new URL(Config.MAIN_SERVICE_ENDPOINT + `payment/journey`);
+
+    return handleErrors(
+      fetch(url.toString(), {
+        method: 'POST',
+        body: JSON.stringify({
+          journey,
         }),
         headers: {
           'Content-type': 'application/json',

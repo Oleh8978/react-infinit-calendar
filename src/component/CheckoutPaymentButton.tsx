@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from 'react';
-
+import React from 'react';
 interface IProps {
+  redirectToPayPal: () => void;
 }
 
-const CheckoutPayment: React.FC<IProps> = ({ ...props }) => {
-
+const CheckoutPayment: React.FC<IProps> = ({redirectToPayPal}) => {
   return (
-      <button className='checkout-payment-button'>
-        <span className='checkout-payment-button-text'>
-          PayPal
-        </span>
-      </button>
+    <button className="checkout-payment-button" onClick={() => redirectToPayPal()}>
+      <span className="checkout-payment-button-text">PayPal</span>
+    </button>
   );
 };
 

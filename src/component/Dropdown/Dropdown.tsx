@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
-interface IItem {
-  id: number;
-  value: string;
-}
+// interface IItem {
+//   id: number;
+//   value: string;
+// }
 
 interface IProps {
   //need to changehte model
@@ -13,8 +13,8 @@ interface IProps {
   isDropdownError: boolean;
 }
 
-const SelectBox: React.FC<IProps> = ({ ...props }) => {
-  const [items, setItems] = useState<any>(props.items);
+const SelectBox: React.FC<IProps> = ({ items, ...props }) => {
+  // const [items, setItems] = useState<any>(props.items);
   const [showItems, setShowItems] = useState<boolean>(false);
   const [selectedItem, setSelectedItem] = useState<any>('');
 
@@ -32,14 +32,18 @@ const SelectBox: React.FC<IProps> = ({ ...props }) => {
   }, [showItems]);
 
   return (
-    <div className={`select-box-wrapper ${props.isDropdownError ? 'error' : ''}`}>
-      <div className='select-box--box'>
-        <div className='select-box--container' onClick={() => dropDown()}>
-          <div className='select-box--selected-item'>{selectedItem.value || 'Category'}</div>
-          <div className={`select-box--arrow ${showItems ? 'select-box--arrow-up' : 'select-box--arrow-down'}`}>
-            <span
-              className={'arrow-icon'}
-            />
+    <div
+      className={`select-box-wrapper ${props.isDropdownError ? 'error' : ''}`}>
+      <div className="select-box--box">
+        <div className="select-box--container" onClick={() => dropDown()}>
+          <div className="select-box--selected-item">
+            {selectedItem.value || 'Category'}
+          </div>
+          <div
+            className={`select-box--arrow ${
+              showItems ? 'select-box--arrow-up' : 'select-box--arrow-down'
+            }`}>
+            <span className={'arrow-icon'} />
           </div>
 
           <div
@@ -49,7 +53,9 @@ const SelectBox: React.FC<IProps> = ({ ...props }) => {
               <div
                 key={item.id}
                 onClick={() => selectItem(item)}
-                className={selectedItem === item ? 'selected' : 'select-box--items-item'}>
+                className={
+                  selectedItem === item ? 'selected' : 'select-box--items-item'
+                }>
                 {item.value}
               </div>
             ))}

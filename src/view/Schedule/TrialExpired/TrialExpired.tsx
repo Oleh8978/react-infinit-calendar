@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import Link from '@app/routing/Link';
 
-interface IProps {}
+interface IProps {
+  id: number;
+}
 
-const TrialExpired: React.FC<IProps> = () => {
+const TrialExpired: React.FC<IProps> = ({ id }) => {
   return (
     <div className="answer-trialexpired">
       <h1 className="answer-trialexpired-header__top">
@@ -12,7 +15,7 @@ const TrialExpired: React.FC<IProps> = () => {
         Please purchase this journey in order to be able to access it.
       </span>
       <span className="answer-trialexpired-icon">👇</span>
-      <div className="answer-trialexpired-btn">Go to Journey</div>
+      <Link className="answer-trialexpired-btn" to={'journey'} params={{id: String(id)}}>Go to Journey</Link>
     </div>
   );
 };

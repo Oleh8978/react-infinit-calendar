@@ -1,20 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
-import { topics } from './FakeData/hardcodedData';
 
 import { ITopic } from './Models/DiscoveryModels';
-
-// components
-import Loader from '@app/component/Loader';
-
-//interface
-import { ArticleDTO } from '@ternala/frasier-types';
 
 interface IProps {
   marginAdder: (isSmall: boolean) => void;
   articleCategories: any | undefined;
   loadDiscovloadArticleCategoeries: (point: string) => void;
-  arraySetter?: (id: number) => void;
+  arraySetter?: (id: number, element: string) => void;
   allSetter?: () => void;
 }
 
@@ -145,7 +138,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
                   arr[i].subColor.length !== 0 ? arr[i].subColor : arr[i].color,
               }}
               onClick={() => {
-                props.arraySetter(arr[i].id);
+                props.arraySetter(arr[i].id, arr[i].title);
                 colorChanger(arr[i].id);
               }}>
               <div className="topic-item-img">
@@ -164,7 +157,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
                     : arr[i + 1].color,
               }}
               onClick={() => {
-                props.arraySetter(arr[i + 1].id);
+                props.arraySetter(arr[i + 1].id, arr[i + 1].title);
                 colorChanger(arr[i + 1].id);
               }}>
               <div className="topic-item-img">
@@ -191,7 +184,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
                   : arr[arr.length - 1].color,
             }}
             onClick={() => {
-              props.arraySetter(arr[arr.length - 1].id);
+              props.arraySetter(arr[arr.length - 1].id, arr[arr.length - 1].title);
               colorChanger(arr[arr.length - 1].id);
             }}>
             <div className="topic-item-img">
@@ -247,7 +240,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
                 className="discovery-menu-small-item"
                 style={{ backgroundColor: element.subColor }}
                 onClick={() => {
-                  props.arraySetter(element.id);
+                  props.arraySetter(element.id, element.title);
                   colorChanger(element.id);
                 }}>
                 <span
@@ -264,7 +257,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
       </div>
     );
   };
-  // console.log('articleCategories ', articleCategories);
+
   return (
     <>
       <div

@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-
-import { RouteComponentProps } from 'react-router-dom';
+import React from 'react';
 
 // components
 import Link from '@app/routing/Link';
@@ -9,7 +7,6 @@ import Pen from './CustomButtons/Pen';
 // types
 import { Pages } from '@app/routing/schema';
 
-import history from '../historyApi';
 import { useDispatch } from 'react-redux';
 import { push } from 'connected-react-router';
 

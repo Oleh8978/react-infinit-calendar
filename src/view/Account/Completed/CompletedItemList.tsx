@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 // interfaces
 import { IListItemCompleted } from '../Models';
 import { IJourney } from '@app/controller/statisticList/models';
-
-// hardcodedData
-import { dataModulesCompleted } from '../hardcodedData/data';
 
 // helpers
 import * as helpers from '../utils';
@@ -21,7 +19,9 @@ const JourneyCompletedItem: React.FC<IProps> = ({ ...props }) => {
   );
   console.log('props.data ', props.data);
   return (
-    <div className={'journey-completed-item'}>
+    <Link
+      to={`/journey-info/${props.data.id}`}
+      className={'journey-completed-item'}>
       <div className={'journey-completed-item-header'}>
         Completed {selectedIcon}
       </div>
@@ -89,7 +89,7 @@ const JourneyCompletedItem: React.FC<IProps> = ({ ...props }) => {
           )}
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

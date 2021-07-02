@@ -23,17 +23,25 @@ class API {
     } else if (tokenFCM !== undefined) {
       tokenForQuery = tokenFCM;
     }
+
     return handleErrors(
       fetch(url.toString(), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          // ...authHeader(receivedToken),
         },
-        body: JSON.stringify({
-          FCMToken: tokenForQuery,
-          authToken: receivedToken,
-          deviceCredentials: deviceCredentials,
-        }),
+        body:
+          String(signIntype) === 'linkedin'
+            ? JSON.stringify({
+                authToken: receivedToken,
+                deviceCredentials: deviceCredentials,
+                redirectURL: String(signIntype),
+              })
+            : JSON.stringify({
+                authToken: receivedToken,
+                deviceCredentials: deviceCredentials,
+              }),
       }),
     );
   }

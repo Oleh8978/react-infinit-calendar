@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { push } from 'connected-react-router';
 import { connect, useDispatch } from 'react-redux';
-import { useTransition, animated } from 'react-spring';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 // utils functions
@@ -22,7 +21,7 @@ import {
   setAuthenticatedStatus,
   loginByTokenAction,
   setIsneedSecondStep,
-  logOut
+  logOut,
 } from '@app/controller/auth/actions';
 
 // routing schema
@@ -116,13 +115,13 @@ const Routing: React.FC<Props> = ({
     }
   }, [props.isSecondStepPassed, user, props.userData]);
 
-  const location = useLocation();
+  // const location = useLocation();
 
-  const transition = useTransition(location, {
-    // from: { opacity: 0, left: 0, top: 0 },
-    // enter: { opacity: 1, left: 0, top: 0 },
-    // leave: { opacity: 0, left: 0, top: 0 },
-  });
+  // const transition = useTransition(location, {
+  // from: { opacity: 0, left: 0, top: 0 },
+  // enter: { opacity: 1, left: 0, top: 0 },
+  // leave: { opacity: 0, left: 0, top: 0 },
+  // });
 
   const setPageOpened = () => {
     setIsNeededSecondSteValue(false);
@@ -149,7 +148,7 @@ const Routing: React.FC<Props> = ({
           <Loader />
         ) : (
           <Login
-            authStatus={authStatus}
+            // authStatus={authStatus}
             isNeededSecondStep={isNeeededSecondStepValue}
             user={userData}
             setPageOpened={setPageOpened}

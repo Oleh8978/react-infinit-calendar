@@ -48,3 +48,9 @@ export interface IChangeStateAction {
   type: string;
   purposeId?: number;
 }
+
+export interface ITabData {
+  id: string;
+  tabTitle: string;
+  tabContent: JSX.Element;
+}

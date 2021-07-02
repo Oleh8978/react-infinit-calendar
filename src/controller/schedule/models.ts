@@ -9,6 +9,7 @@ export const model = '';
 import { defaultState } from '../based';
 
 export interface IScheduleState extends defaultState {
+  exceptions: string[];
   timeSlotData: IDayWithTimeSlots;
   daysOff: DayOffDTO[];
   uncompletedTimeSlotData: IDayWithTimeSlots;

@@ -1,5 +1,5 @@
 import { createdAtSortFieldEnum } from '@ternala/frasier-types/lib/constants/sortFields';
-import { JourneyDTO } from '@ternala/frasier-types';
+import { JourneyDTO, JourneyGetResponse } from '@ternala/frasier-types';
 
 export interface IJourneyListSearchParams {
   limit?: string | number;
@@ -24,6 +24,6 @@ export interface IException {
 }
 
 export interface IJourneyState {
-  journey: JourneyDTO;
+  journey: JourneyGetResponse;
   Loader: ILoader;
 }

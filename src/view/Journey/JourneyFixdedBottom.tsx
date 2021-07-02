@@ -12,36 +12,51 @@ interface IProps {
   isTrialPeriodStarted: boolean;
   hasTrialPeriod: boolean;
   id: number;
+  trialEndDate?: Date;
 }
 
 const JourneyFixedBottom: React.FC<IProps> = ({ ...props }) => {
+  const difference = Math.abs(new Date(props.trialEndDate).getTime() - new Date().getTime());
+  const days = Math.round(difference / (1000 * 3600 * 24));
 
   return (
+    <>
+      {props.isTrialPeriodStarted ? (
+        days > 0 ? (
+          <span className='trial-info'>
+            {`Your Trial Ends in ${days} Days`}
+          </span>
+        ) : (
+          <span className='trial-info trial-info-error'>
+            Your trial has expired
+          </span>
+        )) : (<></>)}
       <div className='jorneydiscoveymain-bottom'>
         {props.trialPeriod && props.trialPeriod !== 0 ? (
-            props.isTrialPeriodStarted ? (
-                <button className='jorneydiscoveymain-bottom-red jorneydiscoveymain-bottom-pink' onClick={() => props.setIsStopPopup(true)}>
+          props.isTrialPeriodStarted ? (
+            <button className='jorneydiscoveymain-bottom-red jorneydiscoveymain-bottom-pink'
+                    onClick={() => props.setIsStopPopup(true)}>
             <span className='jorneydiscoveymain-bottom-pink-text'>
               Stop This Journey
             </span>
-                </button>
-              ) : (
-              props.price && props.price !== 0 ? (
-                props.hasTrialPeriod ? (
-                  <button className='jorneydiscoveymain-bottom-pink' onClick={() => props.setIsStartPopup(true)}>
+            </button>
+          ) : (
+            props.price && props.price !== 0 ? (
+              props.hasTrialPeriod ? (
+                <button className='jorneydiscoveymain-bottom-pink' onClick={() => props.setIsStartPopup(true)}>
                   <span className='jorneydiscoveymain-bottom-pink-text'>
                       Start {props.trialPeriod}-Day Trial Version
                   </span>
-                  </button>
-                ) : (<></>)
+                </button>
+              ) : (<></>)
             ) : (
-                <button className='jorneydiscoveymain-bottom-pink'>
+              <button className='jorneydiscoveymain-bottom-pink'>
                   <span className='jorneydiscoveymain-bottom-pink-text'>
                       Start This Journey
                   </span>
-                </button>
-              )
-        )) : (
+              </button>
+            )
+          )) : (
           <></>
         )}
         {props.price && props.price !== 0 ? (
@@ -61,6 +76,7 @@ const JourneyFixedBottom: React.FC<IProps> = ({ ...props }) => {
           </div>
         )}
       </div>
+    </>
   );
 };
 
