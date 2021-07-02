@@ -84,10 +84,7 @@ const JourneyInfo: React.FC<IProps> = ({ ...props }) => {
     setIsTrialPeriodStarted(true);
     dispatch(
       setJourneyConnectAction.request({
-        journey: id,
-        isPaid: false,
-        startDate: undefined,
-        user: 5,
+        id
       }),
     );
   };
@@ -139,13 +136,10 @@ const JourneyInfo: React.FC<IProps> = ({ ...props }) => {
           <NavigationBar name={'Journey Info'} rout={'/account'} />
           <JourneyHeader img={journey.image} />
           <JourneyDescription
-            text={journey.title}
+            statistic={statistic}
+            journey={journey}
+            isTrialStarted={isTrialPeriodStarted}
             hashours={hasHours}
-            workDays={journey.workDays}
-            duration={statistic.journey.statistic.maxSpent}
-            maxDaySpent={statistic.journey.statistic.maxDaySpent}
-            minDaySpent={statistic.journey.statistic.minDaySpent}
-            data={journey.subTitle}
           />
           {/*<JourneyListComponent data={list} />*/}
           <div className="jorneydiscoveymain-bottom-wrapper">
