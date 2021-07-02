@@ -136,11 +136,10 @@ const JourneyInfo: React.FC<IProps> = ({ ...props }) => {
           <NavigationBar name={'Journey Info'} rout={'/account'} />
           <JourneyHeader img={journey.image} />
           <JourneyDescription
-            // text={journey.title}
-            hashours={hasHours}
-            journey={journey}
             statistic={statistic}
-            isTrialStarted={false}
+            journey={journey}
+            isTrialStarted={isTrialPeriodStarted}
+            hashours={hasHours}
           />
           {/*<JourneyListComponent data={list} />*/}
           <div className="jorneydiscoveymain-bottom-wrapper">
