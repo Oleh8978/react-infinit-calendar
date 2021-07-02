@@ -140,7 +140,7 @@ const JourneyInfo: React.FC<IProps> = ({ ...props }) => {
             hashours={hasHours}
             journey={journey}
             statistic={statistic}
-            isTrialStarted={journey.status.isTrialStarted}
+            isTrialStarted={false}
           />
           {/*<JourneyListComponent data={list} />*/}
           <div className="jorneydiscoveymain-bottom-wrapper">

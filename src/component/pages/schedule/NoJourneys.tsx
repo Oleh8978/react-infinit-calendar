@@ -2,6 +2,7 @@ import React from 'react';
 
 // static images
 import imageNoJourneys from '@app/asset/images/noJourneys.png';
+import Link from '@app/routing/Link';
 
 interface IProps {}
 
@@ -12,7 +13,9 @@ const NoJourneys: React.FC<IProps> = () => {
       <span className="answer-nojourneys-description">
         When you take a journey, you'll see your tasks here
       </span>
-      <div className="answer-nojourneys-btn">Find a Journey</div>
+      <Link className="answer-nojourneys-btn" to={'discovery'}>
+        Find a Journey
+      </Link>
       <img src={imageNoJourneys} className="answer-nojourneys-img" alt="img" />
     </div>
   );

@@ -1,5 +1,6 @@
 import { all, put, takeEvery, select } from 'redux-saga/effects';
 import {
+  addException, clearExceptions,
   deleteDayOffAction,
   getDaysOffAction,
   getScheduleAction,
@@ -48,6 +49,7 @@ export function* getScheduleSaga({
           searchParams: payload,
         }),
       );
+      yield put(clearExceptions('All is ok'));
       yield put(
         removeLoader({
           id: loadId,
@@ -56,6 +58,10 @@ export function* getScheduleSaga({
     }
   } catch (error) {
     console.error('error: ', error);
+    if (error.code === 422) {
+      yield put(addException(error.response.journey));
+    }
+
     yield put(
       getScheduleAction.failure({
         code: error.code || 400,
