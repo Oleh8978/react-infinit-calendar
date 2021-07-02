@@ -13,16 +13,11 @@ type Props = {
 
 const LinkedinLoginComponent: React.FC<Props> = ({ signIn }) => {
   function handleResponse(response: any): void {
-    console.log('response: ', response);
     if ('status' in response) {
       return;
     }
-    if ('accessToken' in response) {
-      const linkedinLoginData: ISignedData = {
-        type: 'linkedin',
-        accessToken: response.accessToken,
-      };
-      signIn(linkedinLoginData, 'linkedin');
+    if ('code' in response) {
+      signIn(response.code, 'linkedIn');
     }
   }
 

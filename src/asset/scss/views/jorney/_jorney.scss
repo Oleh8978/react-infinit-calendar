@@ -242,6 +242,8 @@
               @include card-list-text-style;
               font-style: normal;
               font-weight: bold;
+              color: $text-color;
+              text-decoration: none; 
               font-size: 16px;
               line-height: 18px;
             }
@@ -344,11 +346,11 @@
       align-items: center;
       max-height: 290px;
       overflow: hidden;
+      display: contents;
 
       @media screen and (max-width: 650px) {
         margin-right: 0px;
         margin-left: 0px;
-        max-height: 190px;
       }
 
       &-img {

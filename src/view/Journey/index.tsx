@@ -23,14 +23,25 @@ import Loader from '@app/component/Loader';
 import ConfirmationWindow from '@app/component/modalWindow/confirmationWindow';
 import { JourneyGetResponse, StatisticGetJourneyResponse } from '@ternala/frasier-types';
 import moment from 'moment';
+import {
+  deleteDayOffAction,
+  setDayOffAction,
+} from '@app/controller/schedule/actions';
 
-type IProps = RouteComponentProps<{ id: string }>;
+interface IRoute {
+  route?: string;
+}
+
+type IProps = RouteComponentProps<{ id: string }> & IRoute;
 
 const Journey: React.FC<IProps> = ({ ...props }) => {
+  console.log('props ', props);
   const [isStartPopup, setStartPopup] = useState<boolean>(false);
   const [isStopPopup, setStopPopup] = useState<boolean>(false);
   const [isTrialPeriod, setIsTrialPeriod] = useState<boolean>(false);
-  const [isTrialPeriodStarted, setIsTrialPeriodStarted] = useState<boolean>(false);
+  const [isTrialPeriodStarted, setIsTrialPeriodStarted] = useState<boolean>(
+    false,
+  );
   const [hasHours, setHasHours] = useState<boolean>(false);
   const [statistic, setStatistic] = useState<StatisticGetJourneyResponse | undefined>();
 
@@ -126,14 +137,12 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
         ) : (<></>)}
         <NavigationBar name={'Journey Info'} rout={'/'} />
         <JourneyHeader img={journey.image} />
-
           <JourneyDescription
             statistic={statistic}
             journey={journey}
             isTrialStarted={isTrialPeriodStarted}
             hashours={hasHours}
           />
-
         {/*<JourneyListComponent data={list} />*/}
         <div className='jorneydiscoveymain-bottom-wrapper'>
           <JourneyFixedBottom
@@ -146,10 +155,11 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
             setIsStopPopup={setIsStopPopup}
             id={id} />
         </div>
-      </div>) : (<Loader isSmall={true} isAbsolute={true} />)
-      }
+      ) : (
+        <Loader isSmall={true} isAbsolute={true} />
+      )}
     </>
-  )
-}
+  );
+};
 
 export default Journey;

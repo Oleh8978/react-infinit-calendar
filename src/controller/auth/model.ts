@@ -98,7 +98,7 @@ export interface IUserData {
   email?: string;
   firstName?: string;
   id?: number;
-  image?: string;
+  image?: string | any | IUserData;
   lastName?: string;
   phone?: null | string;
   startTime?: number | null;
