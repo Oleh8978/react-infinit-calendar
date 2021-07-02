@@ -10,33 +10,50 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAccessToken } from '@app/controller/auth';
 import Loader from '@app/component/Loader';
 import { buyJourneyAction, setJourneyConnectAction } from '@app/controller/journey/actions';
+import { PaymentAPI } from '@app/controller/payment/transport/payment.api';
 
-type IProps = RouteComponentProps<{ id: string }>;
+type IProps = RouteComponentProps<{
+  paymentId: string;
+  id: string }>;
 
 const Checkout: React.FC<IProps> = ({ ...props }) => {
   const [statistic, setStatistic] = useState<any | undefined>();
   const tokenPromise = useSelector(getAccessToken);
-  const id = Number(props.match.params.id);
+  const id = props.match.params.id;
+  const paymentId = props.match.params.paymentId;
   const dispatch = useDispatch();
 
   useEffect(() => {
-
-    tokenPromise.then((token) => {
-      if (token !== undefined) {
-        StatisticAPI.getStatisticByJourney(id, token).then((item) => {
-          if (typeof item !== 'string') {
-            setStatistic(item);
-          }
-        });
-      }
-    });
+    if(id) {
+      tokenPromise.then((token) => {
+        if (token !== undefined) {
+          StatisticAPI.getStatisticByJourney(Number(id), token).then((item) => {
+            if (typeof item !== 'string') {
+              setStatistic(item);
+            }
+          });
+        }
+      });
+    } else {
+      tokenPromise.then((token) => {
+        if (token !== undefined) {
+          PaymentAPI.getPaymentInfo(paymentId, token).then((item) => {
+            console.log('paymentinfo')
+            console.log(item)
+            // if (typeof item !== 'string') {
+            //   setStatistic(item);
+            // }
+          });
+        }
+      });
+    }
 
   }, []);
 
   const redirectToPayPal = () => {
     dispatch(
       buyJourneyAction.request({
-        journey: id,
+        journey: Number(id),
       }),
     );
   }

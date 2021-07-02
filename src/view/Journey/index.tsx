@@ -40,13 +40,6 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
   const id = Number(props.match.params.id);
   const dispatch = useDispatch();
 
-
-  console.log('journey.status')
-  console.log(journey.status)
-  // if(journey.status) {
-  //   setIsTrialPeriodStarted(journey.status.isTrial);
-  // }
-
   useEffect(() => {
     dispatch(getJourneyDataAction.request(id));
     if(journey.status) {
@@ -72,11 +65,11 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
     }
   }, [journey])
 
-
-  console.log('item');
-  console.log(statistic);
-  console.log('journey');
-  console.log(journey);
+  //
+  // console.log('item');
+  // console.log(statistic);
+  // console.log('journey');
+  // console.log(journey);
 
 
   const setIsStartPopup = (boolean) => {
