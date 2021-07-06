@@ -42,12 +42,12 @@ const Uncompleted: React.FC<IProps> = ({ toggleTask, ...props }) => {
                       timeSlot;
                       action: 'create' | 'remove';
                       callback: (state: boolean) => void;
-                    }) =>
+                    }) => {
                       toggleTask({
                         ...data,
-                        date: moment(day, timeSlotDateFormat),
-                      })
-                    }
+                        date: moment.utc(day, timeSlotDateFormat),
+                      });
+                    }}
                   />
                 ) : (
                   <></>

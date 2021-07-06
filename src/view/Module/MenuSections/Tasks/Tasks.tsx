@@ -65,7 +65,7 @@ const Task: React.FC<IProps> = ({ id }) => {
   }, [selectedDay]);
 
   useEffect(() => {
-    if (!uncompleted) {
+    if (!uncompleted || (uncompleted && !Object.keys(uncompleted).length)) {
       setUncompleted(Object.assign({}, module?.uncompletedTimeSlotData));
     }
   }, [selectedDay, module, module?.uncompletedTimeSlotData]);
@@ -104,7 +104,6 @@ const Task: React.FC<IProps> = ({ id }) => {
         setSelectedDay(purposeDate);
       }
     }
-    // console.log('module up', modules);
   }, [modules, id, module?.timeSlotData]);
 
   useEffect(() => {
@@ -122,7 +121,6 @@ const Task: React.FC<IProps> = ({ id }) => {
         module: id,
       }),
     );
-    // console.log('module ', module, 'id ', id);
   }, [id]);
 
   // const dataChecker = (day: ICalendarData): boolean => {
