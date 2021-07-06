@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
+import moment from 'moment';
 
 // components
 import EdditProfileBodyComponent from './EditProfileComponents/EditProfileItemBody';
@@ -17,6 +18,7 @@ import {
   deleteProfile,
 } from '@app/controller/auth/actions';
 import { updateUserDataAction } from '@app/controller/secondStepDataUpdater/actions';
+import { setAuthenticatedStatus, logOut } from '@app/controller/auth/actions';
 
 // data schema
 import * as editList from './static';
@@ -28,11 +30,16 @@ import { editProfileState, editProfileStateEquality } from './utils/constnats';
 // helpers
 import { getSavedAccess } from '@app/utils/manageAccess';
 
+// utils functions
+import { clearAccess } from '@app/utils/manageAccess';
+
 interface IProps {
   isFirstpage?: boolean;
   user?: IUser;
   validatorFunctionality?: (key: string, value: string) => void;
   isEdditProfile?: boolean;
+  validationState?: any;
+  validationStateSetter?: (arrObjct: any[]) => void;
 }
 
 const BodyEdditProfile: React.FC<any> = ({ ...props }) => {
@@ -74,22 +81,74 @@ const BodyEdditProfile: React.FC<any> = ({ ...props }) => {
     }
   };
 
+  const converter = () => {
+    if (Number.isInteger(editProfileStateObject.startTime)) {
+      return editProfileStateObject.startTime;
+    } else {
+      return moment
+        .duration(
+          moment(editProfileStateObject.startTime, ['h:mm A']).format('HH:mm'),
+        )
+        .asMinutes();
+    }
+  };
   const updateUserData = () => {
     if (isAllSiealdsArefiledOut && userData !== undefined) {
-      props.setUserData({
-        firstName: editProfileStateObject.firstName,
-        lastName: editProfileStateObject.lastName,
-        image: editProfileStateObject.image,
-        email: editProfileStateObject.email,
-        phone: editProfileStateObject.phone,
-        timezone: editProfileStateObject.timezone,
-        street: editProfileStateObject.street,
-        zipCode: editProfileStateObject.zipCode,
-        city: editProfileStateObject.city,
-        state: editProfileStateObject.state,
-        startTime: Number(editProfileStateObject.startTime),
-        id: userData.id,
+      const validationObjectUpdate = [...validationObject];
+      validationObjectUpdate.map((item) => {
+        if (item.name === 'phone') {
+          if (
+            validationObjectUpdate[validationObject.indexOf(item)].value.trim()
+              .length === 15
+          ) {
+            validationObjectUpdate[
+              validationObject.indexOf(item)
+            ].isValid = true;
+          } else {
+            validationObjectUpdate[
+              validationObject.indexOf(item)
+            ].isValid = false;
+          }
+        } else if (item.name === 'email') {
+          if (
+            validationObjectUpdate[validationObject.indexOf(item)].value
+              .length === 0
+          ) {
+            validationObjectUpdate[
+              validationObject.indexOf(item)
+            ].isValid = false;
+          } else {
+            validationObjectUpdate[
+              validationObject.indexOf(item)
+            ].isValid = true;
+          }
+          props.validationStateSetter(validationObjectUpdate);
+        }
       });
+
+      if (
+        validationObjectUpdate
+          .filter((item) => item.name === 'phone' || item.name === 'email')
+          .filter((item) => item.isValid !== false).length === 2
+      ) {
+        props.setUserData({
+          firstName: editProfileStateObject.firstName,
+          lastName: editProfileStateObject.lastName,
+          image: editProfileStateObject.image,
+          email: editProfileStateObject.email,
+          phone: editProfileStateObject.phone,
+          timezone: editProfileStateObject.timezone,
+          street: editProfileStateObject.street,
+          zipCode: editProfileStateObject.zipCode,
+          city: editProfileStateObject.city,
+          state: editProfileStateObject.state,
+          startTime: converter(),
+          id: userData.id,
+        });
+        props.validationStateSetter(validationObject);
+      }
+    } else if (!isAllSiealdsArefiledOut && userData !== undefined) {
+      props.validationStateSetter(validationObject);
     }
   };
 
@@ -162,26 +221,28 @@ const BodyEdditProfile: React.FC<any> = ({ ...props }) => {
     });
     if (
       array.filter((item) => item.status === false).length !== 0 &&
-      editProfileStateObject.phone.match(
-        /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/g,
-      ) !== null &&
-      editProfileStateObject.phone.match(
-        /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/g,
-      )[0].length > 5 &&
-      editProfileStateObject.email.match(
-        /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/g,
-      ) !== null
+      !props.isFirstPage
     ) {
-      // props.changeStateOfTheSvaeBtn(true);
+      props.changeStateOfTheSvaeBtn(true);
     } else {
-      // props.changeStateOfTheSvaeBtn(false);
+      props.changeStateOfTheSvaeBtn(false);
     }
   };
 
   const deleteProfile = () => {
     props.deleteProfile({});
+    dispatch(
+      updateUserDataAction.success({
+        user: 0,
+        id: 0,
+        firstName: '',
+        lastName: '',
+        email: '',
+        image: '',
+      }),
+    );
+    clearAccess();
   };
-
   return (
     <>
       {props.isEdditProfile ? (
@@ -192,6 +253,7 @@ const BodyEdditProfile: React.FC<any> = ({ ...props }) => {
             user={props.user}
             validatorFunctionality={validatorFunctionality}
             setObjectState={setObjectState}
+            validationState={props.validationState}
             observer={observer}
           />
           {props.isFirstpage ? (
@@ -200,8 +262,10 @@ const BodyEdditProfile: React.FC<any> = ({ ...props }) => {
             <EdditProfileBodyComponent
               data={editList.BillingAddress}
               isFirstpage={props.isFirstpage}
+              validatorFunctionality={validatorFunctionality}
               user={props.user}
               setObjectState={setObjectState}
+              validationState={props.validationState}
               observer={observer}
             />
           )}
@@ -211,6 +275,7 @@ const BodyEdditProfile: React.FC<any> = ({ ...props }) => {
             user={props.user}
             validatorFunctionality={validatorFunctionality}
             setObjectState={setObjectState}
+            validationState={props.validationState}
             isFirstpage={props.isFirstpage}
             observer={observer}
           />
@@ -232,7 +297,10 @@ const BodyEdditProfile: React.FC<any> = ({ ...props }) => {
             data={editList.PersonalInfo}
             isFirstpage={props.isFirstpage}
             user={props.user}
-            validatorFunctionality={props.validatorFunctionality}
+            validatorFunctionality={props.validatorFunctionalityFirstPage}
+            setObjectState={setObjectState}
+            validationState={props.validationState}
+            observer={observer}
           />
           {props.isFirstpage ? (
             <></>
@@ -240,13 +308,20 @@ const BodyEdditProfile: React.FC<any> = ({ ...props }) => {
             <EdditProfileBodyComponent
               data={editList.BillingAddress}
               isFirstpage={props.isFirstpage}
+              validatorFunctionality={props.validatorFunctionalityFirstPage}
+              setObjectState={setObjectState}
+              validationState={props.validationState}
+              observer={observer}
             />
           )}
           <EdditProfileBodyComponent
             data={editList.TimingSettings}
             timeZones={editList.aryIannaTimeZones}
             user={props.user}
-            validatorFunctionality={props.validatorFunctionality}
+            validatorFunctionality={props.validatorFunctionalityFirstPage}
+            setObjectState={setObjectState}
+            validationState={props.validationState}
+            observer={observer}
           />
           {props.isFirstpage ? (
             <></>

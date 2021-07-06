@@ -1,3 +1,6 @@
+// enum
+import { TimezoneTypeEnum } from '@ternala/frasier-types/lib/constants/main';
+
 export interface IData {
   name: string;
   details: IItem[];
@@ -9,11 +12,17 @@ export interface IItem {
   isRequired: boolean;
   isSelect?: boolean;
   isEmail?: boolean;
-  default?: string;
+  default?: number;
 }
 
 export interface IZones {
   offset: string;
+  name: string;
+}
+
+export interface IZonesModified {
+  offset: string;
+  subname: TimezoneTypeEnum;
   name: string;
 }
 

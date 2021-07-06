@@ -1,0 +1,16 @@
+/* material ui component for time picker */
+// .MuiInputBase-root .MuiInput-root .MuiInput-underline .MuiInputBase-formControl .MuiInput-formControl{
+//     &::before {
+//         border-bottom: none !important;
+//     }
+//     &::after {
+//         border-bottom: none !important;
+//     }
+// }
+
+.clock-input-wrapper {
+    width: 110px;
+    display: flex;
+    margin-right: 0px;
+    margin-left: auto;
+}

@@ -1,3 +1,6 @@
+// enum
+import { TimezoneTypeEnum } from '@ternala/frasier-types/lib/constants/main';
+
 export const entryValidator = (name: string, text: string) => {
   switch (name) {
     case 'firstName':
@@ -25,4 +28,25 @@ export const entryValidator = (name: string, text: string) => {
     default:
       return text.trim();
   }
+};
+
+export const timeZoneReturner = (elem: any) => {
+  let value: TimezoneTypeEnum;
+  switch (elem) {
+    case 'America/Adak':
+      value = TimezoneTypeEnum.Adak;
+      break;
+    case 'America/Los_Angeles':
+      value = TimezoneTypeEnum.LosAngeles;
+      break;
+    case 'America/Chicago':
+      value = TimezoneTypeEnum.Chicago;
+      break;
+    case 'America/New_York':
+      value = TimezoneTypeEnum.NewYork;
+      break;
+    default:
+      value = TimezoneTypeEnum.Adak;
+  }
+  return value;
 };
