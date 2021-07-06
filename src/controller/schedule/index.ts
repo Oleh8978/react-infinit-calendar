@@ -18,6 +18,7 @@ import { IAuthState } from '../auth/model';
 import { DayOffDTO, IDayWithTimeSlots } from '@ternala/frasier-types';
 import { concatWithUnique } from '@app/utils/concatWithUnique';
 import { ILoader } from '@app/model';
+import { addException } from './actions';
 
 export type ScheduleActionType = ActionType<typeof actions>;
 type ActionTypes = ScheduleActionType | LoaderActionType;
@@ -41,12 +42,20 @@ const initialState: IScheduleState = {
   timeSlotData: {},
   uncompletedTimeSlotData: {},
   daysOff: [],
+  exceptions: [],
 };
 
 export const scheduleReducer = createReducer<IScheduleState, ActionTypes>(
   initialState,
   loaderHandlers,
 )
+  .handleAction(
+    actions.addException,
+    (state: IScheduleState, { payload }): IScheduleState => ({
+      ...state,
+      exceptions: [...state.exceptions, payload],
+    }),
+  )
   .handleAction(
     actions.getUncompletedTimeSlotsAction.success,
     (state: IScheduleState, { payload }): IScheduleState => ({
@@ -93,6 +102,15 @@ export const scheduleReducer = createReducer<IScheduleState, ActionTypes>(
         (item) => payload.additionalFields.ids.indexOf(item.id) === -1,
       ),
     }),
+  )
+  .handleAction(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    actions.clearExceptions,
+    (state: IScheduleState): IScheduleState => ({
+      ...state,
+      exceptions: [],
+    }),
   );
 
 export const addLoader = loaderActions.actions.addLoader;
@@ -102,6 +120,8 @@ export const removeLoader = loaderActions.actions.removeLoader;
 
 export const getSchedule = (state: IStore): IDayWithTimeSlots =>
   state.scheduleState.timeSlotData;
+export const getExceptions = (state: IStore): string[] =>
+  state.scheduleState.exceptions;
 export const getUncompleted = (state: IStore): IDayWithTimeSlots =>
   state.scheduleState.uncompletedTimeSlotData;
 export const getDaysOff = (state: IStore): DayOffDTO[] =>

@@ -1,5 +1,5 @@
 import { appName } from '@app/config';
-import { createAsyncAction } from 'typesafe-actions';
+import { createAction, createAsyncAction } from 'typesafe-actions';
 import { IException } from '../model';
 import {
   DayOffCreateRequest,
@@ -79,3 +79,11 @@ export const deleteDayOffAction = createAsyncAction(
   },
   IException
 >();
+
+export const addException = createAction(
+  `${appName}/${widgetName}/add_exception`,
+)<string>();
+
+export const clearExceptions = createAction(
+  `${appName}/${widgetName}/clear_exception`,
+)<string>();

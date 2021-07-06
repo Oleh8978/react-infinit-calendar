@@ -11,7 +11,7 @@ import * as action from '../actions';
 
 // utils
 import { getAccessToken, getRefreshToken } from '@app/controller/auth';
-import { deleteJourneyConnectAction, setJourneyConnectAction } from '../actions';
+import { buyJourneyAction, deleteJourneyConnectAction, setJourneyConnectAction } from '../actions';
 
 export function* getJourneyData({ payload }: ReturnType<typeof action.getJourneyDataAction.request>) {
   yield put(
@@ -211,10 +211,86 @@ export function* deleteJourneyConnectSaga({ payload }: ReturnType<typeof deleteJ
   }
 }
 
+export function* buyJourneySaga({ payload, }: ReturnType<typeof buyJourneyAction.request>) {
+  const accessToken: string | undefined = yield yield select(getAccessToken);
+
+  yield put(
+    action.LoaderAction({
+      code: undefined,
+      error: false,
+      isLoading: true,
+      message: 'Loading...',
+    }),
+  );
+
+  try {
+    if (!accessToken) throw new Error('Not authorized');
+
+    const res = yield JourneyAPI.buyJourney(payload, accessToken);
+
+    if (!res && res.code) {
+      yield put(
+        buyJourneyAction.failure({
+          code: res.code,
+          name: res.name,
+          message: res.message || 'Something was wrong'
+        }),
+      );
+
+      yield put(
+        action.LoaderAction({
+          code: undefined,
+          error: true,
+          isLoading: false,
+          message: 'error while puting the data posted',
+        }),
+      );
+    } else {
+      yield put(
+        buyJourneyAction.success({
+          response: res,
+          additionalFields: payload,
+        }),
+      );
+
+      if(res.redirectURI !== undefined) {
+        window.open(res.redirectURI, '_blank')
+      }
+
+      yield put(
+        action.LoaderAction({
+          code: undefined,
+          error: false,
+          isLoading: false,
+          message: 'success loaded and put',
+        }),
+      );
+    }
+  } catch (error) {
+    console.error('error: ', error);
+    yield put(
+      buyJourneyAction.failure({
+        name: error.name,
+        code: error.code || 400,
+        message: error.message || error || 'Something was wrong'
+      }),
+    );
+    yield put(
+      action.LoaderAction({
+        code: error.code,
+        error: true,
+        isLoading: false,
+        message: 'failure not loaded and not sent',
+      }),
+    );
+  }
+}
+
 export function* getJourneyDataSaga() {
   yield all([
     takeEvery(action.getJourneyDataAction.request, getJourneyData),
     takeEvery(setJourneyConnectAction.request, setJourneyConnectSaga),
     takeEvery(deleteJourneyConnectAction.request, deleteJourneyConnectSaga),
+    takeEvery(buyJourneyAction.request, buyJourneySaga),
   ]);
 }

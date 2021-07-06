@@ -48,6 +48,7 @@ export type Pages =
   | 'journey'
   | 'journey-info'
   | 'checkout'
+  | 'payment'
   | 'article'
   | 'faq-form'
   | 'task'
@@ -197,6 +198,12 @@ class RoutingSchema {
       path: '/journey/:id/checkout',
       isExact: false,
       component: ProtectedRoute(Checkout, 'ANONYMOUS_USERS'),
+    },
+    {
+      name: 'payment',
+      path: '/payment/:paymentId',
+      isExact: false,
+      component: ProtectedRoute(Checkout, 'AUTHENTICATED_USERS'),
     },
     {
       name: 'notFound',
