@@ -7,7 +7,6 @@ import NavigationBar from '@app/component/NavigationBar';
 // components
 import JourneyHeader from '@app/view/Account/JourneyInfo/JourneyHeader';
 import JourneyDescription from '@app/view/Account/JourneyInfo/JourneyDescription';
-import JourneyListComponent from '@app/view/Account/JourneyInfo/JourneyListComponent';
 import JourneyFixedBottom from './JourneyFixdedBottom';
 
 import { getJourney, getJourneyLoader } from '@app/controller/journey';
@@ -16,17 +15,13 @@ import {
   getJourneyDataAction,
   setJourneyConnectAction,
 } from '@app/controller/journey/actions';
-import { getAccessToken } from '@app/controller/auth';
-import { StatisticAPI } from '@app/controller/statistic/transport/statistic.api';
 import { RouteComponentProps } from 'react-router-dom';
 import Loader from '@app/component/Loader';
 import ConfirmationWindow from '@app/component/modalWindow/confirmationWindow';
-import { JourneyGetResponse, StatisticGetJourneyResponse } from '@ternala/frasier-types';
 import moment from 'moment';
-import {
-  deleteDayOffAction,
-  setDayOffAction,
-} from '@app/controller/schedule/actions';
+import { getStatisticByJourney } from '@app/controller/statisticJourney';
+import { getJourneyStatisticAction } from '@app/controller/statisticJourney/actions';
+import { IStatisticState } from '@app/controller/statisticJourney/models';
 
 interface IRoute {
   route?: string;
@@ -35,53 +30,58 @@ interface IRoute {
 type IProps = RouteComponentProps<{ id: string }> & IRoute;
 
 const Journey: React.FC<IProps> = ({ ...props }) => {
-  console.log('props ', props);
   const [isStartPopup, setStartPopup] = useState<boolean>(false);
   const [isStopPopup, setStopPopup] = useState<boolean>(false);
   const [isTrialPeriod, setIsTrialPeriod] = useState<boolean>(false);
   const [isTrialPeriodStarted, setIsTrialPeriodStarted] = useState<boolean>(
     false,
   );
-  const [hasHours, setHasHours] = useState<boolean>(false);
-  const [statistic, setStatistic] = useState<StatisticGetJourneyResponse | undefined>();
+  const [hasHours, setHasHours] = useState<boolean>()
+  //const [statistic, setStatistic] = useState<IStatisticState>()
 
   const journey = useSelector(getJourney);
-  const tokenPromise = useSelector(getAccessToken);
+  const statistic = useSelector(getStatisticByJourney);
   const loader = useSelector(getJourneyLoader);
   const id = Number(props.match.params.id);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getJourneyDataAction.request(id));
+    dispatch(getJourneyStatisticAction.request({ id }));
+
+    //setStatistic(statistics[id]);
     if (journey.status) {
       setIsTrialPeriodStarted(journey.status.isTrial);
     }
 
-    tokenPromise.then((token) => {
-      if (token !== undefined) {
-        StatisticAPI.getStatisticByJourney(id, token).then((item) => {
-          if (typeof item !== 'string') {
-            setStatistic(item);
-            setHasHours(item.journey.statistic.maxSpent > 0);
-            setIsTrialPeriod(item.journey.trialPeriod > 0);
-          }
-        });
-      }
-    });
+    setIsTrialPeriod(journey.trialPeriod > 0);
   }, []);
+
+  // useEffect(() => {
+  //   setHasHours(statistic[id]?.statistic?.maxSpent > 0)
+  // }, [statistic]);
 
   useEffect(() => {
     if (journey.status) {
+      setIsTrialPeriod(journey.trialPeriod > 0);
       setIsTrialPeriodStarted(journey.status.isTrial);
     }
   }, [journey]);
 
-  //
-  // console.log('item');
-  // console.log(statistic);
-  // console.log('journey');
-  // console.log(journey);
 
+  // useEffect(() => {
+  //  // if(isTrialPeriodStarted) {
+  //     if (statistic !== undefined) {
+  //       setHasHours(statistic.journey.statistic.maxSpent > 0);
+  //       setIsTrialPeriod(journey.trialPeriod > 0);
+  //     }
+  //  // }
+  // }, [statistic]);
+
+  console.log('item');
+  console.log(statistic);
+  console.log('journey');
+  console.log(journey);
 
   const setIsStartPopup = (boolean) => {
     setStartPopup(boolean);
@@ -114,7 +114,7 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
 
   return (
     <>
-      {(journey !== undefined && statistic !== undefined) ?
+      {(journey !== undefined) ?
         (<div className={'jorneydiscoveymain'}>
             {loader.isLoading ? (<Loader isSmall={true} isAbsolute={true} />) : (<></>)}
             {isStartPopup ? (
@@ -141,8 +141,8 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
               statistic={statistic}
               journey={journey}
               isTrialStarted={isTrialPeriodStarted}
-              hashours={hasHours}
-            />
+              id={id}
+              hasHours={hasHours}/>
             {/*<JourneyListComponent data={list} />*/}
             <div className='jorneydiscoveymain-bottom-wrapper'>
               <JourneyFixedBottom

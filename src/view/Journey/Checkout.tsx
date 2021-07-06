@@ -11,6 +11,8 @@ import { getAccessToken } from '@app/controller/auth';
 import Loader from '@app/component/Loader';
 import { buyJourneyAction, setJourneyConnectAction } from '@app/controller/journey/actions';
 import { PaymentAPI } from '@app/controller/payment/transport/payment.api';
+import { PaymentGetResponse } from '@ternala/frasier-types';
+import PaymentFailed from '@app/view/Journey/PaymentFailed';
 
 type IProps = RouteComponentProps<{
   paymentId: string;
@@ -18,31 +20,34 @@ type IProps = RouteComponentProps<{
 
 const Checkout: React.FC<IProps> = ({ ...props }) => {
   const [statistic, setStatistic] = useState<any | undefined>();
+  const [paymentInfo, setPaymentInfo] = useState<PaymentGetResponse>(undefined);
   const tokenPromise = useSelector(getAccessToken);
-  const id = props.match.params.id;
+  const id = props.match.params.id || paymentInfo.journey.id;
   const paymentId = props.match.params.paymentId;
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(id) {
-      tokenPromise.then((token) => {
-        if (token !== undefined) {
-          StatisticAPI.getStatisticByJourney(Number(id), token).then((item) => {
-            if (typeof item !== 'string') {
-              setStatistic(item);
-            }
-          });
-        }
-      });
-    } else {
+    if(id && !paymentId) {
+      // tokenPromise.then((token) => {
+      //   if (token !== undefined) {
+      //     StatisticAPI.getStatisticByJourney(Number(id), token).then((item) => {
+      //       console.log('statisticinfo')
+      //       console.log(item)
+      //       if (typeof item !== 'string') {
+      //         setStatistic(item);
+      //       }
+      //     });
+      //   }
+      // });
+    } else if (paymentId) {
       tokenPromise.then((token) => {
         if (token !== undefined) {
           PaymentAPI.getPaymentInfo(paymentId, token).then((item) => {
             console.log('paymentinfo')
             console.log(item)
-            // if (typeof item !== 'string') {
-            //   setStatistic(item);
-            // }
+            if (typeof item !== 'string') {
+              setPaymentInfo(item);
+            }
           });
         }
       });
@@ -56,11 +61,26 @@ const Checkout: React.FC<IProps> = ({ ...props }) => {
         journey: Number(id),
       }),
     );
+
   }
 
   return (
     <>
       {statistic !== undefined ?
+        (paymentInfo !== undefined ? (
+          paymentInfo.status ? (
+            <CheckoutBody
+              title={paymentInfo.journey.title}
+              img={paymentInfo.journey.image}
+              duration={statistic.journey.statistic.maxSpent}
+              maxDaySpent={statistic.journey.statistic.maxDaySpent}
+              minDaySpent={statistic.journey.statistic.minDaySpent}
+              price={paymentInfo.journey.price} />
+          ) : (
+            <PaymentFailed />
+          )
+
+          ) :
         <div className={'checkout'}>
           <NavigationBar name={'Checkout'} rout={`/journey/${id}`} />
           <CheckoutBody
@@ -73,7 +93,7 @@ const Checkout: React.FC<IProps> = ({ ...props }) => {
           <div className='checkout-bottom-wrapper'>
             <CheckoutPayment redirectToPayPal={redirectToPayPal} />
           </div>
-        </div> : <Loader isSmall={true} isAbsolute={true} />
+        </div>) : (<Loader isSmall={true} isAbsolute={true} />)
       }
     </>
   );
