@@ -130,3 +130,72 @@
     }
   }
 }
+
+.payment-failed {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding-top: 200px;
+
+  &.payment-successful {
+    height: auto;
+    padding: 80px 15px 15px;
+
+    .payment-failed-title {
+      color: $empty-title-color;
+    }
+
+    .jorneydiscoveymain-bottom-pink-full-text-price {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 18px;
+      margin-bottom: 0;
+    }
+  }
+
+  &-image {
+    max-width: 208px;
+    max-height: 248px;
+    margin: auto auto 0;
+  }
+
+  .jorneydiscoveymain-bottom-pink {
+    max-width: 168px;
+    margin: 0 auto 10px;
+    height: auto;
+    padding: 11px 10px 9px;
+
+    &-full {
+      margin: 0 auto 15px;
+      max-width: 168px;
+      border: none;
+      height: auto;
+      padding: 11px 10px 9px;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 18px;
+    }
+  }
+
+  &-title {
+    font-family: $NotoSansSC;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 26px;
+    text-align: center;
+    text-transform: uppercase;
+    color: $red-color;
+    margin-bottom: 10px;
+  }
+
+  &-text {
+    font-family: $Spartan;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    color: $text-color;
+    margin-bottom: 30px;
+  }
+}

@@ -35,8 +35,6 @@ const JourneyInfo: React.FC<IProps> = ({ ...props }) => {
   const [isTrialPeriodStarted, setIsTrialPeriodStarted] = useState<boolean>(
     false,
   );
-  const [hasHours, setHasHours] = useState<boolean>(false);
-  //const [statistic, setStatistic] = useState<any | undefined>();
 
   const journey = useSelector(getJourney);
   const statistic = useSelector(getStatisticByJourney);
@@ -118,21 +116,24 @@ const JourneyInfo: React.FC<IProps> = ({ ...props }) => {
           )}
           <NavigationBar name={'Journey Info'} rout={'/account'} />
           <JourneyHeader img={journey.image} />
-          {/*<JourneyDescription*/}
-          {/*  statistic={statistic}*/}
-          {/*  journey={journey}*/}
-          {/*  isTrialStarted={isTrialPeriodStarted}*/}
-          {/*/>*/}
+          <JourneyDescription
+            statistic={statistic}
+            journey={journey}
+            isTrialStarted={isTrialPeriodStarted}
+            id={id}
+          />
           {/*<JourneyListComponent data={list} />*/}
           <div className="jorneydiscoveymain-bottom-wrapper">
             <JourneyFixedBottom
               price={journey.price}
               trialPeriod={journey.trialPeriod}
-              hasTrialPeriod={isTrialPeriod}
+              hasTrialPeriod={journey?.status?.isTrial && journey?.status?.isConnected}
               isTrialPeriodStarted={isTrialPeriodStarted}
               setIsStartPopup={setIsStartPopup}
               setIsStopPopup={setIsStopPopup}
               id={id}
+              isPaid={journey?.status?.isConnected && !journey?.status?.isTrial}
+              isConnected={journey?.status?.isConnected}
             />
           </div>
         </div>

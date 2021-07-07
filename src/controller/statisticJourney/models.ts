@@ -4,7 +4,7 @@ import { ProgressStatisticElementDetails } from '@ternala/frasier-types/lib/modu
 import { StatisticGetJourneyResponse } from '@ternala/frasier-types';
 
 export interface IJourneyStatistic {
-  journey: ProgressStatisticElementDetails;
+  statistic: ProgressStatisticElementDetails;
   modules: ModuleStatistic[];
 }
 

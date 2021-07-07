@@ -9,26 +9,21 @@ import TextComponent from '@app/view/Account/JourneyInfo/JourneyTextComponents';
 import moment from 'moment';
 
 // types
-import { JourneyGetResponse, StatisticGetJourneyResponse } from '@ternala/frasier-types';
+import { JourneyGetResponse } from '@ternala/frasier-types';
 import JourneyStatisticTable from '@app/view/Journey/JourneyStatisticTable';
-import { IStatisticState } from '@app/controller/statisticJourney/models';
 
 interface IProps {
   journey: JourneyGetResponse;
   statistic?: any;
   isTrialStarted: boolean;
   isEndless?: boolean;
-  id?: number;
-  hasHours?: boolean;
+  id: number;
 }
 
-const JourneyDescription: React.FC<IProps> = ({ journey, statistic, isTrialStarted, id, hasHours }) => {
+const JourneyDescription: React.FC<IProps> = ({ journey, statistic, isTrialStarted, id }) => {
   const defaultWeekdays = Array(...(Array(7))).map(function(_, i) {
     return moment(i, 'e').startOf('week').isoWeekday(i + 1).format('ddd');
   });
-
-  console.log('statistic444');
-  console.log(statistic[id]);
 
   const tabData = [
     { id : '1',

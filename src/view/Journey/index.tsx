@@ -36,12 +36,10 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
   const [isTrialPeriodStarted, setIsTrialPeriodStarted] = useState<boolean>(
     false,
   );
-  const [hasHours, setHasHours] = useState<boolean>()
-  //const [statistic, setStatistic] = useState<IStatisticState>()
 
   const journey = useSelector(getJourney);
   const statistic = useSelector(getStatisticByJourney);
-  const loader = useSelector(getJourneyLoader);
+  const journeyLoader = useSelector(getJourneyLoader);
   const id = Number(props.match.params.id);
   const dispatch = useDispatch();
 
@@ -49,7 +47,6 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
     dispatch(getJourneyDataAction.request(id));
     dispatch(getJourneyStatisticAction.request({ id }));
 
-    //setStatistic(statistics[id]);
     if (journey.status) {
       setIsTrialPeriodStarted(journey.status.isTrial);
     }
@@ -57,26 +54,12 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
     setIsTrialPeriod(journey.trialPeriod > 0);
   }, []);
 
-  // useEffect(() => {
-  //   setHasHours(statistic[id]?.statistic?.maxSpent > 0)
-  // }, [statistic]);
-
   useEffect(() => {
     if (journey.status) {
       setIsTrialPeriod(journey.trialPeriod > 0);
       setIsTrialPeriodStarted(journey.status.isTrial);
     }
   }, [journey]);
-
-
-  // useEffect(() => {
-  //  // if(isTrialPeriodStarted) {
-  //     if (statistic !== undefined) {
-  //       setHasHours(statistic.journey.statistic.maxSpent > 0);
-  //       setIsTrialPeriod(journey.trialPeriod > 0);
-  //     }
-  //  // }
-  // }, [statistic]);
 
   console.log('item');
   console.log(statistic);
@@ -89,6 +72,23 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
 
   const setIsStopPopup = (boolean) => {
     setStopPopup(boolean);
+  };
+
+  const setStartConnection = () => {
+    dispatch(
+      setJourneyConnectAction.request({
+        id,
+      }),
+    );
+  };
+
+  const setStopConnection = () => {
+    setStopPopup(false);
+    dispatch(
+      deleteJourneyConnectAction.request({
+        ids: [id],
+      }),
+    );
   };
 
   const startTrial = () => {
@@ -116,7 +116,7 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
     <>
       {(journey !== undefined) ?
         (<div className={'jorneydiscoveymain'}>
-            {loader.isLoading ? (<Loader isSmall={true} isAbsolute={true} />) : (<></>)}
+            {journeyLoader.isLoading ? (<Loader isSmall={true} isAbsolute={true} />) : (<></>)}
             {isStartPopup ? (
               <ConfirmationWindow firstButton={'I Want to Hold Off'}
                                   secondButton={'Good, Let’s Proceed'}
@@ -131,7 +131,7 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
                                   secondButton={'No, Let’s Keep It Going'}
                                   text={'All of your progress will be erased.'}
                                   title={'Are you sure?'}
-                                  firstAction={stopTrial}
+                                  firstAction={journey?.status?.isTrial ? stopTrial : setStopConnection}
                                   secondAction={() => setStopPopup(false)}
               />
             ) : (<></>)}
@@ -141,18 +141,21 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
               statistic={statistic}
               journey={journey}
               isTrialStarted={isTrialPeriodStarted}
-              id={id}
-              hasHours={hasHours}/>
+              id={id}/>
             {/*<JourneyListComponent data={list} />*/}
             <div className='jorneydiscoveymain-bottom-wrapper'>
               <JourneyFixedBottom
                 price={journey.price}
                 trialPeriod={journey.trialPeriod}
-                hasTrialPeriod={isTrialPeriod}
+                hasTrialPeriod={journey?.status?.isTrial && journey?.status?.isConnected}
                 isTrialPeriodStarted={isTrialPeriodStarted}
                 trialEndDate={journey.status?.trialEndDate}
+                isPaid={journey?.status?.isConnected && !journey?.status?.isTrial}
+                isConnected={journey?.status?.isConnected}
                 setIsStartPopup={setIsStartPopup}
                 setIsStopPopup={setIsStopPopup}
+                setStartConnection={setStartConnection}
+                setStopConnection={setStopConnection}
                 id={id} />
             </div>
           </div>

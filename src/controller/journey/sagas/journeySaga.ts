@@ -229,6 +229,7 @@ export function* buyJourneySaga({ payload, }: ReturnType<typeof buyJourneyAction
     const res = yield JourneyAPI.buyJourney(payload, accessToken);
 
     if (!res && res.code) {
+
       yield put(
         buyJourneyAction.failure({
           code: res.code,
