@@ -30,6 +30,7 @@ export const entryValidator = (name: string, text: string) => {
   }
 };
 
+
 export const timeZoneReturner = (elem: any) => {
   let value: TimezoneTypeEnum;
   switch (elem) {
