@@ -74,6 +74,7 @@ export interface ISignInData {
 export interface ISignInInterface {
   receivedToken: string;
   signIntype: string;
+  redirectUri: string;
 }
 
 export interface IloaderState {
@@ -113,4 +114,5 @@ export interface ILinkObject {
   receivedToken: string;
   socialMediaNetworkType: string;
   socialNetworkToken: string;
+  redirectURL?: string;
 }

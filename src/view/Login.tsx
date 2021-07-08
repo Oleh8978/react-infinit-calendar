@@ -20,18 +20,25 @@ import Link from '@app/routing/Link';
 interface IProps {
   authStatus: boolean;
   isNeededSecondStep: boolean;
-  signIn: ({ receivedToken, signIntype }) => void;
+  signIn: ({ receivedToken, signIntype, redirectUri }) => void;
   logoutMethod: () => void;
   user?: IUser;
   setPageOpened: () => void;
 }
 
 const Login: React.FC<IProps> = ({ ...props }) => {
-  const singInFunction = (data: any, type: string) => {
-    props.signIn({
-      receivedToken: type === 'linkedIn' ? data : data.accessToken,
-      signIntype: type,
-    });
+  const singInFunction = (data: any, type: string, redirectUri?: string) => {
+    type === 'linkedIn'
+      ? props.signIn({
+          receivedToken: data,
+          signIntype: type,
+          redirectUri: redirectUri,
+        })
+      : props.signIn({
+          receivedToken: data.accessToken,
+          signIntype: type,
+          redirectUri: ''
+        });
   };
 
   return (

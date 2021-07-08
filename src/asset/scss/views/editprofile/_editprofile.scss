@@ -175,7 +175,12 @@
               font-size: 14px;
               line-height: 18px;
               cursor: pointer;
-
+              &-txt {
+                padding-top: 10px;
+                padding-bottom: 10px;
+                padding-right: 60px;
+                padding-left: 60px;
+              }
               &-text {
                 display: flex;
               }

@@ -13,27 +13,25 @@ import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props
 import { facebookAppId } from '@app/config';
 import { googleClientId } from '@app/config';
 
-// static
-import * as staticConfig from '../EditProfile/static';
+// // static
+// import * as staticConfig from '../EditProfile/static';
 
-// components
-import ItemBody from './ItemBody';
+// // components
+// import ItemBody from './ItemBody';
 
 // action
 import { addLinkedSocialNetwork } from '@app/controller/auth/actions';
 import { loginByTokenAction } from '@app/controller/auth/actions';
 
-// utils
+// utils functions
 import { getSavedAccess } from '@app/utils/manageAccess';
 
 // models
-import { IListSocialState } from '../EditProfile/Models';
 import { ISignedData } from '@app/controller/auth/model';
 import { IStore } from '@app/controller/model';
 
 interface IProps {
   linkedAccounts: string[];
-  getUserAction: any;
 }
 
 const ConnectedAccountBody: React.FC<any> = ({ ...props }) => {
@@ -41,13 +39,16 @@ const ConnectedAccountBody: React.FC<any> = ({ ...props }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    const authData = getSavedAccess();
     if (props.linkedAccounts !== undefined) {
       setSocialMediaNetworks(props.linkedAccounts);
     } else {
-      dispatch(props.getUserAction);
+      props.loginByTokenAction(authData);
     }
   }, [props.linkedAccounts]);
+
   console.log('socialMediaNetworks ', socialMediaNetworks);
+  console.log('props.linkedAccounts ', props.linkedAccounts)
   const onResponseGoogle = (response: any) => {
     console.log('response: ', response);
     let signedData: ISignedData = { type: 'google' };
@@ -70,7 +71,15 @@ const ConnectedAccountBody: React.FC<any> = ({ ...props }) => {
           accessToken: response.accessToken,
         };
       }
-      // signIn(signedData, 'google');
+      dispatch(
+        addLinkedSocialNetwork.request({
+          receivedToken: getSavedAccess().accessToken,
+          socialMediaNetworkType: 'google',
+          socialNetworkToken: response.accessToken,
+          redirectURL: ``,
+        }),
+      );
+      props.loginByTokenAction(getSavedAccess());
     }
   };
 
@@ -94,7 +103,15 @@ const ConnectedAccountBody: React.FC<any> = ({ ...props }) => {
       if (response.picture?.data.url) {
         fbLoginData.image = response.picture.data.url;
       }
-      // signIn(fbLoginData, 'facebook');
+      dispatch(
+        addLinkedSocialNetwork.request({
+          receivedToken: getSavedAccess().accessToken,
+          socialMediaNetworkType: 'facebook',
+          socialNetworkToken: response.accessToken,
+          redirectURL: ``,
+        }),
+      );
+      props.loginByTokenAction(getSavedAccess());
     }
   };
 
@@ -103,19 +120,20 @@ const ConnectedAccountBody: React.FC<any> = ({ ...props }) => {
   };
 
   function handleResponseLinkedIn(response: any): void {
-    console.log('response ', response)
+    console.log('response ', response);
     if ('status' in response) {
       return;
     }
     if ('code' in response) {
-      // signIn(response.code, 'linkedIn');
       dispatch(
         addLinkedSocialNetwork.request({
           receivedToken: getSavedAccess().accessToken,
           socialMediaNetworkType: 'linkedIn',
           socialNetworkToken: response.code,
+          redirectURL: `${window.location.origin}/linkedin`,
         }),
       );
+      props.loginByTokenAction(getSavedAccess());
     }
   }
 
@@ -262,6 +280,7 @@ const ConnectedAccountBody: React.FC<any> = ({ ...props }) => {
 export default connect(
   (state: IStore) => ({
     linkedAccounts: state.authState.user.userAuthorizations,
+    user: state.authState.user,
   }),
   { loginByTokenAction },
 )(ConnectedAccountBody);

@@ -85,14 +85,24 @@ export const socialMediInfo = [
 
 export const aryIannaTimeZones = [
   {
-    offset: 'UTC-9',
+    offset: 'UTC-10',
     subname: TimezoneTypeEnum.Hawai,
     name: 'Hawai',
+  },
+  {
+    offset: 'UTC-8',
+    subname: TimezoneTypeEnum.Anchorage,
+    name: 'Anchorage',
   },
   {
     offset: 'UTC-7',
     subname: TimezoneTypeEnum.LosAngeles,
     name: 'Los-Angeles',
+  },
+  {
+    offset: 'UTC-6',
+    subname: TimezoneTypeEnum.Denver,
+    name: 'Denver',
   },
   {
     offset: 'UTC-5',
@@ -103,6 +113,11 @@ export const aryIannaTimeZones = [
     offset: 'UTC-4',
     subname: TimezoneTypeEnum.NewYork,
     name: 'New-York',
+  },
+  {
+    offset: 'UTC-4',
+    subname: TimezoneTypeEnum.Santiago,
+    name: 'Santiago',
   },
 ];
 

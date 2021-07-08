@@ -96,6 +96,7 @@ export function* signInSaga({
         payload.receivedToken,
         payload.signIntype,
         deviceCredentials,
+        payload.redirectUri
       );
       setAuthStateAction({
         isLoading: true,
@@ -308,6 +309,7 @@ export function* addSocialNetworkLinking({
       payload.receivedToken,
       payload.socialMediaNetworkType,
       payload.socialNetworkToken,
+      payload.redirectURL,
     );
     if (resp === true) {
       yield put(
@@ -320,7 +322,9 @@ export function* addSocialNetworkLinking({
       );
 
       const allNetworks = yield yield select(getAvailableNetworks);
+      console.log('allNetworks ', allNetworks);
       allNetworks.push(payload.socialMediaNetworkType);
+      console.log('allNetworks ', allNetworks);
       addLinkedSocialNetwork.success(allNetworks);
     } else {
       addLinkedSocialNetwork.failure(payload);
