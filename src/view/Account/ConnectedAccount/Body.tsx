@@ -20,7 +20,10 @@ import { googleClientId } from '@app/config';
 // import ItemBody from './ItemBody';
 
 // action
-import { addLinkedSocialNetwork } from '@app/controller/auth/actions';
+import {
+  addLinkedSocialNetwork,
+  removeLinkedSocialNetwork,
+} from '@app/controller/auth/actions';
 import { loginByTokenAction } from '@app/controller/auth/actions';
 
 // utils functions
@@ -47,8 +50,17 @@ const ConnectedAccountBody: React.FC<any> = ({ ...props }) => {
     }
   }, [props.linkedAccounts]);
 
-  console.log('socialMediaNetworks ', socialMediaNetworks);
-  console.log('props.linkedAccounts ', props.linkedAccounts)
+  const onRemoveFromAccount = (type: string) => {
+    console.log('inn')
+    dispatch(
+      removeLinkedSocialNetwork.request({
+        receivedToken: getSavedAccess().accessToken,
+        socialMediaNetworkType: type,
+      }),
+    );
+    props.loginByTokenAction(getSavedAccess());
+  };
+
   const onResponseGoogle = (response: any) => {
     console.log('response: ', response);
     let signedData: ISignedData = { type: 'google' };
@@ -179,7 +191,13 @@ const ConnectedAccountBody: React.FC<any> = ({ ...props }) => {
                           cookiePolicy={'single_host_origin'}
                         />
                       ) : (
-                        <>Unlik</>
+                        <span
+                          onClick={() => onRemoveFromAccount('google')}
+                          className={
+                            'edditprofile-links-body-item-wrapper__btn-wrapper-txt'
+                          }>
+                          Unlink
+                        </span>
                       )}
                     </>
                   </div>
@@ -221,7 +239,13 @@ const ConnectedAccountBody: React.FC<any> = ({ ...props }) => {
                           )}
                         />
                       ) : (
-                        <> Unlink </>
+                        <span
+                          onClick={() => onRemoveFromAccount('facebook')}
+                          className={
+                            'edditprofile-links-body-item-wrapper__btn-wrapper-txt'
+                          }>
+                          Unlink
+                        </span>
                       )}
                     </>
                   </div>
@@ -263,7 +287,13 @@ const ConnectedAccountBody: React.FC<any> = ({ ...props }) => {
                           )}
                         />
                       ) : (
-                        <>Unlink</>
+                        <span
+                          onClick={() => onRemoveFromAccount('linkedIn')}
+                          className={
+                            'edditprofile-links-body-item-wrapper__btn-wrapper-txt'
+                          }>
+                          Unlink
+                        </span>
                       )}
                     </>
                   </div>
@@ -282,5 +312,5 @@ export default connect(
     linkedAccounts: state.authState.user.userAuthorizations,
     user: state.authState.user,
   }),
-  { loginByTokenAction },
+  { loginByTokenAction, removeLinkedSocialNetwork },
 )(ConnectedAccountBody);

@@ -28,6 +28,10 @@ const Profile: React.FC<any> = ({ ...props }) => {
     if (userData === undefined && props.user.userData !== undefined) {
       setUserData(props.user.userData);
     }
+
+    if (props.user.userData === undefined && props.user.id === 0) {
+      dispatch(props.getUserAction);
+    }
   }, [props.user.id]);
   return (
     <>

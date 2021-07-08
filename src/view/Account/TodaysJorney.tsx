@@ -33,7 +33,7 @@ const TodaysJourney: React.FC<any> = ({ ...props }) => {
  
   return (
     <>
-      {statistic ? (
+      {!props.loader && statistic !== undefined ? (
         <div className={'profile-journey'}>
           <div className={'profile-journey-progress'}>
             <span className={'profile-journey-progress-header'}>
@@ -115,4 +115,5 @@ const TodaysJourney: React.FC<any> = ({ ...props }) => {
 // export default TodaysJourney;
 export default connect((state: IStore) => ({
   statistic: state.statisticReducer.statisticToday,
+  loader: state.statisticListReducer.loaderState.status
 }))(TodaysJourney);

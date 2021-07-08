@@ -117,7 +117,7 @@ class API {
     socialMediaNetworkType: string,
     socNetToken: string,
     redirectURL: string,
-  ): Promise<AuthUserLoginByTokenResponseDTO | string> {
+  ): Promise<boolean | string> {
     const url =
       new URL(Config.MAIN_SERVICE_ENDPOINT) +
       `auth/add/${socialMediaNetworkType}`;
@@ -137,6 +137,25 @@ class API {
             : JSON.stringify({
                 socialNetworkToken: socNetToken,
               }),
+      }),
+    );
+  }
+
+  public async removerSocialMedia(
+    receivedToken: string,
+    socialMediaNetworkType: string,
+  ): Promise<boolean | string> {
+    const url =
+      new URL(Config.MAIN_SERVICE_ENDPOINT) +
+      `user/remove-social-network/${socialMediaNetworkType}`;
+    return handleErrors(
+      fetch(url.toString(), {
+        method: 'POST',
+        headers: {
+          ...authHeader(receivedToken),
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({}),
       }),
     );
   }

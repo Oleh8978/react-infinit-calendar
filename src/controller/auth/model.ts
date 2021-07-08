@@ -116,3 +116,8 @@ export interface ILinkObject {
   socialNetworkToken: string;
   redirectURL?: string;
 }
+
+export interface ILinkObjectRemove {
+  receivedToken: string;
+  socialMediaNetworkType: string;
+}

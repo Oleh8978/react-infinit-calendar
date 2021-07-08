@@ -23,6 +23,7 @@ import {
   refreshTokenAction,
   loginByTokenAction,
   addLinkedSocialNetwork,
+  removeLinkedSocialNetwork,
 } from '../actions';
 
 // utils
@@ -360,6 +361,62 @@ export function* addSocialNetworkLinking({
   }
 }
 
+export function* removeSocialNetworkLinking({
+  payload,
+}: ReturnType<typeof removeLinkedSocialNetwork.request>) {
+  try {
+    const resp = yield AuthAPI.removerSocialMedia(
+      payload.receivedToken,
+      payload.socialMediaNetworkType,
+    );
+    if (resp === true) {
+      yield put(
+        setAuthStateAction({
+          code: undefined,
+          error: false,
+          isLoading: false,
+          message: 'Request is okay',
+        }),
+      );
+      const allNetworks = yield yield select(getAvailableNetworks);
+      console.log('allNetworks ', allNetworks);
+      allNetworks.filter( item => item !== payload.socialMediaNetworkType)
+      console.log('allNetworks ', allNetworks);
+      removeLinkedSocialNetwork.success(allNetworks);
+    } else {
+      removeLinkedSocialNetwork.failure(payload);
+      yield put(
+        setAuthStateAction({
+          code: undefined,
+          error: true,
+          isLoading: false,
+          message: 'Error in response ',
+        }),
+      );
+    }
+  } catch (error) {
+    console.log('SOCIAL MEDIA NETWORK ERROR: ', error);
+    if (error.statusCode === 401) {
+      yield put(
+        setAuthStateAction({
+          code: error.statusCode,
+          isLoading: false,
+          message: 'Something wrong with the account ',
+          error: true,
+        }),
+      );
+    } else {
+      yield put(
+        setAuthStateAction({
+          isLoading: false,
+          message: 'Something wrong with the account ',
+          error: true,
+        }),
+      );
+    }
+  }
+}
+
 export function* authActionSaga() {
   yield all([
     takeEvery(signIn.request, signInSaga),
@@ -367,6 +424,7 @@ export function* authActionSaga() {
     takeEvery(loginByTokenAction, signInSaga),
     takeEvery(deleteProfile.request, deleteAccountSaga),
     takeEvery(addLinkedSocialNetwork.request, addSocialNetworkLinking),
+    takeEvery(removeLinkedSocialNetwork.request, removeSocialNetworkLinking),
     takeEvery(logOut.request, logoutSaga),
   ]);
 }

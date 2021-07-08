@@ -155,6 +155,26 @@ export const authReducer = createReducer<IAuthState, AuthActionType>(
       },
     }),
   )
+  // .handleAction(
+  //   [actions.removeLinkedSocialNetwork.success],
+  //   (state: IAuthState, { payload }): IAuthState => ({
+  //     ...state,
+  //     isAuthenticated: true,
+  //     error: undefined,
+  //     user: {
+  //       ...state.user,
+  //       userData: {
+  //         ...state.user.userData,
+  //       },
+  //       userAuthorizations: payload,
+  //     },
+  //     state: {
+  //       code: undefined,
+  //       isLoading: false,
+  //       error: false,
+  //     },
+  //   }),
+  // )
   .handleAction(
     [actions.addLinkedSocialNetwork.success],
     (state: IAuthState, { payload }): IAuthState => ({
@@ -166,7 +186,7 @@ export const authReducer = createReducer<IAuthState, AuthActionType>(
         userData: {
           ...state.user.userData,
         },
-        userAuthorizations:  payload,
+        userAuthorizations: payload,
 
       },
       state: {
@@ -215,6 +235,7 @@ export const authReducer = createReducer<IAuthState, AuthActionType>(
       },
     }),
   )
+  
 /* Selectors */
 
 export const getAuthState = (state: IStore) => state.authState.state;
