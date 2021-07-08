@@ -17,3 +17,20 @@ export const dateCreatorSlashes = (day: number, month: number, year: number) => 
     return (date = '0' + month + '/' + day + '/' + year);
   }
 };
+
+export const hoursConverter = (elem: number ) => {
+  if (elem > 60 && Number.isInteger(elem / 60)) {
+    console.log('inn 1 ')
+    return elem / 60;
+  }
+  if (elem > 60) {
+    console.log('inn 2 ')
+    return elem / 60;
+  }
+
+  if (elem < 60 && elem / 60 < 1) {
+    return 0
+  } else if (elem < 60 && elem / 60 > 1) {
+    return (elem / 60).toFixed(2);
+  }
+};

@@ -11,11 +11,15 @@ import { IJourney } from '@app/controller/statisticList/models';
 import * as helpers from '../utils';
 import CircularProgressBar from '@app/component/CircularProgressBar';
 
+// utils 
+import { hoursConverter } from '../utils';
+
 interface IProps {
   data: IJourney;
 }
 
 const JorneyComponent: React.FC<IProps> = ({ ...props }) => {
+  console.log('props statistic ', props.data)
   return (
     <>
       {/* {props.data.statistic.endDate ? ( */}
@@ -36,7 +40,7 @@ const JorneyComponent: React.FC<IProps> = ({ ...props }) => {
                   className={
                     'single-jorney-component__column-body__left-text__top-numbers'
                   }>
-                  {props.data.statistic.spent} / {props.data.statistic.maxSpent}
+                  {hoursConverter(props.data.statistic.spent)} / {hoursConverter(props.data.statistic.maxSpent)}
                 </span>
                 <span
                   className={
