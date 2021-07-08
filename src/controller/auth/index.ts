@@ -48,6 +48,7 @@ const initialState: IAuthState = {
       timezone: '',
       zipCode: '',
     },
+    userAuthorizations: [],
   },
   state: {
     code: undefined,
@@ -97,6 +98,7 @@ export const authReducer = createReducer<IAuthState, AuthActionType>(
         userData: {
           ...payload.user.userData,
         },
+        userAuthorizations: payload.user.userAuthorizations,
       },
     }),
   )
@@ -120,9 +122,78 @@ export const authReducer = createReducer<IAuthState, AuthActionType>(
   .handleAction(
     [actions.logOut.success],
     (state: IAuthState): IAuthState => ({
-      ...state,
       isAuthenticated: false,
+      accessToken: '',
+      refreshToken: '',
+      user: {
+        createdAt: '',
+        id: 0,
+        isCanSendEmail: false,
+        isCanSendPush: false,
+        isNeedSecondStep: true,
+        userData: {
+          city: '',
+          deletedAt: '',
+          email: '',
+          firstName: '',
+          id: 0,
+          image: '',
+          lastName: '',
+          phone: '',
+          startTime: defaultUserStartTime,
+          state: '',
+          street: '',
+          timezone: '',
+          zipCode: '',
+        },
+        userAuthorizations: [],
+      },
+      state: {
+        code: undefined,
+        isLoading: false,
+        error: false,
+      },
+    }),
+  )
+  // .handleAction(
+  //   [actions.removeLinkedSocialNetwork.success],
+  //   (state: IAuthState, { payload }): IAuthState => ({
+  //     ...state,
+  //     isAuthenticated: true,
+  //     error: undefined,
+  //     user: {
+  //       ...state.user,
+  //       userData: {
+  //         ...state.user.userData,
+  //       },
+  //       userAuthorizations: payload,
+  //     },
+  //     state: {
+  //       code: undefined,
+  //       isLoading: false,
+  //       error: false,
+  //     },
+  //   }),
+  // )
+  .handleAction(
+    [actions.addLinkedSocialNetwork.success],
+    (state: IAuthState, { payload }): IAuthState => ({
+      ...state,
+      isAuthenticated: true,
       error: undefined,
+      user: {
+        ...state.user,
+        userData: {
+          ...state.user.userData,
+        },
+        userAuthorizations: payload,
+
+      },
+      state: {
+        code: undefined,
+        isLoading: false,
+        error: false,
+      },
     }),
   )
   .handleAction(
@@ -134,21 +205,42 @@ export const authReducer = createReducer<IAuthState, AuthActionType>(
       refreshToken: '',
       isAuthenticated: false,
       error: undefined,
-      user: {},
+      user: {
+        createdAt: '',
+        id: 0,
+        isCanSendEmail: false,
+        isCanSendPush: false,
+        isNeedSecondStep: false,
+        userData: {
+          city: '',
+          deletedAt: '',
+          email: '',
+          firstName: '',
+          id: 0,
+          image: '',
+          lastName: '',
+          phone: '',
+          startTime: defaultUserStartTime,
+          state: '',
+          street: '',
+          timezone: '',
+          zipCode: '',
+        },
+        userAuthorizations: [],
+      },
+      state: {
+        code: undefined,
+        isLoading: false,
+        error: false,
+      },
     }),
-  );
-// .handleAction(
-//   [actions.deleteProfile.failure],
-//   (state: IAuthState, { payload }): IAuthState => ({
-//     ...state,
-//     error: payload,
-//     isAuthenticated: false,
-//   }),
-// );
-
+  )
+  
 /* Selectors */
 
 export const getAuthState = (state: IStore) => state.authState.state;
+
+export const getAvailableNetworks = (state: IStore) => state.authState.user.userAuthorizations;
 
 export const getAuthStatus = (state: IStore): boolean | undefined =>
   state.authState.isAuthenticated;

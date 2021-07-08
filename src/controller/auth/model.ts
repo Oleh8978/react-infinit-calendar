@@ -74,6 +74,7 @@ export interface ISignInData {
 export interface ISignInInterface {
   receivedToken: string;
   signIntype: string;
+  redirectUri: string;
 }
 
 export interface IloaderState {
@@ -90,6 +91,7 @@ export interface IUser {
   isCanSendPush?: boolean;
   isNeedSecondStep?: boolean;
   userData?: IUserData;
+  userAuthorizations?: string[];
 }
 
 export interface IUserData {
@@ -106,4 +108,16 @@ export interface IUserData {
   street?: null | string;
   timezone?: null | string;
   zipCode?: null | string | number;
+}
+
+export interface ILinkObject {
+  receivedToken: string;
+  socialMediaNetworkType: string;
+  socialNetworkToken: string;
+  redirectURL?: string;
+}
+
+export interface ILinkObjectRemove {
+  receivedToken: string;
+  socialMediaNetworkType: string;
 }
