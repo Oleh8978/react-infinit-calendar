@@ -47,10 +47,10 @@ const JourneyInfo: React.FC<IProps> = ({ ...props }) => {
 
   }, []);
 
-  console.log('item');
-  console.log(statistic);
-  console.log('journey');
-  console.log(journey);
+  // console.log('item');
+  // console.log(statistic);
+  // console.log('journey');
+  // console.log(journey);
 
   const setIsStartPopup = (boolean) => {
     setStartPopup(boolean);
@@ -119,7 +119,7 @@ const JourneyInfo: React.FC<IProps> = ({ ...props }) => {
           <JourneyDescription
             statistic={statistic}
             journey={journey}
-            isTrialStarted={isTrialPeriodStarted}
+            isConnected={journey?.status?.isConnected}
             id={id}
           />
           {/*<JourneyListComponent data={list} />*/}
@@ -131,6 +131,7 @@ const JourneyInfo: React.FC<IProps> = ({ ...props }) => {
               isTrialPeriodStarted={isTrialPeriodStarted}
               setIsStartPopup={setIsStartPopup}
               setIsStopPopup={setIsStopPopup}
+              needToPay={journey?.isNeedPaid}
               id={id}
               isPaid={journey?.status?.isConnected && !journey?.status?.isTrial}
               isConnected={journey?.status?.isConnected}

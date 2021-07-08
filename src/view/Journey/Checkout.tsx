@@ -40,6 +40,7 @@ const Checkout: React.FC<IProps> = ({ ...props }) => {
       tokenPromise.then((token) => {
         if (token !== undefined) {
           PaymentAPI.getPaymentInfo(paymentId, token).then((item) => {
+
             if (typeof item !== 'string') {
               setPaymentInfo(item);
             }
@@ -72,7 +73,7 @@ const Checkout: React.FC<IProps> = ({ ...props }) => {
                 duration={statistic[paymentInfo.journey.id]?.statistic.maxSpent}
                 maxDaySpent={statistic[paymentInfo.journey.id]?.statistic.maxDaySpent}
                 minDaySpent={statistic[paymentInfo.journey.id]?.statistic.minDaySpent}
-                price={paymentInfo.journey.price} />
+                price={paymentInfo.journey.price}/>
             </>
           ) : (
             <PaymentFailed redirectToPayPal={redirectToPayPal} rout={`/journey/${paymentInfo.journey.id}`} />

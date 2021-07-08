@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import moment from 'moment';
-//import Link from '@app/routing/Link';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { Pages } from '@app/routing/schema';
 
 interface IProps {
   price?: number;
@@ -17,6 +14,7 @@ interface IProps {
   trialEndDate?: Date;
   isPaid: boolean;
   isConnected: boolean;
+  needToPay?: boolean;
 }
 
 const JourneyFixedBottom: React.FC<IProps> = ({ ...props }) => {
@@ -25,7 +23,7 @@ const JourneyFixedBottom: React.FC<IProps> = ({ ...props }) => {
 
   return (
     <>
-      {props.isTrialPeriodStarted ? (
+      {props.isTrialPeriodStarted && props.isConnected ? (
         days > 0 ? (
           <span className='trial-info'>
             {`Your Trial Ends in ${days} Days`}
@@ -35,6 +33,7 @@ const JourneyFixedBottom: React.FC<IProps> = ({ ...props }) => {
             Your trial has expired
           </span>
         )) : (<></>)}
+
       <div className='jorneydiscoveymain-bottom'>
         {props.isPaid ? (
           props.isConnected ? (
@@ -54,7 +53,7 @@ const JourneyFixedBottom: React.FC<IProps> = ({ ...props }) => {
           )
         ) : (
           props.hasTrialPeriod ? (
-            props.isTrialPeriodStarted ? (
+            props.isTrialPeriodStarted && props.isConnected ? (
               <button className='jorneydiscoveymain-bottom-red jorneydiscoveymain-bottom-pink'
                       onClick={() => props.setIsStopPopup(true)}>
             <span className='jorneydiscoveymain-bottom-pink-text'>
@@ -62,7 +61,7 @@ const JourneyFixedBottom: React.FC<IProps> = ({ ...props }) => {
             </span>
               </button>
             ) : (
-              props.price && props.price !== 0 ? (
+              props.needToPay ? (
                 props.hasTrialPeriod ? (
                   <button className='jorneydiscoveymain-bottom-pink' onClick={() => props.setIsStartPopup(true)}>
                   <span className='jorneydiscoveymain-bottom-pink-text'>
@@ -83,8 +82,8 @@ const JourneyFixedBottom: React.FC<IProps> = ({ ...props }) => {
         )}
 
         {props.isPaid ? (
-          <div className='jorneydiscoveymain-bottom-pink-full'>
-            <span className='jorneydiscoveymain-bottom-pink-full-text'>
+          <div className='jorneydiscoveymain-bottom-info'>
+            <span className='jorneydiscoveymain-bottom-info-text'>
               Already Purchased
             </span>
           </div>
@@ -98,8 +97,8 @@ const JourneyFixedBottom: React.FC<IProps> = ({ ...props }) => {
             </span>
             </Link>
           ) : (
-            <div className='jorneydiscoveymain-bottom-pink-full'>
-            <span className='jorneydiscoveymain-bottom-pink-full-text'>
+            <div className='jorneydiscoveymain-bottom-info'>
+            <span className='jorneydiscoveymain-bottom-info-text'>
               Free
             </span>
             </div>

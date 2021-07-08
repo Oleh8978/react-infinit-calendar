@@ -15,12 +15,12 @@ import JourneyStatisticTable from '@app/view/Journey/JourneyStatisticTable';
 interface IProps {
   journey: JourneyGetResponse;
   statistic?: any;
-  isTrialStarted: boolean;
+  isConnected: boolean;
   isEndless?: boolean;
   id: number;
 }
 
-const JourneyDescription: React.FC<IProps> = ({ journey, statistic, isTrialStarted, id }) => {
+const JourneyDescription: React.FC<IProps> = ({ journey, statistic, isConnected, id }) => {
   const defaultWeekdays = Array(...(Array(7))).map(function(_, i) {
     return moment(i, 'e').startOf('week').isoWeekday(i + 1).format('ddd');
   });
@@ -43,7 +43,7 @@ const JourneyDescription: React.FC<IProps> = ({ journey, statistic, isTrialStart
           {journey.title}
         </span>
       </div>
-      {isTrialStarted ? (
+      {isConnected ? (
         <>
           <div className='journeyinfo-body-progress'>
             <div className='journeyinfo-body-progress-line'></div>
@@ -95,6 +95,7 @@ const JourneyDescription: React.FC<IProps> = ({ journey, statistic, isTrialStart
             duration={statistic[id]?.statistic.maxSpent}
             maxDaySpent={statistic[id]?.statistic.maxDaySpent}
             minDaySpent={statistic[id]?.statistic.minDaySpent}
+            durationDays={statistic[id]?.statistic.durationDays}
           /> : <> </>}
           <div className={'journeyinfo-body-wrapper-dayweek'}>
             {defaultWeekdays.map((dayItem, index) => {

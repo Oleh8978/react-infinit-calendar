@@ -32,10 +32,7 @@ type IProps = RouteComponentProps<{ id: string }> & IRoute;
 const Journey: React.FC<IProps> = ({ ...props }) => {
   const [isStartPopup, setStartPopup] = useState<boolean>(false);
   const [isStopPopup, setStopPopup] = useState<boolean>(false);
-  const [isTrialPeriod, setIsTrialPeriod] = useState<boolean>(false);
-  const [isTrialPeriodStarted, setIsTrialPeriodStarted] = useState<boolean>(
-    false,
-  );
+
 
   const journey = useSelector(getJourney);
   const statistic = useSelector(getStatisticByJourney);
@@ -43,28 +40,26 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
   const id = Number(props.match.params.id);
   const dispatch = useDispatch();
 
+  const [isTrialPeriodStarted, setIsTrialPeriodStarted] = useState<boolean>(journey?.status?.isConnected && journey?.status?.isTrial);
+
   useEffect(() => {
     dispatch(getJourneyDataAction.request(id));
     dispatch(getJourneyStatisticAction.request({ id }));
 
-    if (journey.status) {
-      setIsTrialPeriodStarted(journey.status.isTrial);
-    }
+    setIsTrialPeriodStarted(journey?.status?.isTrial);
 
-    setIsTrialPeriod(journey.trialPeriod > 0);
   }, []);
 
   useEffect(() => {
     if (journey.status) {
-      setIsTrialPeriod(journey.trialPeriod > 0);
       setIsTrialPeriodStarted(journey.status.isTrial);
     }
   }, [journey]);
 
-  console.log('item');
-  console.log(statistic);
-  console.log('journey');
-  console.log(journey);
+  // console.log('item');
+  // console.log(statistic);
+  // console.log('journey');
+  // console.log(journey);
 
   const setIsStartPopup = (boolean) => {
     setStartPopup(boolean);
@@ -104,7 +99,6 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
   const stopTrial = () => {
     setStopPopup(false);
     setIsTrialPeriodStarted(false);
-    setIsTrialPeriod(false);
     dispatch(
       deleteJourneyConnectAction.request({
         ids: [id],
@@ -116,7 +110,8 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
     <>
       {(journey !== undefined) ?
         (<div className={'jorneydiscoveymain'}>
-            {journeyLoader.isLoading ? (<Loader isSmall={true} isAbsolute={true} />) : (<></>)}
+            {(journeyLoader.isLoading || statistic === undefined) ? (
+              <Loader isSmall={true} isAbsolute={true} />) : (<></>)}
             {isStartPopup ? (
               <ConfirmationWindow firstButton={'I Want to Hold Off'}
                                   secondButton={'Good, Let’s Proceed'}
@@ -140,18 +135,19 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
             <JourneyDescription
               statistic={statistic}
               journey={journey}
-              isTrialStarted={isTrialPeriodStarted}
-              id={id}/>
+              isConnected={journey?.status?.isConnected}
+              id={id} />
             {/*<JourneyListComponent data={list} />*/}
             <div className='jorneydiscoveymain-bottom-wrapper'>
               <JourneyFixedBottom
                 price={journey.price}
                 trialPeriod={journey.trialPeriod}
-                hasTrialPeriod={journey?.status?.isTrial && journey?.status?.isConnected}
+                hasTrialPeriod={journey?.status?.isTrial}
                 isTrialPeriodStarted={isTrialPeriodStarted}
                 trialEndDate={journey.status?.trialEndDate}
-                isPaid={journey?.status?.isConnected && !journey?.status?.isTrial}
+                isPaid={journey?.status?.isConnected && journey?.status?.isPaid}
                 isConnected={journey?.status?.isConnected}
+                needToPay={journey?.isNeedPaid}
                 setIsStartPopup={setIsStartPopup}
                 setIsStopPopup={setIsStopPopup}
                 setStartConnection={setStartConnection}
