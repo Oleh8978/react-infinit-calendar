@@ -13,6 +13,9 @@ import { IAccountState } from './account/models';
 import { IStatisticsState } from './statistic/models';
 import { IStatisticsListState } from './statisticList/models';
 import { IJourneyState } from '@app/controller/journey/models';
+import { StatisticGetJourneyResponse } from '@ternala/frasier-types';
+import { statisticByJourneyReducer } from '@app/controller/statisticJourney';
+import { IStatisticState } from '@app/controller/statisticJourney/models';
 
 export interface IStore {
   router: RouterState;
@@ -26,6 +29,7 @@ export interface IStore {
   userReducer: IAccountState;
   HolidayReducer: IHolidayState;
   statisticReducer: IStatisticsState;
+  statisticByJourneyReducer: IStatisticState;
   statisticListReducer: IStatisticsListState;
   JourneyReducer: IJourneyState;
 }

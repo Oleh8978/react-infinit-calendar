@@ -5,75 +5,94 @@ import { RouteComponentProps } from 'react-router-dom';
 import NavigationBar from '@app/component/NavigationBar';
 import CheckoutPayment from '@app/component/CheckoutPaymentButton';
 import CheckoutBody from '@app/view/Journey/CheckoutBody';
-import { StatisticAPI } from '@app/controller/statistic/transport/statistic.api';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAccessToken } from '@app/controller/auth';
 import Loader from '@app/component/Loader';
-import { buyJourneyAction, setJourneyConnectAction } from '@app/controller/journey/actions';
+import { buyJourneyAction, getJourneyDataAction, setJourneyConnectAction } from '@app/controller/journey/actions';
 import { PaymentAPI } from '@app/controller/payment/transport/payment.api';
+import { PaymentGetResponse } from '@ternala/frasier-types';
+import PaymentFailed from '@app/view/Journey/PaymentFailed';
+import { getStatisticByJourney } from '@app/controller/statisticJourney';
+import { getJourneyStatisticAction } from '@app/controller/statisticJourney/actions';
+import { getJourney } from '@app/controller/journey';
+import PaymentSuccessful from '@app/view/Journey/PaymentSuccessful';
 
 type IProps = RouteComponentProps<{
   paymentId: string;
-  id: string }>;
+  id: string
+}>;
 
 const Checkout: React.FC<IProps> = ({ ...props }) => {
-  const [statistic, setStatistic] = useState<any | undefined>();
+  const journey = useSelector(getJourney);
+  const statistic = useSelector(getStatisticByJourney);
+  const [paymentInfo, setPaymentInfo] = useState<PaymentGetResponse>(undefined);
   const tokenPromise = useSelector(getAccessToken);
-  const id = props.match.params.id;
+  const id = Number(props.match.params.id);
   const paymentId = props.match.params.paymentId;
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(id) {
+    if (id && !paymentId) {
+      dispatch(getJourneyDataAction.request(id));
+      dispatch(getJourneyStatisticAction.request({ id }));
+
+    } else if (paymentId) {
       tokenPromise.then((token) => {
         if (token !== undefined) {
-          StatisticAPI.getStatisticByJourney(Number(id), token).then((item) => {
+          PaymentAPI.getPaymentInfo(paymentId, token).then((item) => {
+
             if (typeof item !== 'string') {
-              setStatistic(item);
+              setPaymentInfo(item);
             }
           });
         }
       });
-    } else {
-      tokenPromise.then((token) => {
-        if (token !== undefined) {
-          PaymentAPI.getPaymentInfo(paymentId, token).then((item) => {
-            console.log('paymentinfo')
-            console.log(item)
-            // if (typeof item !== 'string') {
-            //   setStatistic(item);
-            // }
-          });
-        }
-      });
+      dispatch(getJourneyStatisticAction.request({ id: paymentInfo?.journey.id }));
     }
 
   }, []);
 
+
   const redirectToPayPal = () => {
     dispatch(
       buyJourneyAction.request({
-        journey: Number(id),
+        journey: id ? id : paymentInfo.journey.id,
       }),
     );
-  }
+  };
 
   return (
     <>
-      {statistic !== undefined ?
+      {paymentInfo !== undefined ? (
+          paymentInfo.status ? (
+            <>
+              <PaymentSuccessful rout={`/journey/${paymentInfo.journey.id}`} />
+              <CheckoutBody
+                title={paymentInfo.journey.title}
+                img={paymentInfo.journey.image}
+                duration={statistic[paymentInfo.journey.id]?.statistic.maxSpent}
+                maxDaySpent={statistic[paymentInfo.journey.id]?.statistic.maxDaySpent}
+                minDaySpent={statistic[paymentInfo.journey.id]?.statistic.minDaySpent}
+                price={paymentInfo.journey.price}/>
+            </>
+          ) : (
+            <PaymentFailed redirectToPayPal={redirectToPayPal} rout={`/journey/${paymentInfo.journey.id}`} />
+          )
+
+        ) :
         <div className={'checkout'}>
           <NavigationBar name={'Checkout'} rout={`/journey/${id}`} />
           <CheckoutBody
-            title={statistic.journey.title}
-            img={statistic.journey.image}
-            duration={statistic.journey.statistic.maxSpent}
-            maxDaySpent={statistic.journey.statistic.maxDaySpent}
-            minDaySpent={statistic.journey.statistic.minDaySpent}
-            price={statistic.journey.price} />
+            title={journey?.title}
+            img={journey?.image}
+            duration={statistic[id]?.statistic.maxSpent}
+            maxDaySpent={statistic[id]?.statistic.maxDaySpent}
+            minDaySpent={statistic[id]?.statistic.minDaySpent}
+            price={journey?.price} />
           <div className='checkout-bottom-wrapper'>
             <CheckoutPayment redirectToPayPal={redirectToPayPal} />
           </div>
-        </div> : <Loader isSmall={true} isAbsolute={true} />
+        </div>
       }
     </>
   );
