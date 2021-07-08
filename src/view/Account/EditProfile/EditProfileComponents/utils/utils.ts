@@ -33,8 +33,8 @@ export const entryValidator = (name: string, text: string) => {
 export const timeZoneReturner = (elem: any) => {
   let value: TimezoneTypeEnum;
   switch (elem) {
-    case 'America/Adak':
-      value = TimezoneTypeEnum.Adak;
+    case 'Pacific/Honolulu':
+      value = TimezoneTypeEnum.Hawai;
       break;
     case 'America/Los_Angeles':
       value = TimezoneTypeEnum.LosAngeles;
@@ -45,8 +45,20 @@ export const timeZoneReturner = (elem: any) => {
     case 'America/New_York':
       value = TimezoneTypeEnum.NewYork;
       break;
+    case 'America/Anchorage':
+      value = TimezoneTypeEnum.Anchorage;
+      break;
+    case 'America/Denver':
+      value = TimezoneTypeEnum.Denver;
+      break;
+    case 'America/Denver':
+      value = TimezoneTypeEnum.Denver;
+      break;
+    case 'America/Santiago':
+      value = TimezoneTypeEnum.Santiago;
+      break;
     default:
-      value = TimezoneTypeEnum.Adak;
+      value = TimezoneTypeEnum.Hawai;
   }
   return value;
 };

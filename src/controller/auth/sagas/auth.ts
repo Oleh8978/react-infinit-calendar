@@ -22,6 +22,7 @@ import {
   deleteProfile,
   refreshTokenAction,
   loginByTokenAction,
+  addLinkedSocialNetwork,
 } from '../actions';
 
 // utils
@@ -32,6 +33,9 @@ import { isJWTTokenExpired } from '@app/utils/API';
 // Interfaces
 import { IAuthData, IDeviceCredentials } from '../model';
 import { IException, IStore } from '../../model';
+
+// sagas
+import { getAvailableNetworks } from '../index';
 
 export async function checkAccessTokenExpired(
   { accessToken, refreshToken, deviceCredentials }: AuthRefreshRequestDTO,
@@ -99,7 +103,7 @@ export function* signInSaga({
         error: false,
       });
     }
-    console.log('sign in data ', signInData);
+
     if (signInData) {
       yield put(
         signIn.success({
@@ -265,9 +269,7 @@ export function* deleteAccountSaga() {
     );
 
     if (!res && res.code) {
-      yield put(
-        deleteProfile.failure(res),
-      );
+      yield put(deleteProfile.failure(res));
       yield put(
         setAuthStateAction({
           isLoading: false,
@@ -298,12 +300,69 @@ export function* deleteAccountSaga() {
   }
 }
 
+export function* addSocialNetworkLinking({
+  payload,
+}: ReturnType<typeof addLinkedSocialNetwork.request>) {
+  try {
+    const resp = yield AuthAPI.addSocialMedia(
+      payload.receivedToken,
+      payload.socialMediaNetworkType,
+      payload.socialNetworkToken,
+    );
+    if (resp === true) {
+      yield put(
+        setAuthStateAction({
+          code: undefined,
+          error: false,
+          isLoading: false,
+          message: 'Request is okay',
+        }),
+      );
+
+      const allNetworks = yield yield select(getAvailableNetworks);
+      allNetworks.push(payload.socialMediaNetworkType);
+      addLinkedSocialNetwork.success(allNetworks);
+    } else {
+      addLinkedSocialNetwork.failure(payload);
+      yield put(
+        setAuthStateAction({
+          code: undefined,
+          error: true,
+          isLoading: false,
+          message: 'Error in response ',
+        }),
+      );
+    }
+  } catch (error) {
+    console.log('SOCIAL MEDIA NETWORK ERROR: ', error);
+    if (error.statusCode === 401) {
+      yield put(
+        setAuthStateAction({
+          code: error.statusCode,
+          isLoading: false,
+          message: 'Something wrong with the account ',
+          error: true,
+        }),
+      );
+    } else {
+      yield put(
+        setAuthStateAction({
+          isLoading: false,
+          message: 'Something wrong with the account ',
+          error: true,
+        }),
+      );
+    }
+  }
+}
+
 export function* authActionSaga() {
   yield all([
     takeEvery(signIn.request, signInSaga),
     takeEvery(refreshTokenAction.request, refreshTokenSaga),
     takeEvery(loginByTokenAction, signInSaga),
     takeEvery(deleteProfile.request, deleteAccountSaga),
+    takeEvery(addLinkedSocialNetwork.request, addSocialNetworkLinking),
     takeEvery(logOut.request, logoutSaga),
   ]);
 }

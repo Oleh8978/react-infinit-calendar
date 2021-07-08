@@ -90,6 +90,7 @@ export interface IUser {
   isCanSendPush?: boolean;
   isNeedSecondStep?: boolean;
   userData?: IUserData;
+  userAuthorizations?: string[];
 }
 
 export interface IUserData {
@@ -106,4 +107,10 @@ export interface IUserData {
   street?: null | string;
   timezone?: null | string;
   zipCode?: null | string | number;
+}
+
+export interface ILinkObject {
+  receivedToken: string;
+  socialMediaNetworkType: string;
+  socialNetworkToken: string;
 }

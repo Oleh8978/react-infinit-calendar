@@ -78,9 +78,7 @@ const EdditBodyElementItem: React.FC<IProps> = ({ ...props }) => {
   };
 
   const handleChange = (event) => {
-    // if (!props.isFirstpage) {
     props.setObjectState(props.data.subname, event.target.value);
-    // }
     setValue(entryValidator(props.data.subname, event.target.value));
     validator(props.data.subname, event.target.value);
   };
@@ -172,7 +170,6 @@ const EdditBodyElementItem: React.FC<IProps> = ({ ...props }) => {
           className="edditprofile-body-itemWrapper-element-container-select
     edditprofile-body-itemWrapper-element-container-input"
           onChange={dropOnChangeValue}
-          // value={props.user.userData.timezone}>
           value={valueSelect}>
           {props.timeZones.map((item) => {
             return (

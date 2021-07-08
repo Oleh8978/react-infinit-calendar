@@ -111,5 +111,26 @@ class API {
       }),
     );
   }
+
+  public async addSocialMedia(
+    receivedToken: string,
+    socialMediaNetworkType: string,
+    socNetToken: string,
+  ): Promise<AuthUserLoginByTokenResponseDTO | string> {
+    const url =
+      new URL(Config.MAIN_SERVICE_ENDPOINT) +
+      `auth/add/${socialMediaNetworkType}`
+    return handleErrors(
+      fetch(url.toString(), {
+        method: 'POST',
+        headers: {
+          ...authHeader(receivedToken),
+        },
+        body: JSON.stringify({
+          socialNetworkToken: socNetToken
+        })
+      }),
+    );
+  }
 }
 export const AuthAPI = new API();

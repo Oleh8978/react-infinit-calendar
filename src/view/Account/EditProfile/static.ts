@@ -86,8 +86,8 @@ export const socialMediInfo = [
 export const aryIannaTimeZones = [
   {
     offset: 'UTC-9',
-    subname: TimezoneTypeEnum.Adak,
-    name: 'Adak',
+    subname: TimezoneTypeEnum.Hawai,
+    name: 'Hawai',
   },
   {
     offset: 'UTC-7',
@@ -105,3 +105,12 @@ export const aryIannaTimeZones = [
     name: 'New-York',
   },
 ];
+
+
+    // Hawai = "Pacific/Honolulu",
+    // Anchorage = "America/Anchorage",
+    // LosAngeles = "America/Los_Angeles",
+    // Denver = "America/Denver",
+    // Chicago = "America/Chicago",
+    // NewYork = "America/New_York",
+    // Santiago = "America/Santiago"

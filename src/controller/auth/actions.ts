@@ -11,6 +11,7 @@ import {
   IAuthData,
   IRefreshToken,
   ISignInByToken,
+  ILinkObject,
   IUser,
 } from './model';
 
@@ -55,6 +56,12 @@ export const logOut = createAsyncAction(
   `${appName}/${widgetName}/SIGN_OUT_SUCCESS`,
   `${appName}/${widgetName}/SIGN_OUT_FAILED`,
 )<any, string, any>();
+
+export const addLinkedSocialNetwork = createAsyncAction(
+  `${appName}/${widgetName}/ADD_LINK_REQUEST`,
+  `${appName}/${widgetName}/ADD_LINK_SUCCESS`,
+  `${appName}/${widgetName}/ADD_LINK_FAILED`,
+)<ILinkObject, string[], any>();
 
 export const setAuthStateAction = createAction(`${widgetName}/SET_AUTH_STATE`)<{
   code?: number | undefined;

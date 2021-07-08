@@ -29,7 +29,7 @@ const MyJourneys: React.FC<any> = ({ ...props }) => {
       setListData(props.listStaticitc.journeys);
     }
   }, [props.listStaticitc.journeys]);
-
+  console.log('list Data ', listData)
   return (
     <div className={'profile-myjourneys'}>
       {listData && listData.length !== 0 && (
