@@ -8,7 +8,7 @@ import LinkedInIcon from '@app/component/icon/LinkedInIcon';
 import { ISignedData } from '@app/controller/auth/model';
 
 type Props = {
-  signIn: (state: ISignedData, type: string) => void;
+  signIn: (state: ISignedData, type: string, uri: string) => void;
 };
 
 const LinkedinLoginComponent: React.FC<Props> = ({ signIn }) => {
@@ -17,7 +17,7 @@ const LinkedinLoginComponent: React.FC<Props> = ({ signIn }) => {
       return;
     }
     if ('code' in response) {
-      signIn(response.code, 'linkedIn');
+      signIn(response.code, 'linkedIn', `${window.location.origin}/linkedin`);
     }
   }
 

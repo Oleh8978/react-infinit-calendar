@@ -65,7 +65,7 @@ const JourneyInfo: React.FC<IProps> = ({ ...props }) => {
     setIsTrialPeriodStarted(true);
     dispatch(
       setJourneyConnectAction.request({
-        id
+        id,
       }),
     );
   };

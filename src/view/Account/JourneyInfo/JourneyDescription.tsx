@@ -9,7 +9,11 @@ import TextComponent from '@app/view/Account/JourneyInfo/JourneyTextComponents';
 import moment from 'moment';
 
 // types
-import { JourneyGetResponse } from '@ternala/frasier-types';
+
+import {
+  JourneyGetResponse,
+  StatisticGetJourneyResponse,
+} from '@ternala/frasier-types';
 import JourneyStatisticTable from '@app/view/Journey/JourneyStatisticTable';
 
 interface IProps {
@@ -19,6 +23,7 @@ interface IProps {
   isEndless?: boolean;
   id: number;
 }
+
 
 const JourneyDescription: React.FC<IProps> = ({ journey, statistic, isConnected, id }) => {
   const defaultWeekdays = Array(...(Array(7))).map(function(_, i) {
@@ -30,11 +35,12 @@ const JourneyDescription: React.FC<IProps> = ({ journey, statistic, isConnected,
       tabTitle: "Statistics",
       tabContent: <JourneyStatisticTable data={statistic[id]?.modules || []} />
     },
-    { id : '2',
-      tabTitle: "Description",
-      tabContent: <TextComponent data={journey.subTitle} />
-    }
-  ]
+    {
+      id: '2',
+      tabTitle: 'Description',
+      tabContent: <TextComponent data={journey.subTitle} />,
+    },
+  ];
 
   return (
     <div className={'journeyinfo-body-wrapper'}>
@@ -58,30 +64,41 @@ const JourneyDescription: React.FC<IProps> = ({ journey, statistic, isConnected,
                 <span className='journeyinfo-body-progress-numbers'>&nbsp;/ {statistic[id]?.statistic.maxTaskCount}</span>
                 <span className='journeyinfo-body-progress-numbers-text'>tasks</span>
               </div>
-              <div className='journeyinfo-body-progress-numbers-item'>
-                <span className='journeyinfo-body-progress-numbers'>{journey.status ? moment(journey.status.trialEndDate).format("MM/DD/YY") : 'Endless'}</span>
-                <span className='journeyinfo-body-progress-numbers-text'>{journey.status ? 'ends' : 'duration'}</span>
+              <div className="journeyinfo-body-progress-numbers-item">
+                <span className="journeyinfo-body-progress-numbers">
+                  {journey.status
+                    ? moment(journey.status.trialEndDate).format('MM/DD/YY')
+                    : 'Endless'}
+                </span>
+                <span className="journeyinfo-body-progress-numbers-text">
+                  {journey.status ? 'ends' : 'duration'}
+                </span>
               </div>
             </div>
           </div>
           <div className={'journeyinfo-body-wrapper-dayweek'}>
             {defaultWeekdays.map((dayItem, index) => {
               if (journey.workDays.includes(index)) {
-                return (<div
-                  className={'journeyinfo-body-wrapper-dayweek-day__selected'}>
-              <span
-                className={'journeyinfo-body-wrapper-dayweek-day__selected-text'}>
-                {dayItem}
-              </span>
-                </div>);
-              } else {
                 return (
                   <div
-                    className={'journeyinfo-body-wrapper-dayweek-day'}>
-              <span
-                className={'journeyinfo-body-wrapper-dayweek-day-text'}>
-                {dayItem}
-              </span>
+                    className={
+                      'journeyinfo-body-wrapper-dayweek-day__selected'
+                    }>
+                    <span
+                      className={
+                        'journeyinfo-body-wrapper-dayweek-day__selected-text'
+                      }>
+                      {dayItem}
+                    </span>
+                  </div>
+                );
+              } else {
+                return (
+                  <div className={'journeyinfo-body-wrapper-dayweek-day'}>
+                    <span
+                      className={'journeyinfo-body-wrapper-dayweek-day-text'}>
+                      {dayItem}
+                    </span>
                   </div>
                 );
               }
@@ -100,29 +117,32 @@ const JourneyDescription: React.FC<IProps> = ({ journey, statistic, isConnected,
           <div className={'journeyinfo-body-wrapper-dayweek'}>
             {defaultWeekdays.map((dayItem, index) => {
               if (journey.workDays.includes(index)) {
-                return (<div
-                  className={'journeyinfo-body-wrapper-dayweek-day__selected'}>
-              <span
-                className={'journeyinfo-body-wrapper-dayweek-day__selected-text'}>
-                {dayItem}
-              </span>
-                </div>);
-              } else {
                 return (
                   <div
-                    className={'journeyinfo-body-wrapper-dayweek-day'}>
-              <span
-                className={'journeyinfo-body-wrapper-dayweek-day-text'}>
-                {dayItem}
-              </span>
+                    className={
+                      'journeyinfo-body-wrapper-dayweek-day__selected'
+                    }>
+                    <span
+                      className={
+                        'journeyinfo-body-wrapper-dayweek-day__selected-text'
+                      }>
+                      {dayItem}
+                    </span>
+                  </div>
+                );
+              } else {
+                return (
+                  <div className={'journeyinfo-body-wrapper-dayweek-day'}>
+                    <span
+                      className={'journeyinfo-body-wrapper-dayweek-day-text'}>
+                      {dayItem}
+                    </span>
                   </div>
                 );
               }
             })}
           </div>
-          <TextComponent
-            data={journey.subTitle}
-          />
+          <TextComponent data={journey.subTitle} />
         </>
       )}
     </div>

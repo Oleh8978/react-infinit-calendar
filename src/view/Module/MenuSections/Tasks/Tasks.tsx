@@ -52,23 +52,23 @@ const Task: React.FC<IProps> = ({ id }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (selectedDay === undefined && module !== undefined)
+    if (selectedDay !== undefined && module !== undefined)
       setTimeSlots(
         module?.timeSlotData?.[selectedDay?.format(timeSlotDateFormat)] || [],
       );
-  }, [selectedDay, module]);
+  }, [selectedDay, module, module?.timeSlotData]);
 
   useEffect(() => {
-    if (module?.uncompletedTimeSlotData && uncompleted === undefined) {
-      setUncompleted(module?.uncompletedTimeSlotData);
+    if (module?.uncompletedTimeSlotData) {
+      setUncompleted(Object.assign({}, module?.uncompletedTimeSlotData));
     }
   }, [selectedDay]);
 
   useEffect(() => {
-    if (!uncompleted) {
-      setUncompleted(module?.uncompletedTimeSlotData);
+    if (!uncompleted || (uncompleted && !Object.keys(uncompleted).length)) {
+      setUncompleted(Object.assign({}, module?.uncompletedTimeSlotData));
     }
-  }, [module, module?.uncompletedTimeSlotData]);
+  }, [selectedDay, module, module?.uncompletedTimeSlotData]);
 
   useEffect(() => {
     setModule(modules[id]);
@@ -104,7 +104,6 @@ const Task: React.FC<IProps> = ({ id }) => {
         setSelectedDay(purposeDate);
       }
     }
-    console.log('module up', modules);
   }, [modules, id, module?.timeSlotData]);
 
   useEffect(() => {
@@ -122,7 +121,6 @@ const Task: React.FC<IProps> = ({ id }) => {
         module: id,
       }),
     );
-    console.log('module ', module, 'id ', id);
   }, [id]);
 
   // const dataChecker = (day: ICalendarData): boolean => {
