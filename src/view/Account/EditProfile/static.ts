@@ -121,11 +121,3 @@ export const aryIannaTimeZones = [
   },
 ];
 
-
-// Hawai = "Pacific/Honolulu",
-//     Anchorage = "America/Anchorage",
-//     LosAngeles = "America/Los_Angeles",
-//     Denver = "America/Denver",
-//     Chicago = "America/Chicago",
-//     NewYork = "America/New_York",
-//     Santiago = "America/Santiago"

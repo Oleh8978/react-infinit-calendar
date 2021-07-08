@@ -13,6 +13,7 @@ class API {
     receivedToken: string,
     signIntype: string,
     deviceCredentials: IDeviceCredentials,
+    redirectUri?: string,
   ): Promise<AuthUserLoginByTokenResponseDTO | string> {
     const url =
       new URL(Config.MAIN_SERVICE_ENDPOINT) + 'auth/' + String(signIntype);
@@ -23,7 +24,6 @@ class API {
     } else if (tokenFCM !== undefined) {
       tokenForQuery = tokenFCM;
     }
-
     return handleErrors(
       fetch(url.toString(), {
         method: 'POST',
@@ -32,11 +32,11 @@ class API {
           // ...authHeader(receivedToken),
         },
         body:
-          String(signIntype) === 'linkedin'
+          String(signIntype) === 'linkedIn'
             ? JSON.stringify({
                 authToken: receivedToken,
                 deviceCredentials: deviceCredentials,
-                redirectURL: String(signIntype),
+                redirectURL: String(redirectUri),
               })
             : JSON.stringify({
                 authToken: receivedToken,
@@ -108,6 +108,54 @@ class API {
           'Content-Type': 'application/json',
           ...authHeader(authToken),
         },
+      }),
+    );
+  }
+
+  public async addSocialMedia(
+    receivedToken: string,
+    socialMediaNetworkType: string,
+    socNetToken: string,
+    redirectURL: string,
+  ): Promise<boolean | string> {
+    const url =
+      new URL(Config.MAIN_SERVICE_ENDPOINT) +
+      `auth/add/${socialMediaNetworkType}`;
+    return handleErrors(
+      fetch(url.toString(), {
+        method: 'POST',
+        headers: {
+          ...authHeader(receivedToken),
+          'Content-Type': 'application/json',
+        },
+        body:
+          socialMediaNetworkType === 'linkedIn'
+            ? JSON.stringify({
+                socialNetworkToken: socNetToken,
+                redirectURL: redirectURL,
+              })
+            : JSON.stringify({
+                socialNetworkToken: socNetToken,
+              }),
+      }),
+    );
+  }
+
+  public async removerSocialMedia(
+    receivedToken: string,
+    socialMediaNetworkType: string,
+  ): Promise<boolean | string> {
+    const url =
+      new URL(Config.MAIN_SERVICE_ENDPOINT) +
+      `user/remove-social-network/${socialMediaNetworkType}`;
+    return handleErrors(
+      fetch(url.toString(), {
+        method: 'POST',
+        headers: {
+          ...authHeader(receivedToken),
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({}),
       }),
     );
   }
