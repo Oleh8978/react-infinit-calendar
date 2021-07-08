@@ -12,6 +12,9 @@ import { getStatisticToday } from '@app/controller/statistic/actions';
 import { IModuleProgress } from './Models';
 import { IStore } from '@app/controller/model';
 
+// utils 
+import { hoursConverter } from './utils';
+
 interface IProps {}
 
 const TodaysJourney: React.FC<any> = ({ ...props }) => {
@@ -27,10 +30,9 @@ const TodaysJourney: React.FC<any> = ({ ...props }) => {
     }
   }, [props.statistic.today]);
   if (statistic !== undefined) {
-    console.log('statistic.today ', statistic.today
-    )
+    console.log('statistic.today ', statistic.today);
   }
- 
+
   return (
     <>
       {!props.loader && statistic !== undefined ? (
@@ -59,7 +61,8 @@ const TodaysJourney: React.FC<any> = ({ ...props }) => {
                     className={
                       'profile-journey-progress__left-textwrapper__top'
                     }>
-                    {statistic.today.spent} / {statistic.today.maxSpent}
+                    {hoursConverter(statistic.today.spent)} /{' '}
+                    {hoursConverter(statistic.today.maxSpent)}
                   </span>
                   <span
                     className={
@@ -115,5 +118,5 @@ const TodaysJourney: React.FC<any> = ({ ...props }) => {
 // export default TodaysJourney;
 export default connect((state: IStore) => ({
   statistic: state.statisticReducer.statisticToday,
-  loader: state.statisticListReducer.loaderState.status
+  loader: state.statisticListReducer.loaderState.status,
 }))(TodaysJourney);
