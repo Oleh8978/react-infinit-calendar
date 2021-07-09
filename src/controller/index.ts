@@ -16,6 +16,8 @@ import { todaySatisticSaga, statisticReducer } from './statistic/index';
 import { statisticListReducer } from './statisticList/index';
 import { currentStatisctic } from './statisticList/sagas/statisticSaga';
 import { GetJourneyReducer, JourneySaga } from '@app/controller/journey';
+import { StatisticsByJourneySaga } from '@app/controller/statisticJourney/sagas/statisticSaga';
+import { statisticByJourneyReducer } from '@app/controller/statisticJourney';
 
 export const rootSaga = function* () {
   yield all([
@@ -30,6 +32,7 @@ export const rootSaga = function* () {
     moduleSaga(),
     HolidaySaga(),
     JourneySaga(),
+    StatisticsByJourneySaga(),
   ]);
 };
 
@@ -45,6 +48,7 @@ export const rootReducer = (history: History): Reducer =>
     HolidayReducer: GetHolidayReducer,
     userReducer: userReducer,
     statisticReducer: statisticReducer,
+    statisticByJourneyReducer: statisticByJourneyReducer,
     statisticListReducer: statisticListReducer,
     JourneyReducer: GetJourneyReducer,
   });

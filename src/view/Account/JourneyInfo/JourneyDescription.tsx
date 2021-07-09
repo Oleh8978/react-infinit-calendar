@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 // components
 import JourneyHoursCalculation from './JourneyHoursCalcul';
@@ -9,6 +9,7 @@ import TextComponent from '@app/view/Account/JourneyInfo/JourneyTextComponents';
 import moment from 'moment';
 
 // types
+
 import {
   JourneyGetResponse,
   StatisticGetJourneyResponse,
@@ -17,30 +18,22 @@ import JourneyStatisticTable from '@app/view/Journey/JourneyStatisticTable';
 
 interface IProps {
   journey: JourneyGetResponse;
-  statistic: StatisticGetJourneyResponse;
-  isTrialStarted: boolean;
-  hashours?: boolean;
+  statistic?: any;
+  isConnected: boolean;
   isEndless?: boolean;
+  id: number;
 }
 
-const JourneyDescription: React.FC<IProps> = ({
-  journey,
-  statistic,
-  hashours,
-  isTrialStarted,
-}) => {
-  const defaultWeekdays = Array(...Array(7)).map(function (_, i) {
-    return moment(i, 'e')
-      .startOf('week')
-      .isoWeekday(i + 1)
-      .format('ddd');
+
+const JourneyDescription: React.FC<IProps> = ({ journey, statistic, isConnected, id }) => {
+  const defaultWeekdays = Array(...(Array(7))).map(function(_, i) {
+    return moment(i, 'e').startOf('week').isoWeekday(i + 1).format('ddd');
   });
 
   const tabData = [
-    {
-      id: '1',
-      tabTitle: 'Statistics',
-      tabContent: <JourneyStatisticTable data={statistic.modules} />,
+    { id : '1',
+      tabTitle: "Statistics",
+      tabContent: <JourneyStatisticTable data={statistic[id]?.modules || []} />
     },
     {
       id: '2',
@@ -56,32 +49,20 @@ const JourneyDescription: React.FC<IProps> = ({
           {journey.title}
         </span>
       </div>
-      {isTrialStarted ? (
+      {isConnected ? (
         <>
-          <div className="journeyinfo-body-progress">
-            <div className="journeyinfo-body-progress-line"/>
-            <div className="journeyinfo-body-progress-numbers-wrap">
-              <div className="journeyinfo-body-progress-numbers-item">
-                <span className="journeyinfo-body-progress-numbers">
-                  {statistic.journey.statistic.spent}
-                </span>
-                <span className="journeyinfo-body-progress-numbers">
-                  &nbsp;/ {statistic.journey.statistic.maxSpent}
-                </span>
-                <span className="journeyinfo-body-progress-numbers-text">
-                  hrs spent
-                </span>
+          <div className='journeyinfo-body-progress'>
+            <div className='journeyinfo-body-progress-line'></div>
+            <div className='journeyinfo-body-progress-numbers-wrap'>
+              <div className='journeyinfo-body-progress-numbers-item'>
+                <span className='journeyinfo-body-progress-numbers'>{statistic[id]?.statistic.spent}</span>
+                <span className='journeyinfo-body-progress-numbers'>&nbsp;/ {statistic[id]?.statistic.maxSpent}</span>
+                <span className='journeyinfo-body-progress-numbers-text'>hrs spent</span>
               </div>
-              <div className="journeyinfo-body-progress-numbers-item">
-                <span className="journeyinfo-body-progress-numbers">
-                  {statistic.journey.statistic.completedTaskCount}
-                </span>
-                <span className="journeyinfo-body-progress-numbers">
-                  &nbsp;/ {statistic.journey.statistic.maxTaskCount}
-                </span>
-                <span className="journeyinfo-body-progress-numbers-text">
-                  tasks
-                </span>
+              <div className='journeyinfo-body-progress-numbers-item'>
+                <span className='journeyinfo-body-progress-numbers'>{statistic[id]?.statistic.completedTaskCount}</span>
+                <span className='journeyinfo-body-progress-numbers'>&nbsp;/ {statistic[id]?.statistic.maxTaskCount}</span>
+                <span className='journeyinfo-body-progress-numbers-text'>tasks</span>
               </div>
               <div className="journeyinfo-body-progress-numbers-item">
                 <span className="journeyinfo-body-progress-numbers">
@@ -127,15 +108,12 @@ const JourneyDescription: React.FC<IProps> = ({
         </>
       ) : (
         <>
-          {hashours ? (
-            <JourneyHoursCalculation
-              duration={statistic.journey.statistic.maxSpent}
-              maxDaySpent={statistic.journey.statistic.maxDaySpent}
-              minDaySpent={statistic.journey.statistic.minDaySpent}
-            />
-          ) : (
-            <> </>
-          )}
+          {statistic[id]?.statistic.maxSpent > 0 ? <JourneyHoursCalculation
+            duration={statistic[id]?.statistic.maxSpent}
+            maxDaySpent={statistic[id]?.statistic.maxDaySpent}
+            minDaySpent={statistic[id]?.statistic.minDaySpent}
+            durationDays={statistic[id]?.statistic.durationDays}
+          /> : <> </>}
           <div className={'journeyinfo-body-wrapper-dayweek'}>
             {defaultWeekdays.map((dayItem, index) => {
               if (journey.workDays.includes(index)) {

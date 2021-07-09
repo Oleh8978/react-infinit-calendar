@@ -11,6 +11,8 @@ export interface IstatisticToday {
   maxSpent: number;
   completedTaskCount: number;
   maxTaskCount: number;
+  maxDaySpent?: number;
+  minDaySpent?: number;
 }
 
 export interface IErrorState {
@@ -22,3 +24,4 @@ export interface IErrorState {
 export interface ILoaderState {
   status: boolean;
 }
+

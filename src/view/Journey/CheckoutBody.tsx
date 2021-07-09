@@ -23,18 +23,20 @@ const CheckoutBody: React.FC<IProps> = ({ ...props }) => {
       </div>
       <div className='checkout-body-timing'>
         <span className='checkout-body-timing-hours'>
-          {props.isEndless ? `Endless` : `${Math.round(props.duration / 60)} hrs`}
+          {props.duration === 0 ? `Endless` : `${Math.round(props.duration / 60)} hrs`}
         </span>
         <span className='checkout-body-timing-text'>duration</span>
       </div>
-      <div className='checkout-body-timing'>
+      {props.minDaySpent || props.maxDaySpent ? (
+        <div className='checkout-body-timing'>
         <span className='checkout-body-timing-hours'>
           {props.minDaySpent && props.maxDaySpent ?
             (`${Math.round(props.minDaySpent / 60)} - ${Math.round(props.maxDaySpent / 60)}`) :
-            ('')}
+            (props.minDaySpent ? (Math.round(props.minDaySpent / 60)) : (Math.round(props.maxDaySpent / 60)))}
         </span>
-        <span className='checkout-body-timing-text'>hrs of effort per day</span>
-      </div>
+          <span className='checkout-body-timing-text'>hrs of effort per day</span>
+        </div>
+      ) : (<></>)}
       <div className='checkout-body-price'>
         <span className='checkout-body-price-number'>
           $ {props.price}
@@ -42,7 +44,7 @@ const CheckoutBody: React.FC<IProps> = ({ ...props }) => {
         <span className='checkout-body-price-text'>price</span>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default CheckoutBody;

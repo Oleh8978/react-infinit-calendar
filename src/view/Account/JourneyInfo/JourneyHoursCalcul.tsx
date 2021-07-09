@@ -5,6 +5,7 @@ interface IProps {
   maxDaySpent?: number;
   minDaySpent?: number;
   isEndless?: boolean;
+  durationDays?: number;
 }
 
 const JourneyHoursCalculation: React.FC<IProps> = ({ ...props }) => {
@@ -12,7 +13,7 @@ const JourneyHoursCalculation: React.FC<IProps> = ({ ...props }) => {
     <div className={'journeyinfo-body-hours'}>
       <div className={'journeyinfo-body-hours__first'}>
         <span className={'journeyinfo-body-hours__first__top'}>
-          {Math.round(props.duration / 60)} hrs / 60 days
+          {Math.round(props.duration / 60)} hrs / {props.durationDays} days
         </span>
         <span className={'journeyinfo-body-hours__first__bottom'}>
           duration

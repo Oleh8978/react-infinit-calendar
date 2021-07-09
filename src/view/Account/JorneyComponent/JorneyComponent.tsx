@@ -11,6 +11,9 @@ import { IJourney } from '@app/controller/statisticList/models';
 import * as helpers from '../utils';
 import CircularProgressBar from '@app/component/CircularProgressBar';
 
+// utils
+import { hoursConverter } from '../utils';
+
 interface IProps {
   data: IJourney;
 }
@@ -36,7 +39,8 @@ const JorneyComponent: React.FC<IProps> = ({ ...props }) => {
                   className={
                     'single-jorney-component__column-body__left-text__top-numbers'
                   }>
-                  {props.data.statistic.spent} / {props.data.statistic.maxSpent}
+                  {Math.floor(props.data.statistic.spent / 60 )} /{' '}
+                  {Math.floor(props.data.statistic.maxSpent / 60)}
                 </span>
                 <span
                   className={
@@ -71,10 +75,16 @@ const JorneyComponent: React.FC<IProps> = ({ ...props }) => {
             <div className={'single-jorney-component__column-body__right'}>
               <CircularProgressBar
                 sqSize={110}
-                percentage={Math.round(
-                  (props.data.statistic.spent / props.data.statistic.maxSpent) *
-                    100,
-                )}
+                percentage={
+                  props.data.statistic.spent !== 0 &&
+                  props.data.statistic.maxSpent !== 0
+                    ? Math.round(
+                        (props.data.statistic.spent /
+                          props.data.statistic.maxSpent) *
+                          100,
+                      )
+                    : 1
+                }
                 strokeColor={props.data.accentColor || '#83DCBC'}
               />
             </div>
