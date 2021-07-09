@@ -25,12 +25,16 @@ export const hoursConverter = (elem: number ) => {
   }
   if (elem > 60) {
     console.log('inn 2 ')
-    return elem / 60;
+    return (elem / 60).toFixed(2);
   }
 
   if (elem < 60 && elem / 60 < 1) {
+    console.log('the thirs case')
     return 0
-  } else if (elem < 60 && elem / 60 > 1) {
+  } else if (elem < 60 && elem / 60 >= 1) {
+    console.log('the fourth case ')
     return (elem / 60).toFixed(2);
   }
+
+  console.log('no one is completed ', elem / 60, 'elem ', elem)
 };
