@@ -19,7 +19,6 @@ interface IProps {
 }
 
 const JorneyComponent: React.FC<IProps> = ({ ...props }) => {
-  console.log('props statistic ', props.data);
   return (
     <>
       {/* {props.data.statistic.endDate ? ( */}
@@ -40,8 +39,8 @@ const JorneyComponent: React.FC<IProps> = ({ ...props }) => {
                   className={
                     'single-jorney-component__column-body__left-text__top-numbers'
                   }>
-                  {hoursConverter(props.data.statistic.spent)} /{' '}
-                  {hoursConverter(props.data.statistic.maxSpent)}
+                  {Math.floor(props.data.statistic.spent / 60 )} /{' '}
+                  {Math.floor(props.data.statistic.maxSpent / 60)}
                 </span>
                 <span
                   className={
