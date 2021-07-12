@@ -25,10 +25,10 @@ const Profile: React.FC<any> = ({ ...props }) => {
   const [userData, setUserData] = useState<IUserData>(undefined);
   const dispatch = useDispatch();
   useEffect(() => {
-    if (userData === undefined && props.user.userData !== undefined) {
+    if (props.user.userData !== undefined) {
       setUserData(props.user.userData);
     }
-
+    
     if (props.user.userData === undefined && props.user.id === 0) {
       dispatch(props.getUserAction);
     }
