@@ -147,7 +147,7 @@ class API {
   ): Promise<boolean | string> {
     const url =
       new URL(Config.MAIN_SERVICE_ENDPOINT) +
-      `user/remove-social-network/${socialMediaNetworkType}`;
+      `auth/user/remove-social-network/${socialMediaNetworkType}`;
     return handleErrors(
       fetch(url.toString(), {
         method: 'POST',
