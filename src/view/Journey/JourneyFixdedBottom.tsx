@@ -23,7 +23,7 @@ const JourneyFixedBottom: React.FC<IProps> = ({ ...props }) => {
 
   return (
     <>
-      {props.isTrialPeriodStarted && props.isConnected ? (
+      {props.isTrialPeriodStarted ? (
         days > 0 ? (
           <span className='trial-info'>
             {`Your Trial Ends in ${days} Days`}
@@ -52,8 +52,8 @@ const JourneyFixedBottom: React.FC<IProps> = ({ ...props }) => {
             </button>
           )
         ) : (
-          props.hasTrialPeriod ? (
-            props.isTrialPeriodStarted && props.isConnected ? (
+          props.hasTrialPeriod || !props.needToPay ? (
+            props.isConnected ? (
               <button className='jorneydiscoveymain-bottom-red jorneydiscoveymain-bottom-pink'
                       onClick={() => props.setIsStopPopup(true)}>
             <span className='jorneydiscoveymain-bottom-pink-text'>
@@ -62,15 +62,13 @@ const JourneyFixedBottom: React.FC<IProps> = ({ ...props }) => {
               </button>
             ) : (
               props.needToPay ? (
-                props.hasTrialPeriod ? (
                   <button className='jorneydiscoveymain-bottom-pink' onClick={() => props.setIsStartPopup(true)}>
                   <span className='jorneydiscoveymain-bottom-pink-text'>
                       Start {props.trialPeriod}-Day Trial Version
                   </span>
                   </button>
-                ) : (<></>)
               ) : (
-                <button className='jorneydiscoveymain-bottom-pink'>
+                <button className='jorneydiscoveymain-bottom-pink' onClick={() => props.setStartConnection(true)}>
                   <span className='jorneydiscoveymain-bottom-pink-text'>
                       Start This Journey
                   </span>
