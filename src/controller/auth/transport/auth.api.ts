@@ -77,6 +77,8 @@ class API {
     );
   }
 
+  
+
   public async logout(
     deviceCredentials: DeviceCreateRequest,
     refreshToken: string,

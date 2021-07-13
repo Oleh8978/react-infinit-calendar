@@ -7,8 +7,14 @@ import back from '@app/asset/images/back.png';
 import { useDispatch, useSelector } from 'react-redux';
 
 // redux
-import { deleteDayOffAction, setDayOffAction } from '@app/controller/schedule/actions';
+import {
+  deleteDayOffAction,
+  setDayOffAction,
+} from '@app/controller/schedule/actions';
 import { getDaysOff } from '@app/controller/schedule';
+
+// hook
+import useWindowSize from './CustomHook';
 
 interface IProps {
   setModalOpened: () => void;
@@ -16,6 +22,7 @@ interface IProps {
 }
 
 const ModalWindow: React.FC<IProps> = ({ date, setModalOpened }) => {
+  const windowSize = useWindowSize();
   const dispatch = useDispatch();
 
   const daysOff = useSelector(getDaysOff);
@@ -24,35 +31,37 @@ const ModalWindow: React.FC<IProps> = ({ date, setModalOpened }) => {
   );
 
   return (
-    <div className="modal">
-      <div className="modal-btn-wrapper">
-        <div
-          className="modal-btn__close"
-          onClick={() => {
-            if (currentDay) {
-              dispatch(
-                deleteDayOffAction.request({
-                  ids: [currentDay.id],
-                }),
-              );
-            } else {
-              dispatch(
-                setDayOffAction.request({
-                  date,
-                }),
-              );
-            }
-            setModalOpened();
-          }}>
-          <img className="modal-btn-img" src={check} alt="img" />{' '}
-          <span className="modal-btn-text">
-            {currentDay ? 'I want to work' : 'Set as Day-Off'}
-          </span>
-        </div>
-        <div className="modal-btn__dayoff" onClick={() => setModalOpened()}>
-          {' '}
-          <img className="modal-btn-img" src={back} alt="img" />
-          <span className="modal-btn-text">Close</span>
+    <div className="modal-wrapper" style={{ width: windowSize.width}}>
+      <div className="modal">
+        <div className="modal-btn-wrapper">
+          <div
+            className="modal-btn__close"
+            onClick={() => {
+              if (currentDay) {
+                dispatch(
+                  deleteDayOffAction.request({
+                    ids: [currentDay.id],
+                  }),
+                );
+              } else {
+                dispatch(
+                  setDayOffAction.request({
+                    date,
+                  }),
+                );
+              }
+              setModalOpened();
+            }}>
+            <img className="modal-btn-img" src={check} alt="img" />{' '}
+            <span className="modal-btn-text">
+              {currentDay ? 'I want to work' : 'Set as Day-Off'}
+            </span>
+          </div>
+          <div className="modal-btn__dayoff" onClick={() => setModalOpened()}>
+            {' '}
+            <img className="modal-btn-img" src={back} alt="img" />
+            <span className="modal-btn-text">Close</span>
+          </div>
         </div>
       </div>
     </div>
