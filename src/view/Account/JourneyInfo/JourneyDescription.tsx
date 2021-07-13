@@ -48,16 +48,22 @@ const JourneyDescription: React.FC<IProps> = ({ journey, statistic, isConnected,
           <div className='journeyinfo-body-progress'>
             <div className='journeyinfo-body-progress-line'></div>
             <div className='journeyinfo-body-progress-numbers-wrap'>
-              <div className='journeyinfo-body-progress-numbers-item'>
-                <span className='journeyinfo-body-progress-numbers'>{Math.round(statistic[id]?.statistic.spent / 60 * 10) / 10}</span>
-                <span className='journeyinfo-body-progress-numbers'>&nbsp;/ {Math.round(statistic[id]?.statistic.maxSpent / 60 * 10) / 10}</span>
-                <span className='journeyinfo-body-progress-numbers-text'>hrs spent</span>
-              </div>
-              <div className='journeyinfo-body-progress-numbers-item'>
-                <span className='journeyinfo-body-progress-numbers'>{statistic[id]?.statistic.completedTaskCount}</span>
-                <span className='journeyinfo-body-progress-numbers'>&nbsp;/ {statistic[id]?.statistic.maxTaskCount}</span>
-                <span className='journeyinfo-body-progress-numbers-text'>tasks</span>
-              </div>
+              {statistic[id]?.statistic.spent && statistic[id]?.statistic.maxSpent ? (
+                <div className='journeyinfo-body-progress-numbers-item'>
+                  <span className='journeyinfo-body-progress-numbers'>{Math.round(statistic[id]?.statistic.spent / 60 * 10) / 10}</span>
+                  <span className='journeyinfo-body-progress-numbers'>&nbsp;/ {Math.round(statistic[id]?.statistic.maxSpent / 60 * 10) / 10}</span>
+                  <span className='journeyinfo-body-progress-numbers-text'>hrs spent</span>
+                </div>
+              ) : (<></>)}
+
+              {statistic[id]?.statistic.completedTaskCount && statistic[id]?.statistic.maxTaskCount ? (
+                <div className='journeyinfo-body-progress-numbers-item'>
+                  <span className='journeyinfo-body-progress-numbers'>{statistic[id]?.statistic.completedTaskCount}</span>
+                  <span className='journeyinfo-body-progress-numbers'>&nbsp;/ {statistic[id]?.statistic.maxTaskCount}</span>
+                  <span className='journeyinfo-body-progress-numbers-text'>tasks</span>
+                </div>
+              ) : (<></>)}
+
               <div className='journeyinfo-body-progress-numbers-item'>
                 <span className='journeyinfo-body-progress-numbers'>{journey.status ? moment(journey.status.trialEndDate).format("MM/DD/YY") : 'Endless'}</span>
                 <span className='journeyinfo-body-progress-numbers-text'>{journey.status ? 'ends' : 'duration'}</span>
