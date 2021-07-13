@@ -87,8 +87,7 @@ export function* toggleExecuteTaskSaga({
 
     const res =
       payload.action === 'create'
-        ? yield ModuleApi.
-        createExecuteTask(payload, accessToken)
+        ? yield ModuleApi.createExecuteTask(payload, accessToken)
         : yield ModuleApi.deleteExecuteTask(payload, accessToken);
     if (!res && res.code) {
       payload.callback(payload.action !== 'create');
