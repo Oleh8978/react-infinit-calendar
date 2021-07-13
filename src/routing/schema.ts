@@ -27,6 +27,7 @@ import ModuleTabContent from '@app/view/Module/ModuleTabContent';
 import Holiday from '@app/view/Schedule/Holiday/Holiday';
 import Task from '@app/view/Task';
 import Checkout from '@app/view/Journey/Checkout';
+import TipsInfo from '@app/view/Account/TipFolder/index';
 
 // Interfaces
 export interface IRoute {
@@ -67,6 +68,7 @@ export type Pages =
   | 'read-more'
   | 'expert-help'
   | 'note-details'
+  | 'tip-list'
   | 'notFound';
 
 class RoutingSchema {
@@ -82,6 +84,12 @@ class RoutingSchema {
       path: '/about',
       isExact: true,
       component: ProtectedRoute(AboutPage, 'ANONYMOUS_USERS'),
+    },
+    {
+      name: 'tip-list',
+      path: '/tip-list',
+      isExact: true,
+      component: ProtectedRoute(TipsInfo, 'ANONYMOUS_USERS'),
     },
     {
       name: 'schedule',

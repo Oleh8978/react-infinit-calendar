@@ -6,7 +6,7 @@ import {
   JourneyGetResponse,
   JourneyUserConnectCreateRequest,
   JourneyUserConnectCreateResponse,
-  JourneyUserConnectDeleteRequest, JourneyUserConnectDeleteResponse,
+  JourneyUserConnectDeleteRequest, JourneyUserConnectDeleteResponse, PaymentBuyResponse,
 } from '@ternala/frasier-types';
 
 // config
@@ -77,14 +77,14 @@ class API {
   public async buyJourney(
     { journey }: { journey: number },
     accessToken: string,
-  ): Promise<JourneyUserConnectCreateResponse | string> {
+  ): Promise<PaymentBuyResponse | string> {
     const url = new URL(Config.MAIN_SERVICE_ENDPOINT + `payment/journey`);
 
     return handleErrors(
       fetch(url.toString(), {
         method: 'POST',
         body: JSON.stringify({
-          journey,
+          journey
         }),
         headers: {
           'Content-type': 'application/json',

@@ -17,14 +17,10 @@ import {
   setJourneyConnectAction,
 } from '@app/controller/journey/actions';
 import { getAccessToken } from '@app/controller/auth';
-import { StatisticAPI } from '@app/controller/statistic/transport/statistic.api';
 import { RouteComponentProps } from 'react-router-dom';
 import Loader from '@app/component/Loader';
 import ConfirmationWindow from '@app/component/modalWindow/confirmationWindow';
-import {
-  deleteDayOffAction,
-  setDayOffAction,
-} from '@app/controller/schedule/actions';
+import { getStatisticByJourney } from '@app/controller/statisticJourney';
 
 interface IRoute {
   route?: string;
@@ -33,18 +29,15 @@ interface IRoute {
 type IProps = RouteComponentProps<{ id: string }> & IRoute;
 
 const JourneyInfo: React.FC<IProps> = ({ ...props }) => {
-  console.log('props ', props);
   const [isStartPopup, setStartPopup] = useState<boolean>(false);
   const [isStopPopup, setStopPopup] = useState<boolean>(false);
   const [isTrialPeriod, setIsTrialPeriod] = useState<boolean>(false);
   const [isTrialPeriodStarted, setIsTrialPeriodStarted] = useState<boolean>(
     false,
   );
-  const [hasHours, setHasHours] = useState<boolean>(false);
-  const [statistic, setStatistic] = useState<any | undefined>();
 
   const journey = useSelector(getJourney);
-  const tokenPromise = useSelector(getAccessToken);
+  const statistic = useSelector(getStatisticByJourney);
   const loader = useSelector(getJourneyLoader);
   const id = Number(props.match.params.id);
   const dispatch = useDispatch();
@@ -52,23 +45,12 @@ const JourneyInfo: React.FC<IProps> = ({ ...props }) => {
   useEffect(() => {
     dispatch(getJourneyDataAction.request(id));
 
-    tokenPromise.then((token) => {
-      if (token !== undefined) {
-        StatisticAPI.getStatisticByJourney(id, token).then((item) => {
-          if (typeof item !== 'string') {
-            setStatistic(item);
-            setHasHours(item.journey.statistic.maxSpent > 0);
-            setIsTrialPeriod(item.journey.trialPeriod > 0);
-          }
-        });
-      }
-    });
   }, []);
 
-  console.log('item');
-  console.log(statistic);
-  console.log('journey');
-  console.log(journey);
+  // console.log('item');
+  // console.log(statistic);
+  // console.log('journey');
+  // console.log(journey);
 
   const setIsStartPopup = (boolean) => {
     setStartPopup(boolean);
@@ -80,7 +62,6 @@ const JourneyInfo: React.FC<IProps> = ({ ...props }) => {
 
   const startTrial = () => {
     setStartPopup(false);
-    //const newDate = new Date();
     setIsTrialPeriodStarted(true);
     dispatch(
       setJourneyConnectAction.request({
@@ -138,19 +119,22 @@ const JourneyInfo: React.FC<IProps> = ({ ...props }) => {
           <JourneyDescription
             statistic={statistic}
             journey={journey}
-            isTrialStarted={isTrialPeriodStarted}
-            hashours={hasHours}
+            isConnected={journey?.status?.isConnected}
+            id={id}
           />
           {/*<JourneyListComponent data={list} />*/}
           <div className="jorneydiscoveymain-bottom-wrapper">
             <JourneyFixedBottom
               price={journey.price}
               trialPeriod={journey.trialPeriod}
-              hasTrialPeriod={isTrialPeriod}
+              hasTrialPeriod={journey?.status?.isTrial && journey?.status?.isConnected}
               isTrialPeriodStarted={isTrialPeriodStarted}
               setIsStartPopup={setIsStartPopup}
               setIsStopPopup={setIsStopPopup}
+              needToPay={journey?.isNeedPaid}
               id={id}
+              isPaid={journey?.status?.isConnected && !journey?.status?.isTrial}
+              isConnected={journey?.status?.isConnected}
             />
           </div>
         </div>

@@ -62,7 +62,6 @@ const ConnectedAccountBody: React.FC<any> = ({ ...props }) => {
   };
 
   const onResponseGoogle = (response: any) => {
-    console.log('response: ', response);
     let signedData: ISignedData = { type: 'google' };
     if (!response.error) {
       if (response.profileObj) {
@@ -98,7 +97,6 @@ const ConnectedAccountBody: React.FC<any> = ({ ...props }) => {
   const handleResponseFaceBook = (
     response: ReactFacebookLoginInfo | ReactFacebookFailureResponse,
   ): void => {
-    console.log('response: ', response);
     if ('status' in response) {
       return;
     }
@@ -132,7 +130,6 @@ const ConnectedAccountBody: React.FC<any> = ({ ...props }) => {
   };
 
   function handleResponseLinkedIn(response: any): void {
-    console.log('response ', response);
     if ('status' in response) {
       return;
     }

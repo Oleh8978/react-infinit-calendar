@@ -54,7 +54,6 @@ export function* statisticSaga() {
     } else {
       statisticData = yield StatisticAPI.getStatistic(accessToken);
       yield put(actions.getStatisticToday.success({ ...statisticData }));
-      console.log('statisticData');
       yield put(
         actions.setLoaderState({
           status: false,
@@ -78,6 +77,9 @@ export function* statisticSaga() {
   }
 }
 
+
 export function* todayStatisticsSaga() {
-  yield all([takeEvery(actions.getStatisticToday.request, statisticSaga)]);
+  yield all([
+    takeEvery(actions.getStatisticToday.request, statisticSaga),
+  ]);
 }
