@@ -48,7 +48,7 @@ const JourneyDescription: React.FC<IProps> = ({ journey, statistic, isConnected,
           <div className='journeyinfo-body-progress'>
             <div className='journeyinfo-body-progress-line'></div>
             <div className='journeyinfo-body-progress-numbers-wrap'>
-              {statistic[id]?.statistic.spent && statistic[id]?.statistic.maxSpent ? (
+              {statistic[id]?.statistic?.spent !== undefined && statistic[id]?.statistic?.maxSpent !== undefined ? (
                 <div className='journeyinfo-body-progress-numbers-item'>
                   <span className='journeyinfo-body-progress-numbers'>{Math.round(statistic[id]?.statistic.spent / 60 * 10) / 10}</span>
                   <span className='journeyinfo-body-progress-numbers'>&nbsp;/ {Math.round(statistic[id]?.statistic.maxSpent / 60 * 10) / 10}</span>
@@ -56,7 +56,7 @@ const JourneyDescription: React.FC<IProps> = ({ journey, statistic, isConnected,
                 </div>
               ) : (<></>)}
 
-              {statistic[id]?.statistic.completedTaskCount && statistic[id]?.statistic.maxTaskCount ? (
+              {statistic[id]?.statistic?.completedTaskCount !== undefined && statistic[id]?.statistic?.maxTaskCount !== undefined ? (
                 <div className='journeyinfo-body-progress-numbers-item'>
                   <span className='journeyinfo-body-progress-numbers'>{statistic[id]?.statistic.completedTaskCount}</span>
                   <span className='journeyinfo-body-progress-numbers'>&nbsp;/ {statistic[id]?.statistic.maxTaskCount}</span>
