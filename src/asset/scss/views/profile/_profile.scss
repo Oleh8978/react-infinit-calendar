@@ -401,18 +401,32 @@
             padding-left: 15px;
             padding-right: 15px;
           }
-          background-color: $unread-tips-background-color;
+          background-color: transparent;
+
+          &-unread {
+            @extend .tips-main-body-item-wrapper;
+            background-color: $unread-tips-background-color;
+          }
         }
         &-unread {
           padding-top: 20px;
           min-height: 139px;
           padding-bottom: 20px;
+          display: flex;
+          flex-flow: row;
           border-bottom: 1px solid $divider-color;
         }
 
         &-read {
           @extend .tips-main-body-item-unread;
           background-color: $white;
+        }
+
+        &-img {
+          width: 100px;
+          height: 100px;
+          margin-right: 15px;
+          border-radius: 10px;
         }
 
         &-text {

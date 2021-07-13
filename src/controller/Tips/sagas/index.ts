@@ -6,6 +6,9 @@ import { tipsApi } from '../transport/tips.api';
 // Actions
 import * as actions from '../actions';
 
+// utils 
+import { getSavedAccess} from '@app/utils/manageAccess';
+
 export function* getTipListSagas({
   payload,
 }: ReturnType<typeof actions.getTipsListRequest.request>) {
@@ -20,6 +23,7 @@ export function* getTipListSagas({
     const res = yield tipsApi.getListTipsApi(
       payload.searchParams,
       payload.userId,
+      getSavedAccess().accessToken,
     );
     if (!res && res.code) {
       yield put(
