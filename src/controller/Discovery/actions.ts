@@ -11,7 +11,7 @@ import {
 } from '@ternala/frasier-types';
 
 // const for ath actions
-export const widgetName = 'discovery';
+export const widgetName = 'DISCOVERY';
 
 // loading action
 export const setLoadingAction = createAction(

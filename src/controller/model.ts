@@ -17,6 +17,7 @@ import { StatisticGetJourneyResponse } from '@ternala/frasier-types';
 import { statisticByJourneyReducer } from '@app/controller/statisticJourney';
 import { IStatisticState } from '@app/controller/statisticJourney/models';
 import { ITipsState } from '@app/controller/Tips/models';
+import { INotificationState } from '@app/controller/notifications/models';
 
 export interface IStore {
   router: RouterState;
@@ -34,6 +35,7 @@ export interface IStore {
   statisticListReducer: IStatisticsListState;
   JourneyReducer: IJourneyState;
   tipsListReducer: ITipsState;
+  notififcationReducer: INotificationState;
 }
 
 export interface ISimpleState {
@@ -53,4 +55,8 @@ export interface IState {
   loaders?: ILoader[];
   errors?: IError[];
 }
-export type LoaderActionType = PayloadAction<string, ILoader> | PayloadAction<string, IError & { id: string }> | PayloadAction<string, { id: string }> | PayloadAction<string, { target: string }>;
+export type LoaderActionType =
+  | PayloadAction<string, ILoader>
+  | PayloadAction<string, IError & { id: string }>
+  | PayloadAction<string, { id: string }>
+  | PayloadAction<string, { target: string }>;

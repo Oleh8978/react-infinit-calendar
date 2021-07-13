@@ -7,11 +7,13 @@ export const notifications = {
   name: 'Notifications',
   items: [
     {
-      name: 'Push notification',
+      name: 'SMS notification',
+      subname: 'sms',
       button: 'toogle',
     },
     {
       name: 'E-mail notification',
+      subname: 'email',
       button: 'toogle',
     },
   ],

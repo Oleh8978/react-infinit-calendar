@@ -21,6 +21,8 @@ import { statisticByJourneyReducer } from '@app/controller/statisticJourney';
 import { FaqSagas, faqReducer } from '@app/controller/FAQ/index';
 import { tipsListReducer } from '@app/controller/Tips/index';
 import { TipsListSaga } from '@app/controller/Tips/sagas/index';
+import { notififcationReducer } from '@app/controller/notifications/index';
+import { patchNotificaionSaga } from '@app/controller/notifications/sagas/index'
 
 export const rootSaga = function* () {
   yield all([
@@ -38,6 +40,7 @@ export const rootSaga = function* () {
     JourneySaga(),
     StatisticsByJourneySaga(),
     TipsListSaga(),
+    patchNotificaionSaga(),
   ]);
 };
 
@@ -58,4 +61,5 @@ export const rootReducer = (history: History): Reducer =>
     JourneyReducer: GetJourneyReducer,
     faqReducer: faqReducer,
     tipsListReducer: tipsListReducer,
+    notififcationReducer: notififcationReducer,
   });

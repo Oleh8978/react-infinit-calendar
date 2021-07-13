@@ -10,5 +10,6 @@ export interface ISetting {
 export interface ISettingElem {
   name: string;
   button?: string;
+  subname?: string;
   link?: any;
 }

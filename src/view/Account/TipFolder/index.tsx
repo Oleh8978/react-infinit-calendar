@@ -49,16 +49,13 @@ const TipsInfo: React.FC<any> = ({ ...props }) => {
             return elem.id;
           }),
       );
-    }
-
-    return () => {
       dispatch(
         setReadedItems.request({
           accessToken: getSavedAccess().accessToken,
           readedIds: unreadedItems,
         }),
       );
-    };
+    }
   }, [props.items]);
   // console.log('unreadedItems ', unreadedItems);
   // console.log('props.items', props.items);
