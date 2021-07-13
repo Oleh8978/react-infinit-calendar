@@ -11,10 +11,11 @@ class API {
   public async getListTipsApi(
     tipsSearchParams: GetListParameters,
     userId: string,
+    accessToken: string,
   ): Promise<boolean | string> {
-    let url = new URL(Config.MAIN_SERVICE_ENDPOINT + 'tip-send/list');
+    const url = new URL(Config.MAIN_SERVICE_ENDPOINT + 'tip-send/list');
 
-    url = appendSearchParams(url, tipsSearchParams);
+    // url = appendSearchParams(url, tipsSearchParams);
 
     if (Array.isArray(tipsSearchParams['ids'])) {
       tipsSearchParams['ids']?.forEach((item) => {
@@ -30,7 +31,7 @@ class API {
       fetch(url.toString(), {
         method: 'GET',
         headers: {
-          //   ...authHeader(accessToken),
+            ...authHeader(accessToken),
           'Content-Type': 'application/json',
         },
       }),

@@ -1,5 +1,5 @@
 import { tipSortFieldEnum } from '@ternala/frasier-types/lib/constants/sortFields';
-import { TipDTO } from '@ternala/frasier-types';
+import { TipDTO, TipSendDTO } from '@ternala/frasier-types';
 import { GetListParameters } from '@ternala/frasier-types/lib/modules/query.dto';
 
 export interface ITipsSearchParams {
@@ -25,7 +25,8 @@ export interface ISetLoadingAction {
 
 export interface ItipItems {
   itemsCount: number;
-  items: TipDTO[];
+  items: TipSendDTO[];
+  newItemsCount: number;
 }
 
 export interface ITipsState {

@@ -6,7 +6,7 @@ import { omit } from 'lodash';
 import * as actions from './actions';
 
 // Interfaces
-import { TipDTO } from '@ternala/frasier-types';
+import { TipSendDTO } from '@ternala/frasier-types';
 import { ITipsState } from './models';
 
 // utils
@@ -19,6 +19,7 @@ const initialState: ITipsState = {
   tips: {
     itemsCount: undefined,
     items: [],
+    newItemsCount: undefined,
   },
   storedSearchParams: {
     limit: '',
@@ -97,12 +98,12 @@ export const tipsListReducer = createReducer<ITipsState, TipsListActionType>(
         //         payloadResponseArray.push(item);
         //       }
         //     });
-        tipsList = concatWithUnique<TipDTO>(
+        tipsList = concatWithUnique<TipSendDTO>(
           state.tips.items || [],
           payloadResponseArray,
         );
       } else {
-        tipsList = concatWithUnique<TipDTO>(
+        tipsList = concatWithUnique<TipSendDTO>(
           [],
           payload.response.items.map((item) => item),
         );
@@ -113,6 +114,7 @@ export const tipsListReducer = createReducer<ITipsState, TipsListActionType>(
         tips: {
           itemsCount: payload.response.counts,
           items: tipsList,
+          newItemsCount: payload.response.countNew,
         },
         loaderState: {
           status: false,
@@ -128,6 +130,7 @@ export const tipsListReducer = createReducer<ITipsState, TipsListActionType>(
       tips: {
         itemsCount: undefined,
         items: [],
+        newItemsCount: undefined,
       },
       storedSearchParams: {
         limit: '',
