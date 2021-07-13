@@ -100,7 +100,6 @@ const Discovery: React.FC<any> = ({ ...props }) => {
     ) {
       loadDiscovloadArticleCategoeries();
       loadDiscoveries('start', searchQuery);
-
     }
     if (isMoreStated === 'more' && props.discoveryList !== undefined) {
       setDiscovery(props.discoveryList);
@@ -293,9 +292,9 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       renderView={(props) => (
         <div {...props} className={'main-wrapper-discovery'} />
       )}>
-      {props.topicListLoader ||
+      {props.topicListLoader === true ||
       articleCategories === undefined ||
-      (articleCategories !== undefined && articleCategories.length === 0) ? (
+      props.discoveryList === undefined ? (
         <Loader isSmall={true} />
       ) : (
         <>

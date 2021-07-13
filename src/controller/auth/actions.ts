@@ -13,6 +13,7 @@ import {
   ILinkObjectRemove,
   ILinkObject,
   IUser,
+  INotificationSetter,
 } from './model';
 
 // const for ath actions

@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
+// components
+import Loader from '@app/component/Loader';
+
+// interfaces
+import { ArticleDTO } from '@ternala/frasier-types';
 // interface IItem {
 //   id: number;
 //   value: string;
@@ -7,10 +12,11 @@ import React, { useState, useEffect } from 'react';
 
 interface IProps {
   //need to changehte model
-  items: any;
+  items: ArticleDTO[];
   value: string;
   setTextFromDropdown: (text: any) => void;
   isDropdownError: boolean;
+  topicListLoader: boolean;
 }
 
 const SelectBox: React.FC<IProps> = ({ items, ...props }) => {
@@ -23,13 +29,10 @@ const SelectBox: React.FC<IProps> = ({ items, ...props }) => {
   };
 
   const selectItem = (item) => {
-    setSelectedItem(item);
+    props.setTextFromDropdown(item.id);
+    setSelectedItem(item.title);
     setShowItems(false);
   };
-
-  useEffect(() => {
-    props.setTextFromDropdown(selectedItem.value);
-  }, [showItems]);
 
   return (
     <div
@@ -37,7 +40,7 @@ const SelectBox: React.FC<IProps> = ({ items, ...props }) => {
       <div className="select-box--box">
         <div className="select-box--container" onClick={() => dropDown()}>
           <div className="select-box--selected-item">
-            {selectedItem.value || 'Category'}
+            {selectedItem || 'Category'}
           </div>
           <div
             className={`select-box--arrow ${
@@ -49,16 +52,24 @@ const SelectBox: React.FC<IProps> = ({ items, ...props }) => {
           <div
             style={{ display: showItems ? 'block' : 'none' }}
             className={'select-box--items'}>
-            {items.map((item) => (
-              <div
-                key={item.id}
-                onClick={() => selectItem(item)}
-                className={
-                  selectedItem === item ? 'selected' : 'select-box--items-item'
-                }>
-                {item.value}
-              </div>
-            ))}
+            {props.topicListLoader === false ? (
+              <>
+                {items.map((item) => (
+                  <div
+                    key={item.id}
+                    onClick={() => selectItem(item)}
+                    className={
+                      selectedItem === item.title
+                        ? 'selected'
+                        : 'select-box--items-item'
+                    }>
+                    {item.title}
+                  </div>
+                ))}
+              </>
+            ) : (
+              <Loader isSmall={true} />
+            )}
           </div>
         </div>
       </div>

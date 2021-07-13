@@ -16,6 +16,9 @@ export const Task: React.FC<IProps> = ({ toggleTask, task }) => {
     Boolean(task?.executions?.length),
   );
 
+  // console.log('task?.executions')
+  // console.log(task?.executions)
+
   useEffect(() => {
     setSelected(!!task?.executions?.length);
   }, [!!task?.executions?.length]);

@@ -16,6 +16,7 @@ import { authActionSaga, checkAccessTokenExpired } from './sagas/auth';
 // functionality
 import { getSavedAccess } from '@app/utils/manageAccess';
 import { getCredentials } from '@app/utils/deviceCredentials';
+import { userDataAPI } from '../account/transport/account.api';
 
 export type AuthActionType = ActionType<typeof actions>;
 
@@ -31,7 +32,7 @@ const initialState: IAuthState = {
     createdAt: '',
     id: 0,
     isCanSendEmail: false,
-    isCanSendPush: false,
+    isCanSendSMS: false,
     isNeedSecondStep: true,
     userData: {
       city: '',
@@ -129,7 +130,7 @@ export const authReducer = createReducer<IAuthState, AuthActionType>(
         createdAt: '',
         id: 0,
         isCanSendEmail: false,
-        isCanSendPush: false,
+        isCanSendSMS: false,
         isNeedSecondStep: true,
         userData: {
           city: '',
@@ -155,26 +156,6 @@ export const authReducer = createReducer<IAuthState, AuthActionType>(
       },
     }),
   )
-  // .handleAction(
-  //   [actions.removeLinkedSocialNetwork.success],
-  //   (state: IAuthState, { payload }): IAuthState => ({
-  //     ...state,
-  //     isAuthenticated: true,
-  //     error: undefined,
-  //     user: {
-  //       ...state.user,
-  //       userData: {
-  //         ...state.user.userData,
-  //       },
-  //       userAuthorizations: payload,
-  //     },
-  //     state: {
-  //       code: undefined,
-  //       isLoading: false,
-  //       error: false,
-  //     },
-  //   }),
-  // )
   .handleAction(
     [actions.addLinkedSocialNetwork.success],
     (state: IAuthState, { payload }): IAuthState => ({
@@ -187,7 +168,6 @@ export const authReducer = createReducer<IAuthState, AuthActionType>(
           ...state.user.userData,
         },
         userAuthorizations: payload,
-
       },
       state: {
         code: undefined,
@@ -234,13 +214,14 @@ export const authReducer = createReducer<IAuthState, AuthActionType>(
         error: false,
       },
     }),
-  )
-  
+  );
+
 /* Selectors */
 
 export const getAuthState = (state: IStore) => state.authState.state;
 
-export const getAvailableNetworks = (state: IStore) => state.authState.user.userAuthorizations;
+export const getAvailableNetworks = (state: IStore) =>
+  state.authState.user.userAuthorizations;
 
 export const getAuthStatus = (state: IStore): boolean | undefined =>
   state.authState.isAuthenticated;
@@ -279,7 +260,6 @@ export const getRefreshToken = (state: IStore) => {
   }
 };
 // export const getRefreshToken = (state: IStore) => state.authState.refreshToken;
-
 
 export const deviceCredentials = async () => {
   await getCredentials();

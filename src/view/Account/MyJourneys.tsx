@@ -21,15 +21,14 @@ const MyJourneys: React.FC<any> = ({ ...props }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (listData === undefined && props.listStaticitc.journeys === undefined) {
+    if (listData === undefined) {
       dispatch(getStatisticList.request({}));
     }
 
-    if (props.listStaticitc.journeys !== undefined && listData === undefined) {
+    if (props.listStaticitc.journeys !== undefined) {
       setListData(props.listStaticitc.journeys);
     }
   }, [props.listStaticitc.journeys]);
-  console.log('list Data ', listData)
   return (
     <div className={'profile-myjourneys'}>
       {listData && listData.length !== 0 && (

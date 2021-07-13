@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { connect, useDispatch } from 'react-redux';
 
 // components
 import Arrow from './ButtonTypes/Arrow';
 import Toogle from './ButtonTypes/Toogle';
 import Link from '@app/routing/Link';
 
+// actions
+import { patchNotificationAction } from '@app/controller/notifications/actions';
+import { loginByTokenAction, signIn } from '@app/controller/auth/actions';
+
+// utils functions
+import { getSavedAccess } from '@app/utils/manageAccess';
+
 // interfaces
+import { IStore } from '@app/controller/model';
 import { ISetting } from './Models';
 
 interface IProps {
@@ -13,13 +22,71 @@ interface IProps {
   isAboutPage?: boolean;
   version?: string;
   name?: string;
+  isCanSendEmail: boolean;
+  isCanSendSMS: boolean;
 }
 
-const SettingsBlock: React.FC<IProps> = ({ ...props }) => {
-  const typeOfButton = (item: string) => {
+const SettingsBlock: React.FC<any> = ({ ...props }) => {
+  const [mail, setMail] = useState<boolean>(false);
+  const [sms, setSms] = useState<boolean>(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (props.isCanSendEmail === undefined) {
+      dispatch(loginByTokenAction(getSavedAccess()));
+    }
+
+    if (
+      props.isCanSendEmail !== undefined &&
+      props.isCanSendSMS !== undefined
+    ) {
+      setMail(props.isCanSendEmail);
+      setSms(props.isCanSendSMS);
+    }
+  }, []);
+
+  const functionality = (name: string) => {
+    if (name === 'sms') {
+      dispatch(
+        patchNotificationAction.request({
+          notifications: {
+            isCanSendEmail: mail,
+            isCanSendSMS: !sms,
+          },
+          accessToken: getSavedAccess().accessToken,
+        }),
+      );
+      setSms(!sms);
+    } else {
+      dispatch(
+        patchNotificationAction.request({
+          notifications: {
+            isCanSendEmail: !mail,
+            isCanSendSMS: sms,
+          },
+          accessToken: getSavedAccess().accessToken,
+        }),
+      );
+      setMail(!mail);
+    }
+  };
+
+  const typeOfButton = (item: string, subname?: string) => {
     let elem = <> </>;
-    if (item === 'toogle') {
-      elem = <Toogle />;
+    if (
+      item === 'toogle' &&
+      props.isCanSendEmail !== undefined &&
+      props.isCanSendSMS !== undefined
+    ) {
+      elem = (
+        <Toogle
+          subname={subname}
+          functionality={functionality}
+          isWorking={
+            subname === 'sms' ? props.isCanSendSMS : props.isCanSendEmail
+          }
+        />
+      );
     } else if (item === 'next') {
       elem = <Arrow />;
     } else {
@@ -77,7 +144,7 @@ const SettingsBlock: React.FC<IProps> = ({ ...props }) => {
                     style={{ color: item.button ? '#373737' : '#8179DC' }}>
                     {item.name}
                   </span>
-                  {typeOfButton(item.button)}
+                  {typeOfButton(item.button, item.subname)}
                 </div>
               )}
             </>
@@ -88,4 +155,13 @@ const SettingsBlock: React.FC<IProps> = ({ ...props }) => {
   );
 };
 
-export default SettingsBlock;
+// export default SettingsBlock;
+
+export default connect(
+  (state: IStore) => ({
+    isCanSendEmail: state.authState.user.isCanSendEmail,
+    isCanSendSMS: state.authState.user.isCanSendSMS,
+    user: state.authState,
+  }),
+  { patchNotificationAction, loginByTokenAction, signIn },
+)(SettingsBlock);

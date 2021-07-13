@@ -27,7 +27,8 @@ export const setJourneyConnectAction = createAsyncAction(
 )<
   {id: number},
   {
-    response: JourneyUserConnectCreateResponse;
+    response: JourneyGetResponse;
+    //response: JourneyUserConnectCreateResponse;
     additionalFields: {id: number};
   },
   IException
