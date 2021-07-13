@@ -86,7 +86,6 @@ const Routing: React.FC<Props> = ({
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('innn')
     const authData = getSavedAccess();
     if (authData.accessToken && authData.refreshToken) {
       if (authStatus === false) {
@@ -137,8 +136,8 @@ const Routing: React.FC<Props> = ({
     dispatch(logOut.request({}));
     clearAccess();
   };
-  console.log('isNeededSecondStep @', isNeededSecondStep)
-  console.log('isNeeededSecondStepValue', isNeeededSecondStepValue, 'authStatus ', authStatus)
+  // console.log('isNeededSecondStep @', isNeededSecondStep)
+  // console.log('isNeeededSecondStepValue', isNeeededSecondStepValue, 'authStatus ', authStatus)
   if (
     (!authStatus && isNeeededSecondStepValue) ||
     (!authStatus && !isNeeededSecondStepValue) ||
