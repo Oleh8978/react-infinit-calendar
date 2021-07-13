@@ -10,11 +10,14 @@ import { IJourneyState, ILoader } from './models';
 import * as action from './actions';
 import { IStore } from '../model';
 import { getJourneyDataSaga } from '@app/controller/journey/sagas/journeySaga';
-import { JourneyDTO, JourneyGetResponse } from '@ternala/frasier-types';
+import { DayOffDTO, JourneyDTO, JourneyGetResponse } from '@ternala/frasier-types';
 import { JourneyUserConnectShortDTO } from '@ternala/frasier-types/lib/modules/journey/userConnect';
 import { SectionShortDTO } from '@ternala/frasier-types/lib/modules/section';
 import { TimeSlotShortDTO } from '@ternala/frasier-types/lib/modules/timeSlot';
 import { ModuleShortDTO } from '@ternala/frasier-types/lib/modules/module';
+import { IScheduleState } from '@app/controller/schedule/models';
+import { concatWithUnique } from '@app/utils/concatWithUnique';
+import { deleteJourneyConnectAction, setJourneyConnectAction } from './actions';
 
 export const JourneySaga = function* () {
   yield all([getJourneyDataSaga()]);
@@ -60,6 +63,26 @@ export const GetJourneyReducer = createReducer<
     (state: IJourneyState, { payload }): IJourneyState => ({
       ...state,
       journey: payload,
+    }),
+  )
+  .handleAction(
+    [actions.setJourneyConnectAction.success],
+    (state: IJourneyState, { payload }): IJourneyState => ({
+      ...state,
+      journey: payload.response,
+    }),
+  )
+  .handleAction(
+    [actions.deleteJourneyConnectAction.success],
+    (state: IJourneyState, { payload }): IJourneyState => ({
+      ...state,
+      journey: {
+        ...state.journey,
+        status: {
+          ...state.journey.status,
+          isConnected: false,
+        }
+      }
     }),
   )
   .handleAction(
