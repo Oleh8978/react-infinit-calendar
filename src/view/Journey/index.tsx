@@ -33,7 +33,6 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
   const [isStartPopup, setStartPopup] = useState<boolean>(false);
   const [isStopPopup, setStopPopup] = useState<boolean>(false);
 
-
   const journey = useSelector(getJourney);
   const statistic = useSelector(getStatisticByJourney);
   const journeyLoader = useSelector(getJourneyLoader);
@@ -46,20 +45,16 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
     dispatch(getJourneyDataAction.request(id));
     dispatch(getJourneyStatisticAction.request({ id }));
 
-    setIsTrialPeriodStarted(journey?.status?.isTrial);
-
+    if (journey.status) {
+      setIsTrialPeriodStarted(journey?.status?.isConnected && journey?.status?.isTrial);
+    }
   }, []);
 
   useEffect(() => {
     if (journey.status) {
-      setIsTrialPeriodStarted(journey.status.isTrial);
+      setIsTrialPeriodStarted(journey?.status?.isConnected && journey?.status?.isTrial);
     }
-  }, [journey]);
-
-  // console.log('item');
-  // console.log(statistic);
-  // console.log('journey');
-  // console.log(journey);
+  }, [journey?.status?.isConnected]);
 
   const setIsStartPopup = (boolean) => {
     setStartPopup(boolean);
@@ -89,21 +84,12 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
   const startTrial = () => {
     setStartPopup(false);
     setIsTrialPeriodStarted(true);
-    dispatch(
-      setJourneyConnectAction.request({
-        id,
-      }),
-    );
+    setStartConnection();
   };
 
   const stopTrial = () => {
-    setStopPopup(false);
     setIsTrialPeriodStarted(false);
-    dispatch(
-      deleteJourneyConnectAction.request({
-        ids: [id],
-      }),
-    );
+    setStopConnection();
   };
 
   return (
@@ -145,7 +131,7 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
                 hasTrialPeriod={journey?.status?.isTrial}
                 isTrialPeriodStarted={isTrialPeriodStarted}
                 trialEndDate={journey.status?.trialEndDate}
-                isPaid={journey?.status?.isConnected && journey?.status?.isPaid}
+                isPaid={journey?.status?.isPaid}
                 isConnected={journey?.status?.isConnected}
                 needToPay={journey?.isNeedPaid}
                 setIsStartPopup={setIsStartPopup}

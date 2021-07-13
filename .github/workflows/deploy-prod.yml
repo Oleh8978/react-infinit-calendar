@@ -20,7 +20,7 @@ jobs:
         USERNAME: ${{ secrets.USERNAME }}
         PORT: ${{ secrets.PORT }}
         KEY: ${{ secrets.SSHKEY }}
-        script: cd ${{ secrets.PROD_PATH }}; ls | grep -v "node-modules" | grep -v "build" | grep -v ".htaccess"| grep -v ".env" | xargs rm -rfv
+        script: cd ${{ secrets.PROD_PATH }}; ls | grep -v "node_modules" | grep -v "build" | grep -v ".htaccess"| grep -v ".env" | xargs rm -rfv
 
     - uses: actions/checkout@v1
     - name: Copy repository contents via scp
