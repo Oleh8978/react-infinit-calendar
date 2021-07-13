@@ -16,6 +16,7 @@ import { IJourneyState } from '@app/controller/journey/models';
 import { StatisticGetJourneyResponse } from '@ternala/frasier-types';
 import { statisticByJourneyReducer } from '@app/controller/statisticJourney';
 import { IStatisticState } from '@app/controller/statisticJourney/models';
+import { ITipsState } from '@app/controller/Tips/models';
 
 export interface IStore {
   router: RouterState;
@@ -32,6 +33,7 @@ export interface IStore {
   statisticByJourneyReducer: IStatisticState;
   statisticListReducer: IStatisticsListState;
   JourneyReducer: IJourneyState;
+  tipsListReducer: ITipsState;
 }
 
 export interface ISimpleState {

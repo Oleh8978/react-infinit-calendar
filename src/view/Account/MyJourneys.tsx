@@ -25,7 +25,7 @@ const MyJourneys: React.FC<any> = ({ ...props }) => {
       dispatch(getStatisticList.request({}));
     }
 
-    if (props.listStaticitc.journeys !== undefined && listData === undefined) {
+    if (props.listStaticitc.journeys !== undefined) {
       setListData(props.listStaticitc.journeys);
     }
   }, [props.listStaticitc.journeys]);
