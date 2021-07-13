@@ -18,6 +18,13 @@ export async function handleErrors<T = Record<string, never>>(
     if (!res.ok) {
       const error = await res.json();
 
+      if (res.status === 422) {
+        throw {
+          code: res.status,
+          response: error,
+        };
+      }
+
       if (error?.statusCode) {
         if (error.statusCode === 403 || error.statusCode === 401) {
           throw error;

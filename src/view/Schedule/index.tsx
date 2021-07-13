@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import moment, { Moment } from 'moment';
-import { timeSlotDateFormat } from '@ternala/frasier-types/lib/constants';
+import { journeyExceptionsEnum, timeSlotDateFormat } from '@ternala/frasier-types/lib/constants';
 import { useDispatch, useSelector } from 'react-redux';
-import { TimeSlotDTO } from '@ternala/frasier-types';
+import { IDayWithTimeSlots, TimeSlotDTO } from '@ternala/frasier-types';
+import { omit } from 'lodash';
 
 // Components
 import Calendar from './Calendar/Calendar';
@@ -23,7 +24,7 @@ import {
 // Selectors
 import { getHolidays } from '@app/controller/holidays';
 import {
-  getDaysOff,
+  getDaysOff, getExceptions,
   getLoader,
   getSchedule,
   getUncompleted,
@@ -48,6 +49,7 @@ const Schedule: React.FC<IProps> = () => {
   const daysOff = useSelector(getDaysOff);
   const holidays = useSelector(getHolidays);
   const loader = useSelector(getLoader);
+  const exceptions = useSelector(getExceptions);
 
   const [selectedDay, setSelectedDay] = useState<Moment>(moment());
   const [timeSlots, setTimeSlots] = useState<TimeSlotDTO[]>([]);
@@ -89,6 +91,32 @@ const Schedule: React.FC<IProps> = () => {
     moment(selectedDay).isSame(holiday.date, 'day'),
   );
 
+  const uncompletedWithoutSelectedDay: IDayWithTimeSlots = omit(uncompletedSchedule, [
+    moment(selectedDay).format(timeSlotDateFormat),
+  ]);
+  const hasUncompleted = Boolean(
+    uncompletedWithoutSelectedDay &&
+      Object.values(uncompletedWithoutSelectedDay).reduce(
+        (acc, day) =>
+          acc +
+          (day
+            ? day.reduce(
+                (acc, timeSlot) =>
+                  acc +
+                  (timeSlot
+                    ? timeSlot.tasks.reduce(
+                        (acc, task) =>
+                          acc + (task ? (task.executions?.length ? 0 : 1) : 0),
+                        0,
+                      )
+                    : 0),
+                0,
+              )
+            : 0),
+        0,
+      ),
+  );
+
   return (
     <div className={'schedule'}>
       {/*{isTaskCompleted ? <WellDone /> : <></>} TODO: Need to add notification, when all task is done by this day*/}
@@ -106,8 +134,9 @@ const Schedule: React.FC<IProps> = () => {
       ) : (
         <TaskList
           timeSlots={timeSlots}
-          uncompletedDays={uncompletedSchedule}
+          uncompletedDays={hasUncompleted ? uncompletedSchedule : undefined}
           dayOff={isCurrentDayOff}
+          notHaveJourneys={exceptions.indexOf(journeyExceptionsEnum.notHaveExceptions) !== -1}
           holiday={isCurrentHoliday}
           loader={loader}
         />
