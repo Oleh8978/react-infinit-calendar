@@ -49,8 +49,8 @@ const JourneyDescription: React.FC<IProps> = ({ journey, statistic, isConnected,
             <div className='journeyinfo-body-progress-line'></div>
             <div className='journeyinfo-body-progress-numbers-wrap'>
               <div className='journeyinfo-body-progress-numbers-item'>
-                <span className='journeyinfo-body-progress-numbers'>{statistic[id]?.statistic.spent}</span>
-                <span className='journeyinfo-body-progress-numbers'>&nbsp;/ {statistic[id]?.statistic.maxSpent}</span>
+                <span className='journeyinfo-body-progress-numbers'>{Math.round(statistic[id]?.statistic.spent / 60 * 10) / 10}</span>
+                <span className='journeyinfo-body-progress-numbers'>&nbsp;/ {Math.round(statistic[id]?.statistic.maxSpent / 60 * 10) / 10}</span>
                 <span className='journeyinfo-body-progress-numbers-text'>hrs spent</span>
               </div>
               <div className='journeyinfo-body-progress-numbers-item'>
