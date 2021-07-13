@@ -88,7 +88,7 @@ export interface IUser {
   createdAt?: string;
   id?: number;
   isCanSendEmail?: boolean;
-  isCanSendPush?: boolean;
+  isCanSendSMS?: boolean;
   isNeedSecondStep?: boolean;
   userData?: IUserData;
   userAuthorizations?: string[];
@@ -120,4 +120,9 @@ export interface ILinkObject {
 export interface ILinkObjectRemove {
   receivedToken: string;
   socialMediaNetworkType: string;
+}
+
+export interface INotificationSetter {
+  isCanSendEmail?: boolean;
+  isCanSendSMS?: boolean;
 }

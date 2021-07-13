@@ -4,6 +4,9 @@ import TextareaAutosize from 'react-textarea-autosize';
 // components
 import SelectBox from '@app/component/Dropdown/Dropdown';
 
+// interfaces 
+import { ArticleDTO } from '@ternala/frasier-types';
+
 interface IProps {
   isDropdownError: boolean;
   isTextareaError: boolean;
@@ -11,26 +14,10 @@ interface IProps {
   setTextareaValueText: (text: any) => void;
   textareaValue: string;
   setDropdownValueText: (text: any) => void;
+  itemsArticle: ArticleDTO[];
+  topicListLoader: boolean;
+  entryErrorUnsetter: () => void;
 }
-
-const items = [
-  {
-    value: 'Journeys',
-    id: 1,
-  },
-  {
-    value: 'Mindfulness',
-    id: 2,
-  },
-  {
-    value: 'Podcasts',
-    id: 3,
-  },
-  {
-    value: 'Community',
-    id: 3,
-  },
-];
 
 const BodySubmitQuestion: React.FC<IProps> = ({ ...props }) => {
   const [selectText, setSelectText] = useState<any>('');
@@ -40,10 +27,12 @@ const BodySubmitQuestion: React.FC<IProps> = ({ ...props }) => {
 
   const setTextFromDropdown = (text: any) => {
     props.setDropdownValueText(text);
+    props.entryErrorUnsetter();
   };
 
   const setTextFromTextarea = (e) => {
     props.setTextareaValueText(e.target.value);
+    props.entryErrorUnsetter();
   };
 
   const checkErrorClass = (errorField: boolean) => {
@@ -57,10 +46,11 @@ const BodySubmitQuestion: React.FC<IProps> = ({ ...props }) => {
     <div className="ask-question-body">
       <div className="ask-question-select">
         <SelectBox
-          items={items}
+          items={props.itemsArticle ? props.itemsArticle : []}
           value={selectText}
           setTextFromDropdown={setTextFromDropdown}
           isDropdownError={props.isDropdownError}
+          topicListLoader={props.topicListLoader}
         />
         {checkErrorClass(props.isDropdownError)}
       </div>

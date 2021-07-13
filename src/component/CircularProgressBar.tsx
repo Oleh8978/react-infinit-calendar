@@ -17,7 +17,7 @@ const CircularProgressBar: React.FC<IProps> = ({ ...props }) => {
     const progressBar = document.getElementById(
       `progressbar${props.percentage}`,
     );
-    let percent = 1;
+    let percent = 0;
     const interval = setInterval(function () {
       percent++;
       dashOffset = dashArray - (dashArray * percent) / 100;

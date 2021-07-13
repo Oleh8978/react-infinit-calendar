@@ -12,6 +12,9 @@ import { getStatisticToday } from '@app/controller/statistic/actions';
 import { IModuleProgress } from './Models';
 import { IStore } from '@app/controller/model';
 
+// utils
+import { hoursConverter } from './utils';
+
 interface IProps {}
 
 const TodaysJourney: React.FC<any> = ({ ...props }) => {
@@ -27,10 +30,9 @@ const TodaysJourney: React.FC<any> = ({ ...props }) => {
     }
   }, [props.statistic.today]);
   if (statistic !== undefined) {
-    console.log('statistic.today ', statistic.today
-    )
+    console.log('statistic.today ', statistic.today);
   }
- 
+
   return (
     <>
       {!props.loader && statistic !== undefined ? (
@@ -45,7 +47,7 @@ const TodaysJourney: React.FC<any> = ({ ...props }) => {
                   <WavePercentage
                     bubbleValue="H"
                     neededPercent={
-                      statistic.today.spent > 0 && statistic.today.maxSpent
+                      statistic.today.spent > 0 && statistic.today.maxSpent > 0
                         ? Math.round(
                             (statistic.today.spent / statistic.today.maxSpent) *
                               100,
@@ -59,7 +61,13 @@ const TodaysJourney: React.FC<any> = ({ ...props }) => {
                     className={
                       'profile-journey-progress__left-textwrapper__top'
                     }>
-                    {statistic.today.spent} / {statistic.today.maxSpent}
+                    {statistic.today.spent > 0
+                      ? Math.floor(statistic.today.spent / 60)
+                      : 0}{' '}
+                    /{' '}
+                    {statistic.today.maxSpent > 0
+                      ? Math.floor(statistic.today.maxSpent / 60)
+                      : 0}
                   </span>
                   <span
                     className={
@@ -115,5 +123,5 @@ const TodaysJourney: React.FC<any> = ({ ...props }) => {
 // export default TodaysJourney;
 export default connect((state: IStore) => ({
   statistic: state.statisticReducer.statisticToday,
-  loader: state.statisticListReducer.loaderState.status
+  loader: state.statisticListReducer.loaderState.status,
 }))(TodaysJourney);

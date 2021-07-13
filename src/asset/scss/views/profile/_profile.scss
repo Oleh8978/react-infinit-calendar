@@ -386,8 +386,48 @@
     height: auto;
     width: auto;
   }
+
+  &-main {
+    &-body {
+      display: flex;
+      height: auto;
+      width: auto;
+      flex-flow: column;
+      &-item {
+        &-wrapper {
+          padding-left: 20px;
+          padding-right: 20px;
+          @media screen and (max-width: 650px) {
+            padding-left: 15px;
+            padding-right: 15px;
+          }
+          background-color: $unread-tips-background-color;
+        }
+        &-unread {
+          padding-top: 20px;
+          min-height: 139px;
+          padding-bottom: 20px;
+          border-bottom: 1px solid $divider-color;
+        }
+
+        &-read {
+          @extend .tips-main-body-item-unread;
+          background-color: $white;
+        }
+
+        &-text {
+          @include card-list-text-style;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 22px;
+          color: $text-color;
+          letter-spacing: -0.04em;
+        }
+      }
+    }
+  }
 }
 
-input[type="file"] {
+input[type='file'] {
   display: none;
 }

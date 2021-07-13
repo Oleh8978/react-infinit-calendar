@@ -24,7 +24,7 @@ const Account: React.FC<IProps> = () => {
         {/* <NoDataFound /> */}
         <TodaysJourney />
         {/* <Notes /> */}
-        {/* <Tips /> */}
+        <Tips />
         <MyJourneys />
       </div>
     </div>
