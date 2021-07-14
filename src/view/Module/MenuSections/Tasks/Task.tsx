@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from '@app/routing/Link';
 import { TaskDTO } from '@ternala/frasier-types';
+import WellDone from '@app/view/Schedule/WellDone/WellDone';
 
 export interface IProps {
   toggleTask: (data: {
@@ -16,9 +17,6 @@ export const Task: React.FC<IProps> = ({ toggleTask, task }) => {
     Boolean(task?.executions?.length),
   );
 
-  // console.log('task?.executions')
-  // console.log(task?.executions)
-
   useEffect(() => {
     setSelected(!!task?.executions?.length);
   }, [!!task?.executions?.length]);
@@ -28,6 +26,8 @@ export const Task: React.FC<IProps> = ({ toggleTask, task }) => {
   };
 
   return (
+    <>
+    {isSelected ? <WellDone/> : <></>}
     <div className="tasks-current-task-wrapper" key={task.id}>
       <div className="tasks-current-task-checkbox">
         <input
@@ -64,5 +64,6 @@ export const Task: React.FC<IProps> = ({ toggleTask, task }) => {
         )}
       </div>
     </div>
+    </>
   );
 };
