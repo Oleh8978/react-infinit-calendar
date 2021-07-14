@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from '@app/routing/Link';
 import { TaskDTO } from '@ternala/frasier-types';
+import WellDone from '@app/view/Schedule/WellDone/WellDone';
 
 export interface IProps {
   toggleTask: (data: {
@@ -15,9 +16,6 @@ export const Task: React.FC<IProps> = ({ toggleTask, task }) => {
   const [isSelected, setSelected] = useState<boolean>(
     Boolean(task?.executions?.length),
   );
-
-  // console.log('task?.executions')
-  // console.log(task?.executions)
 
   useEffect(() => {
     setSelected(!!task?.executions?.length);

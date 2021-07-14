@@ -53,6 +53,7 @@ const Schedule: React.FC<IProps> = () => {
 
   const [selectedDay, setSelectedDay] = useState<Moment>(moment());
   const [timeSlots, setTimeSlots] = useState<TimeSlotDTO[]>([]);
+  const [isFirstLoaded, setIsFirstLoaded] = useState<boolean>(undefined);
   //const [hasLoader, setLoader] = useState<boolean>(false);
   const dispatch = useDispatch();
 
@@ -71,12 +72,21 @@ const Schedule: React.FC<IProps> = () => {
     dispatch(getDaysOffAction.request({}));
     dispatch(getHolidayDataAction.request({}));
 
+    setIsFirstLoaded(false);
+
     // loader.map(loaderItem => {
     //   console.log(loaderItem.type)
     //   console.log(loaderItem.type === 'get schedule')
     //   //loaderItem.type === 'get schedule' ? setLoader(true) : setLoader(false);
     // })
   }, []);
+
+  useEffect(() => {
+    if(loader.length === 0 && isFirstLoaded === false) {
+      setIsFirstLoaded(true);
+    }
+  }, [loader])
+
   useEffect(() => {
     setTimeSlots(
       schedule[moment(selectedDay).format(timeSlotDateFormat)] || [],
@@ -119,7 +129,6 @@ const Schedule: React.FC<IProps> = () => {
 
   return (
     <div className={'schedule'}>
-      {/*{isTaskCompleted ? <WellDone /> : <></>} TODO: Need to add notification, when all task is done by this day*/}
       <Calendar
         setSelectedDay={setSelectedDay}
         selectedDay={selectedDay}
@@ -128,20 +137,19 @@ const Schedule: React.FC<IProps> = () => {
         uncompletedSchedule={uncompletedSchedule}
         holidays={holidays}
       />
-      {loader.filter((item) => item.type === LoaderAction.schedule.getSchedule)
-        .length > 0 ? (
-        <Loader isSmall={true} />
-      ) : (
-        <TaskList
-          timeSlots={timeSlots}
-          uncompletedDays={hasUncompleted ? uncompletedSchedule : undefined}
-          dayOff={isCurrentDayOff}
-          notHaveJourneys={exceptions.indexOf(journeyExceptionsEnum.notHaveExceptions) !== -1}
-          holiday={isCurrentHoliday}
-          loader={loader}
-        />
+      {Boolean(loader.filter((item) => item.type === LoaderAction.schedule.getSchedule)
+        .length) && (
+        <Loader isSmall={true} isAbsolute={true} />
       )}
-      {/*{scheduleData(todayTimeSlots)}*/}
+      {/*<Loader isSmall={true} isAbsolute={true} />*/}
+      <TaskList
+        timeSlots={timeSlots}
+        uncompletedDays={hasUncompleted ? uncompletedSchedule : undefined}
+        dayOff={isCurrentDayOff}
+        notHaveJourneys={exceptions.indexOf(journeyExceptionsEnum.notHaveExceptions) !== -1}
+        holiday={isCurrentHoliday}
+        loader={loader}
+      />
     </div>
   );
 };
