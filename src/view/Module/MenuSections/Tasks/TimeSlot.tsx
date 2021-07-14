@@ -21,7 +21,6 @@ interface IProps {
 }
 
 const TimeSlot: React.FC<IProps> = ({ time, toggleTask, ...props }) => {
-
   return (
     <div className={'tasks-current-task'}>
       <div className="tasks-current-task-timetodo">
@@ -32,6 +31,7 @@ const TimeSlot: React.FC<IProps> = ({ time, toggleTask, ...props }) => {
           | {timeConvert(props.duration)}
         </span>
       </div>
+
       {props.tasks.map((task) => (
         <Task key={`task-${task.id}`} task={task} toggleTask={toggleTask} />
       ))}

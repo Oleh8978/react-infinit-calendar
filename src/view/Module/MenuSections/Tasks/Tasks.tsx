@@ -28,6 +28,7 @@ import { ModuleExpandDTO } from '@app/controller/module/models';
 import { IDayWithTimeSlots, TimeSlotDTO } from '@ternala/frasier-types';
 import Loader from '@app/component/Loader';
 import NoTasks from '@app/component/pages/schedule/NoTasks';
+import WellDone from '@app/view/Schedule/WellDone/WellDone';
 
 interface IProps {
   tabName?: string;
@@ -42,6 +43,7 @@ const Task: React.FC<IProps> = ({ id }) => {
   const [uncompleted, setUncompleted] = useState<IDayWithTimeSlots>();
   const [days, setDays] = useState<Moment[]>([]);
   const [selectedDay, setSelectedDay] = useState<Moment | undefined>();
+  const [isCompletedForToday, setIsCompletedForToday] = useState<boolean>(false);
 
   const [module, setModule] = useState<ModuleExpandDTO | undefined>();
   const now = moment();
@@ -56,7 +58,18 @@ const Task: React.FC<IProps> = ({ id }) => {
       setTimeSlots(
         module?.timeSlotData?.[selectedDay?.format(timeSlotDateFormat)] || [],
       );
+
   }, [selectedDay, module, module?.timeSlotData]);
+
+  useEffect(() => {
+    const res = timeSlots.every((timeSlot) => {
+      return timeSlot.tasks.every((task) => {
+        return task.executions.length > 0;
+      });
+
+    });
+    setIsCompletedForToday(res)
+  }, [timeSlots])
 
   useEffect(() => {
     if (module?.uncompletedTimeSlotData) {
@@ -324,12 +337,12 @@ const Task: React.FC<IProps> = ({ id }) => {
   // };
 
   const toggleTask = ({
-    id,
-    date,
-    timeSlot,
-    action,
-    callback,
-  }: {
+                        id,
+                        date,
+                        timeSlot,
+                        action,
+                        callback,
+                      }: {
     id: number;
     date: Moment;
     timeSlot: number;
@@ -353,69 +366,71 @@ const Task: React.FC<IProps> = ({ id }) => {
   ]);
   const hasUncompleted = Boolean(
     uncompletedWithoutSelectedDay &&
-      Object.values(uncompletedWithoutSelectedDay).reduce(
-        (acc, day) =>
-          acc +
-          (day
-            ? day.reduce(
-                (acc, timeSlot) =>
-                  acc +
-                  (timeSlot
-                    ? timeSlot.tasks.reduce(
-                        (acc, task) =>
-                          acc + (task ? (task.executions?.length ? 0 : 1) : 0),
-                        0,
-                      )
-                    : 0),
-                0,
-              )
-            : 0),
-        0,
-      ),
+    Object.values(uncompletedWithoutSelectedDay).reduce(
+      (acc, day) =>
+        acc +
+        (day
+          ? day.reduce(
+            (acc, timeSlot) =>
+              acc +
+              (timeSlot
+                ? timeSlot.tasks.reduce(
+                  (acc, task) =>
+                    acc + (task ? (task.executions?.length ? 0 : 1) : 0),
+                  0,
+                )
+                : 0),
+            0,
+          )
+          : 0),
+      0,
+    ),
   );
+
   return (
     <div className={'tasks'}>
+      {isCompletedForToday ? <WellDone /> : <></>}
       <Calendar
         days={days}
         selectDay={setSelectedDay}
         selectedDay={selectedDay}
         uncompletedSchedule={uncompleted}
       />
-      <div className="tasks-wrapper">
+      <div className='tasks-wrapper'>
         {timeSlots &&
-          (loaders.filter(
-            (item) => item.type === LoaderAction.module.getSchedule,
-          ).length > 0 ? (
-            <Loader isSmall={true} />
-          ) : timeSlots.length ? (
-            <Current
-              timeSlots={timeSlots}
-              toggleTask={(data: {
-                id: number;
-                timeSlot: number;
-                action: 'create' | 'remove';
-                callback: (state: boolean) => void;
-              }) => {
-                toggleTask({
-                  ...data,
-                  date: selectedDay,
-                });
-              }}
-            />
-          ) : (
-            <NoTasks />
-          ))}
+        (loaders.filter(
+          (item) => item.type === LoaderAction.module.getSchedule,
+        ).length > 0 ? (
+          <Loader isSmall={true} />
+        ) : timeSlots.length ? (
+          <Current
+            timeSlots={timeSlots}
+            toggleTask={(data: {
+              id: number;
+              timeSlot: number;
+              action: 'create' | 'remove';
+              callback: (state: boolean) => void;
+            }) => {
+              toggleTask({
+                ...data,
+                date: selectedDay,
+              });
+            }}
+          />
+        ) : (
+          <NoTasks />
+        ))}
         {hasUncompleted &&
-          (loaders.filter(
-            (item) => item.type === LoaderAction.module.getUncompletedTimeSlots,
-          ).length > 0 ? (
-            <Loader isSmall={true} />
-          ) : (
-            <Uncompleted
-              prevData={uncompletedWithoutSelectedDay}
-              toggleTask={toggleTask}
-            />
-          ))}
+        (loaders.filter(
+          (item) => item.type === LoaderAction.module.getUncompletedTimeSlots,
+        ).length > 0 ? (
+          <Loader isSmall={true} />
+        ) : (
+          <Uncompleted
+            prevData={uncompletedWithoutSelectedDay}
+            toggleTask={toggleTask}
+          />
+        ))}
       </div>
     </div>
   );

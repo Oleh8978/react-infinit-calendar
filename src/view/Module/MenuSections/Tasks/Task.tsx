@@ -26,8 +26,6 @@ export const Task: React.FC<IProps> = ({ toggleTask, task }) => {
   };
 
   return (
-    <>
-    {isSelected ? <WellDone/> : <></>}
     <div className="tasks-current-task-wrapper" key={task.id}>
       <div className="tasks-current-task-checkbox">
         <input
@@ -64,6 +62,5 @@ export const Task: React.FC<IProps> = ({ toggleTask, task }) => {
         )}
       </div>
     </div>
-    </>
   );
 };
