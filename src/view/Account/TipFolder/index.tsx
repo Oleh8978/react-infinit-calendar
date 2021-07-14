@@ -13,7 +13,7 @@ import Loader from '@app/component/Loader';
 
 // interfaces
 import { IStore } from '@app/controller/model';
-import { TipSendShortDTO } from '@ternala/frasier-types/lib/modules/tip/send/tipSendShort.dto';
+import { TipSendDTO } from '@ternala/frasier-types';
 
 // utils
 import { getSavedAccess } from '@app/utils/manageAccess';
@@ -44,8 +44,8 @@ const TipsInfo: React.FC<any> = ({ ...props }) => {
       setItems(props.items);
       setUnreadedItems(
         props.items
-          .filter((item: TipSendShortDTO) => item.isRead === false)
-          .map((elem: TipSendShortDTO) => {
+          .filter((item: TipSendDTO) => item.isRead === false)
+          .map((elem: TipSendDTO) => {
             return elem.id;
           }),
       );
@@ -58,7 +58,7 @@ const TipsInfo: React.FC<any> = ({ ...props }) => {
     }
   }, [props.items]);
   // console.log('unreadedItems ', unreadedItems);
-  // console.log('props.items', props.items);
+  console.log('props.items', props.items);
   // console.log('props.userID ', props.userID);
   return (
     <>
@@ -69,26 +69,50 @@ const TipsInfo: React.FC<any> = ({ ...props }) => {
           <NavigationBar rout={'account'} name={'Tips'} hasSaveButton={false} />
           <div className={'tips-main-body'}>
             {items
-              .filter((item: TipSendShortDTO) => item.isRead === false)
+              .filter((item: TipSendDTO) => item.isRead === false)
+              .filter((elem: TipSendDTO) => Object.keys(elem.tip).length !== 0)
               .map((elem) => {
                 return (
-                  <div className="tips-main-body-item-wrapper">
+                  <div className="tips-main-body-item-wrapper-unread">
                     <div className={'tips-main-body-item-unread'}>
+                      <>
+                        {elem.tip.image ? (
+                          <img
+                            src={elem.tip.image}
+                            className={'tips-main-body-item-img'}
+                            alt="img"
+                          />
+                        ) : (
+                          <> </>
+                        )}
+                      </>
                       <span className={'tips-main-body-item-text'}>
-                        {elem.makeAt}
+                        {elem.tip.copy}
                       </span>
                     </div>
                   </div>
                 );
               })}
             {items
-              .filter((item: TipSendShortDTO) => item.isRead === true)
+              .filter((item: TipSendDTO) => item.isRead === true)
+              .filter((elem: TipSendDTO) => Object.keys(elem.tip).length !== 0)
               .map((elem) => {
                 return (
                   <div className="tips-main-body-item-wrapper">
                     <div className={'tips-main-body-item-read'}>
+                      <>
+                        {elem.tip.image ? (
+                          <img
+                            src={elem.tip.image}
+                            className={'tips-main-body-item-img'}
+                            alt="img"
+                          />
+                        ) : (
+                          <> </>
+                        )}
+                      </>
                       <span className={'tips-main-body-item-text'}>
-                        {elem.makeAt}
+                        {elem.tip.copy}
                       </span>
                     </div>
                   </div>
