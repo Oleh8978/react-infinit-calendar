@@ -101,8 +101,9 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
             {isStartPopup ? (
               <ConfirmationWindow firstButton={'I Want to Hold Off'}
                                   secondButton={'Good, Let’s Proceed'}
-                                  text={'This journey will start on'}
-                                  title={journey.status ? moment(journey.status.startDate).format('dddd, MMM Do') : ''}
+                                  text={journey.status.startDate ?
+                                    'This journey will start on' : ''}
+                                  title={journey.status.startDate ? moment(journey.status.startDate).format('dddd, MMM Do') : ''}
                                   firstAction={() => setStartPopup(false)}
                                   secondAction={startTrial}
               />
