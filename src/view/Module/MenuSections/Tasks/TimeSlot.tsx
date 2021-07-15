@@ -7,7 +7,6 @@ import { Task } from './Task';
 // utils
 import moment from 'moment';
 import { timeConvert } from '@app/utils/timeConverter';
-import WellDone from '@app/view/Schedule/WellDone/WellDone';
 
 interface IProps {
   tasks: TaskDTO[];

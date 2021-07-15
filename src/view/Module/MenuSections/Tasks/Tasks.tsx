@@ -44,6 +44,7 @@ const Task: React.FC<IProps> = ({ id }) => {
   const [days, setDays] = useState<Moment[]>([]);
   const [selectedDay, setSelectedDay] = useState<Moment | undefined>();
   const [isCompletedForToday, setIsCompletedForToday] = useState<boolean>(false);
+  const [isFirstLoaded, setIsFirstLoaded] = useState<boolean>(undefined);
 
   const [module, setModule] = useState<ModuleExpandDTO | undefined>();
   const now = moment();
@@ -52,6 +53,17 @@ const Task: React.FC<IProps> = ({ id }) => {
   const loaders = useSelector(getLoader);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setIsFirstLoaded(false);
+    setIsCompletedForToday(false);
+  }, [])
+
+  useEffect(() => {
+    if(loaders.length === 0 && isFirstLoaded === false) {
+      setIsFirstLoaded(true);
+    }
+  }, [loaders])
 
   useEffect(() => {
     if (selectedDay !== undefined && module !== undefined)
@@ -389,7 +401,7 @@ const Task: React.FC<IProps> = ({ id }) => {
 
   return (
     <div className={'tasks'}>
-      {isCompletedForToday ? <WellDone /> : <></>}
+      {isCompletedForToday && isFirstLoaded ? <WellDone /> : <></>}
       <Calendar
         days={days}
         selectDay={setSelectedDay}
@@ -397,12 +409,15 @@ const Task: React.FC<IProps> = ({ id }) => {
         uncompletedSchedule={uncompleted}
       />
       <div className='tasks-wrapper'>
-        {timeSlots &&
-        (loaders.filter(
-          (item) => item.type === LoaderAction.module.getSchedule,
-        ).length > 0 ? (
-          <Loader isSmall={true} />
-        ) : timeSlots.length ? (
+        {isFirstLoaded ? (
+          Boolean(loaders.filter((item) => item.type === LoaderAction.module.getSchedule)
+              .length) && (
+          <Loader isSmall={true} isAbsolute={true} />
+        )
+        ) : (<></>)}
+
+
+        {timeSlots.length ? (
           <Current
             timeSlots={timeSlots}
             toggleTask={(data: {
@@ -419,18 +434,12 @@ const Task: React.FC<IProps> = ({ id }) => {
           />
         ) : (
           <NoTasks />
-        ))}
-        {hasUncompleted &&
-        (loaders.filter(
-          (item) => item.type === LoaderAction.module.getUncompletedTimeSlots,
-        ).length > 0 ? (
-          <Loader isSmall={true} />
-        ) : (
-          <Uncompleted
-            prevData={uncompletedWithoutSelectedDay}
-            toggleTask={toggleTask}
-          />
-        ))}
+        )}
+
+        <Uncompleted
+          prevData={uncompletedWithoutSelectedDay}
+          toggleTask={toggleTask}
+        />
       </div>
     </div>
   );

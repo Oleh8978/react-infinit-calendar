@@ -21,16 +21,26 @@ export const Loader: React.FC<IProps> = ({ className, isShow, ...props }) => {
             ' smallWrapper' +
             (props.isAbsolute ? ' absoluteLoader' : '')
           }>
-          <div
-            className={'loader'}
-            style={{
-              height: props.styleComp ? `${props.styleComp}px` : 'auto',
-            }}>
-            <span />
-            <span />
-            <span />
-            <span />
-          </div>
+          {props.isAbsolute ? (
+            <div
+              className={'loader'}>
+              <span />
+              <span />
+              <span />
+              <span />
+            </div>
+          ) : (
+            <div
+              className={'loader'}
+              style={{
+                height: props.styleComp ? `${props.styleComp}px` : 'auto',
+              }}>
+              <span />
+              <span />
+              <span />
+              <span />
+            </div>
+          )}
         </div>
       ) : (
         <div className={'loader'}>
