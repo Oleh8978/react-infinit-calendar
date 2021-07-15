@@ -21,7 +21,6 @@ import ConfirmationWindow from '@app/component/modalWindow/confirmationWindow';
 import moment from 'moment';
 import { getStatisticByJourney } from '@app/controller/statisticJourney';
 import { getJourneyStatisticAction } from '@app/controller/statisticJourney/actions';
-import { IStatisticState } from '@app/controller/statisticJourney/models';
 
 interface IRoute {
   route?: string;
@@ -39,22 +38,11 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
   const id = Number(props.match.params.id);
   const dispatch = useDispatch();
 
- // const [isTrialPeriodStarted, setIsTrialPeriodStarted] = useState<boolean>(journey?.status?.isConnected && journey?.status?.isTrial);
-
   useEffect(() => {
     dispatch(getJourneyDataAction.request(id));
     dispatch(getJourneyStatisticAction.request({ id }));
 
-    // if (journey.status) {
-    //   setIsTrialPeriodStarted(journey?.status?.isConnected && journey?.status?.isTrial);
-    // }
   }, []);
-
- // useEffect(() => {
-    // if (journey.status) {
-    //   setIsTrialPeriodStarted(journey?.status?.isConnected && journey?.status?.isTrial);
-    // }
- // }, [journey?.status?.isConnected]);
 
   const setIsStartPopup = (boolean) => {
     setStartPopup(boolean);
@@ -93,13 +81,13 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
   const today = moment().isoWeekday();
   const indexDayStartJourney = 1;
   let startDate;
-  if (today <= indexDayStartJourney) {
+  if (today >= indexDayStartJourney) {
     startDate = moment()
       .isoWeekday(indexDayStartJourney)
       .toDate();
   } else {
     startDate = moment()
-      .add(1, 'weeks')
+      .subtract(1, 'weeks')
       .isoWeekday(indexDayStartJourney)
       .toDate();
   }
