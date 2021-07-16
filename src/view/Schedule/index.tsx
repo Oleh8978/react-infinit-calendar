@@ -54,7 +54,6 @@ const Schedule: React.FC<IProps> = () => {
   const [selectedDay, setSelectedDay] = useState<Moment>(moment());
   const [timeSlots, setTimeSlots] = useState<TimeSlotDTO[]>([]);
   const [isFirstLoaded, setIsFirstLoaded] = useState<boolean>(undefined);
-  //const [hasLoader, setLoader] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -73,12 +72,6 @@ const Schedule: React.FC<IProps> = () => {
     dispatch(getHolidayDataAction.request({}));
 
     setIsFirstLoaded(false);
-
-    // loader.map(loaderItem => {
-    //   console.log(loaderItem.type)
-    //   console.log(loaderItem.type === 'get schedule')
-    //   //loaderItem.type === 'get schedule' ? setLoader(true) : setLoader(false);
-    // })
   }, []);
 
   useEffect(() => {
@@ -137,11 +130,13 @@ const Schedule: React.FC<IProps> = () => {
         uncompletedSchedule={uncompletedSchedule}
         holidays={holidays}
       />
-      {Boolean(loader.filter((item) => item.type === LoaderAction.schedule.getSchedule)
-        .length) && (
+      {isFirstLoaded ? (
+        Boolean(loader.filter((item) => item.type === LoaderAction.schedule.getSchedule)
+            .length) && (
         <Loader isSmall={true} isAbsolute={true} />
-      )}
-      {/*<Loader isSmall={true} isAbsolute={true} />*/}
+      )
+      ) : (<></>)}
+
       <TaskList
         timeSlots={timeSlots}
         uncompletedDays={hasUncompleted ? uncompletedSchedule : undefined}
