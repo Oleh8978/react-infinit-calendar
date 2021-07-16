@@ -29,10 +29,16 @@ import { IDayWithTimeSlots, TimeSlotDTO } from '@ternala/frasier-types';
 import Loader from '@app/component/Loader';
 import NoTasks from '@app/component/pages/schedule/NoTasks';
 import WellDone from '@app/view/Schedule/WellDone/WellDone';
+import { useRef } from 'react';
 
 interface IProps {
   tabName?: string;
   id: number;
+}
+
+interface IPrev {
+  timeSlots: TimeSlotDTO[];
+  selectedDay: Moment;
 }
 
 const Task: React.FC<IProps> = ({ id }) => {
@@ -57,31 +63,26 @@ const Task: React.FC<IProps> = ({ id }) => {
   useEffect(() => {
     setIsFirstLoaded(false);
     setIsCompletedForToday(false);
-  }, [])
+  }, []);
 
   useEffect(() => {
-    if(loaders.length === 0 && isFirstLoaded === false) {
+    if (loaders.length === 0 && isFirstLoaded === false) {
       setIsFirstLoaded(true);
     }
-  }, [loaders])
+  }, [loaders]);
 
   useEffect(() => {
     if (selectedDay !== undefined && module !== undefined)
       setTimeSlots(
         module?.timeSlotData?.[selectedDay?.format(timeSlotDateFormat)] || [],
       );
-
   }, [selectedDay, module, module?.timeSlotData]);
 
   useEffect(() => {
-    const res = timeSlots.every((timeSlot) => {
-      return timeSlot.tasks.every((task) => {
-        return task.executions.length > 0;
-      });
-
-    });
-    setIsCompletedForToday(res)
-  }, [timeSlots])
+    if(isCompletedForToday) setTimeout(() => {
+      setIsCompletedForToday(false);
+    }, 2000)
+  }, [isCompletedForToday])
 
   useEffect(() => {
     if (module?.uncompletedTimeSlotData) {
@@ -371,6 +372,14 @@ const Task: React.FC<IProps> = ({ id }) => {
         callback,
       }),
     );
+
+    const res = timeSlots.every((timeSlot) => {
+      return timeSlot.tasks.every((task) => {
+        return (task.executions.length > 0 && task.id !== id) || (task.id === id && task.executions.length === 0);
+      });
+    });
+
+    setIsCompletedForToday(res);
   };
 
   const uncompletedWithoutSelectedDay: IDayWithTimeSlots = omit(uncompleted, [
@@ -401,7 +410,7 @@ const Task: React.FC<IProps> = ({ id }) => {
 
   return (
     <div className={'tasks'}>
-      {isCompletedForToday && isFirstLoaded ? <WellDone /> : <></>}
+      {isCompletedForToday ? <WellDone /> : <></>}
       <Calendar
         days={days}
         selectDay={setSelectedDay}
@@ -411,9 +420,9 @@ const Task: React.FC<IProps> = ({ id }) => {
       <div className='tasks-wrapper'>
         {isFirstLoaded ? (
           Boolean(loaders.filter((item) => item.type === LoaderAction.module.getSchedule)
-              .length) && (
-          <Loader isSmall={true} isAbsolute={true} />
-        )
+            .length) && (
+            <Loader isSmall={true} isAbsolute={true} />
+          )
         ) : (<></>)}
 
 
