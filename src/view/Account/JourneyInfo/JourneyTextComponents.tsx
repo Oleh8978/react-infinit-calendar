@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface IProps {
-  data: string;
+  data: string | JSX.Element | JSX.Element[];
 }
 
 const TextComponent: React.FC<IProps> = ({ ...props }) => {
