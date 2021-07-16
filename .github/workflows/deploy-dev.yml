@@ -34,6 +34,15 @@ jobs:
         source: "."
         target: ${{ secrets.DEV_PATH }}
 
+  - name: Change path version
+      uses: appleboy/ssh-action@master
+      with:
+        HOST: ${{ secrets.HOST }}
+        USERNAME: ${{ secrets.USERNAME }}
+        PORT: ${{ secrets.PORT }}
+        KEY: ${{ secrets.SSHKEY }}
+        script: cd ${{ secrets.DEV_PATH }}; npm version patch
+
     - name: Install packages
       uses: appleboy/ssh-action@master
       with:
