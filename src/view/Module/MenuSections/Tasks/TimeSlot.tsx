@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TaskDTO } from '@ternala/frasier-types';
 
 // components
@@ -7,6 +7,7 @@ import { Task } from './Task';
 // utils
 import moment from 'moment';
 import { timeConvert } from '@app/utils/timeConverter';
+import WellDone from '@app/view/Schedule/WellDone/WellDone';
 
 interface IProps {
   tasks: TaskDTO[];
@@ -30,6 +31,7 @@ const TimeSlot: React.FC<IProps> = ({ time, toggleTask, ...props }) => {
           | {timeConvert(props.duration)}
         </span>
       </div>
+
       {props.tasks.map((task) => (
         <Task key={`task-${task.id}`} task={task} toggleTask={toggleTask} />
       ))}

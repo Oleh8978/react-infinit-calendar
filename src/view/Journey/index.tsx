@@ -39,22 +39,22 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
   const id = Number(props.match.params.id);
   const dispatch = useDispatch();
 
-  const [isTrialPeriodStarted, setIsTrialPeriodStarted] = useState<boolean>(journey?.status?.isConnected && journey?.status?.isTrial);
+ // const [isTrialPeriodStarted, setIsTrialPeriodStarted] = useState<boolean>(journey?.status?.isConnected && journey?.status?.isTrial);
 
   useEffect(() => {
     dispatch(getJourneyDataAction.request(id));
     dispatch(getJourneyStatisticAction.request({ id }));
 
-    if (journey.status) {
-      setIsTrialPeriodStarted(journey?.status?.isConnected && journey?.status?.isTrial);
-    }
+    // if (journey.status) {
+    //   setIsTrialPeriodStarted(journey?.status?.isConnected && journey?.status?.isTrial);
+    // }
   }, []);
 
-  useEffect(() => {
-    if (journey.status) {
-      setIsTrialPeriodStarted(journey?.status?.isConnected && journey?.status?.isTrial);
-    }
-  }, [journey?.status?.isConnected]);
+ // useEffect(() => {
+    // if (journey.status) {
+    //   setIsTrialPeriodStarted(journey?.status?.isConnected && journey?.status?.isTrial);
+    // }
+ // }, [journey?.status?.isConnected]);
 
   const setIsStartPopup = (boolean) => {
     setStartPopup(boolean);
@@ -83,14 +83,26 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
 
   const startTrial = () => {
     setStartPopup(false);
-    setIsTrialPeriodStarted(true);
     setStartConnection();
   };
 
   const stopTrial = () => {
-    setIsTrialPeriodStarted(false);
     setStopConnection();
   };
+
+  const today = moment().isoWeekday();
+  const indexDayStartJourney = 1;
+  let startDate;
+  if (today <= indexDayStartJourney) {
+    startDate = moment()
+      .isoWeekday(indexDayStartJourney)
+      .toDate();
+  } else {
+    startDate = moment()
+      .add(1, 'weeks')
+      .isoWeekday(indexDayStartJourney)
+      .toDate();
+  }
 
   return (
     <>
@@ -101,8 +113,9 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
             {isStartPopup ? (
               <ConfirmationWindow firstButton={'I Want to Hold Off'}
                                   secondButton={'Good, Let’s Proceed'}
-                                  text={'This journey will start on'}
-                                  title={journey.status ? moment(journey.status.startDate).format('dddd, MMM Do') : ''}
+                                  text={startDate !== undefined ?
+                                    'This journey will start on' : ''}
+                                  title={startDate !== undefined ? moment(startDate).format('dddd, MMM Do') : ''}
                                   firstAction={() => setStartPopup(false)}
                                   secondAction={startTrial}
               />
@@ -129,7 +142,7 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
                 price={journey.price}
                 trialPeriod={journey.trialPeriod}
                 hasTrialPeriod={journey?.status?.isTrial}
-                isTrialPeriodStarted={isTrialPeriodStarted}
+                isTrialPeriodStarted={journey?.status?.isConnected && journey?.status?.isTrial}
                 trialEndDate={journey.status?.trialEndDate}
                 isPaid={journey?.status?.isPaid}
                 isConnected={journey?.status?.isConnected}
