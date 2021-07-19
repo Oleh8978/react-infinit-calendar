@@ -130,12 +130,10 @@ const Schedule: React.FC<IProps> = () => {
         uncompletedSchedule={uncompletedSchedule}
         holidays={holidays}
       />
-      {isFirstLoaded ? (
-        Boolean(loader.filter((item) => item.type === LoaderAction.schedule.getSchedule)
-            .length) && (
+      {!isFirstLoaded || Boolean(loader.filter((item) => item.type === LoaderAction.schedule.getSchedule)
+        .length) && (
         <Loader isSmall={true} isAbsolute={true} />
-      )
-      ) : (<></>)}
+      )}
 
       <TaskList
         timeSlots={timeSlots}
