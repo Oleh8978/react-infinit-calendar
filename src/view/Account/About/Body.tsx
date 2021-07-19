@@ -1,5 +1,4 @@
 import React from 'react';
-
 // components
 import SettingsBlock from '../Settings/SettingsBlock';
 
@@ -15,7 +14,7 @@ const BodyPage: React.FC<IProps> = () => {
         data={About}
         isAboutPage={true}
         name={'Version'}
-        version={'1.02'}
+        version={process.env.REACT_APP_VERSION}
       />
     </div>
   );

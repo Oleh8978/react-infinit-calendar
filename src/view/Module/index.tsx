@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import { Scrollbars } from 'react-custom-scrollbars';
@@ -24,6 +24,7 @@ type IProps = RouteComponentProps<{ id: string }>;
 const Module: React.FC<IProps> = (props) => {
   const { id } = props.match.params;
   const idNumber = Number(id);
+  const [isFirstLoaded, setIsFirstLoaded] = useState<boolean>(undefined);
 
   const modules: any = useSelector(getModules);
   const loaders = useSelector(getLoader);
@@ -35,7 +36,14 @@ const Module: React.FC<IProps> = (props) => {
         id: idNumber,
       }),
     );
+    setIsFirstLoaded(false);
   }, []);
+
+  useEffect(() => {
+    if(loaders.length === 0 && isFirstLoaded === false) {
+      setIsFirstLoaded(true);
+    }
+  }, [loaders])
 
   // const [isSaveBTNActive, setIsSaveBTNActive] = useState<boolean>(false);
   // const [isBtnSaveActive, setIsBtnSaveActive] = useState<boolean>(false);
@@ -159,15 +167,21 @@ const Module: React.FC<IProps> = (props) => {
             <div className={'module-body'}>{props.children}</div>
           )}
         </Scrollbars>
-        <Loader
-          isSmall={true}
-          className={'custom'}
-          isShow={
-            loaders.filter(
-              (item) => item.type === LoaderAction.module.getModule,
-            ).length > 0
-          }
-        />
+        {isFirstLoaded ? (
+          Boolean(loaders.filter((item) => item.type === LoaderAction.module.getModule)
+              .length) && (
+          <Loader isSmall={true} isAbsolute={true} />
+        )
+        ) : (<></>)}
+        {/*<Loader*/}
+        {/*  isSmall={true}*/}
+        {/*  className={'custom'}*/}
+        {/*  isShow={*/}
+        {/*    loaders.filter(*/}
+        {/*      (item) => item.type === LoaderAction.module.getModule,*/}
+        {/*    ).length > 0*/}
+        {/*  }*/}
+        {/*/>*/}
       </div>
     </div>
   );
