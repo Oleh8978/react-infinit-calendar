@@ -53,6 +53,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       smallLoader === false &&
       getClientHeight() + getScrollTop() >= getScrollHeight() - 1 &&
       props.itemsCount !== 0 &&
+      discovery !== undefined && 
       props.itemsCount !== discovery.length
     ) {
       loadDiscoveries('more', searchQuery);

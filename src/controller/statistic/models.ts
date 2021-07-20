@@ -7,6 +7,10 @@ export interface IStatisticsState {
 }
 
 export interface IstatisticToday {
+  today;
+}
+
+export interface IToday {
   spent: number;
   maxSpent: number;
   completedTaskCount: number;
