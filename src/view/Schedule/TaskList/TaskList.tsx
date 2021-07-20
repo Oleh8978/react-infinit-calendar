@@ -72,12 +72,12 @@ const TaskList: React.FC<IProps> = ({
       {!notHaveJourneys && timeSlots.length === 0 ? <NoTasks /> : <></>}
       {dayOff ? (
         <>
-          {isFirstLoaded ? (
-            Boolean(loader.filter((item) => item.type === LoaderAction.schedule.getDaysOff)
-              .length) && (
-              <Loader isSmall={true} isAbsolute={true} />
-            )
-          ) : (<></>)}
+          {/*{isFirstLoaded ? (*/}
+          {/*  Boolean(loader.filter((item) => item.type === LoaderAction.schedule.getDaysOff)*/}
+          {/*    .length) && (*/}
+          {/*    <Loader isSmall={true} isAbsolute={true} />*/}
+          {/*  )*/}
+          {/*) : (<></>)}*/}
 
           <DayOff dayOff={dayOff} />
         </>
@@ -86,9 +86,9 @@ const TaskList: React.FC<IProps> = ({
       )}
       {holiday ? (
         <>
-          {isFirstLoaded && holidayLoader ? (
-            <Loader isSmall={true} isAbsolute={true} />
-          ) : (<></>)}
+          {/*{isFirstLoaded && holidayLoader ? (*/}
+          {/*  <Loader isSmall={true} isAbsolute={true} />*/}
+          {/*) : (<></>)}*/}
 
           <Holiday holiday={holiday} />
         </>
@@ -126,12 +126,12 @@ const TaskList: React.FC<IProps> = ({
       </div>
       {uncompletedDays ? (
         <>
-          {isFirstLoaded ? (
-            Boolean(loader.filter((item) => item.type === LoaderAction.schedule.getUncompletedTimeSlots)
-              .length) && (!holiday || !dayOff) && (
-              <Loader isSmall={true} isAbsolute={true} />
-            )
-          ) : (<></>)}
+          {/*{isFirstLoaded ? (*/}
+          {/*  Boolean(loader.filter((item) => item.type === LoaderAction.schedule.getUncompletedTimeSlots)*/}
+          {/*    .length) && (!holiday || !dayOff) && (*/}
+          {/*    <Loader isSmall={true} isAbsolute={true} />*/}
+          {/*  )*/}
+          {/*) : (<></>)}*/}
 
           <div className={'modules-list__uncompleted'}>
             <h1 className={'modules-list__uncompleted-header'}>

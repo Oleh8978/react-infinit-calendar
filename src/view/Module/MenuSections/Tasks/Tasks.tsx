@@ -349,6 +349,7 @@ const Task: React.FC<IProps> = ({ id }) => {
   //   setSelectedDate(date);
   // };
 
+
   const toggleTask = ({
                         id,
                         date,
@@ -445,10 +446,11 @@ const Task: React.FC<IProps> = ({ id }) => {
           <NoTasks />
         )}
 
-        <Uncompleted
+        {hasUncompleted ? <Uncompleted
           prevData={uncompletedWithoutSelectedDay}
           toggleTask={toggleTask}
-        />
+        /> : <></>}
+
       </div>
     </div>
   );

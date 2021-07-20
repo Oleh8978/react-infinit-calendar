@@ -7,23 +7,24 @@ import { IJourney } from '@app/controller/statisticList/models';
 
 // helpers
 import * as helpers from '../utils';
+import EmojiRandomizer from '@app/component/emojiRandomizer';
 
 interface IProps {
   data: IJourney;
 }
 
 const JourneyCompletedItem: React.FC<IProps> = ({ ...props }) => {
-  const icons = ['👏', '👍'];
-  const [selectedIcon, setSelectedIcon] = useState<string>(
-    icons[Math.floor(Math.random() * 2)],
-  );
-  // console.log('props.data ', props.data);
+  // const icons = ['👏', '👍'];
+  // const [selectedIcon, setSelectedIcon] = useState<string>(
+  //   icons[Math.floor(Math.random() * 2)],
+  // );
+  // // console.log('props.data ', props.data);
   return (
     <Link
       to={`/journey-info/${props.data.id}`}
       className={'journey-completed-item'}>
       <div className={'journey-completed-item-header'}>
-        Completed {selectedIcon}
+        Completed <EmojiRandomizer />
       </div>
       <div className={'journey-completed-item-body'}>
         <div className={'journey-completed-item-body-title'}>
