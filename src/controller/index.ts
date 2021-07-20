@@ -22,7 +22,15 @@ import { FaqSagas, faqReducer } from '@app/controller/FAQ/index';
 import { tipsListReducer } from '@app/controller/Tips/index';
 import { TipsListSaga } from '@app/controller/Tips/sagas/index';
 import { notififcationReducer } from '@app/controller/notifications/index';
-import { patchNotificaionSaga } from '@app/controller/notifications/sagas/index'
+import { patchNotificaionSaga } from '@app/controller/notifications/sagas/index';
+import { getNotesSaga } from '@app/controller/notes/sagas/index';
+import { GetNotesListReducer } from '@app/controller/notes/index';
+import { GetSingleNoteReducer } from '@app/controller/singleNote/index';
+import { singleNoteSaga } from '@app/controller/singleNote/sagas/index';
+import { StaticPageReducer } from '@app/controller/staticPage/index';
+import { getStaticPageSaga } from '@app/controller/staticPage/sagas/index';
+import { GetStaticPagesListReducer } from '@app/controller/staticPages/index';
+import { getStaticListPagesSaga } from '@app/controller/staticPages/sagas/index';
 
 export const rootSaga = function* () {
   yield all([
@@ -41,6 +49,10 @@ export const rootSaga = function* () {
     StatisticsByJourneySaga(),
     TipsListSaga(),
     patchNotificaionSaga(),
+    getNotesSaga(),
+    singleNoteSaga(),
+    getStaticPageSaga(),
+    getStaticListPagesSaga(),
   ]);
 };
 
@@ -62,4 +74,8 @@ export const rootReducer = (history: History): Reducer =>
     faqReducer: faqReducer,
     tipsListReducer: tipsListReducer,
     notififcationReducer: notififcationReducer,
+    notesListReducer: GetNotesListReducer,
+    singleNoteReducer: GetSingleNoteReducer,
+    staticPageReducer: StaticPageReducer,
+    staticPagesListReducer: GetStaticPagesListReducer,
   });

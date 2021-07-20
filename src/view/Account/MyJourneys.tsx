@@ -17,24 +17,13 @@ import { IJourney } from '@app/controller/statisticList/models';
 interface IProps {}
 
 const MyJourneys: React.FC<any> = ({ ...props }) => {
-  const [listData, setListData] = useState<IJourney[]>(undefined);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (listData === undefined) {
-      dispatch(getStatisticList.request({}));
-    }
-
-    if (props.listStaticitc.journeys !== undefined) {
-      setListData(props.listStaticitc.journeys);
-    }
-  }, [props.listStaticitc.journeys]);
+  const listData = props.listData;
   return (
     <div className={'profile-myjourneys'}>
       {listData && listData.length !== 0 && (
         <span className={'profile-myjourneys-header'}>My journeys </span>
       )}
-      {props.loader ? (
+      {listData === undefined ? (
         <Loader />
       ) : (
         <>
@@ -63,11 +52,4 @@ const MyJourneys: React.FC<any> = ({ ...props }) => {
   );
 };
 
-export default connect(
-  (state: IStore) => ({
-    listStaticitc: state.statisticListReducer.journeyObject,
-    state: state,
-    loader: state.statisticListReducer.loaderState.status,
-  }),
-  { getStatisticList },
-)(MyJourneys);
+export default MyJourneys;

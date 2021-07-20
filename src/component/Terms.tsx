@@ -1,5 +1,14 @@
 import React from 'react';
+import { connect, useDispatch } from 'react-redux';
+
+// components
 import NavigationBar from './NavigationBar';
+import Loader from '@app/component/Loader';
+
+// interfaces
+import { IStore } from '@app/controller/model';
+
+// actions
 
 const Terms: React.FC = () => {
   const checkIFMyCompExists = () => !!document.querySelector('.main-layout');
@@ -61,4 +70,9 @@ const Terms: React.FC = () => {
   );
 };
 
-export default Terms;
+export default connect(
+  (state: IStore) => ({
+    terms: state.authState.user,
+  }),
+  {},
+)(Terms);

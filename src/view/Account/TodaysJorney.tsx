@@ -18,24 +18,25 @@ import { hoursConverter } from './utils';
 interface IProps {}
 
 const TodaysJourney: React.FC<any> = ({ ...props }) => {
-  const [statistic, setStatistic] = useState<any>(undefined);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    if (props.statistic === undefined || props.statistic.spent === 0) {
-      dispatch(getStatisticToday.request({}));
-    }
+  // const [statistic, setStatistic] = useState<any>(undefined);
+  const statistic = props.data;
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   if (props.statistic.today === undefined) {
+  //     dispatch(getStatisticToday.request({}));
+  //   }
 
-    if (props.statistic.today !== undefined && statistic === undefined) {
-      setStatistic(props.statistic);
-    }
-  }, [props.statistic.today]);
-  if (statistic !== undefined) {
-    console.log('statistic.today ', statistic.today);
-  }
+  //   if (props.statistic.today !== undefined) {
+  //     setStatistic(props.statistic);
+  //   }
+  // }, [props.statistic.today]);
+  // if (statistic !== undefined) {
+  //   console.log('statistic.today ', statistic.today);
+  // }
 
   return (
     <>
-      {!props.loader && statistic !== undefined ? (
+      {statistic !== undefined ? (
         <div className={'profile-journey'}>
           <div className={'profile-journey-progress'}>
             <span className={'profile-journey-progress-header'}>

@@ -11,13 +11,12 @@ export function* getDiscoveriesSaga({
   payload,
 }: ReturnType<typeof actions.getDiscoveryList.request>) {
   const accessToken: string | undefined = yield yield select(getAccessToken);
-
-  yield put(
-    actions.setLoadingAction({
-      status: true,
-    }),
-  );
   try {
+    yield put(
+      actions.setLoadingAction({
+        status: true,
+      }),
+    );
     if (!accessToken) throw new Error('Not authorized');
     const res = yield DiscoveryAPI.getDiscovery(payload, accessToken);
     if (!res && res.code) {

@@ -18,6 +18,9 @@ import { statisticByJourneyReducer } from '@app/controller/statisticJourney';
 import { IStatisticState } from '@app/controller/statisticJourney/models';
 import { ITipsState } from '@app/controller/Tips/models';
 import { INotificationState } from '@app/controller/notifications/models';
+import { INotesState } from '@app/controller/notes/models';
+import { INoteState } from '@app/controller/singleNote/models';
+import { IStaticPageState, IPagesSate } from '@app/controller/staticPage/models';
 
 export interface IStore {
   router: RouterState;
@@ -36,6 +39,10 @@ export interface IStore {
   JourneyReducer: IJourneyState;
   tipsListReducer: ITipsState;
   notififcationReducer: INotificationState;
+  notesListReducer: INotesState;
+  singleNoteReducer: INoteState;
+  staticPageReducer: IPagesSate;
+  staticPagesListReducer: IStaticPageState;
 }
 
 export interface ISimpleState {
