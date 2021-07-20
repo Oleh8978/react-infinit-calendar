@@ -1,0 +1,12 @@
+.emoji {
+  width: 14px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.welldone-smiles {
+  .emoji {
+    height: 27px;
+    width: auto;
+  }
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
   TimeSlotDTO,
@@ -8,7 +8,7 @@ import {
 } from '@ternala/frasier-types';
 
 // config
-import { defaultUserStartTime, LoaderAction } from '@app/config/constants';
+import { defaultUserStartTime, limitGetScheduleDays, LoaderAction } from '@app/config/constants';
 
 // Components
 import NoTasks from '../../../component/pages/schedule/NoTasks';
@@ -25,6 +25,9 @@ import { getUserStartTime } from '@app/controller/auth';
 // Interfaces
 import { ILoader } from '@app/model';
 import NoJourneys from '@app/component/pages/schedule/NoJourneys';
+import { getDaysOffAction, getScheduleAction, getUncompletedTimeSlotsAction } from '@app/controller/schedule/actions';
+import moment from 'moment';
+import { getHolidayDataAction } from '@app/controller/holidays/actions';
 
 interface IProps {
   timeSlots: TimeSlotDTO[];
@@ -34,37 +37,61 @@ interface IProps {
   holiday?: HolidayDTO;
   loader?: ILoader[];
 }
+
 const TaskList: React.FC<IProps> = ({
-  timeSlots,
-  uncompletedDays,
-  dayOff,
-  holiday,
-  loader,
-  notHaveJourneys,
-}) => {
+                                      timeSlots,
+                                      uncompletedDays,
+                                      dayOff,
+                                      holiday,
+                                      loader,
+                                      notHaveJourneys,
+                                    }) => {
   let userStartTime = useSelector(getUserStartTime) || defaultUserStartTime;
   const holidayLoader = useSelector(getHolidayLoader).isLoading;
+  const [isFirstLoaded, setIsFirstLoaded] = useState<boolean>(undefined);
+
+  useEffect(() => {
+    setIsFirstLoaded(false);
+  }, []);
+
+  useEffect(() => {
+    if (loader.length === 0 && isFirstLoaded === false) {
+      setIsFirstLoaded(true);
+    }
+  }, [loader]);
+
+  useEffect(() => {
+    if (holidayLoader && isFirstLoaded === false) {
+      setIsFirstLoaded(true);
+    }
+  }, [holidayLoader]);
 
   return (
     <div className={'modules-list'}>
       {notHaveJourneys ? <NoJourneys /> : ''}
       {!notHaveJourneys && timeSlots.length === 0 ? <NoTasks /> : <></>}
       {dayOff ? (
-        loader.filter((item) => item.type === LoaderAction.schedule.getDaysOff)
-          .length > 0 ? (
-          <Loader isAbsolute={true} isSmall={true} />
-        ) : (
+        <>
+          {/*{isFirstLoaded ? (*/}
+          {/*  Boolean(loader.filter((item) => item.type === LoaderAction.schedule.getDaysOff)*/}
+          {/*    .length) && (*/}
+          {/*    <Loader isSmall={true} isAbsolute={true} />*/}
+          {/*  )*/}
+          {/*) : (<></>)}*/}
+
           <DayOff dayOff={dayOff} />
-        )
+        </>
       ) : (
         <></>
       )}
       {holiday ? (
-        holidayLoader ? (
-          <Loader isAbsolute={true} isSmall={true} />
-        ) : (
+        <>
+          {/*{isFirstLoaded && holidayLoader ? (*/}
+          {/*  <Loader isSmall={true} isAbsolute={true} />*/}
+          {/*) : (<></>)}*/}
+
           <Holiday holiday={holiday} />
-        )
+        </>
       ) : (
         <></>
       )}
@@ -98,12 +125,14 @@ const TaskList: React.FC<IProps> = ({
         })}
       </div>
       {uncompletedDays ? (
-        loader.filter(
-          (item) => item.type === LoaderAction.schedule.getUncompletedTimeSlots,
-        ).length > 0 &&
-        (!holiday || !dayOff) ? (
-          <Loader isSmall={true} />
-        ) : (
+        <>
+          {/*{isFirstLoaded ? (*/}
+          {/*  Boolean(loader.filter((item) => item.type === LoaderAction.schedule.getUncompletedTimeSlots)*/}
+          {/*    .length) && (!holiday || !dayOff) && (*/}
+          {/*    <Loader isSmall={true} isAbsolute={true} />*/}
+          {/*  )*/}
+          {/*) : (<></>)}*/}
+
           <div className={'modules-list__uncompleted'}>
             <h1 className={'modules-list__uncompleted-header'}>
               Previously Uncompleted
@@ -111,26 +140,26 @@ const TaskList: React.FC<IProps> = ({
             <div className={'modules-list__uncompleted-list'}>
               {uncompletedDays
                 ? Object.entries(uncompletedDays)
-                    .sort((day1, day2) => {
-                      if (day1[0] < day2[0]) return 1;
-                      if (day1[0] > day2[0]) return -1;
-                      return 0;
-                    })
-                    .map(([day, timeSlots]) => {
-                      return (
-                        <PrevUncompleted
-                          date={day}
-                          timeSlots={timeSlots}
-                          key={'uncompletedTimeSlots' + day}
-                        />
-                      );
-                    })
+                  .sort((day1, day2) => {
+                    if (day1[0] < day2[0]) return 1;
+                    if (day1[0] > day2[0]) return -1;
+                    return 0;
+                  })
+                  .map(([day, timeSlots]) => {
+                    return (
+                      <PrevUncompleted
+                        date={day}
+                        timeSlots={timeSlots}
+                        key={'uncompletedTimeSlots' + day}
+                      />
+                    );
+                  })
                 : ''}
             </div>
           </div>
-        )
+        </>
       ) : (
-        ''
+        <></>
       )}
     </div>
   );

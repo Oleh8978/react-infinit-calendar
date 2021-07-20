@@ -11,6 +11,7 @@ import moment from 'moment';
 // types
 import { JourneyGetResponse } from '@ternala/frasier-types';
 import JourneyStatisticTable from '@app/view/Journey/JourneyStatisticTable';
+import parse from 'html-react-parser';
 
 interface IProps {
   journey: JourneyGetResponse;
@@ -32,7 +33,7 @@ const JourneyDescription: React.FC<IProps> = ({ journey, statistic, isConnected,
     },
     { id : '2',
       tabTitle: "Description",
-      tabContent: <TextComponent data={journey.subTitle} />
+      tabContent: <TextComponent data={parse(journey.subTitle)} />
     }
   ]
 
@@ -127,7 +128,7 @@ const JourneyDescription: React.FC<IProps> = ({ journey, statistic, isConnected,
             })}
           </div>
           <TextComponent
-            data={journey.subTitle}
+            data={parse(journey.subTitle)}
           />
         </>
       )}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TaskDTO } from '@ternala/frasier-types';
 
 // components
@@ -30,6 +30,7 @@ const TimeSlot: React.FC<IProps> = ({ time, toggleTask, ...props }) => {
           | {timeConvert(props.duration)}
         </span>
       </div>
+
       {props.tasks.map((task) => (
         <Task key={`task-${task.id}`} task={task} toggleTask={toggleTask} />
       ))}

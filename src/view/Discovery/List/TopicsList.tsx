@@ -8,6 +8,7 @@ import AnswerNotFound from '../AnswerNotFound/AnswerNotFound';
 // interface
 import { DiscoveryDTO } from '@ternala/frasier-types';
 import { ISetLoadingAction } from '@app/controller/Discovery/model';
+import parse from 'html-react-parser';
 
 interface IProps {
   margin: number;
@@ -147,7 +148,7 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
                                 <h1 className="card-text-header">
                                   {item.journey.title}
                                 </h1>
-                                {item.journey.subTitle}
+                                {parse(item.journey.subTitle)}
                               </span>
                             </div>
                           </div>

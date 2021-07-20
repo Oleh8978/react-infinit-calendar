@@ -54,7 +54,7 @@ export const generateContent = (section) => {
     case 'iframe_popup':
       return (
         <VideoComponent
-          link={section.content}
+          content={parse(`${section.content}`)}
           img={section.url}
           key={section.id}
         />

@@ -5,6 +5,7 @@ import moment from 'moment';
 import history from '../../../historyApi';
 import InternalLink from '@app/routing/Link';
 import { timeConvert } from '@app/utils/timeConverter';
+import EmojiRandomizer from '@app/component/emojiRandomizer';
 
 interface IProps {
   date: number;
@@ -58,7 +59,7 @@ const Task: React.FC<IProps> = ({
                 </span>{' '}
                 <span className="task-completed__info-text-completed-clap">
                   {' '}
-                  {'👏'}
+                  <EmojiRandomizer />
                 </span>
               </div>
             </div>
