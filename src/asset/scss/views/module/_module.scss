@@ -72,16 +72,25 @@
 
     &-col1 {
       height: 100%;
-      width: 100%;
+      width: 20%;
+      min-width: 45px;
       display: flex;
       align-items: flex-start;
     }
     &-col2 {
       @extend .module-menu-col1;
       @include card-list-text-style;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      //width: 100%;
+      display: block;
+      width: fit-content;
+      height: fit-content;
+      margin: auto;
+      //display: flex;
+      //align-items: center;
+      //justify-content: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     &-col3 {
       @extend .module-menu-col1;
