@@ -14,6 +14,9 @@ export const LoaderAction = {
     getSchedule: 'get schedule',
     getUncompletedTimeSlots: 'get uncompleted time slots',
   },
+  statistic: {
+    getStatisticByJourney: 'get statistic by journey',
+  },
 };
 
 export const limitGetScheduleDays = 3;
