@@ -13,7 +13,7 @@ import { loginByTokenAction } from '@app/controller/auth/actions';
 import { updateUserDataAction } from '@app/controller/secondStepDataUpdater/actions';
 
 // static
-import pen from './static/pen.png';
+import pen from './static/pen.svg';
 import onErorImage from '../../LoginPages/imageAcountError/onErrorImage.png';
 
 interface IProps {}

@@ -1,6 +1,6 @@
-import bell from './static/bell.png';
-import more from './static/more.png';
-import account from './static/account.png';
+import bell from './static/bell.svg';
+import more from './static/more.svg';
+import account from './static/account.svg';
 
 export const notifications = {
   icon: bell,
@@ -46,7 +46,7 @@ export const More = {
       link: 'about'
     },
     {
-      name: 'email@testmail.com',
+      name: 'hello@meetfrasier.com',
     },
   ],
 };

@@ -11,9 +11,6 @@ import { StatisticGetJourneyResponse } from '@ternala/frasier-types';
 export const widgetName = 'journeyStatistic';
 
 // ** Action
-// export const setLoaderState = createAction(
-//   `${appName}/${widgetName}/SET_LOADER`,
-// )<ILoaderState>();
 
 export const getJourneyStatisticAction = createAsyncAction(
   `${appName}/${widgetName}/GET_STATISTIC_REQUEST`,

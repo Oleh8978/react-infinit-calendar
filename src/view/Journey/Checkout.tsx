@@ -7,15 +7,16 @@ import CheckoutPayment from '@app/component/CheckoutPaymentButton';
 import CheckoutBody from '@app/view/Journey/CheckoutBody';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAccessToken } from '@app/controller/auth';
-import Loader from '@app/component/Loader';
 import { buyJourneyAction, getJourneyDataAction, setJourneyConnectAction } from '@app/controller/journey/actions';
 import { PaymentAPI } from '@app/controller/payment/transport/payment.api';
 import { PaymentGetResponse } from '@ternala/frasier-types';
 import PaymentFailed from '@app/view/Journey/PaymentFailed';
-import { getStatisticByJourney } from '@app/controller/statisticJourney';
+import { getLoader, getStatisticByJourney } from '@app/controller/statisticJourney';
 import { getJourneyStatisticAction } from '@app/controller/statisticJourney/actions';
 import { getJourney } from '@app/controller/journey';
 import PaymentSuccessful from '@app/view/Journey/PaymentSuccessful';
+import { LoaderAction } from '@app/config/constants';
+import Loader from '@app/component/Loader';
 
 type IProps = RouteComponentProps<{
   paymentId: string;
@@ -25,6 +26,7 @@ type IProps = RouteComponentProps<{
 const Checkout: React.FC<IProps> = ({ ...props }) => {
   const journey = useSelector(getJourney);
   const statistic = useSelector(getStatisticByJourney);
+  const loader = useSelector(getLoader);
   const [paymentInfo, setPaymentInfo] = useState<PaymentGetResponse>(undefined);
   const tokenPromise = useSelector(getAccessToken);
   const id = Number(props.match.params.id);
@@ -63,6 +65,11 @@ const Checkout: React.FC<IProps> = ({ ...props }) => {
 
   return (
     <>
+      {Boolean(loader.filter((item) => item.type === LoaderAction.statistic.getStatisticByJourney)
+        .length) && (
+        <Loader isSmall={true} isAbsolute={true} />
+      )}
+
       {paymentInfo !== undefined ? (
           paymentInfo.status ? (
             <>

@@ -16,7 +16,7 @@ import { IUserDataExtended } from '@app/controller/secondStepDataUpdater/models'
 
 // constants
 import { validation } from './utils/validation';
-import pen from '../Account/Settings/static/pen.png';
+import pen from '../Account/Settings/static/pen.svg';
 
 // components
 import NoImageFound from '@app/view/LoginPages/NoImage';
