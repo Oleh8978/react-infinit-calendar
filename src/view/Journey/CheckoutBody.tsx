@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface IProps {
   title: string;
@@ -11,6 +11,12 @@ interface IProps {
 }
 
 const CheckoutBody: React.FC<IProps> = ({ ...props }) => {
+  const [convertedPrice, setConvertedPrice] = useState<string>(String(props.price?.toFixed(2)).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+  useEffect(() => {
+    setConvertedPrice(String(props.price?.toFixed(2)).replace(/\B(?=(\d{3})+(?!\d))/g, ","))
+  }, [props.price])
+
   return (
     <div className='checkout-body-wrap'>
       <div className={'checkout-body'}>
@@ -40,7 +46,7 @@ const CheckoutBody: React.FC<IProps> = ({ ...props }) => {
         ) : (<></>)}
         <div className='checkout-body-price'>
         <span className='checkout-body-price-number'>
-          $ {props.price}
+          $ {convertedPrice !== undefined ? convertedPrice : props.price}
         </span>
           <span className='checkout-body-price-text'>price</span>
         </div>
