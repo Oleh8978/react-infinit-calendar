@@ -39,7 +39,7 @@ const TodaysJourney: React.FC<any> = ({ ...props }) => {
         <div className={'profile-journey'}>
           <div className={'profile-journey-progress'}>
             <span className={'profile-journey-progress-header'}>
-              Todays progress
+              Today's progress
             </span>
             <div className={'profile-journey-progress-wrapper'}>
               <div className={'profile-journey-progress__left'}>
@@ -99,7 +99,7 @@ const TodaysJourney: React.FC<any> = ({ ...props }) => {
                     className={
                       'profile-journey-progress__right-textwrapper__top'
                     }>
-                    {statistic.today.completedTaskCount}/
+                    {statistic.today.completedTaskCount}{' '}/{' '}
                     {statistic.today.maxTaskCount}
                   </span>
                   <span
