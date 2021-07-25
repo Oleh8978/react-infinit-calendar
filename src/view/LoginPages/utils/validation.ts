@@ -61,6 +61,47 @@ export const validation = [
   },
 ];
 
+/// short version 
+
+export const validationShort = [
+  {
+    name: 'firstName',
+    value: '',
+    isValid: false,
+    hasAnyError: false,
+  },
+  {
+    name: 'lastName',
+    isValid: false,
+    hasAnyError: false,
+    value: '',
+  },
+  {
+    name: 'phone',
+    isValid: false,
+    hasAnyError: false,
+    value: '',
+  },
+  {
+    name: 'email',
+    isValid: false,
+    hasAnyError: false,
+    value: '',
+  },
+  {
+    name: 'startTime',
+    isValid: false,
+    hasAnyError: false,
+    value: '',
+  },
+  {
+    name: 'timezone',
+    isValid: false,
+    hasAnyError: false,
+    value: '',
+  },
+];
+
 
 // city: "null"
 // email: "olehmykhailovskyi7991@gmail.com"

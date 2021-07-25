@@ -12,7 +12,7 @@ export const notifications = {
       button: 'toogle',
     },
     {
-      name: 'E-mail notification',
+      name: 'Email notification',
       subname: 'email',
       button: 'toogle',
     },

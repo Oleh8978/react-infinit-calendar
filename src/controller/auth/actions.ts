@@ -76,3 +76,7 @@ export const setAuthStateAction = createAction(`${widgetName}/SET_AUTH_STATE`)<{
   isLoading: boolean;
   error?: boolean;
 }>();
+
+export const updateUserData = createAction(
+  `${appName}/${widgetName}/UPDATE_USER_DATA`,
+)<IAuthState>();

@@ -34,21 +34,7 @@ const initialState: IAuthState = {
     isCanSendEmail: false,
     isCanSendSMS: false,
     isNeedSecondStep: true,
-    userData: {
-      city: '',
-      deletedAt: '',
-      email: '',
-      firstName: '',
-      id: 0,
-      image: '',
-      lastName: '',
-      phone: '',
-      startTime: defaultUserStartTime,
-      state: '',
-      street: '',
-      timezone: '',
-      zipCode: '',
-    },
+    userData: undefined,
     userAuthorizations: [],
   },
   state: {
@@ -70,6 +56,15 @@ export const authReducer = createReducer<IAuthState, AuthActionType>(
     (state: IAuthState, { payload }): IAuthState => ({
       ...state,
       isAuthenticated: payload.status,
+    }),
+  )
+  .handleAction(
+    actions.updateUserData,
+    (state: IAuthState, { payload }): IAuthState => ({
+      ...state,
+      isAuthenticated: payload.isAuthenticated,
+      user: payload.user,
+      state: { ...state.state },
     }),
   )
   .handleAction(

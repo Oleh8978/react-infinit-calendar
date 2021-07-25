@@ -163,6 +163,8 @@
 
       &-text {
         @include card-list-text-style;
+        color: $text-color;
+        text-decoration: none;
         font-style: normal;
         font-weight: bold;
         font-size: 18px;

@@ -8,6 +8,7 @@ export interface IData {
 
 export interface IItem {
   name: string;
+  nameP?: string;
   subname?: string;
   isRequired: boolean;
   isSelect?: boolean;

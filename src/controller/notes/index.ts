@@ -87,4 +87,25 @@ export const GetNotesListReducer = createReducer<INotesState, NotesActionType>(
         storedSearchParams: searchParams,
       };
     },
+  )
+  .handleAction(
+    [actions.singleNoutesRemoveFromList],
+    (state: INotesState, { payload }): INotesState => {
+      const iNotesState = { ...state.state };
+
+      if (iNotesState.counts > 0) {
+        iNotesState.counts = iNotesState.counts - 1;
+        iNotesState.items = iNotesState.items.filter(
+          (item: NoteDTO) => item.id !== payload.id,
+        );
+      }
+
+      return {
+        ...state,
+        state: {
+          ...iNotesState,
+        },
+        storedSearchParams: state.storedSearchParams,
+      };
+    },
   );

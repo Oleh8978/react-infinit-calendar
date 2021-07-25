@@ -29,32 +29,26 @@ const Notes: React.FC<any> = ({ ...props }) => {
       setNumberOfNotes(props.countNotes);
     }
   }, [props.countNotes]);
-  return (
-    <>
-      {numberOfNotes !== undefined ? (
-        <div className={'profile-journey-notes'}>
-          <div className={'profile-journey-notes-wrapper'}>
-            <span className={'profile-journey-notes-header'}>My notes</span>
 
-            <div className={'profile-journey-notes-textwrapper'}>
-              <span className={'profile-journey-notes-text'}>
-                {numberOfNotes} Notes
-              </span>
-              <Link to={'notes'}>
-                <img
-                  className={'profile-journey-notes-img'}
-                  src={note}
-                  alt="img"
-                />
-              </Link>
-            </div>
-          </div>
+  if (numberOfNotes !== undefined) {
+    return (
+      <div className={'profile-journey-notes'}>
+        <div className={'profile-journey-notes-wrapper'}>
+          <span className={'profile-journey-notes-header'}>My notes</span>
+          <Link className={'profile-journey-notes-textwrapper'} to={'notes'}>
+            <span className={'profile-journey-notes-text'}>
+              {numberOfNotes} Notes
+            </span>
+            <img className={'profile-journey-notes-img'} src={note} alt="img" />
+          </Link>
         </div>
-      ) : (
-        <></>
-      )}
-    </>
-  );
+      </div>
+    );
+  }
+  if (numberOfNotes !== undefined && numberOfNotes === 0) {
+    return <> </>;
+  }
+  return <> </>;
 };
 
 export default connect(

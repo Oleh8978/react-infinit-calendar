@@ -59,12 +59,4 @@ export const UpdateAfterSignInRequestReducer = createReducer<
       },
       isSecondStepPassed: true,
     }),
-  )
-  .handleAction(
-    [actions.updateUserDataAction.failure],
-    (state: IUpdateState, { payload }): IUpdateState => ({
-      ...state,
-      ...payload,
-      isSecondStepPassed: false,
-    }),
   );

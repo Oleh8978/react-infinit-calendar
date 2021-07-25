@@ -34,8 +34,6 @@ const Account: React.FC<any> = ({ ...props }) => {
       dispatch(getStatisticToday.request({}));
     }
   }, [props.statisticToday.today, props.listStatistic]);
-  console.log('props.statisticToday ', props.statisticToday);
-  console.log('props.listStatistic ', props.listStatistic)
   const bodySetter = () => {
     if (
       props.statisticToday.today.spent === 0 &&
