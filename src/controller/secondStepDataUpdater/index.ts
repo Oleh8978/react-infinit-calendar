@@ -55,7 +55,7 @@ export const UpdateAfterSignInRequestReducer = createReducer<
     (state: IUpdateState, { payload }): IUpdateState => ({
       ...state,
       userData: {
-        ...payload
+        ...payload,
       },
       isSecondStepPassed: true,
     }),

@@ -17,26 +17,26 @@ const Questions: React.FC<IProps> = ({ ...props }) => {
       {dataList.map((item) => {
         if (item.display === 'full') {
           return (
-            <div className='discovery-list-item-holder'>
-              <div className='discovery-list-item-imgwrapper'>
+            <div className="discovery-list-item-holder">
+              <div className="discovery-list-item-imgwrapper">
                 <img
-                  className='discovery-list-item-img'
+                  className="discovery-list-item-img"
                   src={item.img}
-                  alt='image'
+                  alt="image"
                 />
               </div>
               <div
-                className='discovery-list-item-description'
+                className="discovery-list-item-description"
                 style={{
                   color: item.color,
                   backgroundColor: item.backgroundColor,
                 }}>
-                  <span className='card-text-wrapper'>
-                    <h1 className='card-text-header'>{item.title}</h1>
-                    {item.description}
-                  </span>
+                <span className="card-text-wrapper">
+                  <h1 className="card-text-header">{item.title}</h1>
+                  {item.description}
+                </span>
                 <div
-                  className='card-text-start-btn'
+                  className="card-text-start-btn"
                   onClick={() => {
                     jorneyInfo();
                   }}>
@@ -48,20 +48,20 @@ const Questions: React.FC<IProps> = ({ ...props }) => {
         } else if (item.display === 'half') {
           return (
             <div
-              className='discovery-list-item-holder__half'
+              className="discovery-list-item-holder__half"
               style={{ display: 'flex', flexFlow: 'row' }}>
               <img
-                className='discovery-list-item-img__half'
+                className="discovery-list-item-img__half"
                 src={item.img}
-                alt='image'
+                alt="image"
               />
               <span
-                className='card-text-wrapper-link'
+                className="card-text-wrapper-link"
                 style={{ color: item.color }}>
-                  <h1 className='card-text-link'>{item.link}</h1>
-                  <h1 className='card-text-header'>{item.title}</h1>
+                <h1 className="card-text-link">{item.link}</h1>
+                <h1 className="card-text-header">{item.title}</h1>
                 {item.description}
-                </span>
+              </span>
             </div>
           );
         }

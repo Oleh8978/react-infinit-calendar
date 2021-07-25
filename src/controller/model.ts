@@ -20,7 +20,10 @@ import { ITipsState } from '@app/controller/Tips/models';
 import { INotificationState } from '@app/controller/notifications/models';
 import { INotesState } from '@app/controller/notes/models';
 import { INoteState } from '@app/controller/singleNote/models';
-import { IStaticPageState, IPagesSate } from '@app/controller/staticPage/models';
+import {
+  IStaticPageState,
+  IPagesSate,
+} from '@app/controller/staticPage/models';
 
 export interface IStore {
   router: RouterState;

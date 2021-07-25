@@ -24,7 +24,9 @@ import { getCredentials } from '@app/utils/deviceCredentials';
 import { checkAccessTokenExpired } from '../../auth/sagas/auth';
 import { getJourneyStatisticAction } from '../actions';
 
-export function* journeyStatisticSaga({ payload }: ReturnType<typeof getJourneyStatisticAction.request>) {
+export function* journeyStatisticSaga({
+  payload,
+}: ReturnType<typeof getJourneyStatisticAction.request>) {
   try {
     const accessToken: string | undefined = yield yield select(getAccessToken);
     const refreshToken: string | undefined = yield yield select(
@@ -43,8 +45,15 @@ export function* journeyStatisticSaga({ payload }: ReturnType<typeof getJourneyS
     if (typeof tokens === 'string') {
       throw new BadRequest();
     } else {
-      journeyStatisticData = yield StatisticByJourneyAPI.getStatisticByJourney(payload, accessToken);
-      yield put(actions.getJourneyStatisticAction.success({  response: journeyStatisticData }));
+      journeyStatisticData = yield StatisticByJourneyAPI.getStatisticByJourney(
+        payload,
+        accessToken,
+      );
+      yield put(
+        actions.getJourneyStatisticAction.success({
+          response: journeyStatisticData,
+        }),
+      );
     }
   } catch (error) {
     console.log('error statistic by journey ', error);

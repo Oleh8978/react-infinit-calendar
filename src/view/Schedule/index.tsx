@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import moment, { Moment } from 'moment';
-import { journeyExceptionsEnum, timeSlotDateFormat } from '@ternala/frasier-types/lib/constants';
+import {
+  journeyExceptionsEnum,
+  timeSlotDateFormat,
+} from '@ternala/frasier-types/lib/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { IDayWithTimeSlots, TimeSlotDTO } from '@ternala/frasier-types';
 import { omit } from 'lodash';
@@ -24,7 +27,8 @@ import {
 // Selectors
 import { getHolidays } from '@app/controller/holidays';
 import {
-  getDaysOff, getExceptions,
+  getDaysOff,
+  getExceptions,
   getLoader,
   getSchedule,
   getUncompleted,
@@ -75,10 +79,10 @@ const Schedule: React.FC<IProps> = () => {
   }, []);
 
   useEffect(() => {
-    if(loader.length === 0 && isFirstLoaded === false) {
+    if (loader.length === 0 && isFirstLoaded === false) {
       setIsFirstLoaded(true);
     }
-  }, [loader])
+  }, [loader]);
 
   useEffect(() => {
     setTimeSlots(
@@ -94,9 +98,10 @@ const Schedule: React.FC<IProps> = () => {
     moment(selectedDay).isSame(holiday.date, 'day'),
   );
 
-  const uncompletedWithoutSelectedDay: IDayWithTimeSlots = omit(uncompletedSchedule, [
-    moment(selectedDay).format(timeSlotDateFormat),
-  ]);
+  const uncompletedWithoutSelectedDay: IDayWithTimeSlots = omit(
+    uncompletedSchedule,
+    [moment(selectedDay).format(timeSlotDateFormat)],
+  );
   const hasUncompleted = Boolean(
     uncompletedWithoutSelectedDay &&
       Object.values(uncompletedWithoutSelectedDay).reduce(
@@ -130,16 +135,20 @@ const Schedule: React.FC<IProps> = () => {
         uncompletedSchedule={uncompletedSchedule}
         holidays={holidays}
       />
-      {!isFirstLoaded || Boolean(loader.filter((item) => item.type === LoaderAction.schedule.getSchedule)
-        .length) && (
-        <Loader isSmall={true} isAbsolute={true} />
-      )}
+      {!isFirstLoaded ||
+        (Boolean(
+          loader.filter(
+            (item) => item.type === LoaderAction.schedule.getSchedule,
+          ).length,
+        ) && <Loader isSmall={true} isAbsolute={true} />)}
 
       <TaskList
         timeSlots={timeSlots}
         uncompletedDays={hasUncompleted ? uncompletedSchedule : undefined}
         dayOff={isCurrentDayOff}
-        notHaveJourneys={exceptions.indexOf(journeyExceptionsEnum.notHaveExceptions) !== -1}
+        notHaveJourneys={
+          exceptions.indexOf(journeyExceptionsEnum.notHaveExceptions) !== -1
+        }
         holiday={isCurrentHoliday}
         loader={loader}
       />

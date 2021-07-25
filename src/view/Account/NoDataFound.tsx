@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-// history 
+// history
 import history from '@app/historyApi';
 
 // custom components

@@ -10,7 +10,7 @@ interface IProps {}
 const Settings: React.FC<IProps> = () => {
   return (
     <div className={'settings'}>
-      <NavigationBar rout={'account'} name={'Settings'} hasSaveButton={false}/>
+      <NavigationBar rout={'account'} name={'Settings'} hasSaveButton={false} />
       <AccountBody />
       <SettingsBody />
     </div>

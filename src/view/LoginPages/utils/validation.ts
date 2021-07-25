@@ -61,7 +61,7 @@ export const validation = [
   },
 ];
 
-/// short version 
+/// short version
 
 export const validationShort = [
   {
@@ -101,7 +101,6 @@ export const validationShort = [
     value: '',
   },
 ];
-
 
 // city: "null"
 // email: "olehmykhailovskyi7991@gmail.com"

@@ -9,7 +9,7 @@ export type AuthActionType = ActionType<typeof actions>;
 
 const initialState: IStatisticsListState = {
   journeyObject: {
-    journeys: undefined
+    journeys: undefined,
   },
   errorState: {
     error: '',
@@ -21,9 +21,10 @@ const initialState: IStatisticsListState = {
   },
 };
 
-export const statisticListReducer = createReducer<IStatisticsListState, AuthActionType>(
-  initialState,
-)
+export const statisticListReducer = createReducer<
+  IStatisticsListState,
+  AuthActionType
+>(initialState)
   .handleAction(actions.setLoaderListState, (store, { payload }) => ({
     ...store,
     loaderState: {
@@ -35,7 +36,7 @@ export const statisticListReducer = createReducer<IStatisticsListState, AuthActi
     (state: IStatisticsListState, { payload }): IStatisticsListState => ({
       ...state,
       journeyObject: {
-        journeys: payload
+        journeys: payload,
       },
       errorState: {
         error: '',

@@ -34,9 +34,10 @@ const initialState: IExpertsState = {
 
 export type ExpertsListState = ActionType<typeof actions>;
 
-export const GetNotesListReducer = createReducer<IExpertsState, ExpertsListState>(
-  initialState,
-)
+export const GetNotesListReducer = createReducer<
+  IExpertsState,
+  ExpertsListState
+>(initialState)
   .handleAction(
     actions.setLoadingAction,
     (state: IExpertsState, { payload }): IExpertsState => ({

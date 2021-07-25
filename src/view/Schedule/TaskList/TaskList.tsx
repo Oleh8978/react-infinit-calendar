@@ -8,7 +8,11 @@ import {
 } from '@ternala/frasier-types';
 
 // config
-import { defaultUserStartTime, limitGetScheduleDays, LoaderAction } from '@app/config/constants';
+import {
+  defaultUserStartTime,
+  limitGetScheduleDays,
+  LoaderAction,
+} from '@app/config/constants';
 
 // Components
 import NoTasks from '../../../component/pages/schedule/NoTasks';
@@ -25,7 +29,11 @@ import { getUserStartTime } from '@app/controller/auth';
 // Interfaces
 import { ILoader } from '@app/model';
 import NoJourneys from '@app/component/pages/schedule/NoJourneys';
-import { getDaysOffAction, getScheduleAction, getUncompletedTimeSlotsAction } from '@app/controller/schedule/actions';
+import {
+  getDaysOffAction,
+  getScheduleAction,
+  getUncompletedTimeSlotsAction,
+} from '@app/controller/schedule/actions';
 import moment from 'moment';
 import { getHolidayDataAction } from '@app/controller/holidays/actions';
 
@@ -39,13 +47,13 @@ interface IProps {
 }
 
 const TaskList: React.FC<IProps> = ({
-                                      timeSlots,
-                                      uncompletedDays,
-                                      dayOff,
-                                      holiday,
-                                      loader,
-                                      notHaveJourneys,
-                                    }) => {
+  timeSlots,
+  uncompletedDays,
+  dayOff,
+  holiday,
+  loader,
+  notHaveJourneys,
+}) => {
   let userStartTime = useSelector(getUserStartTime) || defaultUserStartTime;
   const holidayLoader = useSelector(getHolidayLoader).isLoading;
   const [isFirstLoaded, setIsFirstLoaded] = useState<boolean>(undefined);
@@ -140,20 +148,20 @@ const TaskList: React.FC<IProps> = ({
             <div className={'modules-list__uncompleted-list'}>
               {uncompletedDays
                 ? Object.entries(uncompletedDays)
-                  .sort((day1, day2) => {
-                    if (day1[0] < day2[0]) return 1;
-                    if (day1[0] > day2[0]) return -1;
-                    return 0;
-                  })
-                  .map(([day, timeSlots]) => {
-                    return (
-                      <PrevUncompleted
-                        date={day}
-                        timeSlots={timeSlots}
-                        key={'uncompletedTimeSlots' + day}
-                      />
-                    );
-                  })
+                    .sort((day1, day2) => {
+                      if (day1[0] < day2[0]) return 1;
+                      if (day1[0] > day2[0]) return -1;
+                      return 0;
+                    })
+                    .map(([day, timeSlots]) => {
+                      return (
+                        <PrevUncompleted
+                          date={day}
+                          timeSlots={timeSlots}
+                          key={'uncompletedTimeSlots' + day}
+                        />
+                      );
+                    })
                 : ''}
             </div>
           </div>

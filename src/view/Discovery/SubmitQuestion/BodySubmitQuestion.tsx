@@ -4,7 +4,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 // components
 import SelectBox from '@app/component/Dropdown/Dropdown';
 
-// interfaces 
+// interfaces
 import { ArticleDTO } from '@ternala/frasier-types';
 
 interface IProps {

@@ -30,9 +30,8 @@ const Discovery: React.FC<any> = ({ ...props }) => {
   const [margin, setMargin] = useState<number>(20);
   const [discovery, setDiscovery] = useState<DiscoveryDTO[]>(undefined);
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [articleCategories, setArticleCategories] = useState<ArticleDTO[]>(
-    undefined,
-  );
+  const [articleCategories, setArticleCategories] =
+    useState<ArticleDTO[]>(undefined);
   const [isJourneyClicked, setIsJourneyClicked] = useState<boolean>(false);
   const [smallLoader, setSmallLoader] = useState<boolean>(false);
   const [isDown, setIsDown] = useState<boolean>(false);
@@ -42,18 +41,14 @@ const Discovery: React.FC<any> = ({ ...props }) => {
   const [forse, setForse] = useState<boolean>(false);
 
   const loadMoreItems = () => {
-    const {
-      getClientHeight,
-      getScrollHeight,
-      getScrollTop,
-      scrollToBottom,
-    } = fieldRef.current as Scrollbars;
+    const { getClientHeight, getScrollHeight, getScrollTop, scrollToBottom } =
+      fieldRef.current as Scrollbars;
     if (
       props.isLoading.status === false &&
       smallLoader === false &&
       getClientHeight() + getScrollTop() >= getScrollHeight() - 1 &&
       props.itemsCount !== 0 &&
-      discovery !== undefined && 
+      discovery !== undefined &&
       props.itemsCount !== discovery.length
     ) {
       loadDiscoveries('more', searchQuery);

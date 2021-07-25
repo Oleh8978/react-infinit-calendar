@@ -98,7 +98,7 @@ const Notes: React.FC<any> = ({ ...props }) => {
       renderView={(props) => <div {...props} className={'notes'} />}>
       <NavigationBar rout={'account'} name={'My Notes'} hasSaveButton={false} />
       {props.data !== undefined ? (
-        <NotesList data={props.data} isSmallLoader={isSmallLoader}/>
+        <NotesList data={props.data} isSmallLoader={isSmallLoader} />
       ) : (
         <Loader isSmall={false} />
       )}

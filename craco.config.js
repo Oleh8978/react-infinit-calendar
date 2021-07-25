@@ -15,10 +15,9 @@ module.exports = {
     ],
   },
   plugins: [
-    
     // Output extracted CSS to a file
-    { plugin: new ExtractTextPlugin('[name].[chunkhash].css')},
-    { plugin: new ExtractTextPlugin('[name].[chunkhash].scss')},
+    { plugin: new ExtractTextPlugin('[name].[chunkhash].css') },
+    { plugin: new ExtractTextPlugin('[name].[chunkhash].scss') },
     {
       plugin: CracoAlias,
       options: {
@@ -32,5 +31,4 @@ module.exports = {
       },
     },
   ],
-
 };

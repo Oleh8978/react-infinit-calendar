@@ -57,7 +57,7 @@ const AddYourData: React.FC<any> = ({ ...props }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (props.user.userData !== undefined && props.user !== undefined ) {
+    if (props.user.userData !== undefined && props.user !== undefined) {
       setImage(props.user.userData.image);
       setUserData(props.user);
       const newValidation = [];

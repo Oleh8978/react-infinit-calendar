@@ -6,7 +6,9 @@ import {
   JourneyGetResponse,
   JourneyUserConnectCreateRequest,
   JourneyUserConnectCreateResponse,
-  JourneyUserConnectDeleteRequest, JourneyUserConnectDeleteResponse, PaymentBuyResponse,
+  JourneyUserConnectDeleteRequest,
+  JourneyUserConnectDeleteResponse,
+  PaymentBuyResponse,
 } from '@ternala/frasier-types';
 
 // config
@@ -57,7 +59,9 @@ class API {
     data: JourneyUserConnectDeleteRequest,
     accessToken: string,
   ): Promise<JourneyUserConnectDeleteResponse | string> {
-    const url = new URL(Config.MAIN_SERVICE_ENDPOINT + `journey/delete/connect/${data.ids}`);
+    const url = new URL(
+      Config.MAIN_SERVICE_ENDPOINT + `journey/delete/connect/${data.ids}`,
+    );
     console.log('data: ', data);
 
     return handleErrors(
@@ -84,7 +88,7 @@ class API {
       fetch(url.toString(), {
         method: 'POST',
         body: JSON.stringify({
-          journey
+          journey,
         }),
         headers: {
           'Content-type': 'application/json',

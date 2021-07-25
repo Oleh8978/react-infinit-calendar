@@ -36,6 +36,6 @@ export interface ITipsState {
 }
 
 export interface IPostReadedTips {
-  accessToken: string,
-  readedIds: string[] | number[]
+  accessToken: string;
+  readedIds: string[] | number[];
 }

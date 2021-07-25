@@ -71,5 +71,5 @@ export const dataList = [
     link: 'FAQ',
     border: '1px solid  #E9E9E9',
     img: radio,
-  }
+  },
 ];

@@ -144,7 +144,12 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
       // console.log('inn', text)
       dispatch(
         updateNoteByID.request({
-          content: String(JSON.stringify(convertToRaw(text.getCurrentContent())).replace(/"/g, "'")),
+          content: String(
+            JSON.stringify(convertToRaw(text.getCurrentContent())).replace(
+              /"/g,
+              "'",
+            ),
+          ),
           module: props.note.module.id,
           user: props.user,
           id: props.note.id,
@@ -163,7 +168,7 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
     emptyValueChecker(text);
     saveBtnBackEndFunctionality(text);
   };
-  console.log('text from note details ', text)
+  console.log('text from note details ', text);
   return (
     <div className={'notes'}>
       {isModalOpened ? <ModalWindow save={save} discard={discard} /> : <> </>}

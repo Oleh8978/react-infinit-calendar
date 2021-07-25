@@ -25,7 +25,7 @@ const initialState: IStatisticsState = {
   },
   loaderState: {
     status: false,
-  }
+  },
 };
 
 export const statisticReducer = createReducer<IStatisticsState, AuthActionType>(
@@ -59,4 +59,4 @@ export const statisticReducer = createReducer<IStatisticsState, AuthActionType>(
         code: payload.code,
       },
     }),
-  )
+  );

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import searchIcon from '@app/asset/images/searchIcon.svg';
 interface IProps {
   smallMenu?: boolean;
-  inputValueFromSearch?: (text:string) => void;
+  inputValueFromSearch?: (text: string) => void;
   onCloseHandler?: () => void;
 }
 
@@ -12,7 +12,7 @@ const SearchBar: React.FC<IProps> = ({ smallMenu, ...props }) => {
 
   // const onCloseHandler = () => {
   //   return props.onCloseHandler? props.onCloseHandler : console.log('close');
-  // } 
+  // }
 
   return (
     <div
@@ -22,7 +22,7 @@ const SearchBar: React.FC<IProps> = ({ smallMenu, ...props }) => {
       //   zIndex: 99,
       //   position: 'fixed',
       // }}
-      >
+    >
       {isOpened ? (
         <>
           <img

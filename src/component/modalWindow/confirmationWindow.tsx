@@ -14,9 +14,7 @@ const ConfirmationWindow: React.FC<IProps> = ({ ...props }) => {
     <div className="modalwindow-container">
       <div className="modalwindow-wrapper">
         <div className="modalwindow">
-          <span className="modalwindow-question">
-            {props.text}
-          </span>
+          <span className="modalwindow-question">{props.text}</span>
           <span className="modalwindow-notification">{props.title}</span>
           <div className="modalwindow-btns-wrapper">
             <button
@@ -31,7 +29,9 @@ const ConfirmationWindow: React.FC<IProps> = ({ ...props }) => {
               onClick={() => {
                 props.secondAction();
               }}>
-              <span className="modalwindow-btns-text">{props.secondButton}</span>
+              <span className="modalwindow-btns-text">
+                {props.secondButton}
+              </span>
             </button>
           </div>
         </div>{' '}

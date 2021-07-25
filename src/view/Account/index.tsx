@@ -21,7 +21,7 @@ import { getStatisticToday } from '@app/controller/statistic/actions';
 
 import { IStore } from '@app/controller/model';
 
-interface IProps extends RouteComponentProps {}
+type IProps = RouteComponentProps;
 
 const Account: React.FC<any> = ({ ...props }) => {
   const dispatch = useDispatch();

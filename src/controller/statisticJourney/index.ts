@@ -19,9 +19,10 @@ const initialState: IStatisticState = {
   journeys: {},
 };
 
-export const statisticByJourneyReducer = createReducer<IStatisticState, AuthActionType>(
-  initialState,
-)
+export const statisticByJourneyReducer = createReducer<
+  IStatisticState,
+  AuthActionType
+>(initialState)
   .handleAction(
     actions.getJourneyStatisticAction.success,
     (state: IStatisticState, { payload }): IStatisticState => ({
@@ -29,7 +30,8 @@ export const statisticByJourneyReducer = createReducer<IStatisticState, AuthActi
       journeys: {
         ...state.journeys,
         [payload.response.journey.id]: {
-          statistic: payload.response.journey.statistic, modules: payload.response.modules,
+          statistic: payload.response.journey.statistic,
+          modules: payload.response.modules,
         },
       },
     }),
@@ -42,5 +44,6 @@ export const statisticByJourneyReducer = createReducer<IStatisticState, AuthActi
     }),
   );
 
-export const getStatisticByJourney = (state: IStore): IStatisticState['journeys'] =>
-  state.statisticByJourneyReducer.journeys;
+export const getStatisticByJourney = (
+  state: IStore,
+): IStatisticState['journeys'] => state.statisticByJourneyReducer.journeys;

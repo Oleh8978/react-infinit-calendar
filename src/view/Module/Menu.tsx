@@ -7,7 +7,7 @@ import InternalLink from '@app/routing/Link';
 interface IProps {
   menuOptions: INavigationMenu[];
   tabName: string;
-  id: string
+  id: string;
 }
 
 const NavigationMenu: React.FC<IProps> = ({ menuOptions, tabName, id }) => {
@@ -20,7 +20,7 @@ const NavigationMenu: React.FC<IProps> = ({ menuOptions, tabName, id }) => {
               to={'module-tab'}
               params={{
                 id,
-                tabName: menuItem.slug
+                tabName: menuItem.slug,
               }}
               className={
                 menuItem.slug === tabName

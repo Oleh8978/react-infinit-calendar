@@ -1,5 +1,5 @@
 import { Config } from '@app/config/API';
-import { authHeader, handleErrors,} from '@app/utils/API';
+import { authHeader, handleErrors } from '@app/utils/API';
 
 class API {
   public async submitDataAPI(
@@ -7,7 +7,9 @@ class API {
     categoryID: string,
     description: string,
   ): Promise<boolean | string> {
-    const url = new URL(Config.MAIN_SERVICE_ENDPOINT + 'article-request/create');
+    const url = new URL(
+      Config.MAIN_SERVICE_ENDPOINT + 'article-request/create',
+    );
 
     return handleErrors(
       fetch(url.toString(), {
