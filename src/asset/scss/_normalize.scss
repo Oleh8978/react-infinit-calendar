@@ -363,3 +363,11 @@ template {
  a {
    text-decoration: none;
  }
+
+/**
+* set color to all placeholders
+*/
+
+ input::placeholder {
+   color: $secondary-grey-text-color-lighter;
+ }
