@@ -12,6 +12,7 @@ interface IProps {
   tasks: TaskDTO[];
   time: number;
   duration: number;
+  title: string;
   toggleTask: (data: {
     id: number;
     action: 'create' | 'remove';
@@ -27,7 +28,7 @@ const TimeSlot: React.FC<IProps> = ({ time, toggleTask, ...props }) => {
           {moment.utc(time * 60 * 1000).format('HH:mm A')}
         </span>{' '}
         <span className="tasks-current-task-timetodo-spendtime">
-          | {timeConvert(props.duration)}
+          | {timeConvert(props.duration)} - {props.title}
         </span>
       </div>
 
