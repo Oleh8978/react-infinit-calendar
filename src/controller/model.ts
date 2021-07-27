@@ -24,6 +24,11 @@ import {
   IStaticPageState,
   IPagesSate,
 } from '@app/controller/staticPage/models';
+import { ISaveBTNState } from '@app/controller/saveBTN/models';
+import { INoteSend } from '@app/controller/sendNoteReducer/models';
+import { IModalWindowState } from '@app/controller/modalWindowReducer/models';
+import { INotePrevState } from '@app/controller/previouseNoteText/model';
+import { INotePrevStateModule } from '@app/controller/previouseNoteTextModule/model';
 
 export interface IStore {
   router: RouterState;
@@ -46,6 +51,11 @@ export interface IStore {
   singleNoteReducer: INoteState;
   staticPageReducer: IPagesSate;
   staticPagesListReducer: IStaticPageState;
+  saveBtnReducer: ISaveBTNState;
+  noteLocalDataCollectorReducer: INoteSend;
+  ModalWindowReducer: IModalWindowState;
+  notePrevStateReducer: INotePrevState;
+  notePrevStateReducerModule: INotePrevStateModule;
 }
 
 export interface ISimpleState {

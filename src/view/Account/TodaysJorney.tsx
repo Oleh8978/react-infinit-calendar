@@ -50,12 +50,12 @@ const TodaysJourney: React.FC<any> = ({ ...props }) => {
                     className={
                       'profile-journey-progress__left-textwrapper__top'
                     }>
-                    {statistic.today.spent > 0
+                    {statistic.today.spent > 0 && statistic.today.maxSpent > 0
                       ? mathConverter(statistic.today.spent / 60) + ' '
                       : 'N'}
                     /
-                    {statistic.today.maxSpent > 0
-                      ? ' ' + Math.floor(statistic.today.maxSpent / 60)
+                    {statistic.today.maxSpent > 0 && statistic.today.spent > 0
+                      ? ' ' + mathConverter(statistic.today.maxSpent / 60)
                       : 'A'}
                   </span>
                   <span

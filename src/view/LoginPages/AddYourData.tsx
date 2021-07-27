@@ -57,7 +57,7 @@ const AddYourData: React.FC<any> = ({ ...props }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (props.user.userData !== undefined && props.user !== undefined) {
+    if (props.user !== undefined && props.user.userData !== undefined) {
       setImage(props.user.userData.image);
       setUserData(props.user);
       const newValidation = [];
@@ -84,7 +84,7 @@ const AddYourData: React.FC<any> = ({ ...props }) => {
       setValidationState(newValidation);
     }
 
-    if (props.user.userData === undefined || props.user === undefined) {
+    if (props.user === undefined) {
       dispatch(
         loginByTokenAction({
           accessToken: getSavedAccess().accessToken,

@@ -7,6 +7,7 @@ import { concatWithUnique } from '@app/utils/concatWithUnique';
 // interfaces
 import { INotesState } from './models';
 import { NoteDTO } from '@ternala/frasier-types';
+import { IStore } from '../model';
 
 //action
 import * as actions from './actions';
@@ -89,6 +90,25 @@ export const GetNotesListReducer = createReducer<INotesState, NotesActionType>(
     },
   )
   .handleAction(
+    [actions.createNewNote.success],
+    (state: INotesState, { payload }): INotesState => {
+      const iNotesState = { ...state.state };
+
+      iNotesState.counts = iNotesState.counts + 1;
+      iNotesState.items.push({
+        ...payload,
+      });
+
+      return {
+        ...state,
+        state: {
+          ...iNotesState,
+        },
+        storedSearchParams: state.storedSearchParams,
+      };
+    },
+  )
+  .handleAction(
     [actions.singleNoutesRemoveFromList],
     (state: INotesState, { payload }): INotesState => {
       const iNotesState = { ...state.state };
@@ -109,3 +129,6 @@ export const GetNotesListReducer = createReducer<INotesState, NotesActionType>(
       };
     },
   );
+
+export const getNotesList = (state: IStore): NoteDTO[] | undefined =>
+  state.notesListReducer.state.items;

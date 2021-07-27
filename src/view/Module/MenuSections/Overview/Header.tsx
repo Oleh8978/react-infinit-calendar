@@ -14,7 +14,7 @@ const Header: React.FC<IProps> = ({ module }) => {
   return (
     <>
       <div className="overview-header">
-        <img className="overview-header-img" src={task} alt="img" />
+        {/* <img className="overview-header-img" src={task} alt="img" /> */}
         <div className="overview-header-text">
           <span className="overview-header-text__top">
             {module?.moduleCategories?.map((category) => category.title)}

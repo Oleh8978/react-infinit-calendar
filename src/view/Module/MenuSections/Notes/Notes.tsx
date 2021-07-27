@@ -1,14 +1,26 @@
 import React, { useState, useEffect } from 'react';
+import { connect, useDispatch } from 'react-redux';
 import {
   EditorState,
   convertToRaw,
   convertFromRaw,
   ContentState,
 } from 'draft-js';
+import _ from 'lodash';
 import { Editor } from 'react-draft-wysiwyg';
 
 // components
 import ModalWindow from '@app/component/modalWindow/modalWindow';
+
+// interfaces
+import { IStore } from '@app/controller/model';
+
+// actions
+import { setSaveBTNStatus } from '@app/controller/saveBTN/actions';
+import { setLocalDataForNote } from '@app/controller/sendNoteReducer/actions';
+import { setModalWindowOpened } from '@app/controller/modalWindowReducer/actions';
+import { sendNoteAction } from '@app/controller/sendNoteReducer/actions';
+import { setLocalDataForNotePrevStateModule } from '@app/controller/previouseNoteTextModule/actions';
 
 // static
 import * as menuConstats from '../../constants';
@@ -18,76 +30,97 @@ interface IProps {
   textFromNotes?: any;
 }
 
-const Notes: React.FC<IProps> = ({ ...props }) => {
-  const [isSaveBTNActive, setIsSaveBTNActive] = useState<boolean>(false);
-  const [isBtnSaveActive, setIsBtnSaveActive] = useState<boolean>(false);
-  const [modalWidowIsOpened, setModalWidowIsOpened] = useState<boolean>(false);
-  const [prevText, setPrevText] = useState<any | undefined>(
-    // EditorState.createWithContent(ContentState.createFromText('Type...')),
-    EditorState.createWithContent(
-      convertFromRaw(JSON.parse(menuConstats.defaultTXT)),
-    ),
-  );
+const Notes: React.FC<any> = ({ ...props }) => {
+  const dispatch = useDispatch();
   const [textFromNotes, setTextFromNotes] = useState<any | undefined>(
-    // EditorState.createWithContent(ContentState.createFromText('Type...')),
     EditorState.createWithContent(
       convertFromRaw(JSON.parse(menuConstats.defaultTXT)),
     ),
   );
 
   useEffect(() => {
-    if (!textFromNotes) {
-      setTextFromNotes(
-        EditorState.createWithContent(ContentState.createFromText('')),
+    if (
+      props.prevText &&
+      props.prevText.contnet !== undefined &&
+      _.isEqual(
+        // .replace(/[^\w\s]/gi, '')
+        props.prevText.contnet.replace(/[^\w\s]/gi, ''),
+        JSON.stringify(convertToRaw(textFromNotes.getCurrentContent())).replace(
+          /[^\w\s]/gi,
+          '',
+        ),
+      ) === false
+    ) {
+      dispatch(setSaveBTNStatus({ isActive: true }));
+    } else {
+      dispatch(setSaveBTNStatus({ isActive: false }));
+    }
+
+    if (props.prevText === undefined) {
+      dispatch(
+        setLocalDataForNotePrevStateModule({
+          contnet: String(
+            JSON.stringify(convertToRaw(textFromNotes.getCurrentContent())),
+          ).replace(/'/g, '"'),
+        }),
       );
     }
-
-    if (
-      JSON.stringify(convertToRaw(textFromNotes.getCurrentContent())) !==
-      JSON.stringify(convertToRaw(prevText.getCurrentContent()))
-    ) {
-      setIsBtnSaveActive(true);
-    } else {
-      setIsBtnSaveActive(false);
-    }
-  }, [textFromNotes, isBtnSaveActive, modalWidowIsOpened]);
+  }, [textFromNotes, props.prevText]);
 
   const save = () => {
-    setModalWidowIsOpened(false);
-    setIsBtnSaveActive(false);
-    setPrevText(textFromNotes);
+    dispatch(
+      setLocalDataForNotePrevStateModule({
+        contnet: String(
+          JSON.stringify(convertToRaw(textFromNotes.getCurrentContent())),
+        ).replace(/'/g, '"'),
+      }),
+    );
+    dispatch(setModalWindowOpened({ status: false }));
+    dispatch(
+      sendNoteAction.request({
+        content: props.noteData.content,
+        module: props.noteData.module,
+        user: props.noteData.user,
+      }),
+    );
+    dispatch(setSaveBTNStatus({ isActive: false }));
   };
 
   const discard = () => {
-    setModalWidowIsOpened(false);
-    setIsBtnSaveActive(false);
-    setTextFromNotes(prevText);
-  };
-
-  const saveBtnFunctionality = () => {
-    setIsBtnSaveActive(false);
-    setPrevText(textFromNotes);
-  };
-
-  const openWindow = () => {
-    setModalWidowIsOpened(!modalWidowIsOpened);
+    if (props.prevText.contnet !== undefined) {
+      setTextFromNotes(
+        EditorState.createWithContent(
+          convertFromRaw(JSON.parse(props.prevText.contnet)),
+        ),
+      );
+    }
+    dispatch(setModalWindowOpened({ status: false }));
   };
 
   const onEditorStateChange = (textState) => {
     setTextFromNotes(textState);
+    if (props.user !== undefined && props.notes !== undefined) {
+      props.setLocalDataForNote({
+        content: JSON.stringify(
+          convertToRaw(textState.getCurrentContent()),
+        ).replace(/"/g, "'"),
+        module: Number(Object.keys(props.notes)[0]),
+        user: props.user.id,
+      });
+    }
   };
 
   return (
-    <div className={'notes-module'}>
-      {modalWidowIsOpened ? (
+    <div className={'notes-module'} id="module-notes">
+      {props.modalWidowIsOpened ? (
         <ModalWindow save={save} discard={discard} />
       ) : (
         <> </>
       )}
       <Editor
-        defaultEditorState={props.textFromNotes}
+        defaultEditorState={textFromNotes}
         onEditorStateChange={onEditorStateChange}
-        editorState={props.textFromNotes}
+        editorState={textFromNotes}
         toolbarOnFocus
         toolbar={{
           options: ['inline', 'list'],
@@ -104,4 +137,18 @@ const Notes: React.FC<IProps> = ({ ...props }) => {
   );
 };
 
-export default Notes;
+export default connect(
+  (state: IStore) => ({
+    isBtnSaveActive: state.saveBtnReducer.isActive,
+    user: state.authState.user,
+    notes: state.moduleState.moduleData,
+    modalWidowIsOpened: state.ModalWindowReducer.status,
+    noteData: state.noteLocalDataCollectorReducer.state,
+    prevText: state.notePrevStateReducerModule.state,
+  }),
+  {
+    setLocalDataForNote,
+    setLocalDataForNotePrevStateModule,
+    setModalWindowOpened,
+  },
+)(Notes);
