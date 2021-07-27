@@ -17,7 +17,7 @@ interface IProps {
   needToPay?: boolean;
 }
 
-const JourneyFixedBottom: React.FC<IProps> = ({ ...props }) => {
+const JourneyFixedBottom: React.FC<any> = ({ ...props }) => {
   const difference = Math.abs(
     new Date(props.trialEndDate).getTime() - new Date().getTime(),
   );
