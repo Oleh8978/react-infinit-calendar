@@ -11,4 +11,3 @@ export interface IJourneyStatistic {
 export interface IStatisticState extends defaultState {
   journeys: { [id: string]: IJourneyStatistic };
 }
-

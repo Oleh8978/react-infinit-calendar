@@ -5,11 +5,6 @@ import WavePercentage from '@app/component/WavePercentage';
 // components
 import Loader from '@app/component/Loader';
 
-// Actions
-import { getStatisticToday } from '@app/controller/statistic/actions';
-
-// interfaces
-import { IModuleProgress } from './Models';
 import { IStore } from '@app/controller/model';
 
 // utils
@@ -18,21 +13,14 @@ import { hoursConverter } from './utils';
 interface IProps {}
 
 const TodaysJourney: React.FC<any> = ({ ...props }) => {
-  // const [statistic, setStatistic] = useState<any>(undefined);
   const statistic = props.data;
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-  //   if (props.statistic.today === undefined) {
-  //     dispatch(getStatisticToday.request({}));
-  //   }
 
-  //   if (props.statistic.today !== undefined) {
-  //     setStatistic(props.statistic);
-  //   }
-  // }, [props.statistic.today]);
-  // if (statistic !== undefined) {
-  //   console.log('statistic.today ', statistic.today);
-  // }
+  const mathConverter = (argument: any) => {
+    if (Number.isInteger(argument)) {
+      return argument;
+    }
+    return Number.parseFloat(argument).toFixed(1);
+  };
 
   return (
     <>
@@ -62,13 +50,13 @@ const TodaysJourney: React.FC<any> = ({ ...props }) => {
                     className={
                       'profile-journey-progress__left-textwrapper__top'
                     }>
-                    {statistic.today.spent > 0
-                      ? Math.floor(statistic.today.spent / 60)
-                      : 0}{' '}
-                    /{' '}
-                    {statistic.today.maxSpent > 0
-                      ? Math.floor(statistic.today.maxSpent / 60)
-                      : 0}
+                    {statistic.today.spent > 0 && statistic.today.maxSpent > 0
+                      ? mathConverter(statistic.today.spent / 60) + ' '
+                      : 'N'}
+                    /
+                    {statistic.today.maxSpent > 0 && statistic.today.spent > 0
+                      ? ' ' + mathConverter(statistic.today.maxSpent / 60)
+                      : 'A'}
                   </span>
                   <span
                     className={
@@ -100,8 +88,16 @@ const TodaysJourney: React.FC<any> = ({ ...props }) => {
                     className={
                       'profile-journey-progress__right-textwrapper__top'
                     }>
-                    {statistic.today.completedTaskCount}{' '}/{' '}
-                    {statistic.today.maxTaskCount}
+                    <>
+                      {statistic.today.completedTaskCount > 0 ? (
+                        <>
+                          {statistic.today.completedTaskCount}/
+                          {statistic.today.maxTaskCount}
+                        </>
+                      ) : (
+                        <>{'N/A'}</>
+                      )}
+                    </>
                   </span>
                   <span
                     className={

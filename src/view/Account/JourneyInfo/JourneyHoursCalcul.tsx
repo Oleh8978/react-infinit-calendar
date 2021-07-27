@@ -21,9 +21,12 @@ const JourneyHoursCalculation: React.FC<IProps> = ({ ...props }) => {
       </div>
       <div className={'journeyinfo-body-hours__second'}>
         <span className={'journeyinfo-body-hours__second__top'}>
-          {props.minDaySpent && props.maxDaySpent ?
-          (`${Math.round(props.minDaySpent / 60)} - ${Math.round(props.maxDaySpent / 60)}`) :
-            ('')}</span>
+          {props.minDaySpent && props.maxDaySpent
+            ? `${Math.round(props.minDaySpent / 60)} - ${Math.round(
+                props.maxDaySpent / 60,
+              )}`
+            : ''}
+        </span>
         <span className={'journeyinfo-body-hours__second__bottom'}>
           hrs of effort per day
         </span>

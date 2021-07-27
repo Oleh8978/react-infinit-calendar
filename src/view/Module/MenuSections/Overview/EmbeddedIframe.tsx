@@ -7,9 +7,7 @@ interface IProps {
 const EmbeddedIframe: React.FC<IProps> = ({ ...props }) => {
   return (
     <>
-      <div className="overview-iframe">
-        {props.content}
-      </div>
+      <div className="overview-iframe">{props.content}</div>
     </>
   );
 };

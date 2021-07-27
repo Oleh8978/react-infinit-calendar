@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-
 import { ITopic } from './Models/DiscoveryModels';
 
 interface IProps {
@@ -184,7 +183,10 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
                   : arr[arr.length - 1].color,
             }}
             onClick={() => {
-              props.arraySetter(arr[arr.length - 1].id, arr[arr.length - 1].title);
+              props.arraySetter(
+                arr[arr.length - 1].id,
+                arr[arr.length - 1].title,
+              );
               colorChanger(arr[arr.length - 1].id);
             }}>
             <div className="topic-item-img">
@@ -200,15 +202,14 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
     return arrSorted;
   };
 
-
   const onAllHendaler = () => {
-    articleCategories.map(item => {
-      item.subColor = ''
-    })
+    articleCategories.map((item) => {
+      item.subColor = '';
+    });
     setrticleCategories(articleCategories);
-    props.allSetter()
-    scrollToTop()
-  }
+    props.allSetter();
+    scrollToTop();
+  };
 
   const smallMenuRender = (items: ITopic[]) => {
     return (

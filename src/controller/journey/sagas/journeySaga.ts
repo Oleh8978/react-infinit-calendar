@@ -11,9 +11,15 @@ import * as action from '../actions';
 
 // utils
 import { getAccessToken, getRefreshToken } from '@app/controller/auth';
-import { buyJourneyAction, deleteJourneyConnectAction, setJourneyConnectAction } from '../actions';
+import {
+  buyJourneyAction,
+  deleteJourneyConnectAction,
+  setJourneyConnectAction,
+} from '../actions';
 
-export function* getJourneyData({ payload }: ReturnType<typeof action.getJourneyDataAction.request>) {
+export function* getJourneyData({
+  payload,
+}: ReturnType<typeof action.getJourneyDataAction.request>) {
   yield put(
     action.LoaderAction({
       code: undefined,
@@ -26,10 +32,7 @@ export function* getJourneyData({ payload }: ReturnType<typeof action.getJourney
   try {
     const accessToken: string | undefined = yield yield select(getAccessToken);
 
-    const res = yield JourneyAPI.getJourney(
-      payload,
-      accessToken,
-    );
+    const res = yield JourneyAPI.getJourney(payload, accessToken);
 
     if (res) {
       yield put(action.getJourneyDataAction.success(res));
@@ -53,7 +56,6 @@ export function* getJourneyData({ payload }: ReturnType<typeof action.getJourney
       throw new BadRequest();
     }
   } catch (error) {
-
     console.log('error ', error);
     yield put(
       action.LoaderAction({
@@ -71,7 +73,9 @@ export function* getJourneyData({ payload }: ReturnType<typeof action.getJourney
   }
 }
 
-export function* setJourneyConnectSaga({ payload, }: ReturnType<typeof setJourneyConnectAction.request>) {
+export function* setJourneyConnectSaga({
+  payload,
+}: ReturnType<typeof setJourneyConnectAction.request>) {
   const accessToken: string | undefined = yield yield select(getAccessToken);
 
   yield put(
@@ -93,7 +97,7 @@ export function* setJourneyConnectSaga({ payload, }: ReturnType<typeof setJourne
         setJourneyConnectAction.failure({
           code: res.code,
           name: res.name,
-          message: res.message || 'Something was wrong'
+          message: res.message || 'Something was wrong',
         }),
       );
 
@@ -127,7 +131,7 @@ export function* setJourneyConnectSaga({ payload, }: ReturnType<typeof setJourne
       setJourneyConnectAction.failure({
         name: error.name,
         code: error.code || 400,
-        message: error.message || error || 'Something was wrong'
+        message: error.message || error || 'Something was wrong',
       }),
     );
     yield put(
@@ -141,7 +145,9 @@ export function* setJourneyConnectSaga({ payload, }: ReturnType<typeof setJourne
   }
 }
 
-export function* deleteJourneyConnectSaga({ payload }: ReturnType<typeof deleteJourneyConnectAction.request>) {
+export function* deleteJourneyConnectSaga({
+  payload,
+}: ReturnType<typeof deleteJourneyConnectAction.request>) {
   const accessToken: string | undefined = yield yield select(getAccessToken);
 
   yield put(
@@ -163,7 +169,7 @@ export function* deleteJourneyConnectSaga({ payload }: ReturnType<typeof deleteJ
         deleteJourneyConnectAction.failure({
           name: res.name,
           code: res.code,
-          message: res.message || 'Something was wrong'
+          message: res.message || 'Something was wrong',
         }),
       );
 
@@ -197,7 +203,7 @@ export function* deleteJourneyConnectSaga({ payload }: ReturnType<typeof deleteJ
       deleteJourneyConnectAction.failure({
         name: error.name,
         code: error.code || 400,
-        message: error.message || error || 'Something was wrong'
+        message: error.message || error || 'Something was wrong',
       }),
     );
     yield put(
@@ -211,7 +217,9 @@ export function* deleteJourneyConnectSaga({ payload }: ReturnType<typeof deleteJ
   }
 }
 
-export function* buyJourneySaga({ payload, }: ReturnType<typeof buyJourneyAction.request>) {
+export function* buyJourneySaga({
+  payload,
+}: ReturnType<typeof buyJourneyAction.request>) {
   const accessToken: string | undefined = yield yield select(getAccessToken);
 
   yield put(
@@ -229,12 +237,11 @@ export function* buyJourneySaga({ payload, }: ReturnType<typeof buyJourneyAction
     const res = yield JourneyAPI.buyJourney(payload, accessToken);
 
     if (!res && res.code) {
-
       yield put(
         buyJourneyAction.failure({
           code: res.code,
           name: res.name,
-          message: res.message || 'Something was wrong'
+          message: res.message || 'Something was wrong',
         }),
       );
 
@@ -254,8 +261,8 @@ export function* buyJourneySaga({ payload, }: ReturnType<typeof buyJourneyAction
         }),
       );
 
-      if(res.redirectURI !== undefined) {
-        window.open(res.redirectURI, '_blank')
+      if (res.redirectURI !== undefined) {
+        window.open(res.redirectURI, '_blank');
       }
 
       yield put(
@@ -273,7 +280,7 @@ export function* buyJourneySaga({ payload, }: ReturnType<typeof buyJourneyAction
       buyJourneyAction.failure({
         name: error.name,
         code: error.code || 400,
-        message: error.message || error || 'Something was wrong'
+        message: error.message || error || 'Something was wrong',
       }),
     );
     yield put(

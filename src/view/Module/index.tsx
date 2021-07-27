@@ -40,10 +40,10 @@ const Module: React.FC<IProps> = (props) => {
   }, []);
 
   useEffect(() => {
-    if(loaders.length === 0 && isFirstLoaded === false) {
+    if (loaders.length === 0 && isFirstLoaded === false) {
       setIsFirstLoaded(true);
     }
-  }, [loaders])
+  }, [loaders]);
 
   // const [isSaveBTNActive, setIsSaveBTNActive] = useState<boolean>(false);
   // const [isBtnSaveActive, setIsBtnSaveActive] = useState<boolean>(false);
@@ -168,11 +168,14 @@ const Module: React.FC<IProps> = (props) => {
           )}
         </Scrollbars>
         {isFirstLoaded ? (
-          Boolean(loaders.filter((item) => item.type === LoaderAction.module.getModule)
-              .length) && (
-          <Loader isSmall={true} isAbsolute={true} />
-        )
-        ) : (<></>)}
+          Boolean(
+            loaders.filter(
+              (item) => item.type === LoaderAction.module.getModule,
+            ).length,
+          ) && <Loader isSmall={true} isAbsolute={true} />
+        ) : (
+          <></>
+        )}
         {/*<Loader*/}
         {/*  isSmall={true}*/}
         {/*  className={'custom'}*/}

@@ -17,5 +17,3 @@ export const getJourneyStatisticAction = createAsyncAction(
   `${appName}/${widgetName}/GET_STATISTIC_SUCCESS`,
   `${appName}/${widgetName}/GET_STATISTIC_FAILURE`,
 )<{ id: number | string }, { response: StatisticGetJourneyResponse }, IException>();
-
-

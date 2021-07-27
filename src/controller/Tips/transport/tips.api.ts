@@ -31,7 +31,7 @@ class API {
       fetch(url.toString(), {
         method: 'GET',
         headers: {
-            ...authHeader(accessToken),
+          ...authHeader(accessToken),
           'Content-Type': 'application/json',
         },
       }),

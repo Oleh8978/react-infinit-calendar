@@ -31,6 +31,12 @@ import { StaticPageReducer } from '@app/controller/staticPage/index';
 import { getStaticPageSaga } from '@app/controller/staticPage/sagas/index';
 import { GetStaticPagesListReducer } from '@app/controller/staticPages/index';
 import { getStaticListPagesSaga } from '@app/controller/staticPages/sagas/index';
+import { SaveBTNReducer } from '@app/controller/saveBTN/index';
+import { noteLocalDataCollectorReducer } from '@app/controller/sendNoteReducer/index';
+import { singleNoteSendSaga } from '@app/controller/sendNoteReducer/sagas/index';
+import { ModalWindowReducer } from '@app/controller/modalWindowReducer/index';
+import { notePrevStateReducer } from '@app/controller/previouseNoteText/index';
+import { notePrevStateReducerModule } from '@app/controller/previouseNoteTextModule/index';
 
 export const rootSaga = function* () {
   yield all([
@@ -53,6 +59,7 @@ export const rootSaga = function* () {
     singleNoteSaga(),
     getStaticPageSaga(),
     getStaticListPagesSaga(),
+    singleNoteSendSaga(),
   ]);
 };
 
@@ -78,4 +85,9 @@ export const rootReducer = (history: History): Reducer =>
     singleNoteReducer: GetSingleNoteReducer,
     staticPageReducer: StaticPageReducer,
     staticPagesListReducer: GetStaticPagesListReducer,
+    saveBtnReducer: SaveBTNReducer,
+    noteLocalDataCollectorReducer: noteLocalDataCollectorReducer,
+    ModalWindowReducer: ModalWindowReducer,
+    notePrevStateReducer: notePrevStateReducer,
+    notePrevStateReducerModule: notePrevStateReducerModule,
   });

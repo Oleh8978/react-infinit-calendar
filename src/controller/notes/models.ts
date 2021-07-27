@@ -49,3 +49,9 @@ export interface INotesState {
   storedSearchParams: INotesSearchParams;
   loaderState: ISetLoadingAction;
 }
+
+// interface for deleting single note
+
+export interface ISingleNoteID {
+  id: number;
+}

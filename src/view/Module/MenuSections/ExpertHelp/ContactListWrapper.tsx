@@ -15,7 +15,7 @@ const ContactList: React.FC<IProps> = ({ ...props }) => {
   return (
     <div className={'expert-help-main-body-wrapper'}>
       {props.data.map((item) => {
-        return <ContactListItem data={item} key={item.id}/>
+        return <ContactListItem data={item} key={item.id} />;
       })}
     </div>
   );

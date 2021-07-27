@@ -12,9 +12,7 @@ import {
   IRequestBodyNotes,
 } from './models';
 
-import {
-  NoteDTO,
-} from '@ternala/frasier-types';
+import { NoteDTO } from '@ternala/frasier-types';
 
 // const for ath actions
 export const widgetName = 'SINGLE_NOTE';

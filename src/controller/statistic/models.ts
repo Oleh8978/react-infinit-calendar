@@ -28,4 +28,3 @@ export interface IErrorState {
 export interface ILoaderState {
   status: boolean;
 }
-

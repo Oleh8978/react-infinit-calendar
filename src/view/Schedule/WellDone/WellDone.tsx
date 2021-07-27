@@ -13,7 +13,9 @@ const WellDone: React.FC<IProps> = () => {
           <span className={'welldone-text'}>
             You have completed all tasks for today
           </span>
-          <span className={'welldone-smiles'}><EmojiRandomizer /> <EmojiRandomizer /></span>
+          <span className={'welldone-smiles'}>
+            <EmojiRandomizer /> <EmojiRandomizer />
+          </span>
         </div>
       </div>
     </div>

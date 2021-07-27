@@ -77,9 +77,6 @@ export function* statisticSaga() {
   }
 }
 
-
 export function* todayStatisticsSaga() {
-  yield all([
-    takeEvery(actions.getStatisticToday.request, statisticSaga),
-  ]);
+  yield all([takeEvery(actions.getStatisticToday.request, statisticSaga)]);
 }

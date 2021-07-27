@@ -21,7 +21,7 @@ import { getStatisticToday } from '@app/controller/statistic/actions';
 
 import { IStore } from '@app/controller/model';
 
-interface IProps extends RouteComponentProps {}
+type IProps = RouteComponentProps;
 
 const Account: React.FC<any> = ({ ...props }) => {
   const dispatch = useDispatch();
@@ -34,8 +34,6 @@ const Account: React.FC<any> = ({ ...props }) => {
       dispatch(getStatisticToday.request({}));
     }
   }, [props.statisticToday.today, props.listStatistic]);
-  console.log('props.statisticToday ', props.statisticToday);
-  console.log('props.listStatistic ', props.listStatistic)
   const bodySetter = () => {
     if (
       props.statisticToday.today.spent === 0 &&

@@ -28,19 +28,19 @@ const initialState: IStatisticState = {
   journeys: {},
 };
 
-
 export const statisticByJourneyReducer = createReducer<IStatisticState, ActionTypes>(
   initialState,
   loaderHandlersForStatistics,
 )
-  .handleAction(
+.handleAction(
     actions.getJourneyStatisticAction.success,
     (state: IStatisticState, { payload }): IStatisticState => ({
       ...state,
       journeys: {
         ...state.journeys,
         [payload.response.journey.id]: {
-          statistic: payload.response.journey.statistic, modules: payload.response.modules,
+          statistic: payload.response.journey.statistic,
+          modules: payload.response.modules,
         },
       },
     }),

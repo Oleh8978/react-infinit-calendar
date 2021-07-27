@@ -6,8 +6,8 @@ import { tipsApi } from '../transport/tips.api';
 // Actions
 import * as actions from '../actions';
 
-// utils 
-import { getSavedAccess} from '@app/utils/manageAccess';
+// utils
+import { getSavedAccess } from '@app/utils/manageAccess';
 
 export function* getTipListSagas({
   payload,
@@ -105,6 +105,8 @@ export function* postReadedItemsSaga({
 }
 
 export function* TipsListSaga() {
-  yield all([takeEvery(actions.getTipsListRequest.request, getTipListSagas),
-    takeEvery(actions.setReadedItems.request, postReadedItemsSaga)]);
+  yield all([
+    takeEvery(actions.getTipsListRequest.request, getTipListSagas),
+    takeEvery(actions.setReadedItems.request, postReadedItemsSaga),
+  ]);
 }

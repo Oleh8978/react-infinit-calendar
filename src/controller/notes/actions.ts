@@ -10,6 +10,7 @@ import {
   IGetResponseDeleting,
   ICreateNoteID,
   IRequestBodyNotes,
+  ISingleNoteID,
 } from './models';
 
 import {
@@ -65,3 +66,8 @@ export const deleteNoteByID = createAsyncAction(
   `${appName}/${widgetName}/DELETE_NOTE_ID_SUCCESS`,
   `${appName}/${widgetName}/DELETE_NOTE_ID_FAILED`,
 )<number[], IGetResponseDeleting, ISetLoadingAction>();
+
+// remove item localy
+export const singleNoutesRemoveFromList = createAction(
+  `${appName}/${widgetName}/REMOVE_SINGLE_NOTE_FROM_LIST`,
+)<ISingleNoteID>();

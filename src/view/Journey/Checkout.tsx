@@ -20,7 +20,7 @@ import Loader from '@app/component/Loader';
 
 type IProps = RouteComponentProps<{
   paymentId: string;
-  id: string
+  id: string;
 }>;
 
 const Checkout: React.FC<IProps> = ({ ...props }) => {
@@ -41,19 +41,15 @@ const Checkout: React.FC<IProps> = ({ ...props }) => {
       tokenPromise.then((token) => {
         if (token !== undefined) {
           PaymentAPI.getPaymentInfo(paymentId, token).then((item) => {
-
             if (typeof item !== 'string') {
               setPaymentInfo(item);
             }
           });
         }
       });
-
       dispatch(getJourneyStatisticAction.request({ id: paymentInfo?.journey.id }));
     }
-
   }, []);
-
 
   const redirectToPayPal = () => {
     dispatch(
@@ -95,12 +91,13 @@ const Checkout: React.FC<IProps> = ({ ...props }) => {
             duration={statistic[id]?.statistic.maxSpent}
             maxDaySpent={statistic[id]?.statistic.maxDaySpent}
             minDaySpent={statistic[id]?.statistic.minDaySpent}
-            price={journey?.price} />
-          <div className='checkout-bottom-wrapper'>
+            price={journey?.price}
+          />
+          <div className="checkout-bottom-wrapper">
             <CheckoutPayment redirectToPayPal={redirectToPayPal} />
           </div>
         </div>
-      }
+      )}
     </>
   );
 };

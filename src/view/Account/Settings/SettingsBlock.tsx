@@ -53,7 +53,7 @@ const SettingsBlock: React.FC<IProps> = ({ ...props }) => {
           createdAt: props.user.user.createdAt,
           id: props.user.user.id,
           isCanSendEmail: auThMail !== undefined ? auThMail : mail,
-          isCanSendSMS: auThSms !== undefined ? auThSms : sms ,
+          isCanSendSMS: auThSms !== undefined ? auThSms : sms,
           isNeedSecondStep: props.user.user.isNeedSecondStep,
           userData: props.user.user.userData,
           userAuthorizations: props.user.user.userAuthorizations,

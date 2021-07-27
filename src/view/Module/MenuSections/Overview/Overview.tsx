@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 // components
 import Header from './Header';
-import Body from "./Body";
+import Body from './Body';
 import Tasks from '../Tasks/Tasks';
 import { useSelector } from 'react-redux';
 import { getModules } from '@app/controller/module';
@@ -21,8 +21,8 @@ const Overview: React.FC<IProps> = ({ id }) => {
   }, [modules]);
   return (
     <div className={'overview'}>
-      <Header module={module}/>
-      <Body module={module}/>
+      <Header module={module} />
+      <Body module={module} />
     </div>
   );
 };

@@ -33,7 +33,7 @@ Config.init({
 });
 
 if ('serviceWorker' in navigator) {
-  console.log(' service worker inn ')
+  console.log(' service worker inn ');
   navigator.serviceWorker
     .register('../firebase-messaging-sw.js')
     .then(function (registration) {
