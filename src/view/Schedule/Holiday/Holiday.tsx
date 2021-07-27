@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { HolidayDTO } from '@ternala/frasier-types';
+import fingerDown from '../../../asset/images/emoji/👇.png'
 
 // Actions
 import { deleteHolidayDataAction } from '@app/controller/holidays/actions';
@@ -17,7 +18,9 @@ const Holiday: React.FC<IProps> = ({ holiday }) => {
       <span className="answer-holiday-description">
         {holiday.message}
       </span>
-      <span className="answer-holiday-icon">👇</span>
+      <span className="answer-holiday-icon">
+        <img src={fingerDown} alt='' />
+      </span>
       <div
         className="answer-holiday-btn"
         onClick={() => {

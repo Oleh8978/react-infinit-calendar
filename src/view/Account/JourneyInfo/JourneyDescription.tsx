@@ -19,9 +19,10 @@ interface IProps {
   isConnected: boolean;
   isEndless?: boolean;
   id: number;
+  buttonsHeight?: number;
 }
 
-const JourneyDescription: React.FC<IProps> = ({ journey, statistic, isConnected, id }) => {
+const JourneyDescription: React.FC<IProps> = ({ journey, statistic, isConnected, id, buttonsHeight }) => {
   const defaultWeekdays = Array(...(Array(7))).map(function(_, i) {
     return moment(i, 'e').startOf('week').isoWeekday(i + 1).format('ddd');
   });
@@ -38,7 +39,7 @@ const JourneyDescription: React.FC<IProps> = ({ journey, statistic, isConnected,
   ]
 
   return (
-    <div className={'journeyinfo-body-wrapper'}>
+    <div className={'journeyinfo-body-wrapper'} style={{paddingBottom: buttonsHeight}}>
       <div className={'journeyinfo-body-wrapper-title'}>
         <span className={'journeyinfo-body-wrapper-title-text'}>
           {journey.title}

@@ -16,6 +16,6 @@ export const getJourneyStatisticAction = createAsyncAction(
   `${appName}/${widgetName}/GET_STATISTIC_REQUEST`,
   `${appName}/${widgetName}/GET_STATISTIC_SUCCESS`,
   `${appName}/${widgetName}/GET_STATISTIC_FAILURE`,
-)<{ id: number }, { response: StatisticGetJourneyResponse }, IException>();
+)<{ id: number | string }, { response: StatisticGetJourneyResponse }, IException>();
 
 
