@@ -82,7 +82,7 @@ const Checkout: React.FC<IProps> = ({ ...props }) => {
             <PaymentFailed redirectToPayPal={redirectToPayPal} rout={`/journey/${paymentInfo.journey.id}`} />
           )
 
-        ) :
+        ) :(
         <div className={'checkout'}>
           <NavigationBar name={'Checkout'} rout={`/journey/${id}`} />
           <CheckoutBody
