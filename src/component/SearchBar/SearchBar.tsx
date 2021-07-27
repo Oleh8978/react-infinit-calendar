@@ -17,6 +17,9 @@ const SearchBar: React.FC<IProps> = ({ smallMenu, ...props }) => {
   return (
     <div
       className={'searchbar__top'}
+      onClick={() => {
+        if (!isOpened) setIsOpened(true);
+      }}
       // style={{
       //   // marginTop: '50px',
       //   zIndex: 99,
@@ -53,7 +56,6 @@ const SearchBar: React.FC<IProps> = ({ smallMenu, ...props }) => {
           src={searchIcon}
           className="searchbar-btn"
           alt="img"
-          onClick={() => setIsOpened(true)}
         />
       )}
     </div>

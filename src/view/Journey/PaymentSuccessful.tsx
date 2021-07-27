@@ -1,7 +1,6 @@
 import React from 'react';
 import { push } from 'connected-react-router';
 import { useDispatch } from 'react-redux';
-import PaymentImage from '../../asset/images/payment-failed.png';
 
 interface IProps {
   rout?: string;

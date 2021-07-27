@@ -7,19 +7,16 @@ import CheckoutPayment from '@app/component/CheckoutPaymentButton';
 import CheckoutBody from '@app/view/Journey/CheckoutBody';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAccessToken } from '@app/controller/auth';
-import Loader from '@app/component/Loader';
-import {
-  buyJourneyAction,
-  getJourneyDataAction,
-  setJourneyConnectAction,
-} from '@app/controller/journey/actions';
+import { buyJourneyAction, getJourneyDataAction, setJourneyConnectAction } from '@app/controller/journey/actions';
 import { PaymentAPI } from '@app/controller/payment/transport/payment.api';
 import { PaymentGetResponse } from '@ternala/frasier-types';
 import PaymentFailed from '@app/view/Journey/PaymentFailed';
-import { getStatisticByJourney } from '@app/controller/statisticJourney';
+import { getLoader, getStatisticByJourney } from '@app/controller/statisticJourney';
 import { getJourneyStatisticAction } from '@app/controller/statisticJourney/actions';
 import { getJourney } from '@app/controller/journey';
 import PaymentSuccessful from '@app/view/Journey/PaymentSuccessful';
+import { LoaderAction } from '@app/config/constants';
+import Loader from '@app/component/Loader';
 
 type IProps = RouteComponentProps<{
   paymentId: string;
@@ -29,6 +26,7 @@ type IProps = RouteComponentProps<{
 const Checkout: React.FC<IProps> = ({ ...props }) => {
   const journey = useSelector(getJourney);
   const statistic = useSelector(getStatisticByJourney);
+  const loader = useSelector(getLoader);
   const [paymentInfo, setPaymentInfo] = useState<PaymentGetResponse>(undefined);
   const tokenPromise = useSelector(getAccessToken);
   const id = Number(props.match.params.id);
@@ -39,7 +37,7 @@ const Checkout: React.FC<IProps> = ({ ...props }) => {
     if (id && !paymentId) {
       dispatch(getJourneyDataAction.request(id));
       dispatch(getJourneyStatisticAction.request({ id }));
-    } else if (paymentId) {
+    } else if (paymentId !== undefined) {
       tokenPromise.then((token) => {
         if (token !== undefined) {
           PaymentAPI.getPaymentInfo(paymentId, token).then((item) => {
@@ -49,9 +47,7 @@ const Checkout: React.FC<IProps> = ({ ...props }) => {
           });
         }
       });
-      dispatch(
-        getJourneyStatisticAction.request({ id: paymentInfo?.journey.id }),
-      );
+      dispatch(getJourneyStatisticAction.request({ id: paymentInfo?.journey.id }));
     }
   }, []);
 
@@ -65,30 +61,28 @@ const Checkout: React.FC<IProps> = ({ ...props }) => {
 
   return (
     <>
+      {Boolean(loader.filter((item) => item.type === LoaderAction.statistic.getStatisticByJourney)
+        .length) && (
+        <Loader isSmall={true} isAbsolute={true} />
+      )}
+
       {paymentInfo !== undefined ? (
-        paymentInfo.status ? (
-          <>
-            <PaymentSuccessful rout={`/journey/${paymentInfo.journey.id}`} />
-            <CheckoutBody
-              title={paymentInfo.journey.title}
-              img={paymentInfo.journey.image}
-              duration={statistic[paymentInfo.journey.id]?.statistic.maxSpent}
-              maxDaySpent={
-                statistic[paymentInfo.journey.id]?.statistic.maxDaySpent
-              }
-              minDaySpent={
-                statistic[paymentInfo.journey.id]?.statistic.minDaySpent
-              }
-              price={paymentInfo.journey.price}
-            />
-          </>
-        ) : (
-          <PaymentFailed
-            redirectToPayPal={redirectToPayPal}
-            rout={`/journey/${paymentInfo.journey.id}`}
-          />
-        )
-      ) : (
+          paymentInfo.status ? (
+            <>
+              <PaymentSuccessful rout={`/journey/${paymentInfo.journey.id}`} />
+              <CheckoutBody
+                title={paymentInfo.journey.title}
+                img={paymentInfo.journey.image}
+                duration={statistic[paymentInfo?.journey?.id]?.statistic.maxSpent}
+                maxDaySpent={statistic[paymentInfo?.journey?.id]?.statistic.maxDaySpent}
+                minDaySpent={statistic[paymentInfo?.journey?.id]?.statistic.minDaySpent}
+                price={paymentInfo.journey.price}/>
+            </>
+          ) : (
+            <PaymentFailed redirectToPayPal={redirectToPayPal} rout={`/journey/${paymentInfo.journey.id}`} />
+          )
+
+        ) :
         <div className={'checkout'}>
           <NavigationBar name={'Checkout'} rout={`/journey/${id}`} />
           <CheckoutBody

@@ -387,6 +387,31 @@ const Task: React.FC<IProps> = ({ id }) => {
     setIsCompletedForToday(res);
   };
 
+  const toggleUncompletedTask = ({
+                        id,
+                        date,
+                        timeSlot,
+                        action,
+                        callback,
+                      }: {
+    id: number;
+    date: Moment;
+    timeSlot: number;
+    action: 'create' | 'remove';
+    callback: (state: boolean) => void;
+  }) => {
+    dispatch(
+      toggleExecuteTaskAction.request({
+        action,
+        task: id,
+        purposeDate: date.toDate(),
+        timeSlot,
+        module: module?.id,
+        callback,
+      }),
+    );
+  };
+
   const uncompletedWithoutSelectedDay: IDayWithTimeSlots = omit(uncompleted, [
     moment(selectedDay).format(timeSlotDateFormat),
   ]);
@@ -452,14 +477,11 @@ const Task: React.FC<IProps> = ({ id }) => {
           <NoTasks />
         )}
 
-        {hasUncompleted ? (
-          <Uncompleted
-            prevData={uncompletedWithoutSelectedDay}
-            toggleTask={toggleTask}
-          />
-        ) : (
-          <></>
-        )}
+        {hasUncompleted ? <Uncompleted
+          prevData={uncompletedWithoutSelectedDay}
+          toggleTask={toggleUncompletedTask}
+        /> : <></>}
+
       </div>
     </div>
   );

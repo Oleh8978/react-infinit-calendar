@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // components
@@ -31,6 +31,8 @@ type IProps = RouteComponentProps<{ id: string }> & IRoute;
 const Journey: React.FC<IProps> = ({ ...props }) => {
   const [isStartPopup, setStartPopup] = useState<boolean>(false);
   const [isStopPopup, setStopPopup] = useState<boolean>(false);
+  const [buttonsHeight, setButtonsHeight] = useState<number>(undefined);
+  const ref = useRef(null)
 
   const journey = useSelector(getJourney);
   const statistic = useSelector(getStatisticByJourney);
@@ -41,7 +43,12 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
   useEffect(() => {
     dispatch(getJourneyDataAction.request(id));
     dispatch(getJourneyStatisticAction.request({ id }));
+    setButtonsHeight(ref?.current?.clientHeight)
   }, []);
+
+  useEffect(() => {
+    setButtonsHeight(ref?.current?.clientHeight)
+  }, [ref?.current?.clientHeight])
 
   const setIsStartPopup = (boolean) => {
     setStartPopup(boolean);
@@ -148,13 +155,26 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
               trialEndDate={journey.status?.trialEndDate}
               isPaid={journey?.status?.isPaid}
               isConnected={journey?.status?.isConnected}
-              needToPay={journey?.isNeedPaid}
-              setIsStartPopup={setIsStartPopup}
-              setIsStopPopup={setIsStopPopup}
-              setStartConnection={setStartConnection}
-              setStopConnection={setStopConnection}
               id={id}
+              buttonsHeight={buttonsHeight}
             />
+            {/*<JourneyListComponent data={list} />*/}
+            <div className='jorneydiscoveymain-bottom-wrapper' ref={ref}>
+              <JourneyFixedBottom
+                price={journey.price}
+                trialPeriod={journey.trialPeriod}
+                hasTrialPeriod={journey?.status?.isTrial}
+                isTrialPeriodStarted={journey?.status?.isConnected && journey?.status?.isTrial}
+                trialEndDate={journey.status?.trialEndDate}
+                isPaid={journey?.status?.isPaid}
+                isConnected={journey?.status?.isConnected}
+                needToPay={journey?.isNeedPaid}
+                setIsStartPopup={setIsStartPopup}
+                setIsStopPopup={setIsStopPopup}
+                setStartConnection={setStartConnection}
+                setStopConnection={setStopConnection}
+                id={id} />
+            </div>
           </div>
         </div>
       ) : (

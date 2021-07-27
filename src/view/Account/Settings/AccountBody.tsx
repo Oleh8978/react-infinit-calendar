@@ -16,7 +16,7 @@ import {
 import { updateUserDataAction } from '@app/controller/secondStepDataUpdater/actions';
 
 // static
-import pen from './static/pen.png';
+import pen from './static/pen.svg';
 import onErorImage from '../../LoginPages/imageAcountError/onErrorImage.png';
 
 // utils

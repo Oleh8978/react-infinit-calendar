@@ -1,15 +1,24 @@
 import { ActionType, createReducer } from 'typesafe-actions';
 // actions
 import * as actions from './actions';
+import { getJourneyStatisticAction } from './actions';
+import { generateLoaderActions } from '@app/controller/based';
+
 // interfaces
-import { IJourneyStatistic, IStatisticState } from './models';
+import { IStatisticState } from './models';
 
 //Sagas
-import { IStore } from '@app/controller/model';
-import { getJourneyStatisticAction } from './actions';
-import { IModuleState } from '@app/controller/module/models';
+import { IStore, LoaderActionType } from '@app/controller/model';
+import { ILoader } from '@app/model';
 
-export type AuthActionType = ActionType<typeof actions>;
+export type StatisticByJourneyActionType = ActionType<typeof actions>;
+type ActionTypes = StatisticByJourneyActionType | LoaderActionType;
+
+const loaderActions = generateLoaderActions<IStatisticState, ActionTypes>(
+  actions.widgetName,
+);
+
+export const loaderHandlersForStatistics = loaderActions.handlers;
 
 const initialState: IStatisticState = {
   state: {
@@ -19,11 +28,11 @@ const initialState: IStatisticState = {
   journeys: {},
 };
 
-export const statisticByJourneyReducer = createReducer<
-  IStatisticState,
-  AuthActionType
->(initialState)
-  .handleAction(
+export const statisticByJourneyReducer = createReducer<IStatisticState, ActionTypes>(
+  initialState,
+  loaderHandlersForStatistics,
+)
+.handleAction(
     actions.getJourneyStatisticAction.success,
     (state: IStatisticState, { payload }): IStatisticState => ({
       ...state,
@@ -44,6 +53,12 @@ export const statisticByJourneyReducer = createReducer<
     }),
   );
 
-export const getStatisticByJourney = (
-  state: IStore,
-): IStatisticState['journeys'] => state.statisticByJourneyReducer.journeys;
+export const addLoader = loaderActions.actions.addLoader;
+export const addError = loaderActions.actions.addError;
+export const removeError = loaderActions.actions.removeError;
+export const removeLoader = loaderActions.actions.removeLoader;
+
+export const getStatisticByJourney = (state: IStore): IStatisticState['journeys'] =>
+  state.statisticByJourneyReducer.journeys;
+export const getLoader = (state: IStore): ILoader[] =>
+  state.statisticByJourneyReducer.state.loaders;

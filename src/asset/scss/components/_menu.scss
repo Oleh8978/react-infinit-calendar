@@ -29,6 +29,7 @@
         flex-direction: column;
         align-items: center;
         text-decoration: none;
+
         &, span{
           color: $text-color;
           font-weight: 500;
@@ -50,10 +51,10 @@
           }
         }
         @media screen and (min-width: 650px) {
-          margin-top: 33px;
-          margin-left: 19px;
           display: flex;
           flex-flow: row;
+          padding: 16px 20px;
+          min-width: 220px;
         }
       }
       &.active{

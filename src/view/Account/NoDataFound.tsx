@@ -17,7 +17,7 @@ const NoDataFound: React.FC<IProps> = () => {
       <h1 className={'nodata-header'}>hmm, no data available</h1>
       <span className={'nodata-text'}>
         Here you will be able to see your progress. Please start a journey in
-        order to be able to track your prodiuctivity.
+        order to be able to track your productivity.
       </span>
       <PinkCustomButton
         marginTop={'30px'}

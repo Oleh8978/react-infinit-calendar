@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createUUID } from '@app/view/Helpers/utils';
 import emoji1 from '../asset/images/emoji/🤗.png';
 import emoji2 from '../asset/images/emoji/⚡.png';
@@ -51,11 +51,17 @@ export const emojiSet = [
 interface IProps {}
 
 const EmojiRandomizer: React.FC<IProps> = ({ ...props }) => {
-  const randomEmojiIndex = Math.floor(Math.random() * emojiSet.length);
+  const [randomEmojiIndex, setRandomEmojiIndex] = useState<number>(undefined);
+
+  useEffect(() => {
+    setRandomEmojiIndex(Math.floor(Math.random() * emojiSet.length))
+  }, [])
 
   return (
-    <img className={'emoji'} src={emojiSet[randomEmojiIndex].img} alt="" />
-  );
-};
+    <>
+      {randomEmojiIndex !== undefined ? <img className={'emoji'} src={emojiSet[randomEmojiIndex].img} alt='' /> : <></>}
+    </>
+    );
+}
 
 export default EmojiRandomizer;

@@ -35,10 +35,10 @@ const BodyPage: React.FC<any> = ({ ...props }) => {
             <>
               <div className={'block-body-item-wrapper'}>
                 <span className={'block-body-item-wrapper-text about-text'}>
-                  {/* {props.name} */}
+                  Version
                 </span>
                 <span className={'block-body-item-wrapper-text rightaligner'}>
-                  {/* {props.version} */}
+                  {process.env.REACT_APP_VERSION}
                 </span>
               </div>
             </>

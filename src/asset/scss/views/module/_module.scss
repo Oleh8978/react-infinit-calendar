@@ -1,7 +1,4 @@
 .module {
-  //height: 100vh;
-  //height: calc(var(--vhFull) - 55px);
-  //height: fit-content;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -72,16 +69,21 @@
 
     &-col1 {
       height: 100%;
-      width: 100%;
+      width: 20%;
+      min-width: 45px;
       display: flex;
       align-items: flex-start;
     }
     &-col2 {
       @extend .module-menu-col1;
       @include card-list-text-style;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: block;
+      width: fit-content;
+      height: fit-content;
+      margin: auto;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     &-col3 {
       @extend .module-menu-col1;
@@ -90,11 +92,10 @@
     &-back {
       display: flex;
       flex-flow: column;
-      margin-top: auto;
-      margin-left: 22px;
-      margin-bottom: auto;
-      width: 11px;
-      height: 18px;
+      padding: 15px 22px 15px 22px;
+      margin: auto 0;
+      width: 41px;
+      height: 48px;
       cursor: pointer;
       &__top {
         margin-top: 1px;

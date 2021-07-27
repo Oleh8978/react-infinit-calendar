@@ -14,11 +14,6 @@ interface IProps {
 }
 
 const JourneyCompletedItem: React.FC<IProps> = ({ ...props }) => {
-  // const icons = ['👏', '👍'];
-  // const [selectedIcon, setSelectedIcon] = useState<string>(
-  //   icons[Math.floor(Math.random() * 2)],
-  // );
-  // // console.log('props.data ', props.data);
   return (
     <Link
       to={`/journey-info/${props.data.id}`}

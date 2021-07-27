@@ -4,7 +4,7 @@ import { StatisticGetJourneyResponse } from '@ternala/frasier-types';
 
 class API {
   public async getStatisticByJourney(
-    data: { id: number },
+    data: { id: number | string },
     accessToken: string,
   ): Promise<StatisticGetJourneyResponse | string> {
     const url = new URL(
