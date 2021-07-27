@@ -44,12 +44,12 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
     dispatch(getJourneyDataAction.request(id));
     dispatch(getJourneyStatisticAction.request({ id }));
 
-    setButtonsHeight(ref.current.clientHeight)
+    setButtonsHeight(ref?.current?.clientHeight)
   }, []);
 
   useEffect(() => {
-    setButtonsHeight(ref.current.clientHeight)
-  }, [ref.current.clientHeight])
+    setButtonsHeight(ref?.current?.clientHeight)
+  }, [ref?.current?.clientHeight])
 
   const setIsStartPopup = (boolean) => {
     setStartPopup(boolean);

@@ -37,8 +37,7 @@ const Checkout: React.FC<IProps> = ({ ...props }) => {
     if (id && !paymentId) {
       dispatch(getJourneyDataAction.request(id));
       dispatch(getJourneyStatisticAction.request({ id }));
-
-    } else if (paymentId) {
+    } else if (paymentId !== undefined) {
       tokenPromise.then((token) => {
         if (token !== undefined) {
           PaymentAPI.getPaymentInfo(paymentId, token).then((item) => {
@@ -49,6 +48,7 @@ const Checkout: React.FC<IProps> = ({ ...props }) => {
           });
         }
       });
+
       dispatch(getJourneyStatisticAction.request({ id: paymentInfo?.journey.id }));
     }
 
@@ -77,9 +77,9 @@ const Checkout: React.FC<IProps> = ({ ...props }) => {
               <CheckoutBody
                 title={paymentInfo.journey.title}
                 img={paymentInfo.journey.image}
-                duration={statistic[paymentInfo.journey.id]?.statistic.maxSpent}
-                maxDaySpent={statistic[paymentInfo.journey.id]?.statistic.maxDaySpent}
-                minDaySpent={statistic[paymentInfo.journey.id]?.statistic.minDaySpent}
+                duration={statistic[paymentInfo?.journey?.id]?.statistic.maxSpent}
+                maxDaySpent={statistic[paymentInfo?.journey?.id]?.statistic.maxDaySpent}
+                minDaySpent={statistic[paymentInfo?.journey?.id]?.statistic.minDaySpent}
                 price={paymentInfo.journey.price}/>
             </>
           ) : (
