@@ -12,11 +12,14 @@ const SearchBar: React.FC<IProps> = ({ smallMenu, ...props }) => {
 
   // const onCloseHandler = () => {
   //   return props.onCloseHandler? props.onCloseHandler : console.log('close');
-  // } 
+  // }
 
   return (
     <div
       className={'searchbar__top'}
+      onClick={() => {
+        if (!isOpened) setIsOpened(true);
+      }}
       // style={{
       //   // marginTop: '50px',
       //   zIndex: 99,
@@ -53,7 +56,6 @@ const SearchBar: React.FC<IProps> = ({ smallMenu, ...props }) => {
           src={searchIcon}
           className="searchbar-btn"
           alt="img"
-          onClick={() => setIsOpened(true)}
         />
       )}
     </div>
