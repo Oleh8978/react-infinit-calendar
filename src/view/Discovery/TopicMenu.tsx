@@ -15,6 +15,32 @@ interface IProps {
 const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
   const [smallMenu, setSmallMenu] = useState<boolean>(false);
   const [articleCategories, setrticleCategories] = useState<any>([]);
+  const [disabled, setDisabled] = useState<boolean>(false);
+  const [isClicked, setIsClicked] = useState<boolean>(false);
+
+  // return (
+  //   <div
+  //     onMouseDown={() => {
+  //       setSwiping(false);
+  //     }}
+  //     onMouseMove={() => {
+  //       setSwiping(true);
+  //     }}
+  //     onMouseUp={() => {
+  //       setSwiping(false);
+  //     }}
+  //     onTouchStart={() => {
+  //       setSwiping(false);
+  //     }}
+  //     onTouchMove={() => {
+  //       setSwiping(true);
+  //     }}
+  //     onTouchEnd={e => {
+  //       e.preventDefault();
+  //       setSwiping(false);
+  //     }}
+  //   ></div>
+  // );
   // console.log('article categiries ', articleCategories);
 
   const scrollTracker = () => {
@@ -213,7 +239,20 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
 
   const smallMenuRender = (items: ITopic[]) => {
     return (
-      <div className="discovery-menu-small">
+      <div className="discovery-menu-small"
+           onMouseDown={(e) => {
+             setIsClicked(true)
+           }}
+           onMouseMove={(e) => {
+             if(isClicked) {
+               setDisabled(true)
+             }
+           }}
+           onMouseUp={() => {
+             setIsClicked(false)
+             setDisabled(false)
+           }}
+      >
         <div
           className="discovery-menu-small-btn"
           onClick={() => onAllHendaler()}
@@ -240,9 +279,11 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
               <div
                 className="discovery-menu-small-item"
                 style={{ backgroundColor: element.subColor }}
-                onClick={() => {
-                  props.arraySetter(element.id, element.title);
-                  colorChanger(element.id);
+                onMouseUp={() => {
+                  if(!disabled) {
+                    props.arraySetter(element.id, element.title);
+                    colorChanger(element.id);
+                  }
                 }}>
                 <span
                   className="discovery-menu-small-item-txt"
