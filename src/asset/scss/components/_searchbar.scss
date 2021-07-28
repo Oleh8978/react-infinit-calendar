@@ -38,6 +38,7 @@
     transform: translateY(-50%);
     right: 11px;
     cursor: pointer;
+    animation: fading2 0.5s ease;
 
     &__input {
       padding: 7px;
@@ -48,6 +49,7 @@
       top: 50%;
       transform: translateY(-50%);
       left: 11px;
+      animation: fading 0.5s ease;
     }
   }
 
@@ -63,6 +65,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    animation: fading 0.5s ease;
 
     &-left {
       position: absolute;
