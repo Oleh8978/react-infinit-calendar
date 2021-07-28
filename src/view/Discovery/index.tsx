@@ -40,6 +40,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
   const [ids, setIds] = useState<number[]>([]);
   const fieldRef = createRef() as RefObject<Scrollbars>;
   const [forse, setForse] = useState<boolean>(false);
+  const [hiddenMenu, setHiddenMenu] = useState<boolean>(false);
 
   const loadMoreItems = () => {
     const {
@@ -76,8 +77,10 @@ const Discovery: React.FC<any> = ({ ...props }) => {
     setSearchQuery(text.trim().toLowerCase());
     if (text.trim().length !== 0) {
       loadDiscoveries('start', text.trim());
+      setHiddenMenu(true);
     } else {
       loadDiscoveries('start', '');
+      setHiddenMenu(false);
     }
   };
 
@@ -85,6 +88,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
     loadDiscoveries('start', '');
     setSearchQuery('');
     setISmoreStated('start');
+    setHiddenMenu(false);
   };
 
   useEffect(() => {
@@ -311,6 +315,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
               }
               arraySetter={arraySetter}
               allSetter={allSetter}
+              hiddenMenu={hiddenMenu}
             />
 
             <DiscoveryTopicList

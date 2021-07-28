@@ -9,6 +9,7 @@ interface IProps {
   loadDiscovloadArticleCategoeries: (point: string) => void;
   arraySetter?: (id: number, element: string) => void;
   allSetter?: () => void;
+  hiddenMenu?: boolean;
 }
 
 const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
@@ -261,7 +262,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
   return (
     <>
       <div
-        className={'discovery-menu '}
+        className={props.hiddenMenu ? 'discovery-menu-hidden discovery-menu' : 'discovery-menu'}
         style={{
           position: 'fixed',
           top: '50px',
@@ -279,7 +280,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
         </>
       </div>
 
-      <div className={'discovery-menu'}>
+      <div className={props.hiddenMenu ? 'discovery-menu-hidden discovery-menu' : 'discovery-menu'}>
         <span className={'discovery-select'}>Select your topic interest</span>
         <>
           {articleCategories !== undefined && (
