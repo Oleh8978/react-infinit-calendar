@@ -32,6 +32,9 @@ type IProps = RouteComponentProps<{ id: string }>;
 export const generateContent = (section) => {
   switch (section.type) {
     case 'text':
+      console.log(section.content);
+      console.log(parse(`${section.content}`));
+
       return section.content ? (
         <div className="overview-text" key={section.id}>
           {section.content ? parse(`${section.content}`) : ''}

@@ -7,6 +7,10 @@
     margin: 0px;
     padding: 0px;
 
+    &-hidden {
+      display: none !important;
+    }
+
     &-wrapper {
       background-color: $white;
       margin-left: 0px;

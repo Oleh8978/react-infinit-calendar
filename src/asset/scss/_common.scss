@@ -79,52 +79,20 @@ input[type='number'] {
 }
 
 
-.link-regular {
-    display: flex;
-    margin-top: 0px;
-    margin-left: 0px;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    color: #1D1D1D;
-    font-weight: 500;
-    font-size: 10px;
-    line-height: 11px;
-    cursor: pointer;
-
-    span{
-      display: flex;
-      margin-top: 5px;
-      margin-left: 0px;
-      font-size: 10px;
-      line-height: 11px;
-      font-weight: 500;
-    }
-
-    svg {
-      margin-bottom: 5px;
-    }
-}
-
-@media screen and (min-width: 650px) { 
-  .link-regular {
-  font-size: 16px;
-  line-height: 18px;
-  margin-top: 33px;
-  margin-left: 19px;
-  display: flex;
-  flex-flow: row;
-
-  span{
-    font-size: 16px;
-    line-height: 18px;
-    display: flex;
-    margin-top: 0px;
-    margin-left: 20px;
-    font-weight: 500;
+@keyframes fading {
+  0% {
+    opacity: 0;
   }
-
+  100% {
+    opacity: 1;
+  }
 }
 
+@keyframes fading2 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
-
