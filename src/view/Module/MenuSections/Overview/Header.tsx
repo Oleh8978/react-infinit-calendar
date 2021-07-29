@@ -5,6 +5,7 @@ import task from '@app/view/Account/static/tasks.svg';
 
 // interfaces
 import { ModuleExpandDTO } from '@app/controller/module/models';
+import WavePercentage from '@app/component/WavePercentage';
 
 interface IProps {
   module: ModuleExpandDTO;
@@ -14,7 +15,7 @@ const Header: React.FC<IProps> = ({ module }) => {
   return (
     <>
       <div className="overview-header">
-        <img className="overview-header-img" src={task} alt="img" />
+        <WavePercentage bubbleValue={'T'} neededPercent={50} isGreen={true} />
         <div className="overview-header-text">
           <span className="overview-header-text__top">
             {module?.moduleCategories?.map((category) => category.title)}

@@ -29,7 +29,7 @@ const JourneyDescription: React.FC<IProps> = ({ journey, statistic, isConnected,
 
   const tabData = [
     { id : '1',
-      tabTitle: "Statistics",
+      tabTitle: "Modules",
       tabContent: <JourneyStatisticTable data={statistic[id]?.modules || []} />
     },
     { id : '2',
