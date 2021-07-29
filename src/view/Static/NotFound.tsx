@@ -8,7 +8,7 @@ import Link from '@app/routing/Link';
 import img from './static/404.png';
 
 //Interfaces
-interface IProps extends RouteComponentProps {}
+type IProps = RouteComponentProps;
 
 const NotFound: React.FC<IProps> = () => {
   return (

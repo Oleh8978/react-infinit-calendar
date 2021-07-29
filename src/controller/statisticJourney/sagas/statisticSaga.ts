@@ -26,9 +26,15 @@ import { checkAccessTokenExpired } from '../../auth/sagas/auth';
 import { getJourneyStatisticAction } from '../actions';
 import * as action from '@app/controller/holidays/actions';
 import uuid from '@app/utils/uuid';
-import { addError, addLoader, removeLoader } from '@app/controller/statisticJourney';
+import {
+  addError,
+  addLoader,
+  removeLoader,
+} from '@app/controller/statisticJourney';
 
-export function* journeyStatisticSaga({ payload }: ReturnType<typeof getJourneyStatisticAction.request>) {
+export function* journeyStatisticSaga({
+  payload,
+}: ReturnType<typeof getJourneyStatisticAction.request>) {
   const loadId = uuid();
   yield put(
     addLoader({
@@ -63,8 +69,15 @@ export function* journeyStatisticSaga({ payload }: ReturnType<typeof getJourneyS
       );
       throw new BadRequest();
     } else {
-      journeyStatisticData = yield StatisticByJourneyAPI.getStatisticByJourney(payload, accessToken);
-      yield put(actions.getJourneyStatisticAction.success({  response: journeyStatisticData }));
+      journeyStatisticData = yield StatisticByJourneyAPI.getStatisticByJourney(
+        payload,
+        accessToken,
+      );
+      yield put(
+        actions.getJourneyStatisticAction.success({
+          response: journeyStatisticData,
+        }),
+      );
       yield put(
         removeLoader({
           id: loadId,

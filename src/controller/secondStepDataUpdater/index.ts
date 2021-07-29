@@ -55,16 +55,8 @@ export const UpdateAfterSignInRequestReducer = createReducer<
     (state: IUpdateState, { payload }): IUpdateState => ({
       ...state,
       userData: {
-        ...payload
+        ...payload,
       },
       isSecondStepPassed: true,
-    }),
-  )
-  .handleAction(
-    [actions.updateUserDataAction.failure],
-    (state: IUpdateState, { payload }): IUpdateState => ({
-      ...state,
-      ...payload,
-      isSecondStepPassed: false,
     }),
   );

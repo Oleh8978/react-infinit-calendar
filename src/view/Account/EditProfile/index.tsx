@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
 
 // types
@@ -16,12 +16,14 @@ import { loginByTokenAction } from '@app/controller/auth/actions';
 import { IUser } from '@app/controller/auth/model';
 import { IStore } from '@app/controller/model';
 
+// constnats
+import { validation } from '../../LoginPages/utils/validation';
+
 interface IProps {}
 
 const EdditProfile: React.FC<any> = ({ ...props }) => {
-  const [isSaveBtnActivState, setISSaveBtnActiveState] = useState<boolean>(
-    false,
-  );
+  const [isSaveBtnActivState, setISSaveBtnActiveState] =
+    useState<boolean>(false);
   const [userData, setUserData] = useState<IUser>(undefined);
   const [updater, setUpdater] = useState<boolean>(false);
   const [validationState, setValidationState] = useState<any>([]);
@@ -31,7 +33,36 @@ const EdditProfile: React.FC<any> = ({ ...props }) => {
   const changeStateOfTheSvaeBtn = (value: boolean) => {
     setISSaveBtnActiveState(value);
   };
+  console.log('validation state ', validationState);
+  console.log('user data ', userData);
+  console.log('props user data ', props.user);
 
+  useEffect(() => {
+    const newValidation = [];
+    if (props.user && props.user.userData) {
+      validation.map((item) => {
+        if (
+          String(props.user.userData[item.name]) === 'null' ||
+          String(props.user.userData[item.name]).trim().length === 0
+        ) {
+          newValidation.push({
+            name: item.name,
+            value: '',
+            isValid: false,
+            hasAnyError: true,
+          });
+        } else {
+          newValidation.push({
+            name: item.name,
+            value: props.user.userData[item.name],
+            isValid: true,
+            hasAnyError: false,
+          });
+        }
+      });
+      setValidationState(newValidation);
+    }
+  }, []);
   const validationStateFunction = (objArr: any[]) => {
     setValidationState(objArr);
   };

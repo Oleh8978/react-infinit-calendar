@@ -1,5 +1,5 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
+import { connect, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import schema from '@app/routing/schema';
 
@@ -10,7 +10,11 @@ import Link from '@app/routing/Link';
 import Logo from '@app/component/icon/Logo';
 import { menuItems, routsWhereShowMenu } from '../config';
 
-const Menu: React.FC = () => {
+// actions
+import { setModalWindowOpened } from '@app/controller/modalWindowReducer/actions';
+
+const Menu: React.FC<any> = ({ ...props }) => {
+  const dispatch = useDispatch();
   const location = useLocation();
   const nameRoute = schema.getName(location.pathname);
 
@@ -19,6 +23,35 @@ const Menu: React.FC = () => {
       return 'active';
     } else {
       return '';
+    }
+  };
+
+  const windowFunctionality = ({ title, icon: Icon, name }) => {
+    if (
+      String(props.location.pathname).match(/note/) !== null &&
+      props.isBtnSaveActive === true
+    ) {
+      return (
+        <li className={`${isActive(name, nameRoute)}`}>
+          <div
+            className={'link-regular'}
+            onClick={() => {
+              dispatch(setModalWindowOpened({ status: true }));
+            }}>
+            <Icon />
+            <span>{title}</span>
+          </div>
+        </li>
+      );
+    } else {
+      return (
+        <li className={`${isActive(name, nameRoute)}`}>
+          <Link to={name}>
+            <Icon />
+            <span>{title}</span>
+          </Link>
+        </li>
+      );
     }
   };
 
@@ -33,14 +66,7 @@ const Menu: React.FC = () => {
       <Logo className={'logo'} />
       <menu>
         {menuItems.map(({ title, icon: Icon, name }) => {
-          return (
-            <li className={`${isActive(name, nameRoute)}`}>
-              <Link to={name}>
-                <Icon />
-                <span>{title}</span>
-              </Link>
-            </li>
-          );
+          return windowFunctionality({ title, icon: Icon, name });
         })}
       </menu>
     </div>
@@ -50,4 +76,5 @@ const Menu: React.FC = () => {
 export default connect((state: IStore) => ({
   authStatus: !!state.authState.isAuthenticated,
   location: state.router.location,
+  isBtnSaveActive: state.saveBtnReducer.isActive,
 }))(Menu);

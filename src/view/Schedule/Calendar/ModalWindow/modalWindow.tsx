@@ -31,7 +31,7 @@ const ModalWindow: React.FC<IProps> = ({ date, setModalOpened }) => {
   );
 
   return (
-    <div className="modal-wrapper" style={{ width: windowSize.width}}>
+    <div className="modal-wrapper" style={{ width: windowSize.width }}>
       <div className="modal">
         <div className="modal-btn-wrapper">
           <div

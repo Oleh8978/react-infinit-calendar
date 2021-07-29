@@ -12,7 +12,7 @@ export const data = [
             isChecked: true,
             text: 'asdasd',
           },
-          { 
+          {
             id: 12132356453342323410,
             title: 'Create list of calls for the week ',
             isChecked: true,
@@ -24,7 +24,7 @@ export const data = [
         time: '2021-05-03T07:31:45.414Z',
         timeToDo: 40,
         items: [
-          { 
+          {
             id: 1213256865332312311,
             title: 'Create list of calls for the week ',
             isChecked: true,
@@ -130,7 +130,8 @@ export const data = [
         items: [
           {
             id: 12132768675433231359,
-            title: 'Obtain a Copy of Your State\'s LLC Articles of Organization Form ',
+            title:
+              "Obtain a Copy of Your State's LLC Articles of Organization Form ",
             isChecked: true,
             text: '',
           },
@@ -170,7 +171,7 @@ export const data = [
             text: '',
           },
         ],
-      }
+      },
     ],
   },
   {
@@ -346,7 +347,7 @@ export const data = [
         items: [
           {
             id: 1213231200002222323,
-            title: 'Set Up Your LLC in the State where you \'re Doing Business',
+            title: "Set Up Your LLC in the State where you 're Doing Business",
             isChecked: false,
             text: 'asdasdasdasd',
           },
@@ -390,7 +391,7 @@ export const data = [
             title: 'Submit Your Articles of Organization Form',
             isChecked: true,
             text: '',
-          }
+          },
         ],
       },
     ],

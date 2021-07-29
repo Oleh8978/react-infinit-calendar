@@ -44,7 +44,7 @@ const Calendar: React.FC<IProps> = ({
   daysInSchedule,
   uncompletedSchedule,
   schedule,
-                                      holidays,
+  holidays,
 }) => {
   let selectedItem = 0;
 
@@ -290,7 +290,6 @@ const Calendar: React.FC<IProps> = ({
   };
 
   const dates = daysInSchedule.map((item, i, array) => {
-
     return (
       <SwiperSlide>
         <DayInCalendar

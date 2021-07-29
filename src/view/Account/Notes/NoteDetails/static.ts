@@ -1,5 +1,5 @@
 export const styleMap = {
-  'STRIKETHROUGH': {
+  STRIKETHROUGH: {
     textDecoration: 'line-through',
     fontSize: '14px',
     fontFamily: 'Spartan',
@@ -8,7 +8,7 @@ export const styleMap = {
     letterSpacing: '-0.04em',
     color: '#1D1D1D',
   },
-  'ITALIC': {
+  ITALIC: {
     fontSize: '14px',
     fontFamily: 'Spartan',
     lineHeight: '22px',
@@ -17,7 +17,7 @@ export const styleMap = {
     fontStyle: 'italic',
     color: '#1D1D1D',
   },
-  'UNDERLINE': {
+  UNDERLINE: {
     textDecoration: 'underline',
     fontSize: '14px',
     fontFamily: 'Spartan',
@@ -26,7 +26,7 @@ export const styleMap = {
     letterSpacing: '-0.04em',
     color: '#1D1D1D',
   },
-  'BOLD': {
+  BOLD: {
     fontSize: '14px',
     fontFamily: 'Spartan',
     lineHeight: '22px',

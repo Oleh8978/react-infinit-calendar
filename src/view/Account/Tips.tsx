@@ -59,6 +59,13 @@ const Tips: React.FC<any> = ({ ...props }) => {
       setIsNew(true);
     }
   }, [props.items]);
+
+  if (
+    props.items.filter((item: TipSendShortDTO) => item.isRead === false)
+      .length === 0
+  ) {
+    return <></>;
+  }
   return (
     <>
       {props.counts && !props.loader ? (

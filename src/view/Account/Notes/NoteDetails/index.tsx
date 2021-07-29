@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { connect, useDispatch } from 'react-redux';
 import {
   EditorState,
   ContentState,
@@ -6,14 +7,30 @@ import {
   convertFromRaw,
 } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
+import _ from 'lodash';
 
 // components
 import NavigationBar from '@app/component/NavigationBar';
 import BottomComponent from './Bottom';
 import ModalWindow from '@app/component/modalWindow/modalWindow';
 
+// actions
+import {
+  getNoteByID,
+  deleteNoteByID,
+  updateNoteByID,
+} from '@app/controller/singleNote/actions';
+import { setSaveBTNStatus } from '@app/controller/saveBTN/actions';
+import { setLocalDataForNote } from '@app/controller/sendNoteReducer/actions';
+import { setModalWindowOpened } from '@app/controller/modalWindowReducer/actions';
+import { sendNoteAction } from '@app/controller/sendNoteReducer/actions';
+import { setLocalDataForNotePrevState } from '@app/controller/previouseNoteText/actions';
+
 // types
 import { Pages } from '@app/routing/schema';
+
+// interfaces
+import { IStore } from '@app/controller/model';
 
 // static
 import { styleMap } from './static';
@@ -22,47 +39,76 @@ import { datdDraft } from '../fakeData/fakeData';
 
 interface IProps {}
 
-const NoteDetails: React.FC<IProps> = () => {
+const NoteDetails: React.FC<any> = ({ ...props }) => {
   const noteDetails: Pages = 'notes';
 
-  const [text, setText] = useState<any | undefined>(
-    // EditorState.createWithContent(ContentState.createFromText('Type...')),
-    EditorState.createWithContent(convertFromRaw(JSON.parse(datdDraft))),
-  );
-  const [prevText, setPrevText] = useState<any | undefined>(
-    EditorState.createWithContent(convertFromRaw(JSON.parse(datdDraft))),
-  );
+  const [text, setText] = useState<any | undefined>(undefined);
   const [isReadOnly, setIsReadOnly] = useState<boolean>(true);
   const [isSaveActive, setIsSaveActive] = useState<boolean>(false);
   const [isBtnSaveActive, setIsBtnSaveActive] = useState<boolean>(false);
   const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
   const [isToolbarOpened, setIsToolbarOpened] = useState<boolean>(false);
-  // const [emptyState, setEmptyState] = useState<any>(EditorState.createEmpty());
+  const [noteData, setNoteData] = useState<any>(undefined);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!text) {
-      setText(EditorState.createWithContent(ContentState.createFromText('')));
-    }
-
+    console.log('text ', text);
     if (
-      JSON.stringify(convertToRaw(prevText.getCurrentContent())) !==
-      JSON.stringify(convertToRaw(text.getCurrentContent()))
+      text !== undefined &&
+      props.prevText.contnet !== undefined &&
+      _.isEqual(
+        props.prevText.contnet.replace(/[^\w\s]/gi, ''),
+        JSON.stringify(convertToRaw(text.getCurrentContent())).replace(
+          /[^\w\s]/gi,
+          '',
+        ),
+      ) === false
     ) {
-      setIsBtnSaveActive(true);
+      dispatch(setSaveBTNStatus({ isActive: true }));
     } else {
-      setIsBtnSaveActive(false);
+      dispatch(setSaveBTNStatus({ isActive: false }));
     }
 
-    if(!isReadOnly) {
+    if (!isReadOnly) {
       setIsToolbarOpened(true);
     } else {
       setIsToolbarOpened(false);
     }
-  }, [text, isSaveActive, prevText, isReadOnly]);
+  }, [text, isSaveActive, props.prevText, isReadOnly]);
+
+  useEffect(() => {
+    if (text === undefined) {
+      dispatch(getNoteByID.request({ id: props.match.params.id }));
+    }
+    if (props.note !== undefined && props.note.id !== undefined) {
+      setNoteData(props.note);
+      setText(
+        EditorState.createWithContent(
+          convertFromRaw(
+            JSON.parse(String(props.note.content).replace(/'/g, '"')),
+          ),
+        ),
+      );
+      dispatch(
+        props.setLocalDataForNotePrevState({
+          contnet: String(props.note.content).replace(/'/g, '"'),
+        }),
+      );
+    }
+  }, [props.note.id]);
 
   const onEditorStateChange = (textState) => {
     setText(textState);
-    // console.log(JSON.stringify(convertToRaw(textState.getCurrentContent())));
+    if (noteData !== undefined) {
+      props.setLocalDataForNote({
+        content: JSON.stringify(
+          convertToRaw(textState.getCurrentContent()),
+        ).replace(/"/g, "'"),
+        module: noteData.module.id,
+        user: noteData.user.id,
+        id: props.match.params.id,
+      });
+    }
   };
 
   const setIsEditable = () => {
@@ -70,75 +116,167 @@ const NoteDetails: React.FC<IProps> = () => {
     setIsSaveActive(!isSaveActive);
   };
 
+  const emptyValueChecker = (text) => {
+    const matchedData = JSON.stringify(
+      convertToRaw(text.getCurrentContent()),
+    ).match(/\"(text)\"\:\"(.*?)\"/g);
+    if (
+      matchedData
+        .filter((item) => item.match(/:"(.*)"/g))
+        .map((item) => {
+          if (item.length > 9) {
+            return true;
+          }
+        })
+        .filter((item) => item === true).length !== 0
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   const save = () => {
     setIsReadOnly(true);
     setIsSaveActive(false);
-    setIsModalOpened(false);
-    setPrevText(text);
+    dispatch(setModalWindowOpened({ status: false }));
+    dispatch(
+      setLocalDataForNotePrevState({
+        contnet: EditorState.createWithContent(
+          convertFromRaw(JSON.parse(String(text).replace(/'/g, '"'))),
+        ),
+      }),
+    );
+    saveBtnBackEndFunctionality(text);
   };
 
   const discard = () => {
     setIsReadOnly(true);
     setIsSaveActive(false);
-    setIsModalOpened(false);
-    setText(
-      EditorState.createWithContent(convertFromRaw(JSON.parse(datdDraft))),
-    );
+    if (props.prevText.contnet !== undefined) {
+      setText(
+        EditorState.createWithContent(
+          convertFromRaw(
+            JSON.parse(String(props.prevText.contnet).replace(/'/g, '"')),
+          ),
+        ),
+      );
+      // setText(props.prevText.contnet);
+    }
+    dispatch(setModalWindowOpened({ status: false }));
   };
 
   const modalToogle = () => {
     setIsModalOpened(!isModalOpened);
   };
 
+  const saveBtnBackEndFunctionality = (text) => {
+    if (emptyValueChecker(text) === false) {
+      dispatch(
+        updateNoteByID.request({
+          content: String(
+            JSON.stringify(convertToRaw(text.getCurrentContent())).replace(
+              /"/g,
+              "'",
+            ),
+          ),
+          module: props.note.module.id,
+          user: props.user,
+          id: props.note.id,
+        }),
+      );
+    } else {
+      dispatch(deleteNoteByID.request([Number(props.note.id)]));
+    }
+  };
+
   const saveBtnFunctionality = () => {
-    setPrevText(text);
+    dispatch(
+      setLocalDataForNotePrevState({
+        contnet: EditorState.createWithContent(
+          convertFromRaw(JSON.parse(String(text).replace(/'/g, '"'))),
+        ),
+      }),
+    );
+    // setPrevText(text);
     setIsReadOnly(true);
     setIsSaveActive(false);
+    emptyValueChecker(text);
+    saveBtnBackEndFunctionality(text);
   };
 
   return (
-    <div className={'notes'}>
-      {isModalOpened ? <ModalWindow save={save} discard={discard} /> : <> </>}
-      <NavigationBar
-        name={'date'}
-        isNotes={true}
-        page={noteDetails}
-        setIsEditable={setIsEditable}
-        isSaveActive={isSaveActive}
-        isBtnSaveActive={isBtnSaveActive}
-        modalToogle={modalToogle}
-        saveBtnFunctionality={saveBtnFunctionality}
-      />
-      <div className={`notes-details-wrapper ${isToolbarOpened ? '' : 'closed'}`}>
-        <>
-          <Editor
-            customStyleMap={styleMap}
-            defaultEditorState={text}
-            onEditorStateChange={onEditorStateChange}
-            toolbarOnFocus
-            readOnly={isReadOnly}
-            editorState={text}
-            toolbar={{
-              options: ['inline', 'list'],
-              inline: {
-                options: ['bold', 'italic', 'underline', 'strikethrough'],
-              },
-              list: {
-                inDropdown: false,
-                options: ['unordered', 'ordered'],
-              },
-            }}
+    <>
+      {text ? (
+        <div className={'notes'}>
+          {props.modalWindowState ? (
+            <ModalWindow save={save} discard={discard} />
+          ) : (
+            <> </>
+          )}
+          <NavigationBar
+            name={'date'}
+            isNotes={true}
+            page={noteDetails}
+            setIsEditable={setIsEditable}
+            isSaveActive={isSaveActive}
+            isBtnSaveActive={isBtnSaveActive}
+            modalToogle={modalToogle}
+            saveBtnFunctionality={saveBtnFunctionality}
           />
-          <div className="notes-details-wrapper-bottom">
-            <BottomComponent
-              title={'Customer Relationship Management'}
-              subtitle={'Management | Create List of Calls for the Week '}
-            />
+          <div
+            className={`notes-details-wrapper ${
+              isToolbarOpened ? '' : 'closed'
+            }`}>
+            <>
+              <Editor
+                customStyleMap={styleMap}
+                defaultEditorState={text}
+                onEditorStateChange={onEditorStateChange}
+                toolbarOnFocus
+                readOnly={isReadOnly}
+                editorState={text}
+                toolbar={{
+                  options: ['inline', 'list'],
+                  inline: {
+                    options: ['bold', 'italic', 'underline', 'strikethrough'],
+                  },
+                  list: {
+                    inDropdown: false,
+                    options: ['unordered', 'ordered'],
+                  },
+                }}
+              />
+              <div className="notes-details-wrapper-bottom">
+                <BottomComponent
+                  title={'Customer Relationship Management'}
+                  subtitle={'Management | Create List of Calls for the Week '}
+                  moduleId={25}
+                />
+              </div>
+            </>
           </div>
-        </>
-      </div>
-    </div>
+        </div>
+      ) : (
+        <></>
+      )}
+    </>
   );
 };
 
-export default NoteDetails;
+export default connect(
+  (state: IStore) => ({
+    note: state.singleNoteReducer.state,
+    loader: state.singleNoteReducer.loaderState.status,
+    user: state.authState.user.id,
+    notes: state.moduleState.moduleData,
+    modalWindowState: state.ModalWindowReducer.status,
+    prevText: state.notePrevStateReducer.state,
+  }),
+  {
+    getNoteByID,
+    setSaveBTNStatus,
+    setLocalDataForNote,
+    setLocalDataForNotePrevState,
+  },
+)(NoteDetails);

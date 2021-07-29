@@ -31,8 +31,10 @@ const JourneyCompletedItem: React.FC<IProps> = ({ ...props }) => {
               className={
                 'journey-completed-item-body-description-progress__top'
               }>
-              {Math.round((props.data.statistic.completedTaskCount / 100) *
-                props.data.statistic.maxTaskCount)}
+              {Math.round(
+                (props.data.statistic.completedTaskCount / 100) *
+                  props.data.statistic.maxTaskCount,
+              )}
               %
             </span>
             <span

@@ -25,7 +25,7 @@ export const updateUserDataAction = createAsyncAction(
   `${appName}/${widgetName}/REFRESH_TOKEN_REQUEST`,
   `${appName}/${widgetName}/REFRESH_TOKEN_SUCCESS`,
   `${appName}/${widgetName}/REFRESH_TOKEN_FAILED`,
-)<IUserDataExtended, IUserDataExtended, IException>();
+)<IUserDataExtended, any, IException>();
 
 // export const LoaderAction = createAction(`${widgetName}/SET_LOADER_ACTION`)<{
 //   code?: number | undefined | string;

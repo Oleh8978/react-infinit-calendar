@@ -28,11 +28,10 @@ const initialState: IStatisticState = {
   journeys: {},
 };
 
-
-export const statisticByJourneyReducer = createReducer<IStatisticState, ActionTypes>(
-  initialState,
-  loaderHandlersForStatistics,
-)
+export const statisticByJourneyReducer = createReducer<
+  IStatisticState,
+  ActionTypes
+>(initialState, loaderHandlersForStatistics)
   .handleAction(
     actions.getJourneyStatisticAction.success,
     (state: IStatisticState, { payload }): IStatisticState => ({
@@ -40,7 +39,8 @@ export const statisticByJourneyReducer = createReducer<IStatisticState, ActionTy
       journeys: {
         ...state.journeys,
         [payload.response.journey.id]: {
-          statistic: payload.response.journey.statistic, modules: payload.response.modules,
+          statistic: payload.response.journey.statistic,
+          modules: payload.response.modules,
         },
       },
     }),
@@ -58,7 +58,8 @@ export const addError = loaderActions.actions.addError;
 export const removeError = loaderActions.actions.removeError;
 export const removeLoader = loaderActions.actions.removeLoader;
 
-export const getStatisticByJourney = (state: IStore): IStatisticState['journeys'] =>
-  state.statisticByJourneyReducer.journeys;
+export const getStatisticByJourney = (
+  state: IStore,
+): IStatisticState['journeys'] => state.statisticByJourneyReducer.journeys;
 export const getLoader = (state: IStore): ILoader[] =>
   state.statisticByJourneyReducer.state.loaders;

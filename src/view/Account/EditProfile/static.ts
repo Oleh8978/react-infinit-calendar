@@ -6,22 +6,26 @@ export const PersonalInfo = {
   details: [
     {
       name: 'First name',
+      nameP: 'John',
       isRequired: true,
       subname: 'firstName',
     },
     {
       name: 'Last name',
+      nameP: 'Johnson',
       isRequired: true,
       subname: 'lastName',
     },
     {
       name: 'Email',
+      nameP: 'email@email.com',
       isRequired: true,
       isEmail: true,
       subname: 'email',
     },
     {
       name: 'Phone',
+      nameP: '232-131-2312',
       isRequired: true,
       phone: 'phone',
       subname: 'phone',
@@ -34,21 +38,25 @@ export const BillingAddress = {
   details: [
     {
       name: 'Street',
+      nameP: 'Sesame',
       isRequired: false,
       subname: 'street',
     },
     {
       name: 'City',
+      nameP: 'Seattle',
       isRequired: false,
       subname: 'city',
     },
     {
       name: 'State',
+      nameP: 'Washington',
       isRequired: false,
       subname: 'state',
     },
     {
       name: 'Zip Code',
+      nameP: '98101',
       isRequired: false,
       subname: 'zipCode',
     },
@@ -120,4 +128,3 @@ export const aryIannaTimeZones = [
     name: 'Santiago',
   },
 ];
-

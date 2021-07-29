@@ -7,7 +7,9 @@ class API {
     data: { id: number | string },
     accessToken: string,
   ): Promise<StatisticGetJourneyResponse | string> {
-    const url = new URL(Config.MAIN_SERVICE_ENDPOINT + `statistic/journey/${data.id}`);
+    const url = new URL(
+      Config.MAIN_SERVICE_ENDPOINT + `statistic/journey/${data.id}`,
+    );
 
     return handleErrors(
       fetch(url.toString(), {

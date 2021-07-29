@@ -8,7 +8,7 @@ const TipsComponent: React.FC<IProps> = ({ ...props }) => {
   return (
     <>
       <div className="overview-tips">
-          <span className="overview-tips-text">{props.text}</span>
+        <span className="overview-tips-text">{props.text}</span>
       </div>
     </>
   );

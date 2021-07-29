@@ -3,7 +3,12 @@ import { createAction, createAsyncAction } from 'typesafe-actions';
 import { appName } from '@app/config';
 
 //Interfaces
-import { ILoaderState, IErrorState, IStatisticsListState, IJourney} from './models';
+import {
+  ILoaderState,
+  IErrorState,
+  IStatisticsListState,
+  IJourney,
+} from './models';
 
 // const for ath actions
 export const widgetName = 'STATISTIC_LIST';
@@ -19,4 +24,3 @@ export const getStatisticList = createAsyncAction(
   `${appName}/${widgetName}/STATISTIC_LIST_SUCCESS`,
   `${appName}/${widgetName}/STATISTIC_LIST_FAILURE`,
 )<any, IJourney[], IErrorState>();
-

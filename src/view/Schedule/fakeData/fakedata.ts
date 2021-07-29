@@ -12,15 +12,13 @@ export const data = {
     {
       date: 'Mon Apr 25 2021 22:13:44 GMT+0300 (Eastern European Summer Time)',
       status: 'uncompleted',
-      description:
-        'Module Title - Time Slot Title',
+      description: 'Module Title - Time Slot Title',
       time: 100,
     },
     {
       date: 'Mon Apr 25 2021 23:13:44 GMT+0300 (Eastern European Summer Time)',
       status: 'completed',
-      description:
-        'Accounting - Create a List of Calls for the Week ',
+      description: 'Accounting - Create a List of Calls for the Week ',
       time: 100,
     },
   ],
@@ -31,14 +29,13 @@ export const prevDataUncompleted = [
     date: 'Mon May 10 2021 23:13:44 GMT+0300 (Eastern European Summer Time)',
     tasks: [
       {
-        date:
-          'Mon May 10  2021 23:13:44 GMT+0300 (Eastern European Summer Time)',
+        date: 'Mon May 10  2021 23:13:44 GMT+0300 (Eastern European Summer Time)',
         description: 'Hiring - Small Business Lawyer - Why and How to Hire One',
       },
       {
-        date:
-          'Mon May 10  2021 23:13:44 GMT+0300 (Eastern European Summer Time)',
-        description: 'Hiring - Why You Should Hire A Bookkeeper for Your Business',
+        date: 'Mon May 10  2021 23:13:44 GMT+0300 (Eastern European Summer Time)',
+        description:
+          'Hiring - Why You Should Hire A Bookkeeper for Your Business',
       },
     ],
   },
@@ -46,8 +43,7 @@ export const prevDataUncompleted = [
     date: 'Mon May 3 2021 23:13:44 GMT+0300 (Eastern European Summer Time)',
     tasks: [
       {
-        date:
-          'Mon May 3 2021 23:13:44 GMT+0300 (Eastern European Summer Time)',
+        date: 'Mon May 3 2021 23:13:44 GMT+0300 (Eastern European Summer Time)',
         description: 'Legal',
       },
     ],
@@ -61,29 +57,25 @@ export const events = [
     hasAnyEvents: true,
     events: [
       {
-        date:
-          'Tu May 18  2021 13:13:44 GMT+0300 (Eastern European Summer Time)',
+        date: 'Tu May 18  2021 13:13:44 GMT+0300 (Eastern European Summer Time)',
 
         tasks: [
           {
-            date:
-              'Tu May 18  2021 13:13:44 GMT+0300 (Eastern European Summer Time)',
+            date: 'Tu May 18  2021 13:13:44 GMT+0300 (Eastern European Summer Time)',
             status: 'completed',
             description:
               'Thinking About Plans for the Week About Plans for the  week About Plans for the ... ',
             time: 200,
           },
           {
-            date:
-              'Tu May 18  2021 22:13:44 GMT+0300 (Eastern European Summer Time)',
+            date: 'Tu May 18  2021 22:13:44 GMT+0300 (Eastern European Summer Time)',
             status: 'uncompleted',
             description:
               'Thinking About Plans for the Week About Plans for the  week About Plans for the ... ',
             time: 100,
           },
           {
-            date:
-              'Tu May 18  2021 23:13:44 GMT+0300 (Eastern European Summer Time)',
+            date: 'Tu May 18  2021 23:13:44 GMT+0300 (Eastern European Summer Time)',
             status: 'completed',
             description:
               'Thinking About Plans for the Week About Plans for the  week About Plans for the ... ',

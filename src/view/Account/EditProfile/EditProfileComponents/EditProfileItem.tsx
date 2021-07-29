@@ -124,7 +124,8 @@ const EdditBodyElementItem: React.FC<IProps> = ({ ...props }) => {
       return (
         <InputMask
           maskChar={null}
-          mask={'+9-999-999-9999'}
+          mask={'+9-999-999-9999999999'}
+          placeholder={'232-131-2312'}
           onChange={handleChange}
           value={value || props.data.default}
           className="edditprofile-body-itemWrapper-element-container-input"
@@ -138,7 +139,7 @@ const EdditBodyElementItem: React.FC<IProps> = ({ ...props }) => {
             onChange={handleChange}
             type={props.data.isEmail ? 'email' : 'text'}
             className="edditprofile-body-itemWrapper-element-container-input"
-            placeholder={props.data.name}
+            placeholder={props.data.nameP}
             value={value || valueForInput(props.data.default)}
           />
         </>
@@ -185,6 +186,7 @@ const EdditBodyElementItem: React.FC<IProps> = ({ ...props }) => {
         <InputMask
           maskChar={null}
           mask={'999999999'}
+          placeholder={props.data.nameP}
           onChange={handleChange}
           value={value || props.data.default}
           className="edditprofile-body-itemWrapper-element-container-input"
@@ -198,7 +200,7 @@ const EdditBodyElementItem: React.FC<IProps> = ({ ...props }) => {
             onChange={handleChange}
             type={props.data.isEmail ? 'email' : 'text'}
             className="edditprofile-body-itemWrapper-element-container-input"
-            placeholder={props.data.name}
+            placeholder={props.data.nameP}
             value={value || valueForInput(props.data.default)}
           />
         </>
@@ -207,6 +209,7 @@ const EdditBodyElementItem: React.FC<IProps> = ({ ...props }) => {
   };
 
   const colorSetter = () => {
+    console.log('validation state ', props.validationState);
     if (props.validationState !== undefined) {
       if (props.validationState.length === 0) {
         return;
@@ -220,16 +223,60 @@ const EdditBodyElementItem: React.FC<IProps> = ({ ...props }) => {
         return 'red';
       }
 
-      return '#E9E9E9';
+      return '#1D1D1D';
+    }
+  };
+
+  const validationSetter = () => {
+    if (props.validationState !== undefined) {
+      if (props.validationState.length === 0) {
+        return <></>;
+      }
+
+      const elem = props.validationState.filter(
+        (item) => item.name === props.data.subname,
+      );
+
+      if (elem[0].isValid === false || elem[0].hasAnyError === true) {
+        let value = 'This field should not be empty';
+
+        if (props.data.subname === 'phone') {
+          value = 'Should not be less than 10 digits';
+        }
+
+        if (props.data.subname === 'email') {
+          const at = String(elem[0].value).search(/@/g);
+          const dot = String(elem[0].value).search(/\./g);
+
+          if (String(at) === '-1' && String(dot) === '-1') {
+            value = 'missing "@" and "." ';
+          }
+
+          if (String(at) === '-1' && String(dot) !== '-1') {
+            value = 'missing "@" ';
+          } else if (String(dot) === '-1' && String(at) !== '-1') {
+            value = 'missing "." ';
+          }
+        }
+        return (
+          <>
+            <div className="warning-plate">
+              <div className="warning-corner"></div>
+              <div className="warning-message">{value}</div>
+            </div>
+          </>
+        );
+      }
+
+      return <></>;
     }
   };
   return (
-    <div
-      className={'edditprofile-body-itemWrapper-element'}
-      style={{ borderBottom: `1px solid ${colorSetter()}` }}>
+    <div className={'edditprofile-body-itemWrapper-element'}>
       <div className="edditprofile-body-itemWrapper-element-container">
         <span
-          className={`edditprofile-body-itemWrapper-element-container-name`}>
+          className={`edditprofile-body-itemWrapper-element-container-name`}
+          style={{ color: `${colorSetter()}` }}>
           {props.data.name}
           <>
             {props.data.isRequired ? (
@@ -240,6 +287,7 @@ const EdditBodyElementItem: React.FC<IProps> = ({ ...props }) => {
               <> </>
             )}
           </>
+          {validationSetter()}
         </span>
         <>{fieldReturner()}</>
       </div>

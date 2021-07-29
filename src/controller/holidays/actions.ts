@@ -5,8 +5,11 @@ import { appName } from '@app/config';
 import { IException } from './models';
 import {
   HolidayDeleteRequest,
-  HolidayDeleteResponse, HolidayExcludeCreateRequest, HolidayExcludeCreateResponse,
-  HolidayGetListRequest, HolidayGetListResponse,
+  HolidayDeleteResponse,
+  HolidayExcludeCreateRequest,
+  HolidayExcludeCreateResponse,
+  HolidayGetListRequest,
+  HolidayGetListResponse,
   HolidayGetResponse,
 } from '@ternala/frasier-types';
 
@@ -24,7 +27,13 @@ export const deleteHolidayDataAction = createAsyncAction(
   `${appName}/${widgetName}/DELETE_HOLIDAY_REQUEST`,
   `${appName}/${widgetName}/DELETE_HOLIDAY_SUCCESS`,
   `${appName}/${widgetName}/DELETE_HOLIDAY_FAILED`,
-)<HolidayExcludeCreateRequest, HolidayExcludeCreateResponse & { additionalFields: HolidayExcludeCreateRequest}, IException>();
+)<
+  HolidayExcludeCreateRequest,
+  HolidayExcludeCreateResponse & {
+    additionalFields: HolidayExcludeCreateRequest;
+  },
+  IException
+>();
 
 export const LoaderAction = createAction(`${widgetName}/SET_LOADER_ACTION`)<{
   code?: number | undefined | string;

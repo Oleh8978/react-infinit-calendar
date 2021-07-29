@@ -4,7 +4,7 @@ export const model = '';
 
 import { defaultState } from '../based';
 
-export interface ModuleExpandDTO extends ModuleGetResponse{
+export interface ModuleExpandDTO extends ModuleGetResponse {
   timeSlotData?: IDayWithTimeSlots;
   uncompletedTimeSlotData?: IDayWithTimeSlots;
 }

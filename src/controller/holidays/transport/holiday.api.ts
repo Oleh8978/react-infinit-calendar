@@ -44,13 +44,15 @@ class API {
     data: HolidayExcludeCreateRequest,
     accessToken: string,
   ): Promise<HolidayExcludeCreateResponse | string> {
-    const url = new URL(Config.MAIN_SERVICE_ENDPOINT + `holiday-exclude/create`);
+    const url = new URL(
+      Config.MAIN_SERVICE_ENDPOINT + `holiday-exclude/create`,
+    );
 
     return handleErrors(
       fetch(url.toString(), {
         method: 'POST',
         body: JSON.stringify({
-          holiday: data.holiday
+          holiday: data.holiday,
         }),
         headers: {
           ...authHeader(accessToken),

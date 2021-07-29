@@ -1,3 +1,3 @@
 export const styleBTNSetter = (name: string) => {
-    console.log('styled');
-}
+  console.log('styled');
+};

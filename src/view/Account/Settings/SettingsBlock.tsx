@@ -15,6 +15,7 @@ import { getSavedAccess } from '@app/utils/manageAccess';
 
 // interfaces
 import { IStore } from '@app/controller/model';
+import { IAuthState } from '@app/controller/auth/model';
 import { ISetting } from './Models';
 
 interface IProps {
@@ -24,26 +25,45 @@ interface IProps {
   name?: string;
   isCanSendEmail: boolean;
   isCanSendSMS: boolean;
+  user: IAuthState;
 }
 
-const SettingsBlock: React.FC<any> = ({ ...props }) => {
-  const [mail, setMail] = useState<boolean>(false);
-  const [sms, setSms] = useState<boolean>(false);
+const SettingsBlock: React.FC<IProps> = ({ ...props }) => {
+  const [mail, setMail] = useState<boolean>(props.isCanSendEmail);
+  const [sms, setSms] = useState<boolean>(props.isCanSendSMS);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (props.isCanSendEmail === undefined) {
-      dispatch(loginByTokenAction(getSavedAccess()));
-    }
+  // useEffect(() => {
+  //   if (
+  //     props.isCanSendEmail !== undefined &&
+  //     props.isCanSendSMS !== undefined
+  //   ) {
+  //     setMail(props.isCanSendEmail);
+  //     setSms(props.isCanSendSMS);
+  //   }
+  // }, []);
 
-    if (
-      props.isCanSendEmail !== undefined &&
-      props.isCanSendSMS !== undefined
-    ) {
-      setMail(props.isCanSendEmail);
-      setSms(props.isCanSendSMS);
-    }
-  }, []);
+  const authStateUpdater = (auThMail?: boolean, auThSms?: boolean) => {
+    dispatch(
+      signIn.success({
+        error: props.user.error,
+        accessToken: props.user.accessToken,
+        refreshToken: props.user.accessToken,
+        user: {
+          createdAt: props.user.user.createdAt,
+          id: props.user.user.id,
+          isCanSendEmail: auThMail !== undefined ? auThMail : mail,
+          isCanSendSMS: auThSms !== undefined ? auThSms : sms,
+          isNeedSecondStep: props.user.user.isNeedSecondStep,
+          userData: props.user.user.userData,
+          userAuthorizations: props.user.user.userAuthorizations,
+        },
+        isAuthenticated: props.user.isAuthenticated,
+        state: props.user.state,
+        deviceCredentials: props.user.deviceCredentials,
+      }),
+    );
+  };
 
   const functionality = (name: string) => {
     if (name === 'sms') {
@@ -56,6 +76,7 @@ const SettingsBlock: React.FC<any> = ({ ...props }) => {
           accessToken: getSavedAccess().accessToken,
         }),
       );
+      authStateUpdater(undefined, !sms);
       setSms(!sms);
     } else {
       dispatch(
@@ -67,6 +88,7 @@ const SettingsBlock: React.FC<any> = ({ ...props }) => {
           accessToken: getSavedAccess().accessToken,
         }),
       );
+      authStateUpdater(!mail, undefined);
       setMail(!mail);
     }
   };
