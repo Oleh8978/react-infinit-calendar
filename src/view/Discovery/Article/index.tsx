@@ -103,7 +103,7 @@ export const generateContent = (section) => {
 
 const Article: React.FC<IProps> = (props) => {
   const [isLoading, setLoading] = useState<boolean>(true);
-  const [article, setArticle] = useState<ArticleDTO | undefined>();
+  const [article, setArticle] = useState<any | undefined>();
   const id = Number(props.match.params.id);
 
   if (isNaN(id))

@@ -132,10 +132,13 @@ const TaskList: React.FC<IProps> = ({
       </div>
       {uncompletedDays ? (
         <>
-          {isFirstLoaded || Boolean(loader.filter((item) => item.type === LoaderAction.schedule.getUncompletedTimeSlots)
-            .length) && (
-            <Loader isSmall={true} isAbsolute={true} />
-          )}
+          {isFirstLoaded ||
+            (Boolean(
+              loader.filter(
+                (item) =>
+                  item.type === LoaderAction.schedule.getUncompletedTimeSlots,
+              ).length,
+            ) && <Loader isSmall={true} isAbsolute={true} />)}
 
           <div className={'modules-list__uncompleted'}>
             <h1 className={'modules-list__uncompleted-header'}>

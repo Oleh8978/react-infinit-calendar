@@ -41,7 +41,7 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
             {/* ) : ( */}
             <div className="discovery-list-holder">
               {discoveryItems.length > 0 &&
-                discoveryItems.map((item): DiscoveryDTO => {
+                discoveryItems.map((item: any): DiscoveryDTO => {
                   // if (item.article.appearance === 'small') {
                   // return (
                   //   <div className="discovery-list-item-holder">

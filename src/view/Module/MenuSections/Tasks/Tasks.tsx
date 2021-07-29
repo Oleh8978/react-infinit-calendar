@@ -388,12 +388,12 @@ const Task: React.FC<IProps> = ({ id }) => {
   };
 
   const toggleUncompletedTask = ({
-                        id,
-                        date,
-                        timeSlot,
-                        action,
-                        callback,
-                      }: {
+    id,
+    date,
+    timeSlot,
+    action,
+    callback,
+  }: {
     id: number;
     date: Moment;
     timeSlot: number;
@@ -477,11 +477,14 @@ const Task: React.FC<IProps> = ({ id }) => {
           <NoTasks />
         )}
 
-        {hasUncompleted ? <Uncompleted
-          prevData={uncompletedWithoutSelectedDay}
-          toggleTask={toggleUncompletedTask}
-        /> : <></>}
-
+        {hasUncompleted ? (
+          <Uncompleted
+            prevData={uncompletedWithoutSelectedDay}
+            toggleTask={toggleUncompletedTask}
+          />
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

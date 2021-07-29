@@ -16,7 +16,6 @@ import Notes from '@app/view/Account/Notes/index';
 import SubmitQuestion from '@app/view/Discovery/SubmitQuestion/SubmitQuestion';
 import Article from '@app/view/Discovery/Article/index';
 import ReadMore from '@app/view/Module/MenuSections/ReadMore/ReadMore';
-import ExpertHelp from '@app/view/Module/MenuSections/ExpertHelp/ExpertHelp';
 import NoteDetails from '@app/view/Account/Notes/NoteDetails/index';
 import EdditProfile from '@app/view/Account/EditProfile/index';
 import ConnectedAccount from '@app/view/Account/ConnectedAccount/index';
@@ -28,6 +27,7 @@ import Holiday from '@app/view/Schedule/Holiday/Holiday';
 import Task from '@app/view/Task';
 import Checkout from '@app/view/Journey/Checkout';
 import TipsInfo from '@app/view/Account/TipFolder/index';
+import ExpertHelp from '@app/view/Module/MenuSections/ExpertHelp/ExpertHelp';
 
 // Interfaces
 export interface IRoute {
@@ -185,7 +185,7 @@ class RoutingSchema {
     },
     {
       name: 'expert-help',
-      path: '/expert-help',
+      path: '/expert-help/expert',
       isExact: true,
       component: ProtectedRoute(ExpertHelp, 'ANONYMOUS_USERS'),
     },

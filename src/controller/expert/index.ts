@@ -26,11 +26,12 @@ const initialState: IExpertState = {
   },
 };
 
-export type NotesActionType = ActionType<typeof actions>;
+export type SingleExpertActionType = ActionType<typeof actions>;
 
-export const GetNotesListReducer = createReducer<IExpertState, NotesActionType>(
-  initialState,
-)
+export const SingleExpertReducer = createReducer<
+  IExpertState,
+  SingleExpertActionType
+>(initialState)
   .handleAction(
     actions.setLoadingAction,
     (state: IExpertState, { payload }): IExpertState => ({

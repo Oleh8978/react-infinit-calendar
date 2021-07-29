@@ -37,6 +37,13 @@ import { singleNoteSendSaga } from '@app/controller/sendNoteReducer/sagas/index'
 import { ModalWindowReducer } from '@app/controller/modalWindowReducer/index';
 import { notePrevStateReducer } from '@app/controller/previouseNoteText/index';
 import { notePrevStateReducerModule } from '@app/controller/previouseNoteTextModule/index';
+import { ArticleListReducer } from '@app/controller/articles/index';
+import { ArticleListSgas } from '@app/controller/articles/sagas/index';
+import { ExpertListReducer } from '@app/controller/experts/index';
+import { ExpertsListSaga } from '@app/controller/experts/sagas/index';
+import { ExpertSelectedStateReducer } from '@app/controller/selectedExpert/index';
+import { SingleExpertReducer } from '@app/controller/expert/index';
+import { getExpert } from '@app/controller/expert/sagas/index';
 
 export const rootSaga = function* () {
   yield all([
@@ -60,6 +67,9 @@ export const rootSaga = function* () {
     getStaticPageSaga(),
     getStaticListPagesSaga(),
     singleNoteSendSaga(),
+    ArticleListSgas(),
+    ExpertsListSaga(),
+    getExpert(),
   ]);
 };
 
@@ -90,4 +100,8 @@ export const rootReducer = (history: History): Reducer =>
     ModalWindowReducer: ModalWindowReducer,
     notePrevStateReducer: notePrevStateReducer,
     notePrevStateReducerModule: notePrevStateReducerModule,
+    articleListReducer: ArticleListReducer,
+    expertListReducer: ExpertListReducer,
+    ExpertSelectedStateReducer: ExpertSelectedStateReducer,
+    SingleExpertReducer: SingleExpertReducer,
   });
