@@ -4,7 +4,6 @@ import EmojiRandomizer from '@app/component/emojiRandomizer';
 interface IProps {}
 
 const WellDone: React.FC<IProps> = () => {
-
   return (
     <div className={'welldone'}>
       <div className={'welldone-wrapper'}>

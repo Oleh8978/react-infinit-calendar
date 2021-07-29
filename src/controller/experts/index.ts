@@ -34,10 +34,9 @@ const initialState: IExpertsState = {
 
 export type ExpertsListState = ActionType<typeof actions>;
 
-export const GetNotesListReducer = createReducer<
-  IExpertsState,
-  ExpertsListState
->(initialState)
+export const ExpertListReducer = createReducer<IExpertsState, ExpertsListState>(
+  initialState,
+)
   .handleAction(
     actions.setLoadingAction,
     (state: IExpertsState, { payload }): IExpertsState => ({
@@ -52,7 +51,7 @@ export const GetNotesListReducer = createReducer<
     (state: IExpertsState, { payload }): IExpertsState => {
       const storedSearchParams = { ...state.storedSearchParams };
       const { searchParams }: any = payload;
-
+      console.log('payload ', payload);
       let newExpertsList;
       if (
         JSON.stringify(omit(storedSearchParams, ['limit', 'offset'])) ===
@@ -68,7 +67,7 @@ export const GetNotesListReducer = createReducer<
         });
         newExpertsList = concatWithUnique<ExpertDTO>(
           state.state.items || [],
-          payload.response.items.map((item) => item),
+          updateArray,
         );
       } else {
         newExpertsList = concatWithUnique<ExpertDTO>(

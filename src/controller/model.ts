@@ -29,6 +29,10 @@ import { INoteSend } from '@app/controller/sendNoteReducer/models';
 import { IModalWindowState } from '@app/controller/modalWindowReducer/models';
 import { INotePrevState } from '@app/controller/previouseNoteText/model';
 import { INotePrevStateModule } from '@app/controller/previouseNoteTextModule/model';
+import { IArticleListState } from '@app/controller/articles/models';
+import { IExpertsState } from '@app/controller/experts/models';
+import { ISelectedExpert } from '@app/controller/selectedExpert/models';
+import { IExpertState } from '@app/controller/expert/models';
 
 export interface IStore {
   router: RouterState;
@@ -56,6 +60,10 @@ export interface IStore {
   ModalWindowReducer: IModalWindowState;
   notePrevStateReducer: INotePrevState;
   notePrevStateReducerModule: INotePrevStateModule;
+  articleListReducer: IArticleListState;
+  expertListReducer: IExpertsState;
+  ExpertSelectedStateReducer: ISelectedExpert;
+  SingleExpertReducer: IExpertState;
 }
 
 export interface ISimpleState {

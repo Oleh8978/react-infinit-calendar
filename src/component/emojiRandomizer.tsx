@@ -54,14 +54,18 @@ const EmojiRandomizer: React.FC<IProps> = ({ ...props }) => {
   const [randomEmojiIndex, setRandomEmojiIndex] = useState<number>(undefined);
 
   useEffect(() => {
-    setRandomEmojiIndex(Math.floor(Math.random() * emojiSet.length))
-  }, [])
+    setRandomEmojiIndex(Math.floor(Math.random() * emojiSet.length));
+  }, []);
 
   return (
     <>
-      {randomEmojiIndex !== undefined ? <img className={'emoji'} src={emojiSet[randomEmojiIndex].img} alt='' /> : <></>}
+      {randomEmojiIndex !== undefined ? (
+        <img className={'emoji'} src={emojiSet[randomEmojiIndex].img} alt="" />
+      ) : (
+        <></>
+      )}
     </>
-    );
-}
+  );
+};
 
 export default EmojiRandomizer;

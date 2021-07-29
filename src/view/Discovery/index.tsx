@@ -206,7 +206,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
     if (
       ids.filter((elem) => elem === id).length === 0 &&
       articleCategories
-        .filter((elem) => elem.id === id)[0]
+        .filter((elem: any) => elem.id === id)[0]
         .title.toLowerCase() !== 'journeys'
     ) {
       setIds([id]);
@@ -223,7 +223,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       setIsJourneyClicked(false);
     } else if (
       articleCategories
-        .filter((elem) => elem.id === id)[0]
+        .filter((elem: any) => elem.id === id)[0]
         .title.toLowerCase() === 'journeys' &&
       isJourneyClicked === false
     ) {
@@ -240,7 +240,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       setDiscovery(undefined);
     } else if (
       articleCategories
-        .filter((elem) => elem.id === id)[0]
+        .filter((elem: any) => elem.id === id)[0]
         .title.toLowerCase() === 'journeys' &&
       isJourneyClicked === true
     ) {
