@@ -12,6 +12,9 @@ import moment from 'moment';
 import { JourneyGetResponse } from '@ternala/frasier-types';
 import JourneyStatisticTable from '@app/view/Journey/JourneyStatisticTable';
 import parse from 'html-react-parser';
+import { generateContent } from '@app/view/Discovery/Article';
+import sectionsContent from '@app/component/sectionsContent';
+import SectionsContent from '@app/component/sectionsContent';
 
 interface IProps {
   journey: JourneyGetResponse;
@@ -34,7 +37,7 @@ const JourneyDescription: React.FC<IProps> = ({ journey, statistic, isConnected,
     },
     { id : '2',
       tabTitle: "Description",
-      tabContent: <TextComponent data={parse(journey.subTitle)} />
+      tabContent: <SectionsContent journey={journey} />
     }
   ]
 
@@ -128,9 +131,16 @@ const JourneyDescription: React.FC<IProps> = ({ journey, statistic, isConnected,
               }
             })}
           </div>
-          <TextComponent
-            data={parse(journey.subTitle)}
-          />
+          <div>
+            <TextComponent data={journey.subTitle} isSubtitle={true} />
+            {journey.sections.sort((el1, el2) => {
+              if(el1.orderNumber < el2.orderNumber) return -1
+              if(el1.orderNumber > el2.orderNumber) return 1
+              return 0
+            }).map((section) => <TextComponent
+              data={generateContent(section)} />
+            )}
+          </div>
         </>
       )}
     </div>

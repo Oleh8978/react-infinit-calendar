@@ -1,14 +1,21 @@
 import React from 'react';
+import parse from 'html-react-parser';
 
 interface IProps {
-  data: string | JSX.Element | JSX.Element[];
+  data: string | JSX.Element;
+  isSubtitle?: boolean;
 }
 
 const TextComponent: React.FC<IProps> = ({ ...props }) => {
+  console.log(props.data)
   return (
-    <div className={'journeyinfo-body-textcomponent'}>
-      <span className="journeyinfo-body-textcomponent-text">{props.data}</span>
-    </div>
+    <>
+      {props.isSubtitle ? <div className={'journeyinfo-body-textcomponent subtitle'}>
+        {parse(String(props.data))}
+      </div> : <div className={'journeyinfo-body-textcomponent'}>
+        {props.data}
+      </div>}
+    </>
   );
 };
 
