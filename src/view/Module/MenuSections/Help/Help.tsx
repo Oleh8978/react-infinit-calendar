@@ -31,10 +31,19 @@ const Help: React.FC<any> = ({ ...props }) => {
     }
   }, [props.expertState.items, props.moduleId]);
 
+  console.log('moduleInfo ', props.moduleInfo)
+
+  const headerSetter = () => {
+    if (props.moduleInfo !== undefined && props.moduleInfo.moduleData[`${Object.keys(props.moduleInfo.moduleData)[0]}`]) {
+      return props.moduleInfo.moduleData[`${Object.keys(props.moduleInfo.moduleData)[0]}`].title
+    }
+    return ''
+  }
+
   return (
     <div className={'help'}>
       <HelpSection
-        header={'Do you need any help with ACCOUNTING?'}
+        header={`Do you need any help with ${headerSetter()}?`}
         description={
           'Book a consultation with one of our lead accounting experts'
         }
@@ -45,7 +54,7 @@ const Help: React.FC<any> = ({ ...props }) => {
         <></>
       )}
 
-      <Questions text={'Frequently Asked Questions'} />
+      <Questions text={'Related articles'} />
     </div>
   );
 };
@@ -55,6 +64,7 @@ export default connect(
     articles: state.articleListReducer.state,
     expertState: state.expertListReducer.state,
     moduleId: state.moduleState.moduleData,
+    moduleInfo: state.moduleState,
     counts: state.expertListReducer.state.counts,
   }),
   {

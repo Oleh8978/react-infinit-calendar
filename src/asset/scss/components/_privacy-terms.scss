@@ -60,3 +60,15 @@
   flex-direction: column;
   background-color: $white;
 }
+
+.parsed {
+  &-contnet {
+    &-title {
+      margin-bottom: 20px;
+    }
+    @include card-list-text-style;
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-left: 20px;
+  }
+}

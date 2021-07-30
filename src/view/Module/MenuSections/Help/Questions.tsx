@@ -57,7 +57,7 @@ const Questions: React.FC<any> = ({ ...props }) => {
           if (item.appearance === 'big') {
             return (
               <Link
-                to={'journey'}
+                to={'article'}
                 params={{ id: String(item.id) }}
                 className="discovery-list-item-holder">
                 <div className="discovery-list-item-imgwrapper">
@@ -90,7 +90,7 @@ const Questions: React.FC<any> = ({ ...props }) => {
           } else if (item.appearance === 'small') {
             return (
               <Link
-                to={'journey'}
+                to={'article'}
                 params={{ id: String(item.id) }}
                 className="discovery-list-item-holder__half"
                 style={{ display: 'flex', flexFlow: 'row' }}>

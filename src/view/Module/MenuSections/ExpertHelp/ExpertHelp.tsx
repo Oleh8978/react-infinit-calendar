@@ -50,7 +50,7 @@ const ExpertHelp: React.FC<any> = ({ ...props }) => {
           <div className="expert-help-main-body-header">
             {props.expert.id ? (
               <span className="expert-help-main-body-header-text__top">
-                Acountan
+                {props.expert.specialization}
               </span>
             ) : (
               <></>

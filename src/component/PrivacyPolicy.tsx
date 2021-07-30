@@ -8,11 +8,13 @@ import NavigationBar from './NavigationBar';
 import Loader from '@app/component/Loader';
 
 // interfaces
-import { StaticPageDTO } from '@ternala/frasier-types';
 import { IStore } from '@app/controller/model';
 
 /// actions
 import { getPageBySlug } from '@app/controller/staticPage/actions';
+
+import parser from 'html-react-parser';
+
 
 const PrivacyPolicy: React.FC<any> = ({ ...props }) => {
   const checkIFMyCompExists = () => !!document.querySelector('.main-layout');
@@ -21,21 +23,19 @@ const PrivacyPolicy: React.FC<any> = ({ ...props }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (props.staticPage === undefined) {
       dispatch(
         getPageBySlug.request(
           String(history.location.pathname).replace(/\//g, ''),
         ),
       );
-    }
-  }, [props.staticPage]);
+  }, [history.location.pathname]);
   return (
     <div className={'privacypage'}>
       <NavigationBar
         name={'Privacy Policy'}
         rout={elementExists ? '/' : '/about'}
       />
-      <>{props.staticPage ? <>{props.staticPage.contnet}</> : <Loader />}</>
+      <>{props.staticPage ? <div className={'parsed-contnet'}> <div className="parsed-contnet-title">{props.staticPage.title}</div>{parser(String(props.staticPage.content))}</div> : <Loader />}</>
     </div>
   );
 };
