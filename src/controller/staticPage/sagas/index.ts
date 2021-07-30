@@ -23,9 +23,8 @@ export function* getPage({
         error: '',
       }),
     );
-    const accessToken: string | undefined = yield yield select(getAccessToken);
 
-    const res = yield staticAPI.getPage(payload, accessToken);
+    const res = yield staticAPI.getPage(payload);
 
     if (res) {
       yield put(

@@ -7,14 +7,7 @@ import * as actions from './actions';
 import { IPagesSate } from './models';
 
 const initialState: IPagesSate = {
-  state: {
-    id: 0,
-    title: '',
-    slug: '',
-    content: '',
-    createdAt: null,
-  },
-
+  state: undefined,
   loaderState: {
     status: false,
     isAnyError: false,

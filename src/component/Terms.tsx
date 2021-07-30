@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
+import parser from 'html-react-parser';
+
+import history from '@app/historyApi';
 
 // components
 import NavigationBar from './NavigationBar';
@@ -8,12 +11,25 @@ import Loader from '@app/component/Loader';
 // interfaces
 import { IStore } from '@app/controller/model';
 
-// actions
+/// actions
+import { getPageBySlug } from '@app/controller/staticPage/actions';
 
-const Terms: React.FC = () => {
+const Terms: React.FC<any> = ({...props}) => {
   const checkIFMyCompExists = () => !!document.querySelector('.main-layout');
 
   const elementExists = !checkIFMyCompExists();
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log('pravacy palicy ', String(history.location.pathname).replace(/\//g, ''),)
+    console.log('page props ', props.staticPage)
+      dispatch(
+        getPageBySlug.request(
+          String(history.location.pathname).replace(/\//g, ''),
+        ),
+      );
+  }, [history.location.pathname]);
 
   return (
     <div className={'terms-page'}>
@@ -21,51 +37,7 @@ const Terms: React.FC = () => {
         name={'Terms of Use'}
         rout={elementExists ? '/' : '/about'}
       />
-      <div className="terms-body">
-        <h1>Privacy Policy</h1>
-        <span className={'updated-time'}>Last updated [month day, year]</span>
-        <h2>INTRODUCTION</h2>
-        <p>
-          This Privacy Policy explains how we collect, use, disclose, and
-          safeguard your information when you visit our website [name of
-          website.com] [and our mobile application], including any other media
-          form, media channel, mobile website, or mobile application related or
-          connected thereto (collectively, the “Site”).
-        </p>
-        <h2>COLLECTION OF YOUR INFORMATION</h2>
-        <p>
-          We may collect information about you in a variety of ways. The
-          information we may collect on the Site includes:
-        </p>
-        <h3>Personal Data</h3>
-        <p>
-          Personally identifiable information, such as your name, shipping
-          address, email address, and telephone number, and demographic
-          information, such as your age, gender, hometown, and interests, that
-          you voluntarily give to us .
-        </p>
-        <h3>Derivative Data</h3>
-        <p>
-          Information our servers automatically collect when you access the
-          Site, such as your IP address, your browser type, your operating
-          system, your access times, and the pages you have viewed directly
-          before and after accessing the Site.
-        </p>
-        <ul>
-          <li>
-            <p>
-              This list can even become the foundation of a budget if you don’t
-              already have one.
-            </p>
-          </li>
-          <li>
-            <p>
-              This list can even become the foundation of a budget if you don’t
-              already have one.
-            </p>
-          </li>
-        </ul>
-      </div>
+      <>{props.staticPage ? <div className={'parsed-contnet'}> <div className="parsed-contnet-title">{props.staticPage.title}</div>{parser(String(props.staticPage.content))}</div> : <Loader />}</>
     </div>
   );
 };
@@ -73,6 +45,8 @@ const Terms: React.FC = () => {
 export default connect(
   (state: IStore) => ({
     terms: state.authState.user,
+    loader: state.staticPageReducer.loaderState.status,
+    staticPage: state.staticPageReducer.state,
   }),
   {},
 )(Terms);
