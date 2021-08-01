@@ -26,12 +26,9 @@ export class Config {
     return `${this.AUTH_SERVICE_HOST}/${this.API_PREFIX}/auth/`;
   }
   public static get WS_ENDPOINT() {
-    return `${Config.WS_API_HOST}`;
+    return `${Config.WS_API_HOST}/`;
   }
 }
-
-export enum SocketEventEnum {}
-// UpdateEvent = 'UpdateEvent',
 
 export enum DevicePlatformEnum {
   IOS = 'ios',

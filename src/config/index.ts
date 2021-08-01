@@ -41,3 +41,7 @@ export const menuItems: IMenuItem[] = [
 export const routsWhereShowMenu = ['account', 'schedule', 'discovery'];
 
 export const LoaingItemsLimit = 15;
+
+export const enableSocketLog =
+  process.env.REACT_APP_SHOW_LOGS === 'true' &&
+  (process.env.REACT_APP_WS_ENABLE_LOG || true);

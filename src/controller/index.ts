@@ -44,6 +44,7 @@ import { ExpertsListSaga } from '@app/controller/experts/sagas/index';
 import { ExpertSelectedStateReducer } from '@app/controller/selectedExpert/index';
 import { SingleExpertReducer } from '@app/controller/expert/index';
 import { getExpert } from '@app/controller/expert/sagas/index';
+import { socketReducer, socketSaga } from "./socket";
 
 export const rootSaga = function* () {
   yield all([
@@ -70,6 +71,7 @@ export const rootSaga = function* () {
     ArticleListSgas(),
     ExpertsListSaga(),
     getExpert(),
+    socketSaga(),
   ]);
 };
 
@@ -104,4 +106,5 @@ export const rootReducer = (history: History): Reducer =>
     expertListReducer: ExpertListReducer,
     ExpertSelectedStateReducer: ExpertSelectedStateReducer,
     SingleExpertReducer: SingleExpertReducer,
+    socketState: socketReducer,
   });
