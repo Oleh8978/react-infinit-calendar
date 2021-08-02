@@ -117,7 +117,7 @@ const JourneyInfo: React.FC<IProps> = ({ ...props }) => {
                                   secondAction={() => setStopPopup(false)}
               />
             ) : (<></>)}
-            <NavigationBar name={'Journey Info'} rout={'/'} />
+            <NavigationBar name={'Journey Info'} rout={'/account'} />
             <JourneyHeader img={journey.image} />
             <JourneyDescription
               statistic={statistic}
