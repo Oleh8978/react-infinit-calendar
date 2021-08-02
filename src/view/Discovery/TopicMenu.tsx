@@ -240,20 +240,20 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
 
   const smallMenuRender = (items: ITopic[]) => {
     return (
-      <div className="discovery-menu-small"
-           onMouseDown={(e) => {
-             setIsClicked(true)
-           }}
-           onMouseMove={(e) => {
-             if(isClicked) {
-               setDisabled(true)
-             }
-           }}
-           onMouseUp={() => {
-             setIsClicked(false)
-             setDisabled(false)
-           }}
-      >
+      <div
+        className="discovery-menu-small"
+        onMouseDown={(e) => {
+          setIsClicked(true);
+        }}
+        onMouseMove={(e) => {
+          if (isClicked) {
+            setDisabled(true);
+          }
+        }}
+        onMouseUp={() => {
+          setIsClicked(false);
+          setDisabled(false);
+        }}>
         <div
           className="discovery-menu-small-btn"
           onClick={() => onAllHendaler()}
@@ -281,7 +281,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
                 className="discovery-menu-small-item"
                 style={{ backgroundColor: element.subColor }}
                 onMouseUp={() => {
-                  if(!disabled) {
+                  if (!disabled) {
                     props.arraySetter(element.id, element.title);
                     colorChanger(element.id);
                   }
@@ -304,7 +304,11 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
   return (
     <>
       <div
-        className={props.hiddenMenu ? 'discovery-menu-hidden discovery-menu' : 'discovery-menu'}
+        className={
+          props.hiddenMenu
+            ? 'discovery-menu-hidden discovery-menu'
+            : 'discovery-menu'
+        }
         style={{
           position: 'fixed',
           top: '50px',
@@ -322,7 +326,12 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
         </>
       </div>
 
-      <div className={props.hiddenMenu ? 'discovery-menu-hidden discovery-menu' : 'discovery-menu'}>
+      <div
+        className={
+          props.hiddenMenu
+            ? 'discovery-menu-hidden discovery-menu'
+            : 'discovery-menu'
+        }>
         <span className={'discovery-select'}>Select your topic interest</span>
         <>
           {articleCategories !== undefined && (

@@ -40,15 +40,17 @@ const JourneyDescription: React.FC<IProps> = ({
   });
 
   const tabData = [
-    { id : '1',
-      tabTitle: "Modules",
-      tabContent: <JourneyStatisticTable data={statistic[id]?.modules || []} />
+    {
+      id: '1',
+      tabTitle: 'Modules',
+      tabContent: <JourneyStatisticTable data={statistic[id]?.modules || []} />,
     },
-    { id : '2',
-      tabTitle: "Description",
-      tabContent: <SectionsContent journey={journey} />
-    }
-  ]
+    {
+      id: '2',
+      tabTitle: 'Description',
+      tabContent: <SectionsContent journey={journey} />,
+    },
+  ];
 
   return (
     <div
@@ -185,13 +187,15 @@ const JourneyDescription: React.FC<IProps> = ({
           </div>
           <div>
             <TextComponent data={journey.subTitle} isSubtitle={true} />
-            {journey.sections.sort((el1, el2) => {
-              if(el1.orderNumber < el2.orderNumber) return -1
-              if(el1.orderNumber > el2.orderNumber) return 1
-              return 0
-            }).map((section) => <TextComponent
-              data={generateContent(section)} />
-            )}
+            {journey.sections
+              .sort((el1, el2) => {
+                if (el1.orderNumber < el2.orderNumber) return -1;
+                if (el1.orderNumber > el2.orderNumber) return 1;
+                return 0;
+              })
+              .map((section) => (
+                <TextComponent data={generateContent(section)} />
+              ))}
           </div>
         </>
       )}
