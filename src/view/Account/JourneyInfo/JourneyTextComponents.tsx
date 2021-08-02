@@ -7,14 +7,16 @@ interface IProps {
 }
 
 const TextComponent: React.FC<IProps> = ({ ...props }) => {
-  console.log(props.data)
+  console.log(props.data);
   return (
     <>
-      {props.isSubtitle ? <div className={'journeyinfo-body-textcomponent subtitle'}>
-        {parse(String(props.data))}
-      </div> : <div className={'journeyinfo-body-textcomponent'}>
-        {props.data}
-      </div>}
+      {props.isSubtitle ? (
+        <div className={'journeyinfo-body-textcomponent subtitle'}>
+          {parse(String(props.data))}
+        </div>
+      ) : (
+        <div className={'journeyinfo-body-textcomponent'}>{props.data}</div>
+      )}
     </>
   );
 };

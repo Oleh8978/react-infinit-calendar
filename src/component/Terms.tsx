@@ -14,7 +14,7 @@ import { IStore } from '@app/controller/model';
 /// actions
 import { getPageBySlug } from '@app/controller/staticPage/actions';
 
-const Terms: React.FC<any> = ({...props}) => {
+const Terms: React.FC<any> = ({ ...props }) => {
   const checkIFMyCompExists = () => !!document.querySelector('.main-layout');
 
   const elementExists = !checkIFMyCompExists();
@@ -22,13 +22,16 @@ const Terms: React.FC<any> = ({...props}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('pravacy palicy ', String(history.location.pathname).replace(/\//g, ''),)
-    console.log('page props ', props.staticPage)
-      dispatch(
-        getPageBySlug.request(
-          String(history.location.pathname).replace(/\//g, ''),
-        ),
-      );
+    console.log(
+      'pravacy palicy ',
+      String(history.location.pathname).replace(/\//g, ''),
+    );
+    console.log('page props ', props.staticPage);
+    dispatch(
+      getPageBySlug.request(
+        String(history.location.pathname).replace(/\//g, ''),
+      ),
+    );
   }, [history.location.pathname]);
 
   return (
@@ -37,7 +40,17 @@ const Terms: React.FC<any> = ({...props}) => {
         name={'Terms of Use'}
         rout={elementExists ? '/' : '/about'}
       />
-      <>{props.staticPage ? <div className={'parsed-contnet'}> <div className="parsed-contnet-title">{props.staticPage.title}</div>{parser(String(props.staticPage.content))}</div> : <Loader />}</>
+      <>
+        {props.staticPage ? (
+          <div className={'parsed-contnet'}>
+            {' '}
+            <div className="parsed-contnet-title">{props.staticPage.title}</div>
+            {parser(String(props.staticPage.content))}
+          </div>
+        ) : (
+          <Loader />
+        )}
+      </>
     </div>
   );
 };

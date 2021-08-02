@@ -144,8 +144,8 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
             id={id}
           />
           {/*<JourneyListComponent data={list} />*/}
-          <div className="jorneydiscoveymain-bottom-wrapper">
-            <JourneyFixedBottom
+          {/* <div className="jorneydiscoveymain-bottom-wrapper"> */}
+            {/* <JourneyFixedBottom
               price={journey.price}
               trialPeriod={journey.trialPeriod}
               hasTrialPeriod={journey?.status?.isTrial}
@@ -157,7 +157,7 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
               isConnected={journey?.status?.isConnected}
               id={id}
               buttonsHeight={buttonsHeight}
-            />
+            /> */}
             {/*<JourneyListComponent data={list} />*/}
             <div className="jorneydiscoveymain-bottom-wrapper" ref={ref}>
               <JourneyFixedBottom
@@ -179,7 +179,7 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
               />
             </div>
           </div>
-        </div>
+        // </div>
       ) : (
         <Loader isSmall={true} isAbsolute={true} />
       )}

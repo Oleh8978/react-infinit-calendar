@@ -11,13 +11,15 @@ interface IProps {
 const SectionsContent: React.FC<IProps> = ({ journey, ...props }) => {
   return (
     <>
-      {journey.sections.sort((el1, el2) => {
-        if(el1.orderNumber < el2.orderNumber) return -1
-        if(el1.orderNumber > el2.orderNumber) return 1
-        return 0
-      }).map((section) => <TextComponent
-        data={generateContent(section)} />
-      )}
+      {journey.sections
+        .sort((el1, el2) => {
+          if (el1.orderNumber < el2.orderNumber) return -1;
+          if (el1.orderNumber > el2.orderNumber) return 1;
+          return 0;
+        })
+        .map((section) => (
+          <TextComponent data={generateContent(section)} />
+        ))}
     </>
   );
 };

@@ -18,8 +18,8 @@ const initialState: INotesState = {
     counts: undefined,
   },
   storedSearchParams: {
-    limit: 0,
-    offset: 0,
+    limit: '',
+    offset: '',
     query: '',
     sortType: '',
     type: '',
@@ -70,7 +70,7 @@ export const GetNotesListReducer = createReducer<INotesState, NotesActionType>(
         });
         newNotesList = concatWithUnique<NoteDTO>(
           state.state.items || [],
-          payload.response.items.map((item) => item),
+          updateArray,
         );
       } else {
         newNotesList = concatWithUnique<NoteDTO>(
