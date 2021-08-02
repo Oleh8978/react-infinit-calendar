@@ -79,7 +79,7 @@ export function* signInSaga({
     if ('accessToken' in payload) {
       const tokens: AuthRefreshRequestDTO = yield checkAccessTokenExpired({
         accessToken: payload.accessToken,
-        refreshToken: payload.accessToken,
+        refreshToken: payload.refreshToken,
         deviceCredentials,
       });
       if (typeof tokens === 'string') throw new BadRequest();

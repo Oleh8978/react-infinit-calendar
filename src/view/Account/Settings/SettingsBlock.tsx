@@ -48,7 +48,7 @@ const SettingsBlock: React.FC<IProps> = ({ ...props }) => {
       signIn.success({
         error: props.user.error,
         accessToken: props.user.accessToken,
-        refreshToken: props.user.accessToken,
+        refreshToken: props.user.refreshToken,
         user: {
           createdAt: props.user.user.createdAt,
           id: props.user.user.id,
