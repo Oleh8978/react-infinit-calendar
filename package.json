@@ -1,6 +1,6 @@
 {
   "name": "frasier-web",
-  "version": "0.1.21",
+  "version": "0.1.22",
   "private": true,
   "dependencies": {
     "@craco/craco": "^6.2.0",
