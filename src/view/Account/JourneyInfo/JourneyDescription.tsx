@@ -15,6 +15,7 @@ import parse from 'html-react-parser';
 import { generateContent } from '@app/view/Discovery/Article';
 import sectionsContent from '@app/component/sectionsContent';
 import SectionsContent from '@app/component/sectionsContent';
+import { RouteComponentProps } from 'react-router-dom';
 
 interface IProps {
   journey: JourneyGetResponse;
