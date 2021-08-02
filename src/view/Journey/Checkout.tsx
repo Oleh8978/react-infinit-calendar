@@ -37,19 +37,18 @@ const Checkout: React.FC<IProps> = ({ ...props }) => {
     if (id && !paymentId) {
       dispatch(getJourneyDataAction.request(id));
       dispatch(getJourneyStatisticAction.request({ id }));
-    } else if (paymentId !== undefined) {
+    } else if (paymentId && paymentId !== undefined) {
       tokenPromise.then((token) => {
         if (token !== undefined) {
           PaymentAPI.getPaymentInfo(paymentId, token).then((item) => {
 
             if (typeof item !== 'string') {
               setPaymentInfo(item);
+              dispatch(getJourneyStatisticAction.request({ id: item.journey.id }));
             }
           });
         }
       });
-
-      dispatch(getJourneyStatisticAction.request({ id: paymentInfo?.journey.id }));
     }
 
   }, []);
