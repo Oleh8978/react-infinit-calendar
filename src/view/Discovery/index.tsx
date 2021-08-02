@@ -71,6 +71,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
 
   const searchQueryProcessor = (text: string) => {
     setSearchQuery(text.trim().toLowerCase());
+    loadDiscoveries('start', searchQuery);
     if (text.trim().length !== 0) {
       loadDiscoveries('start', text.trim());
       setHiddenMenu(true);
@@ -171,7 +172,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
         query: searchQuery,
       };
     }
-
+   
     if (
       JSON.stringify(omit(props.storedSearchParams, ['limit', 'offset'])) !==
       JSON.stringify(omit(searchParams, ['limit', 'offset']))

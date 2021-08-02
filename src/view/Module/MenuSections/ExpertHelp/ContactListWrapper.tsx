@@ -4,6 +4,7 @@ import { data } from '@app/view/Schedule/fakeData/fakedata';
 // interfaces
 import { IContact } from './Models';
 import { ExpertDTO } from '@ternala/frasier-types';
+import { title } from 'process';
 
 interface IProps {
   data: ExpertDTO;
@@ -157,28 +158,37 @@ const ContactList: React.FC<IProps> = ({ ...props }) => {
   };
 
   const linksRender = () => {
-    for (let i = 0; i < props.data.links.length; i++) {
-      // return <>{props.data.links[i].title}</>
-      return (
-        <div className={'expert-help-contact-body'}>
-          <div
-            className={'expert-help-contact-body-wrapper'}
-            style={{ borderBottom: 'none' }}>
-            <div className={'expert-help-contact-body-left'}>
-              <div className={'expert-help-contact-body-left-img'}>
-                <>{image('name', props.data.links[i].title)}</>
+      return props.data.links.map( item => {
+        return (
+          <div className={'expert-help-contact-body'}>
+            <div
+              className={'expert-help-contact-body-wrapper'}
+              >
+              <div className={'expert-help-contact-body-left'}>
+                <div className={'expert-help-contact-body-left-img'}>
+                  <>{image('name', item.title)}</>
+                </div>
+              </div>
+              <div className={'expert-help-contact-body-right'}>
+                <span className={'expert-help-contact-body-right-text'}>
+                  <span className={'expert-text'}>{item.title}</span>
+                  <span className={'expert-link'}>
+                    <span
+                      className={'expert-link-text'}
+                      onClick={() => {
+                        window.open(item.link, '_blank');
+                      }}>
+                      Open
+                    </span>
+                  </span>
+                </span>
               </div>
             </div>
-            <div className={'expert-help-contact-body-right'}>
-              {data('name')}
-            </div>
           </div>
-        </div>
-      );
-    }
+        );
+      })
   };
 
-  console.log('props.data ', props.data);
   return (
     <>
       {props.data ? (
