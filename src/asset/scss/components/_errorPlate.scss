@@ -1,0 +1,39 @@
+.warning {
+  &-plate {
+    margin-left: 90px;
+    margin-top: 35px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    min-width: 52px;
+    width: auto;
+    height: auto;
+    border-radius: 3px;
+    background-color: $white;
+    border: 1px solid $grey-color;
+    margin-bottom: -12px;
+  }
+
+  &-corner {
+    width: 10px;
+    height: 10px;
+    min-width: 10px;
+    min-height: 10px;
+    margin-left: 7px;
+    margin-top: -6px;
+    transform: rotate(45deg);
+    background-color: $white;
+    border-left: 1px solid $grey-color;
+    border-top: 1px solid $grey-color;
+  }
+
+  &-message {
+    text-overflow: ellipsis;
+    color: $red-color;
+    font-size: 12px;
+    margin-top: 7px;
+    margin-bottom: 5px;
+    margin-right: 9px;
+    margin-left: 8px;
+  }
+}

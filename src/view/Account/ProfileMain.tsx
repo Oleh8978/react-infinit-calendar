@@ -28,7 +28,7 @@ const Profile: React.FC<any> = ({ ...props }) => {
     if (props.user.userData !== undefined) {
       setUserData(props.user.userData);
     }
-    
+
     if (props.user.userData === undefined && props.user.id === 0) {
       dispatch(props.getUserAction);
     }
@@ -63,7 +63,10 @@ const Profile: React.FC<any> = ({ ...props }) => {
           </div>
         </div>
       ) : (
-        <> </>
+        <>
+          {' '}
+          <Loader isSmall={true} />
+        </>
       )}
     </>
   );

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
 interface IProps {
-    text: string
+  text: string;
 }
 
-const TextComponent : React.FC<IProps> = ({ ...props }) => {
+const TextComponent: React.FC<IProps> = ({ ...props }) => {
   return (
     <>
       <div className="overview-textcomponent">

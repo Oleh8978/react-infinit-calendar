@@ -17,92 +17,99 @@ interface IProps {
   needToPay?: boolean;
 }
 
-const JourneyFixedBottom: React.FC<IProps> = ({ ...props }) => {
-  const difference = Math.abs(new Date(props.trialEndDate).getTime() - new Date().getTime());
+const JourneyFixedBottom: React.FC<any> = ({ ...props }) => {
+  const difference = Math.abs(
+    new Date(props.trialEndDate).getTime() - new Date().getTime(),
+  );
   const days = Math.round(difference / (1000 * 3600 * 24));
 
   return (
     <>
       {props.isTrialPeriodStarted ? (
         days > 0 ? (
-          <span className='trial-info'>
+          <span className="trial-info">
             {`Your Trial Ends in ${days} Days`}
           </span>
         ) : (
-          <span className='trial-info trial-info-error'>
+          <span className="trial-info trial-info-error">
             Your trial has expired
           </span>
-        )) : (<></>)}
+        )
+      ) : (
+        <></>
+      )}
 
-      <div className='jorneydiscoveymain-bottom'>
+      <div className="jorneydiscoveymain-bottom">
         {props.isPaid ? (
           props.isConnected ? (
-            <button className='jorneydiscoveymain-bottom-red jorneydiscoveymain-bottom-pink'
-                    onClick={() => props.setIsStopPopup(true)}>
-                  <span className='jorneydiscoveymain-bottom-pink-text'>
-                    Stop This Journey
-                  </span>
+            <button
+              className="jorneydiscoveymain-bottom-red jorneydiscoveymain-bottom-pink"
+              onClick={() => props.setIsStopPopup(true)}>
+              <span className="jorneydiscoveymain-bottom-pink-text">
+                Stop This Journey
+              </span>
             </button>
           ) : (
-            <button className='jorneydiscoveymain-bottom-pink'>
-                  <span className='jorneydiscoveymain-bottom-pink-text'
-                        onClick={() => props.setStartConnection(true)}>
-                      Start This Journey
-                  </span>
+            <button className="jorneydiscoveymain-bottom-pink">
+              <span
+                className="jorneydiscoveymain-bottom-pink-text"
+                onClick={() => props.setStartConnection(true)}>
+                Start This Journey
+              </span>
+            </button>
+          )
+        ) : props.hasTrialPeriod || !props.needToPay ? (
+          props.isConnected ? (
+            <button
+              className="jorneydiscoveymain-bottom-red jorneydiscoveymain-bottom-pink"
+              onClick={() => props.setIsStopPopup(true)}>
+              <span className="jorneydiscoveymain-bottom-pink-text">
+                Stop This Journey
+              </span>
+            </button>
+          ) : props.needToPay ? (
+            <button
+              className="jorneydiscoveymain-bottom-pink"
+              onClick={() => props.setIsStartPopup(true)}>
+              <span className="jorneydiscoveymain-bottom-pink-text">
+                Start {props.trialPeriod}-Day Trial Version
+              </span>
+            </button>
+          ) : (
+            <button
+              className="jorneydiscoveymain-bottom-pink"
+              onClick={() => props.setStartConnection(true)}>
+              <span className="jorneydiscoveymain-bottom-pink-text">
+                Start This Journey
+              </span>
             </button>
           )
         ) : (
-          props.hasTrialPeriod || !props.needToPay ? (
-            props.isConnected ? (
-              <button className='jorneydiscoveymain-bottom-red jorneydiscoveymain-bottom-pink'
-                      onClick={() => props.setIsStopPopup(true)}>
-            <span className='jorneydiscoveymain-bottom-pink-text'>
-              Stop This Journey
-            </span>
-              </button>
-            ) : (
-              props.needToPay ? (
-                  <button className='jorneydiscoveymain-bottom-pink' onClick={() => props.setIsStartPopup(true)}>
-                  <span className='jorneydiscoveymain-bottom-pink-text'>
-                      Start {props.trialPeriod}-Day Trial Version
-                  </span>
-                  </button>
-              ) : (
-                <button className='jorneydiscoveymain-bottom-pink' onClick={() => props.setStartConnection(true)}>
-                  <span className='jorneydiscoveymain-bottom-pink-text'>
-                      Start This Journey
-                  </span>
-                </button>
-              )
-            )) : (
-            <></>
-          )
+          <></>
         )}
 
         {props.isPaid ? (
-          <div className='jorneydiscoveymain-bottom-info'>
-            <span className='jorneydiscoveymain-bottom-info-text'>
+          <div className="jorneydiscoveymain-bottom-info">
+            <span className="jorneydiscoveymain-bottom-info-text">
               Already Purchased
             </span>
           </div>
-        ) : (props.price && props.price !== 0 ? (
-            <Link to={`${props.id}/checkout`} className='jorneydiscoveymain-bottom-pink-full'>
-            <span className='jorneydiscoveymain-bottom-pink-full-text'>
+        ) : props.price && props.price !== 0 ? (
+          <Link
+            to={`${props.id}/checkout`}
+            className="jorneydiscoveymain-bottom-pink-full">
+            <span className="jorneydiscoveymain-bottom-pink-full-text">
               Purchase Full Journey for Only
             </span>
-              <span className='jorneydiscoveymain-bottom-pink-full-text-price'>
-         ${props.price}
+            <span className="jorneydiscoveymain-bottom-pink-full-text-price">
+              ${props.price}
             </span>
-            </Link>
-          ) : (
-            <div className='jorneydiscoveymain-bottom-info'>
-            <span className='jorneydiscoveymain-bottom-info-text'>
-              Free
-            </span>
-            </div>
-          )
+          </Link>
+        ) : (
+          <div className="jorneydiscoveymain-bottom-info">
+            <span className="jorneydiscoveymain-bottom-info-text">Free</span>
+          </div>
         )}
-
       </div>
     </>
   );

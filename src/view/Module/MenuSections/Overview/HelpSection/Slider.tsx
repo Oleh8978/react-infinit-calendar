@@ -1,21 +1,32 @@
 import React, { useState, useEffect } from 'react';
+import { connect, useDispatch } from 'react-redux';
 
 // components
-import Link from '@app/routing/Link';
+import { Link } from 'react-router-dom';
 
 // interfaces
-import { IExperts } from '@app/view/Module/MenuSections/Overview/Models';
+import { ExpertDTO } from '@ternala/frasier-types';
+import { IStore } from '@app/controller/model';
+
+// actions
+import { setSelectedExpert } from '@app/controller/selectedExpert/actions';
 
 interface IProps {
-  people: IExperts[];
+  people: any;
   isMain: boolean;
   marginBottom?: boolean;
 }
 
-const Slider: React.FC<IProps> = ({ ...props }) => {
+interface IExtendedExpertDTO extends ExpertDTO {
+  isActive: boolean;
+}
+
+const Slider: React.FC<any> = ({ ...props }) => {
+  const [experts, setExperts] = useState<IExtendedExpertDTO[]>([]);
+  const dispatch = useDispatch();
+
   const moseMover = (ele) => {
     let pos = { top: 0, left: 0, x: 0, y: 0 };
-
     const mouseDownHandler = (e) => {
       pos = {
         left: ele.scrollLeft,
@@ -47,7 +58,56 @@ const Slider: React.FC<IProps> = ({ ...props }) => {
   useEffect(() => {
     const elementGenral = document.querySelector('.overview-help-slider ');
     moseMover(elementGenral);
-  }, []);
+    if (props.people !== undefined) {
+      const arr = [];
+      props.people.map((item: ExpertDTO) => {
+        if (props.selectedExpert === item.id) {
+          arr.push({
+            ...item,
+            isActive: true,
+          });
+        } else {
+          arr.push({
+            ...item,
+            isActive: false,
+          });
+        }
+      });
+      setExperts(arr);
+    }
+    // else if (props.people !== undefined && props.selectedExpert === undefined) {
+    //   const arr = [];
+    //   props.people.map((item: ExpertDTO) => {
+    //     if (props.people.indexOf(item.id) == 0 ) {
+    //       arr.push({
+    //         ...item,
+    //         isActive: true,
+    //       });
+    //     } else {
+    //       arr.push({
+    //         ...item,
+    //         isActive: false,
+    //       });
+    //     }
+
+    //   });
+    //   setExperts(arr);
+    // }
+  }, [props.people, props.selectedExpert]);
+
+  const selectExpert = (id: any) => {
+    const arr = [...experts];
+    arr.map((item) => {
+      if (item.id !== id) {
+        item.isActive = false;
+        return item;
+      } else {
+        item.isActive = true;
+        return item;
+      }
+    });
+    setExperts(arr);
+  };
 
   return (
     <>
@@ -57,40 +117,49 @@ const Slider: React.FC<IProps> = ({ ...props }) => {
             ? 'overview-help-slider__marginnull scrollbar__hidden'
             : 'overview-help-slider scrollbar__hidden'
         }>
-        {props.people.map((persone) => {
+        {experts.map((persone) => {
           return (
             <>
+              {' '}
               {props.isMain ? (
-                // <Link className="overview-help-slider-item" to={'expert-help'}>
-                //   <img
-                //     src={persone.img}
-                //     className="overview-help-slider-item-img"
-                //   />
-                //   <span className="overview-help-slider-item-name">
-                //     {persone.name}
-                //   </span>
-                //   <div className="overview-help-slider-item__bottom-line"></div>
-                // </Link>
-                <div className="overview-help-slider-item">
+                <Link
+                  to={`/expert-help/expert`}
+                  className="overview-help-slider-item"
+                  onClick={() => {
+                    selectExpert(persone.id);
+                    dispatch(setSelectedExpert({ expert: persone.id }));
+                  }}>
                   <img
-                    src={persone.img}
+                    src={persone.image}
                     className="overview-help-slider-item-img"
                   />
                   <span className="overview-help-slider-item-name">
                     {persone.name}
                   </span>
-                  <div className="overview-help-slider-item__bottom-line"></div>
-                </div>
+                  <div className="overview-help-slider-item__bottom-line" />
+                </Link>
               ) : (
-                <div className="overview-help-slider-item">
+                <div
+                  className="overview-help-slider-item"
+                  onClick={() => {
+                    selectExpert(persone.id);
+                    dispatch(setSelectedExpert({ expert: persone.id }));
+                  }}>
                   <img
-                    src={persone.img}
+                    src={persone.image}
                     className="overview-help-slider-item-img"
                   />
                   <span className="overview-help-slider-item-name">
                     {persone.name}
                   </span>
-                  <div className="overview-help-slider-item__bottom-line"></div>
+                  {persone.isActive ? (
+                    <div
+                      className="overview-help-slider-item__bottom-line"
+                      style={{ backgroundColor: 'rgba(129, 121, 220, 0.2)' }}
+                    />
+                  ) : (
+                    <div className="overview-help-slider-item__bottom-line" />
+                  )}
                 </div>
               )}
             </>
@@ -101,4 +170,11 @@ const Slider: React.FC<IProps> = ({ ...props }) => {
   );
 };
 
-export default Slider;
+export default connect(
+  (state: IStore) => ({
+    selectedExpert: state.ExpertSelectedStateReducer.expert,
+  }),
+  {
+    setSelectedExpert,
+  },
+)(Slider);

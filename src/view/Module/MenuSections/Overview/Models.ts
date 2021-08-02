@@ -10,3 +10,5 @@ export interface IExperts {
   name: string;
   isClicked: boolean;
 }
+
+export interface IArticle {}

@@ -30,7 +30,8 @@ export const dataList = [
     display: 'full',
     color: 'white',
     title: 'Meetup',
-    description: 'Meet Frasier every Tuesday at 12 pm EST and get answers to any questions you have about your business',
+    description:
+      'Meet Frasier every Tuesday at 12 pm EST and get answers to any questions you have about your business',
     link: 'Join Now',
     img: couching,
   },

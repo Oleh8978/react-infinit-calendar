@@ -12,7 +12,7 @@ import { IState } from './model';
 
 type InitialHandler<
   TState extends { state: IState },
-  TRootAction extends PayloadAction<string, any>
+  TRootAction extends PayloadAction<string, any>,
 > = {
   [P in string]?: (state: TState, action: TRootAction) => TState;
 };
@@ -31,7 +31,7 @@ export interface defaultState {
 
 export const generateLoaderActions = <
   TState extends { state: IState },
-  TAction extends PayloadAction<string, any>
+  TAction extends PayloadAction<string, any>,
 >(
   widgetName: string,
 ): {

@@ -29,9 +29,7 @@ const initialState: IfaqState = {
   },
 };
 
-export const faqReducer = createReducer<IfaqState, FaqActionsType>(
-  initialState,
-)
+export const faqReducer = createReducer<IfaqState, FaqActionsType>(initialState)
   .handleAction(actions.setLoadingAction, (store, { payload }) => ({
     ...store,
     loader: { ...payload },

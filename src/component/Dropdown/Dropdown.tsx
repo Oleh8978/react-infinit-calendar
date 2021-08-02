@@ -12,7 +12,7 @@ import { ArticleDTO } from '@ternala/frasier-types';
 
 interface IProps {
   //need to changehte model
-  items: ArticleDTO[];
+  items: any[];
   value: string;
   setTextFromDropdown: (text: any) => void;
   isDropdownError: boolean;

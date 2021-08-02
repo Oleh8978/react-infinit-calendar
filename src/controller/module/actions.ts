@@ -4,7 +4,8 @@ import { IException } from '../model';
 import {
   ModuleGetResponse,
   TaskExecuteCreateRequest,
-  TaskExecuteCreateResponse, TaskExecuteDeleteResponse,
+  TaskExecuteCreateResponse,
+  TaskExecuteDeleteResponse,
   TimeSlotGetListByModuleRequest,
   TimeSlotGetListExpandedResponse,
   TimeSlotGetPreviouslyUncompletedListRequest,

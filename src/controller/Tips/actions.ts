@@ -3,7 +3,7 @@ import { createAction, createAsyncAction } from 'typesafe-actions';
 import { appName } from '@app/config/index';
 
 // interfaces
-import { TipGetListResponse } from '@ternala/frasier-types';
+import { TipSendGetListResponse } from '@ternala/frasier-types';
 import {
   ISetLoadingAction,
   ITipsSearchParams,
@@ -28,7 +28,7 @@ export const getTipsListRequest = createAsyncAction(
 )<
   IGetListRequest,
   {
-    response: TipGetListResponse;
+    response: TipSendGetListResponse;
     searchParams: GetListParameters;
   },
   ISetLoadingAction

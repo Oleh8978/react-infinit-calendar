@@ -41,7 +41,6 @@ const JourneyInfo: React.FC<IProps> = ({ ...props }) => {
   useEffect(() => {
     dispatch(getJourneyDataAction.request(id));
     dispatch(getJourneyStatisticAction.request({ id }));
-
   }, []);
 
   const setIsStartPopup = (boolean) => {
@@ -82,9 +81,7 @@ const JourneyInfo: React.FC<IProps> = ({ ...props }) => {
   const indexDayStartJourney = 1;
   let startDate;
   if (today >= indexDayStartJourney) {
-    startDate = moment()
-      .isoWeekday(indexDayStartJourney)
-      .toDate();
+    startDate = moment().isoWeekday(indexDayStartJourney).toDate();
   } else {
     startDate = moment()
       .subtract(1, 'weeks')

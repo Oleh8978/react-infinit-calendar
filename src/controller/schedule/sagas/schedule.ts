@@ -1,6 +1,7 @@
 import { all, put, takeEvery, select } from 'redux-saga/effects';
 import {
-  addException, clearExceptions,
+  addException,
+  clearExceptions,
   deleteDayOffAction,
   getDaysOffAction,
   getScheduleAction,

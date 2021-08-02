@@ -5,7 +5,7 @@ firebase.initializeApp({
   messagingSenderId: '1062407524656',
   appId: '1:599666832664:web:9f9e246d1c15dd14f81a6d',
   projectId: 'dev-frasier',
-  apiKey: 'AIzaSyBFqqgvl88Pu9hb77XfjaK6NMSf7vTN5cI'
+  apiKey: 'AIzaSyBFqqgvl88Pu9hb77XfjaK6NMSf7vTN5cI',
 });
 
 const messaging = firebase.messaging();

@@ -43,14 +43,10 @@ const generateDayContent = ({
           // (hasFreeDay ? ' free-day ' : '')
         }
         onClick={() => selectDate(day)}>
-        <div
-          className={'calendar-day-dayweek'}>
+        <div className={'calendar-day-dayweek'}>
           {moment(day).format('ddd')}
         </div>
-        <div
-          className={'calendar-day-date'}>
-          {moment(day).format('D')}
-        </div>
+        <div className={'calendar-day-date'}>{moment(day).format('D')}</div>
       </div>
       {hasUncompleted ? <div className={'calendar-day-marked'} /> : <></>}
     </>

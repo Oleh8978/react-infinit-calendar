@@ -21,7 +21,7 @@ const generateContent = (tab: string, id) => {
     case 'help':
       return <Help />;
     case 'task':
-      return <Tasks tabName={tab} id={id}/>;
+      return <Tasks tabName={tab} id={id} />;
     case 'overview':
     default:
       return <Overview id={id} />;
@@ -35,7 +35,6 @@ export const ModuleTabContent: React.FC<IProps> = ({
   const id = params?.id;
   const tabName = params?.tabName;
   const idNumber = Number(id);
-
 
   return (
     <>

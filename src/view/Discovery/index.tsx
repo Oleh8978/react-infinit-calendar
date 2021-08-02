@@ -30,9 +30,8 @@ const Discovery: React.FC<any> = ({ ...props }) => {
   const [margin, setMargin] = useState<number>(20);
   const [discovery, setDiscovery] = useState<DiscoveryDTO[]>(undefined);
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [articleCategories, setArticleCategories] = useState<ArticleDTO[]>(
-    undefined,
-  );
+  const [articleCategories, setArticleCategories] =
+    useState<ArticleDTO[]>(undefined);
   const [isJourneyClicked, setIsJourneyClicked] = useState<boolean>(false);
   const [smallLoader, setSmallLoader] = useState<boolean>(false);
   const [isDown, setIsDown] = useState<boolean>(false);
@@ -43,17 +42,14 @@ const Discovery: React.FC<any> = ({ ...props }) => {
   const [hiddenMenu, setHiddenMenu] = useState<boolean>(false);
 
   const loadMoreItems = () => {
-    const {
-      getClientHeight,
-      getScrollHeight,
-      getScrollTop,
-      scrollToBottom,
-    } = fieldRef.current as Scrollbars;
+    const { getClientHeight, getScrollHeight, getScrollTop, scrollToBottom } =
+      fieldRef.current as Scrollbars;
     if (
       props.isLoading.status === false &&
       smallLoader === false &&
       getClientHeight() + getScrollTop() >= getScrollHeight() - 1 &&
       props.itemsCount !== 0 &&
+      discovery !== undefined &&
       props.itemsCount !== discovery.length
     ) {
       loadDiscoveries('more', searchQuery);
@@ -214,7 +210,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
     if (
       ids.filter((elem) => elem === id).length === 0 &&
       articleCategories
-        .filter((elem) => elem.id === id)[0]
+        .filter((elem: any) => elem.id === id)[0]
         .title.toLowerCase() !== 'journeys'
     ) {
       setIds([id]);
@@ -231,7 +227,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       setIsJourneyClicked(false);
     } else if (
       articleCategories
-        .filter((elem) => elem.id === id)[0]
+        .filter((elem: any) => elem.id === id)[0]
         .title.toLowerCase() === 'journeys' &&
       isJourneyClicked === false
     ) {
@@ -248,7 +244,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       setDiscovery(undefined);
     } else if (
       articleCategories
-        .filter((elem) => elem.id === id)[0]
+        .filter((elem: any) => elem.id === id)[0]
         .title.toLowerCase() === 'journeys' &&
       isJourneyClicked === true
     ) {

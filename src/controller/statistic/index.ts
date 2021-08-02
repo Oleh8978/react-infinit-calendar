@@ -16,10 +16,7 @@ export type AuthActionType = ActionType<typeof actions>;
 
 const initialState: IStatisticsState = {
   statisticToday: {
-    spent: 0,
-    maxSpent: 0,
-    completedTaskCount: 0,
-    maxTaskCount: 0,
+    today: undefined,
   },
   errorState: {
     error: '',
@@ -28,7 +25,7 @@ const initialState: IStatisticsState = {
   },
   loaderState: {
     status: false,
-  }
+  },
 };
 
 export const statisticReducer = createReducer<IStatisticsState, AuthActionType>(
@@ -62,4 +59,4 @@ export const statisticReducer = createReducer<IStatisticsState, AuthActionType>(
         code: payload.code,
       },
     }),
-  )
+  );

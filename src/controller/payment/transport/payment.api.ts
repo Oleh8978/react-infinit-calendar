@@ -1,6 +1,10 @@
 import { Config } from '@app/config/API';
 import { authHeader, handleErrors } from '@app/utils/API';
-import { PaymentChangeStatusResponse, PaymentGetResponse, StatisticGetJourneyResponse } from '@ternala/frasier-types';
+import {
+  PaymentChangeStatusResponse,
+  PaymentGetResponse,
+  StatisticGetJourneyResponse,
+} from '@ternala/frasier-types';
 import { AuthUserLoginByTokenResponseDTO } from '@ternala/frasier-types';
 
 class API {

@@ -37,7 +37,7 @@ const Login: React.FC<IProps> = ({ ...props }) => {
       : props.signIn({
           receivedToken: data.accessToken,
           signIntype: type,
-          redirectUri: ''
+          redirectUri: '',
         });
   };
 

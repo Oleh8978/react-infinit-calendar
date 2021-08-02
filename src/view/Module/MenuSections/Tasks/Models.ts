@@ -6,7 +6,7 @@ export interface ICalendarData {
 export interface IListCalendarItem {
   time: string;
   timeToDo: number;
-  items: ITask[]
+  items: ITask[];
 }
 
 export interface ITask {
@@ -17,7 +17,6 @@ export interface ITask {
 }
 
 export interface IDayHaseAnyEvents {
-  time: string,
-  hasAnyevents: boolean
+  time: string;
+  hasAnyevents: boolean;
 }
-

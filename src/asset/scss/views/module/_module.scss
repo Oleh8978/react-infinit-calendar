@@ -443,6 +443,9 @@
   &-iframe {
     margin: auto 0 30px;
     overflow: hidden;
+    iframe{
+      width: 100%;
+    }
   }
 
   //&-text {

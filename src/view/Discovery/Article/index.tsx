@@ -27,9 +27,7 @@ import { getAccessToken } from '@app/controller/auth';
 import EmbeddedIframe from '../../Module/MenuSections/Overview/EmbeddedIframe';
 import Slider from '../../Module/MenuSections/Overview/HelpSection/Slider';
 
-
 type IProps = RouteComponentProps<{ id: string }>;
-
 
 export const generateContent = (section) => {
   switch (section.type) {
@@ -38,18 +36,22 @@ export const generateContent = (section) => {
       console.log(parse(`${section.content}`));
 
       return section.content ? (
-        <div className='overview-text' key={section.id}>{section.content ? parse(`${section.content}`) : ''}</div>
-      ) : ('');
+        <div className="overview-text" key={section.id}>
+          {section.content ? parse(`${section.content}`) : ''}
+        </div>
+      ) : (
+        ''
+      );
       break;
     case 'image':
       return (
-        <div className='jorneydiscovey-header-headerimgwrapper'>
+        <div className="jorneydiscovey-header-headerimgwrapper">
           <img
             key={section.id}
             src={section.url}
             title={section.title}
-            className='jorneydiscovey-header-img'
-            alt='img'
+            className="jorneydiscovey-header-img"
+            alt="img"
           />
         </div>
       );
@@ -57,7 +59,7 @@ export const generateContent = (section) => {
     case 'iframe_popup':
       return (
         <VideoComponent
-          link={section.content}
+          content={parse(`${section.content}`)}
           img={section.url}
           key={section.id}
         />
@@ -84,19 +86,27 @@ export const generateContent = (section) => {
       break;
     case 'showcase_widget':
       return (
-        <Slider isMain={false} people={section.content || []} key={section.id} />
-      )
+        <Slider
+          isMain={false}
+          people={section.content || []}
+          key={section.id}
+        />
+      );
       break;
     default:
       return section.content ? (
-        <div className='overview-text' key={section.id}>{section.content ? parse(`${section.content}`) : ''}</div>
-      ) : ('');
+        <div className="overview-text" key={section.id}>
+          {section.content ? parse(`${section.content}`) : ''}
+        </div>
+      ) : (
+        ''
+      );
   }
 };
 
 const Article: React.FC<IProps> = (props) => {
   const [isLoading, setLoading] = useState<boolean>(true);
-  const [article, setArticle] = useState<ArticleDTO | undefined>();
+  const [article, setArticle] = useState<any | undefined>();
   const id = Number(props.match.params.id);
 
   if (isNaN(id))
@@ -126,7 +136,7 @@ const Article: React.FC<IProps> = (props) => {
 
   if (isLoading) return <Loader />;
 
-  const myData = [].concat(article.sections)
+  const myData = [].concat(article.sections);
 
   return (
     <div className={'jorneydiscovey'}>
@@ -143,11 +153,13 @@ const Article: React.FC<IProps> = (props) => {
         </div>
       </div>
       <div className={'jorneydiscovey-body'}>
-        {myData.sort((el1, el2) => {
-          if(el1.orderNumber < el2.orderNumber) return -1
-          if(el1.orderNumber > el2.orderNumber) return 1
-          return 0
-        }).map((section) => generateContent(section))}
+        {myData
+          .sort((el1, el2) => {
+            if (el1.orderNumber < el2.orderNumber) return -1;
+            if (el1.orderNumber > el2.orderNumber) return 1;
+            return 0;
+          })
+          .map((section) => generateContent(section))}
         <AnswerNotFound />
       </div>
     </div>

@@ -22,7 +22,7 @@ const JourneyBody: React.FC<IProps> = () => {
       {/*    'Running a business comes with considerable legal and tax responsibilities, including filing and payment deadlines.'*/}
       {/*  }*/}
       {/*/>*/}
-      <JourneyListComponent data={list}/>
+      <JourneyListComponent data={list} />
       <JourneyFooter />
     </div>
   );

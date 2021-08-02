@@ -17,9 +17,7 @@ const Body: React.FC<IProps> = ({ module }) => {
             if (el1.orderNumber > el2.orderNumber) return 1;
             return 0;
           })
-          .map((section) => (
-            generateContent(section)
-          ))}
+          .map((section) => generateContent(section))}
 
         {/*<Slider people={experts} isMain={true}/>*/}
       </div>

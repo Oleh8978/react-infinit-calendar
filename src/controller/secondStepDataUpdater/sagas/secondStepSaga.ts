@@ -15,7 +15,10 @@ import * as action from '../actions';
 import { getSavedAccess } from '@app/utils/manageAccess';
 
 // Interfaces
-import { IException, IStore } from '../../model';
+import { IResponse } from '../models';
+
+// actions
+import * as actionsAccount from '../../auth/actions';
 
 export function* updateUserData({
   payload,
@@ -36,7 +39,7 @@ export function* updateUserData({
         message: '',
       }),
     );
-    const UserData = yield UpdateUserApi.updateUserAfterLogIn(
+    const UserData: IResponse = yield UpdateUserApi.updateUserAfterLogIn(
       { ...payload },
       getSavedAccess().accessToken,
     );
@@ -45,6 +48,43 @@ export function* updateUserData({
       yield put(
         action.updateUserDataAction.success({
           ...UserData,
+        }),
+      );
+      console.log('user data ', UserData);
+      yield put(
+        actionsAccount.updateUserData({
+          accessToken: getSavedAccess().accessToken,
+          refreshToken: getSavedAccess().refreshToken,
+          user: {
+            createdAt: UserData.user.createdAt,
+            id: UserData.user.id,
+            isCanSendEmail: UserData.user.isCanSendEmail,
+            isCanSendSMS: UserData.user.isCanSendSMS,
+            isNeedSecondStep: UserData.user.isNeedSecondStep,
+            userData: {
+              city: UserData.city,
+              deletedAt: UserData.deletedAt,
+              email: UserData.email,
+              firstName: UserData.firstName,
+              id: UserData.user.id,
+              image: UserData.image,
+              lastName: UserData.lastName,
+              phone: UserData.phone,
+              startTime: UserData.startTime,
+              state: UserData.state,
+              street: UserData.street,
+              timezone: UserData.timezone,
+              zipCode: UserData.user.zipCode,
+            },
+            userAuthorizations: [],
+          },
+          isAuthenticated: true,
+          state: {
+            code: undefined,
+            message: '',
+            isLoading: false,
+            error: false,
+          },
         }),
       );
       yield put(action.setIsSecondStepPassed({ isSecondStepPassed: true }));
