@@ -3,7 +3,11 @@ import { createAction, createAsyncAction } from 'typesafe-actions';
 import { appName } from '@app/config/index';
 
 // interfaces
-import { TipFullDTO, TipSendDTO, TipSendGetListResponse } from '@ternala/frasier-types';
+import {
+  TipFullDTO,
+  TipSendDTO,
+  TipSendGetListResponse,
+} from '@ternala/frasier-types';
 import {
   ISetLoadingAction,
   ITipsSearchParams,

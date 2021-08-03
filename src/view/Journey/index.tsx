@@ -145,7 +145,7 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
           />
           {/*<JourneyListComponent data={list} />*/}
           {/* <div className="jorneydiscoveymain-bottom-wrapper"> */}
-            {/* <JourneyFixedBottom
+          {/* <JourneyFixedBottom
               price={journey.price}
               trialPeriod={journey.trialPeriod}
               hasTrialPeriod={journey?.status?.isTrial}
@@ -158,29 +158,29 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
               id={id}
               buttonsHeight={buttonsHeight}
             /> */}
-            {/*<JourneyListComponent data={list} />*/}
-            <div className="jorneydiscoveymain-bottom-wrapper" ref={ref}>
-              <JourneyFixedBottom
-                price={journey.price}
-                trialPeriod={journey.trialPeriod}
-                hasTrialPeriod={journey?.status?.isTrial}
-                isTrialPeriodStarted={
-                  journey?.status?.isConnected && journey?.status?.isTrial
-                }
-                trialEndDate={journey.status?.trialEndDate}
-                isPaid={journey?.status?.isPaid}
-                isConnected={journey?.status?.isConnected}
-                needToPay={journey?.isNeedPaid}
-                setIsStartPopup={setIsStartPopup}
-                setIsStopPopup={setIsStopPopup}
-                setStartConnection={setStartConnection}
-                setStopConnection={setStopConnection}
-                id={id}
-              />
-            </div>
+          {/*<JourneyListComponent data={list} />*/}
+          <div className="jorneydiscoveymain-bottom-wrapper" ref={ref}>
+            <JourneyFixedBottom
+              price={journey.price}
+              trialPeriod={journey.trialPeriod}
+              hasTrialPeriod={journey?.status?.isTrial}
+              isTrialPeriodStarted={
+                journey?.status?.isConnected && journey?.status?.isTrial
+              }
+              trialEndDate={journey.status?.trialEndDate}
+              isPaid={journey?.status?.isPaid}
+              isConnected={journey?.status?.isConnected}
+              needToPay={journey?.isNeedPaid}
+              setIsStartPopup={setIsStartPopup}
+              setIsStopPopup={setIsStopPopup}
+              setStartConnection={setStartConnection}
+              setStopConnection={setStopConnection}
+              id={id}
+            />
           </div>
-        // </div>
+        </div>
       ) : (
+        // </div>
         <Loader isSmall={true} isAbsolute={true} />
       )}
     </>

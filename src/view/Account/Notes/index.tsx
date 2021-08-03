@@ -59,10 +59,6 @@ const Notes: React.FC<any> = ({ ...props }) => {
         user: props.user,
       };
     }
-    console.log('not corrected ', props.storedSearchParams)
-    console.log('not corrected inside ', searchParams)
-    console.log('props.storedSearchParams ', JSON.stringify(omit(props.storedSearchParams, ['limit', 'offset'])) )
-    console.log('SearchParams ', JSON.stringify(omit(searchParams, ['limit', 'offset'])))
     if (
       JSON.stringify(omit(props.storedSearchParams, ['limit', 'offset'])) !==
       JSON.stringify(omit(searchParams, ['limit', 'offset']))
