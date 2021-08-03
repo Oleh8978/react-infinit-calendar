@@ -160,6 +160,7 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
                     className={
                       props.isBtnSaveActive ? 'btn-save' : 'btn-save__inactive'
                     }
+                    onClick={() => {props.saveBtnFunctionality()}}
                     id="btn-save-click">
                     Save
                   </span>
@@ -196,7 +197,7 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
             ) : (
               <div
                 className="module-menu-back"
-                onClick={() => dispatch(push('/schedule'))}>
+                onClick={() => dispatch(push('/account'))}>
                 <div className="module-menu-back__top" />
                 <div className="module-menu-back__bottom" />
               </div>

@@ -94,7 +94,7 @@ const BodyEdditProfile: React.FC<any> = ({ ...props }) => {
         if (item.name === 'phone') {
           if (
             validationObjectUpdate[validationObject.indexOf(item)].value.trim()
-              .length === 15
+              .length === 14
           ) {
             validationObjectUpdate[validationObject.indexOf(item)].isValid =
               true;
