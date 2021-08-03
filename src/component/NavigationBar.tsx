@@ -2,13 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { push } from 'connected-react-router';
 
-import {
-  EditorState,
-  convertToRaw,
-  convertFromRaw,
-  ContentState,
-} from 'draft-js';
-
 // components
 import Link from '@app/routing/Link';
 import Pen from './CustomButtons/Pen';
@@ -21,7 +14,6 @@ import { setSaveBTNStatus } from '@app/controller/saveBTN/actions';
 import { sendNoteAction } from '@app/controller/sendNoteReducer/actions';
 import { setModalWindowOpened } from '@app/controller/modalWindowReducer/actions';
 import {
-  getNoteByID,
   deleteNoteByID,
   updateNoteByID,
 } from '@app/controller/singleNote/actions';
@@ -160,7 +152,9 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
                     className={
                       props.isBtnSaveActive ? 'btn-save' : 'btn-save__inactive'
                     }
-                    onClick={() => {props.saveBtnFunctionality()}}
+                    onClick={() => {
+                      props.saveBtnFunctionality();
+                    }}
                     id="btn-save-click">
                     Save
                   </span>
@@ -195,12 +189,13 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
                 )}
               </>
             ) : (
-              <div
+              <Link backFlag={true} to='discovery'
                 className="module-menu-back"
-                onClick={() => dispatch(push('/account'))}>
+                // onClick={() => dispatch(push('/account'))}
+                >
                 <div className="module-menu-back__top" />
                 <div className="module-menu-back__bottom" />
-              </div>
+              </Link>
             )}
           </div>
           <div className="module-menu-col2">{props.name}</div>

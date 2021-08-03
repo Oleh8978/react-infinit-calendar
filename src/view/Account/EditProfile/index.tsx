@@ -11,7 +11,7 @@ import BodyEdditProfile from './BodyEdditProfile';
 // action
 import { updateUserDataAction } from '@app/controller/secondStepDataUpdater/actions';
 import { loginByTokenAction } from '@app/controller/auth/actions';
-import { setSaveBTNStatus } from '@app/controller/saveBTN/actions'
+import { setSaveBTNStatus } from '@app/controller/saveBTN/actions';
 
 // interfaces
 import { IUser } from '@app/controller/auth/model';
@@ -30,11 +30,11 @@ const EdditProfile: React.FC<any> = ({ ...props }) => {
   const settings: Pages = 'settings';
 
   const changeStateOfTheSvaeBtn = (value: boolean) => {
-    dispatch(setSaveBTNStatus({isActive: value}))
+    dispatch(setSaveBTNStatus({ isActive: value }));
   };
-  console.log('validation state ', validationState);
-  console.log('user data ', userData);
-  console.log('props user data ', props.user);
+  // console.log('validation state ', validationState);
+  // console.log('user data ', userData);
+  // console.log('props user data ', props.user);
 
   useEffect(() => {
     const newValidation = [];
@@ -100,7 +100,7 @@ const EdditProfile: React.FC<any> = ({ ...props }) => {
       if (userData !== undefined) {
         setUpdater(true);
         dispatch(props.updateUserDataAction(userData));
-        dispatch(setSaveBTNStatus({isActive: false}))
+        dispatch(setSaveBTNStatus({ isActive: false }));
       }
     }
   };
@@ -134,5 +134,9 @@ export default connect(
     user: state.authState.user,
     loader: state.updateSteUserAfterSignIn.loaderState.status,
   }),
-  { updateUserDataAction: updateUserDataAction.request, loginByTokenAction, setSaveBTNStatus },
+  {
+    updateUserDataAction: updateUserDataAction.request,
+    loginByTokenAction,
+    setSaveBTNStatus,
+  },
 )(EdditProfile);

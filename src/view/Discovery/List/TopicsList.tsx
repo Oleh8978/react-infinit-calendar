@@ -4,6 +4,7 @@ import Link from '@app/routing/Link';
 // components
 import Loader from '@app/component/Loader';
 import AnswerNotFound from '../AnswerNotFound/AnswerNotFound';
+import ImageL from '@app/component/Image';
 
 // interface
 import { DiscoveryDTO } from '@ternala/frasier-types';
@@ -77,10 +78,15 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
                         <div
                           className="discovery-list-item-holder__half"
                           style={{ display: 'flex', flexFlow: 'row' }}>
-                          <img
+                          {/* <img
                             className="discovery-list-item-img__half"
                             src={item.article.image}
                             alt="image"
+                          /> */}
+                          <ImageL
+                            className={'discovery-list-item-img__half'}
+                            src={item.article.image}
+                            isNeededLoader={true}
                           />
                           <span className="card-text-wrapper-link">
                             <Link
@@ -101,10 +107,15 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
                         <div
                           className="discovery-list-item-holder__half"
                           style={{ display: 'flex', flexFlow: 'row' }}>
-                          <img
+                          {/* <img
                             className="discovery-list-item-img__half"
                             src={item.article.image}
                             alt="image"
+                          /> */}
+                          <ImageL
+                            className={'discovery-list-item-img__half'}
+                            src={item.article.image}
+                            isNeededLoader={true}
                           />
                           <span className="card-text-wrapper-link">
                             {/* <Link to={'article'}> */}
@@ -130,10 +141,16 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
                         params={{ id: String(item.journey.id) }}>
                         <div className="discovery-list-item-holder">
                           <div className="discovery-list-item-imgwrapper">
-                            <img
+                            {/* <img
                               className="discovery-list-item-img"
                               src={item.journey.image}
                               alt="image"
+                              // onLoad=
+                            /> */}
+                            <ImageL
+                              className={'discovery-list-item-img'}
+                              src={item.journey.image}
+                              isNeededLoader={true}
                             />
                           </div>
 

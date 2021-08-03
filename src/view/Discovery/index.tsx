@@ -172,7 +172,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
         query: searchQuery,
       };
     }
-   
+
     if (
       JSON.stringify(omit(props.storedSearchParams, ['limit', 'offset'])) !==
       JSON.stringify(omit(searchParams, ['limit', 'offset']))

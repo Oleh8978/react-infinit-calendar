@@ -158,35 +158,33 @@ const ContactList: React.FC<IProps> = ({ ...props }) => {
   };
 
   const linksRender = () => {
-      return props.data.links.map( item => {
-        return (
-          <div className={'expert-help-contact-body'}>
-            <div
-              className={'expert-help-contact-body-wrapper'}
-              >
-              <div className={'expert-help-contact-body-left'}>
-                <div className={'expert-help-contact-body-left-img'}>
-                  <>{image('name', item.title)}</>
-                </div>
-              </div>
-              <div className={'expert-help-contact-body-right'}>
-                <span className={'expert-help-contact-body-right-text'}>
-                  <span className={'expert-text'}>{item.title}</span>
-                  <span className={'expert-link'}>
-                    <span
-                      className={'expert-link-text'}
-                      onClick={() => {
-                        window.open(item.link, '_blank');
-                      }}>
-                      Open
-                    </span>
-                  </span>
-                </span>
+    return props.data.links.map((item) => {
+      return (
+        <div className={'expert-help-contact-body'}>
+          <div className={'expert-help-contact-body-wrapper'}>
+            <div className={'expert-help-contact-body-left'}>
+              <div className={'expert-help-contact-body-left-img'}>
+                <>{image('name', item.title)}</>
               </div>
             </div>
+            <div className={'expert-help-contact-body-right'}>
+              <span className={'expert-help-contact-body-right-text'}>
+                <span className={'expert-text'}>{item.title}</span>
+                <span className={'expert-link'}>
+                  <span
+                    className={'expert-link-text'}
+                    onClick={() => {
+                      window.open(item.link, '_blank');
+                    }}>
+                    Open
+                  </span>
+                </span>
+              </span>
+            </div>
           </div>
-        );
-      })
+        </div>
+      );
+    });
   };
 
   return (

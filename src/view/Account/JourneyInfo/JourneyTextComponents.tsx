@@ -7,7 +7,6 @@ interface IProps {
 }
 
 const TextComponent: React.FC<IProps> = ({ ...props }) => {
-  console.log(props.data);
   return (
     <>
       {props.isSubtitle ? (

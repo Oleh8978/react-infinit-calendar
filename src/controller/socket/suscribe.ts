@@ -10,7 +10,6 @@ export function subscribe(socket: Socket, events: ISocketEvent[]) {
       });
     });
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    return () => {
-    };
+    return () => {};
   });
 }
