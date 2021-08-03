@@ -209,7 +209,6 @@ const EdditBodyElementItem: React.FC<IProps> = ({ ...props }) => {
   };
 
   const colorSetter = () => {
-    console.log('validation state ', props.validationState);
     if (props.validationState !== undefined) {
       if (props.validationState.length === 0) {
         return;
@@ -241,7 +240,7 @@ const EdditBodyElementItem: React.FC<IProps> = ({ ...props }) => {
         let value = 'This field should not be empty';
 
         if (props.data.subname === 'phone') {
-          value = 'Should not be less than 10 digits';
+          value = '10 digits are required';
         }
 
         if (props.data.subname === 'email') {

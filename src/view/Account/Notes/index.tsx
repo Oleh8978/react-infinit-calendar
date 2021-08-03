@@ -22,7 +22,6 @@ import { INotesSearchParams } from '@app/controller/notes/models';
 interface IProps {}
 
 const Notes: React.FC<any> = ({ ...props }) => {
-  const [isSmallLoader, setIsSmallLoader] = useState<boolean>(true);
   const fieldRef = createRef() as RefObject<Scrollbars>;
   const dispatch = useDispatch();
 
