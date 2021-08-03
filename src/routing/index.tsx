@@ -121,14 +121,14 @@ const Routing: React.FC<Props> = ({
     }
   }, [props.isSecondStepPassed, user, props.userData, isNeededSecondStep]);
 
-  useEffect(() => {
-    const { startSocketConnection, endSocketConnection } = props;
-    if (authStatus && !isNeeededSecondStepValue) {
-      typeof startSocketConnection === 'function' && startSocketConnection();
-    } else {
-      typeof endSocketConnection === 'function' && endSocketConnection();
-    }
-  }, [authStatus, isNeeededSecondStepValue]);
+  // useEffect(() => {
+  //   const { startSocketConnection, endSocketConnection } = props;
+  //   if (authStatus && !isNeeededSecondStepValue) {
+  //     typeof startSocketConnection === 'function' && startSocketConnection();
+  //   } else {
+  //     typeof endSocketConnection === 'function' && endSocketConnection();
+  //   }
+  // }, [authStatus, isNeeededSecondStepValue]);
 
   // const location = useLocation();
 
