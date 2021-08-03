@@ -15,7 +15,6 @@ import { getPageBySlug } from '@app/controller/staticPage/actions';
 
 import parser from 'html-react-parser';
 
-
 const PrivacyPolicy: React.FC<any> = ({ ...props }) => {
   const checkIFMyCompExists = () => !!document.querySelector('.main-layout');
 
@@ -23,11 +22,11 @@ const PrivacyPolicy: React.FC<any> = ({ ...props }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-      dispatch(
-        getPageBySlug.request(
-          String(history.location.pathname).replace(/\//g, ''),
-        ),
-      );
+    dispatch(
+      getPageBySlug.request(
+        String(history.location.pathname).replace(/\//g, ''),
+      ),
+    );
   }, [history.location.pathname]);
   return (
     <div className={'privacypage'}>
@@ -35,7 +34,17 @@ const PrivacyPolicy: React.FC<any> = ({ ...props }) => {
         name={'Privacy Policy'}
         rout={elementExists ? '/' : '/about'}
       />
-      <>{props.staticPage ? <div className={'parsed-contnet'}> <div className="parsed-contnet-title">{props.staticPage.title}</div>{parser(String(props.staticPage.content))}</div> : <Loader />}</>
+      <>
+        {props.staticPage ? (
+          <div className={'parsed-contnet'}>
+            {' '}
+            <div className="parsed-contnet-title">{props.staticPage.title}</div>
+            {parser(String(props.staticPage.content))}
+          </div>
+        ) : (
+          <Loader />
+        )}
+      </>
     </div>
   );
 };

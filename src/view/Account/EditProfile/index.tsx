@@ -11,6 +11,7 @@ import BodyEdditProfile from './BodyEdditProfile';
 // action
 import { updateUserDataAction } from '@app/controller/secondStepDataUpdater/actions';
 import { loginByTokenAction } from '@app/controller/auth/actions';
+import { setSaveBTNStatus } from '@app/controller/saveBTN/actions'
 
 // interfaces
 import { IUser } from '@app/controller/auth/model';
@@ -22,8 +23,6 @@ import { validation } from '../../LoginPages/utils/validation';
 interface IProps {}
 
 const EdditProfile: React.FC<any> = ({ ...props }) => {
-  const [isSaveBtnActivState, setISSaveBtnActiveState] =
-    useState<boolean>(false);
   const [userData, setUserData] = useState<IUser>(undefined);
   const [updater, setUpdater] = useState<boolean>(false);
   const [validationState, setValidationState] = useState<any>([]);
@@ -31,7 +30,7 @@ const EdditProfile: React.FC<any> = ({ ...props }) => {
   const settings: Pages = 'settings';
 
   const changeStateOfTheSvaeBtn = (value: boolean) => {
-    setISSaveBtnActiveState(value);
+    dispatch(setSaveBTNStatus({isActive: value}))
   };
   console.log('validation state ', validationState);
   console.log('user data ', userData);
@@ -73,7 +72,7 @@ const EdditProfile: React.FC<any> = ({ ...props }) => {
       if (item.name === 'phone') {
         if (
           validationObjectUpdate[validationState.indexOf(item)].value.trim()
-            .length >= 15
+            .length === 14
         ) {
           validationObjectUpdate[validationState.indexOf(item)].isValid = true;
         } else {
@@ -101,7 +100,7 @@ const EdditProfile: React.FC<any> = ({ ...props }) => {
       if (userData !== undefined) {
         setUpdater(true);
         dispatch(props.updateUserDataAction(userData));
-        setISSaveBtnActiveState(false);
+        dispatch(setSaveBTNStatus({isActive: false}))
       }
     }
   };
@@ -114,7 +113,6 @@ const EdditProfile: React.FC<any> = ({ ...props }) => {
         page={settings}
         hasSaveButton={true}
         isSaveActive={true}
-        isBtnSaveActive={isSaveBtnActivState}
         saveBtnFunctionality={saveBtnFunctionality}
       />
       <BodyEdditProfile
@@ -136,5 +134,5 @@ export default connect(
     user: state.authState.user,
     loader: state.updateSteUserAfterSignIn.loaderState.status,
   }),
-  { updateUserDataAction: updateUserDataAction.request, loginByTokenAction },
+  { updateUserDataAction: updateUserDataAction.request, loginByTokenAction, setSaveBTNStatus },
 )(EdditProfile);

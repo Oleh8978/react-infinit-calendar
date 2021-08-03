@@ -31,14 +31,21 @@ const Help: React.FC<any> = ({ ...props }) => {
     }
   }, [props.expertState.items, props.moduleId]);
 
-  console.log('moduleInfo ', props.moduleInfo)
+  console.log('moduleInfo ', props.moduleInfo);
 
   const headerSetter = () => {
-    if (props.moduleInfo !== undefined && props.moduleInfo.moduleData[`${Object.keys(props.moduleInfo.moduleData)[0]}`]) {
-      return props.moduleInfo.moduleData[`${Object.keys(props.moduleInfo.moduleData)[0]}`].title
+    if (
+      props.moduleInfo !== undefined &&
+      props.moduleInfo.moduleData[
+        `${Object.keys(props.moduleInfo.moduleData)[0]}`
+      ]
+    ) {
+      return props.moduleInfo.moduleData[
+        `${Object.keys(props.moduleInfo.moduleData)[0]}`
+      ].title;
     }
-    return ''
-  }
+    return '';
+  };
 
   return (
     <div className={'help'}>

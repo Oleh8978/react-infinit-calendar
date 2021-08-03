@@ -25,9 +25,13 @@ const WavePercentage: React.FC<IProps> = ({ ...props }) => {
   return (
     <>
       <div className={`box ${props.isGreen ? 'box-green' : ''}`}>
-        {props.bubbleValue ? <div className="percent">
-          <div className="percentNum">{props.bubbleValue}</div>
-        </div> : <></>}
+        {props.bubbleValue ? (
+          <div className="percent">
+            <div className="percentNum">{props.bubbleValue}</div>
+          </div>
+        ) : (
+          <></>
+        )}
 
         <div id={`water${id}`} className="water">
           <svg viewBox="0 0 560 20" className="water_wave water_wave_front">

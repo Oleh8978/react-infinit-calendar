@@ -85,3 +85,23 @@
     border-right: 1px solid $divider-color;
   }
 }
+
+.link {
+  &-regular {
+    padding: 16px 20px;
+    align-items: center;
+    display: flex;
+    svg {
+      margin-right: 20px;
+      margin-bottom: 5px;
+      width: 25px;
+      path{
+        fill: $text-color;
+      }
+    }
+
+    span {
+      color: $text-color;
+    }
+  }
+}

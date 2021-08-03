@@ -6,11 +6,10 @@ import Loader from '@app/component/Loader';
 
 // interfaces
 import { NoteDTO } from '@ternala/frasier-types';
-import { IListItem } from './Models';
 
 interface IProps {
   data: NoteDTO[];
-  isSmallLoader: boolean;
+  counts: number;
 }
 
 const NotesList: React.FC<IProps> = ({ ...props }) => {
@@ -19,7 +18,8 @@ const NotesList: React.FC<IProps> = ({ ...props }) => {
       {props.data.map((item) => {
         return <NotesListItem data={item} key={item.id} />;
       })}
-      {props.isSmallLoader ? <Loader isSmall={true} /> : <> </>}
+      {props.counts !== props.data.length ? 
+      <div style={{height: '30px', width: '100%'}}> <Loader isSmall={true} /> </div> : <> </>}
     </div>
   );
 };

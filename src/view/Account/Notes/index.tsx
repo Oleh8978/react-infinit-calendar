@@ -22,7 +22,6 @@ import { INotesSearchParams } from '@app/controller/notes/models';
 interface IProps {}
 
 const Notes: React.FC<any> = ({ ...props }) => {
-  const [isSmallLoader, setIsSmallLoader] = useState<boolean>(true);
   const fieldRef = createRef() as RefObject<Scrollbars>;
   const dispatch = useDispatch();
 
@@ -47,20 +46,23 @@ const Notes: React.FC<any> = ({ ...props }) => {
 
     if (props.data !== undefined) {
       searchParams = {
-        limit: 10,
+        limit: 20,
         offset: loadMore === 'more' ? Number(props.data.length) : 0,
         query: searchQuery,
         user: props.user,
       };
     } else {
       searchParams = {
-        limit: 10,
+        limit: 20,
         offset: loadMore === 'more' ? Number(props.data.length) : 0,
         query: searchQuery,
         user: props.user,
       };
     }
-
+    console.log('not corrected ', props.storedSearchParams)
+    console.log('not corrected inside ', searchParams)
+    console.log('props.storedSearchParams ', JSON.stringify(omit(props.storedSearchParams, ['limit', 'offset'])) )
+    console.log('SearchParams ', JSON.stringify(omit(searchParams, ['limit', 'offset'])))
     if (
       JSON.stringify(omit(props.storedSearchParams, ['limit', 'offset'])) !==
       JSON.stringify(omit(searchParams, ['limit', 'offset']))
@@ -74,16 +76,8 @@ const Notes: React.FC<any> = ({ ...props }) => {
     if (props.count === undefined) {
       loadNotesData();
     }
-
-    if (
-      props.data !== undefined &&
-      props.count !== undefined &&
-      props.count === props.data.length
-    ) {
-      setIsSmallLoader(false);
-    }
   }, [props.count]);
-  console.log('notes ', props.data);
+  console.log('notes ', props.data.length, props.count);
   return (
     <Scrollbars
       style={{
@@ -98,7 +92,7 @@ const Notes: React.FC<any> = ({ ...props }) => {
       renderView={(props) => <div {...props} className={'notes'} />}>
       <NavigationBar rout={'account'} name={'My Notes'} hasSaveButton={false} />
       {props.data !== undefined ? (
-        <NotesList data={props.data} isSmallLoader={isSmallLoader} />
+        <NotesList data={props.data} counts={props.count} />
       ) : (
         <Loader isSmall={false} />
       )}
@@ -109,6 +103,7 @@ const Notes: React.FC<any> = ({ ...props }) => {
 export default connect(
   (state: IStore) => ({
     data: state.notesListReducer.state.items,
+    storedSearchParams: state.notesListReducer.storedSearchParams,
     count: state.notesListReducer.state.counts,
     user: state.authState.user.id,
   }),

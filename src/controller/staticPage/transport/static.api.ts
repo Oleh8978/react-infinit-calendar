@@ -3,7 +3,9 @@ import { authHeader, handleErrors } from '@app/utils/API';
 
 class API {
   public async getPage(slug: string): Promise<string> {
-    const url = new URL(Config.MAIN_SERVICE_ENDPOINT + `static-page/slug/${slug}`);
+    const url = new URL(
+      Config.MAIN_SERVICE_ENDPOINT + `static-page/slug/${slug}`,
+    );
 
     return handleErrors(
       fetch(url.toString(), {
