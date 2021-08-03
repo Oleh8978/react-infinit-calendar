@@ -51,11 +51,11 @@ const TodaysJourney: React.FC<any> = ({ ...props }) => {
                       'profile-journey-progress__left-textwrapper__top'
                     }>
                     {statistic.today.spent > 0 && statistic.today.maxSpent > 0
-                      ? mathConverter(statistic.today.spent / 60) + ' '
+                      ? mathConverter(statistic.today.spent / 60)
                       : 'N'}
-                    /
+                    &nbsp;/&nbsp;
                     {statistic.today.maxSpent > 0 && statistic.today.spent > 0
-                      ? ' ' + mathConverter(statistic.today.maxSpent / 60)
+                      ? mathConverter(statistic.today.maxSpent / 60)
                       : 'A'}
                   </span>
                   <span
@@ -91,11 +91,11 @@ const TodaysJourney: React.FC<any> = ({ ...props }) => {
                     <>
                       {statistic.today.completedTaskCount > 0 ? (
                         <>
-                          {statistic.today.completedTaskCount}/
+                          {statistic.today.completedTaskCount}&nbsp;/&nbsp;
                           {statistic.today.maxTaskCount}
                         </>
                       ) : (
-                        <>{'N/A'}</>
+                        <>{'N / A'}</>
                       )}
                     </>
                   </span>
