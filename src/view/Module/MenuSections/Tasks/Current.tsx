@@ -29,6 +29,7 @@ const Current: React.FC<IProps> = ({ timeSlots, ...props }) => {
             tasks={timeSlot.tasks}
             time={userStartTime}
             duration={timeSlot.duration}
+            title={timeSlot.title}
             toggleTask={(data: {
               id: number;
               action: 'create' | 'remove';

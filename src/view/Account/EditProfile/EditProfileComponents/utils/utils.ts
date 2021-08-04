@@ -10,7 +10,7 @@ export const entryValidator = (name: string, text: string) => {
     case 'image':
       break;
     case 'email':
-      return text.toLowerCase().replace(/[$&+,:;=?#|'<>^*()%!]/g, '')
+      return text.toLowerCase().replace(/[$&+,:;=?#|'<>^*()%!]/g, '');
     case 'phone':
       return text.toLowerCase().replace(/[^0-9+()]+/g, '');
     case 'timezone':
@@ -24,12 +24,11 @@ export const entryValidator = (name: string, text: string) => {
     case 'state':
       return text.replace(/[^a-zA-Z ]/g, '');
     case 'startTime':
-      return text
+      return text;
     default:
       return text.trim();
   }
 };
-
 
 export const timeZoneReturner = (elem: any) => {
   let value: TimezoneTypeEnum;

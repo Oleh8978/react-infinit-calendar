@@ -14,11 +14,6 @@ interface IProps {
 }
 
 const JourneyCompletedItem: React.FC<IProps> = ({ ...props }) => {
-  // const icons = ['👏', '👍'];
-  // const [selectedIcon, setSelectedIcon] = useState<string>(
-  //   icons[Math.floor(Math.random() * 2)],
-  // );
-  // // console.log('props.data ', props.data);
   return (
     <Link
       to={`/journey-info/${props.data.id}`}
@@ -36,8 +31,10 @@ const JourneyCompletedItem: React.FC<IProps> = ({ ...props }) => {
               className={
                 'journey-completed-item-body-description-progress__top'
               }>
-              {Math.round((props.data.statistic.completedTaskCount / 100) *
-                props.data.statistic.maxTaskCount)}
+              {Math.round(
+                (props.data.statistic.completedTaskCount / 100) *
+                  props.data.statistic.maxTaskCount,
+              )}
               %
             </span>
             <span

@@ -23,6 +23,10 @@ import {
   setIsneedSecondStep,
   logOut,
 } from '@app/controller/auth/actions';
+import {
+  startSocketConnection,
+  endSocketConnection,
+} from '@app/controller/socket/actions';
 
 // routing schema
 import RoutingSchema, { IRoute } from './schema';
@@ -71,6 +75,8 @@ interface Props {
   loginByTokenAction: (data: IAuthData) => void;
   setIsneedSecondStep: () => void;
   userData?: IUserData;
+  startSocketConnection?: () => void;
+  endSocketConnection?: () => void;
 }
 
 const Routing: React.FC<Props> = ({
@@ -114,6 +120,15 @@ const Routing: React.FC<Props> = ({
       setPageOpened();
     }
   }, [props.isSecondStepPassed, user, props.userData, isNeededSecondStep]);
+
+  // useEffect(() => {
+  //   const { startSocketConnection, endSocketConnection } = props;
+  //   if (authStatus && !isNeeededSecondStepValue) {
+  //     typeof startSocketConnection === 'function' && startSocketConnection();
+  //   } else {
+  //     typeof endSocketConnection === 'function' && endSocketConnection();
+  //   }
+  // }, [authStatus, isNeeededSecondStepValue]);
 
   // const location = useLocation();
 
@@ -214,5 +229,7 @@ export default connect(
     setAuthenticatedStatus,
     push,
     loginByTokenAction,
+    startSocketConnection,
+    endSocketConnection,
   },
 )(Routing);

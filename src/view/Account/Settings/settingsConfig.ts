@@ -1,6 +1,6 @@
-import bell from './static/bell.png';
-import more from './static/more.png';
-import account from './static/account.png';
+import bell from './static/bell.svg';
+import more from './static/more.svg';
+import account from './static/account.svg';
 
 export const notifications = {
   icon: bell,
@@ -12,7 +12,7 @@ export const notifications = {
       button: 'toogle',
     },
     {
-      name: 'E-mail notification',
+      name: 'Email notification',
       subname: 'email',
       button: 'toogle',
     },
@@ -26,12 +26,12 @@ export const Account = {
     {
       name: 'Edit profile ',
       button: 'next',
-      link: 'account-edit'
+      link: 'account-edit',
     },
     {
       name: 'Connect account for authentication',
       button: 'next',
-      link: 'account-connected-socials'
+      link: 'account-connected-socials',
     },
   ],
 };
@@ -43,10 +43,10 @@ export const More = {
     {
       name: 'About this app',
       button: 'next',
-      link: 'about'
+      link: 'about',
     },
     {
-      name: 'email@testmail.com',
+      name: 'hello@meetfrasier.com',
     },
   ],
 };
@@ -61,7 +61,7 @@ export const About = {
     {
       name: 'Terms of use',
       button: 'next',
-      link: 'terms'
+      link: 'terms',
     },
   ],
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // components
@@ -31,6 +31,8 @@ type IProps = RouteComponentProps<{ id: string }> & IRoute;
 const Journey: React.FC<IProps> = ({ ...props }) => {
   const [isStartPopup, setStartPopup] = useState<boolean>(false);
   const [isStopPopup, setStopPopup] = useState<boolean>(false);
+  const [buttonsHeight, setButtonsHeight] = useState<number>(undefined);
+  const ref = useRef(null);
 
   const journey = useSelector(getJourney);
   const statistic = useSelector(getStatisticByJourney);
@@ -41,8 +43,12 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
   useEffect(() => {
     dispatch(getJourneyDataAction.request(id));
     dispatch(getJourneyStatisticAction.request({ id }));
-
+    setButtonsHeight(ref?.current?.clientHeight);
   }, []);
+
+  useEffect(() => {
+    setButtonsHeight(ref?.current?.clientHeight);
+  }, [ref?.current?.clientHeight]);
 
   const setIsStartPopup = (boolean) => {
     setStartPopup(boolean);
@@ -82,9 +88,7 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
   const indexDayStartJourney = 1;
   let startDate;
   if (today >= indexDayStartJourney) {
-    startDate = moment()
-      .isoWeekday(indexDayStartJourney)
-      .toDate();
+    startDate = moment().isoWeekday(indexDayStartJourney).toDate();
   } else {
     startDate = moment()
       .subtract(1, 'weeks')
@@ -94,57 +98,91 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
 
   return (
     <>
-      {(journey !== undefined) ?
-        (<div className={'jorneydiscoveymain'}>
-            {(journeyLoader.isLoading || statistic === undefined) ? (
-              <Loader isSmall={true} isAbsolute={true} />) : (<></>)}
-            {isStartPopup ? (
-              <ConfirmationWindow firstButton={'I Want to Hold Off'}
-                                  secondButton={'Good, Let’s Proceed'}
-                                  text={startDate !== undefined ?
-                                    'This journey will start on' : ''}
-                                  title={startDate !== undefined ? moment(startDate).format('dddd, MMM Do') : ''}
-                                  firstAction={() => setStartPopup(false)}
-                                  secondAction={startTrial}
-              />
-            ) : (<></>)}
-            {isStopPopup ? (
-              <ConfirmationWindow firstButton={'Yes, I am Fine With That'}
-                                  secondButton={'No, Let’s Keep It Going'}
-                                  text={'All of your progress will be erased.'}
-                                  title={'Are you sure?'}
-                                  firstAction={journey?.status?.isTrial ? stopTrial : setStopConnection}
-                                  secondAction={() => setStopPopup(false)}
-              />
-            ) : (<></>)}
-            <NavigationBar name={'Journey Info'} rout={'/'} />
-            <JourneyHeader img={journey.image} />
-            <JourneyDescription
-              statistic={statistic}
-              journey={journey}
+      {journey !== undefined ? (
+        <div className={'jorneydiscoveymain'}>
+          {journeyLoader.isLoading || statistic === undefined ? (
+            <Loader isSmall={true} isAbsolute={true} />
+          ) : (
+            <></>
+          )}
+          {isStartPopup ? (
+            <ConfirmationWindow
+              firstButton={'I Want to Hold Off'}
+              secondButton={'Good, Let’s Proceed'}
+              text={startDate !== undefined ? 'This journey will start on' : ''}
+              title={
+                startDate !== undefined
+                  ? moment(startDate).format('dddd, MMM Do')
+                  : ''
+              }
+              firstAction={() => setStartPopup(false)}
+              secondAction={startTrial}
+            />
+          ) : (
+            <></>
+          )}
+          {isStopPopup ? (
+            <ConfirmationWindow
+              firstButton={'Yes, I am Fine With That'}
+              secondButton={'No, Let’s Keep It Going'}
+              text={'All of your progress will be erased.'}
+              title={'Are you sure?'}
+              firstAction={
+                journey?.status?.isTrial ? stopTrial : setStopConnection
+              }
+              secondAction={() => setStopPopup(false)}
+            />
+          ) : (
+            <></>
+          )}
+          <NavigationBar name={'Journey Info'} rout={'/'} />
+          <JourneyHeader img={journey.image} />
+          <JourneyDescription
+            statistic={statistic}
+            journey={journey}
+            isConnected={journey?.status?.isConnected}
+            id={id}
+          />
+          {/*<JourneyListComponent data={list} />*/}
+          {/* <div className="jorneydiscoveymain-bottom-wrapper"> */}
+          {/* <JourneyFixedBottom
+              price={journey.price}
+              trialPeriod={journey.trialPeriod}
+              hasTrialPeriod={journey?.status?.isTrial}
+              isTrialPeriodStarted={
+                journey?.status?.isConnected && journey?.status?.isTrial
+              }
+              trialEndDate={journey.status?.trialEndDate}
+              isPaid={journey?.status?.isPaid}
               isConnected={journey?.status?.isConnected}
-              id={id} />
-            {/*<JourneyListComponent data={list} />*/}
-            <div className='jorneydiscoveymain-bottom-wrapper'>
-              <JourneyFixedBottom
-                price={journey.price}
-                trialPeriod={journey.trialPeriod}
-                hasTrialPeriod={journey?.status?.isTrial}
-                isTrialPeriodStarted={journey?.status?.isConnected && journey?.status?.isTrial}
-                trialEndDate={journey.status?.trialEndDate}
-                isPaid={journey?.status?.isPaid}
-                isConnected={journey?.status?.isConnected}
-                needToPay={journey?.isNeedPaid}
-                setIsStartPopup={setIsStartPopup}
-                setIsStopPopup={setIsStopPopup}
-                setStartConnection={setStartConnection}
-                setStopConnection={setStopConnection}
-                id={id} />
-            </div>
+              id={id}
+              buttonsHeight={buttonsHeight}
+            /> */}
+          {/*<JourneyListComponent data={list} />*/}
+          <div className="jorneydiscoveymain-bottom-wrapper" ref={ref}>
+            <JourneyFixedBottom
+              price={journey.price}
+              trialPeriod={journey.trialPeriod}
+              hasTrialPeriod={journey?.status?.isTrial}
+              isTrialPeriodStarted={
+                journey?.status?.isConnected && journey?.status?.isTrial
+              }
+              trialEndDate={journey.status?.trialEndDate}
+              isPaid={journey?.status?.isPaid}
+              isConnected={journey?.status?.isConnected}
+              needToPay={journey?.isNeedPaid}
+              setIsStartPopup={setIsStartPopup}
+              setIsStopPopup={setIsStopPopup}
+              setStartConnection={setStartConnection}
+              setStopConnection={setStopConnection}
+              id={id}
+            />
           </div>
-        ) : (
-          <Loader isSmall={true} isAbsolute={true} />
-        )}
+        </div>
+      ) : (
+        // </div>
+        <Loader isSmall={true} isAbsolute={true} />
+      )}
     </>
   );
 };

@@ -29,6 +29,7 @@
         flex-direction: column;
         align-items: center;
         text-decoration: none;
+
         &, span{
           color: $text-color;
           font-weight: 500;
@@ -50,14 +51,25 @@
           }
         }
         @media screen and (min-width: 650px) {
-          margin-top: 33px;
-          margin-left: 19px;
           display: flex;
           flex-flow: row;
+          padding: 16px 20px;
+          min-width: 220px;
         }
       }
       &.active{
         a{
+          &, span{
+            color: $primary-action-color;
+          }
+          svg{
+            path{
+              fill: $primary-action-color;
+            }
+          }
+        }
+
+        div{
           &, span{
             color: $primary-action-color;
           }
@@ -82,5 +94,25 @@
     flex-flow: column;
     border-top: none;
     border-right: 1px solid $divider-color;
+  }
+}
+
+.link {
+  &-regular {
+    padding: 16px 20px;
+    align-items: center;
+    display: flex;
+    svg {
+      margin-right: 20px;
+      margin-bottom: 5px;
+      width: 25px;
+      path{
+        fill: $text-color;
+      }
+    }
+
+    span {
+      color: $text-color;
+    }
   }
 }

@@ -18,6 +18,22 @@ import { statisticByJourneyReducer } from '@app/controller/statisticJourney';
 import { IStatisticState } from '@app/controller/statisticJourney/models';
 import { ITipsState } from '@app/controller/Tips/models';
 import { INotificationState } from '@app/controller/notifications/models';
+import { INotesState } from '@app/controller/notes/models';
+import { INoteState } from '@app/controller/singleNote/models';
+import {
+  IStaticPageState,
+  IPagesSate,
+} from '@app/controller/staticPage/models';
+import { ISaveBTNState } from '@app/controller/saveBTN/models';
+import { INoteSend } from '@app/controller/sendNoteReducer/models';
+import { IModalWindowState } from '@app/controller/modalWindowReducer/models';
+import { INotePrevState } from '@app/controller/previouseNoteText/model';
+import { INotePrevStateModule } from '@app/controller/previouseNoteTextModule/model';
+import { IArticleListState } from '@app/controller/articles/models';
+import { IExpertsState } from '@app/controller/experts/models';
+import { ISelectedExpert } from '@app/controller/selectedExpert/models';
+import { IExpertState } from '@app/controller/expert/models';
+import { IHistoryState } from '@app/controller/historyReducer/models';
 
 export interface IStore {
   router: RouterState;
@@ -36,6 +52,20 @@ export interface IStore {
   JourneyReducer: IJourneyState;
   tipsListReducer: ITipsState;
   notififcationReducer: INotificationState;
+  notesListReducer: INotesState;
+  singleNoteReducer: INoteState;
+  staticPageReducer: IPagesSate;
+  staticPagesListReducer: IStaticPageState;
+  saveBtnReducer: ISaveBTNState;
+  noteLocalDataCollectorReducer: INoteSend;
+  ModalWindowReducer: IModalWindowState;
+  notePrevStateReducer: INotePrevState;
+  notePrevStateReducerModule: INotePrevStateModule;
+  articleListReducer: IArticleListState;
+  expertListReducer: IExpertsState;
+  ExpertSelectedStateReducer: ISelectedExpert;
+  SingleExpertReducer: IExpertState;
+  historyState: IHistoryState;
 }
 
 export interface ISimpleState {

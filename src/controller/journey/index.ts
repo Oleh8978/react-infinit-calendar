@@ -10,7 +10,11 @@ import { IJourneyState, ILoader } from './models';
 import * as action from './actions';
 import { IStore } from '../model';
 import { getJourneyDataSaga } from '@app/controller/journey/sagas/journeySaga';
-import { DayOffDTO, JourneyDTO, JourneyGetResponse } from '@ternala/frasier-types';
+import {
+  DayOffDTO,
+  JourneyDTO,
+  JourneyGetResponse,
+} from '@ternala/frasier-types';
 import { JourneyUserConnectShortDTO } from '@ternala/frasier-types/lib/modules/journey/userConnect';
 import { SectionShortDTO } from '@ternala/frasier-types/lib/modules/section';
 import { TimeSlotShortDTO } from '@ternala/frasier-types/lib/modules/timeSlot';
@@ -48,7 +52,7 @@ export type JourneyActionType = ActionType<typeof action>;
 export const GetJourneyReducer = createReducer<
   IJourneyState,
   JourneyActionType
-  >(initialState)
+>(initialState)
   .handleAction(
     actions.LoaderAction,
     (state: IJourneyState, { payload }): IJourneyState => ({
@@ -81,8 +85,8 @@ export const GetJourneyReducer = createReducer<
         status: {
           ...state.journey.status,
           isConnected: false,
-        }
-      }
+        },
+      },
     }),
   )
   .handleAction(

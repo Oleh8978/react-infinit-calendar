@@ -79,7 +79,7 @@ export function* signInSaga({
     if ('accessToken' in payload) {
       const tokens: AuthRefreshRequestDTO = yield checkAccessTokenExpired({
         accessToken: payload.accessToken,
-        refreshToken: payload.accessToken,
+        refreshToken: payload.refreshToken,
         deviceCredentials,
       });
       if (typeof tokens === 'string') throw new BadRequest();
@@ -97,7 +97,7 @@ export function* signInSaga({
         payload.receivedToken,
         payload.signIntype,
         deviceCredentials,
-        payload.redirectUri
+        payload.redirectUri,
       );
       setAuthStateAction({
         isLoading: true,
@@ -380,7 +380,7 @@ export function* removeSocialNetworkLinking({
       );
       const allNetworks = yield yield select(getAvailableNetworks);
       console.log('allNetworks ', allNetworks);
-      allNetworks.filter( item => item !== payload.socialMediaNetworkType)
+      allNetworks.filter((item) => item !== payload.socialMediaNetworkType);
       console.log('allNetworks ', allNetworks);
       removeLinkedSocialNetwork.success(allNetworks);
     } else {

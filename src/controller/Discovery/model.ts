@@ -1,6 +1,6 @@
 import { createdAtSortFieldEnum } from '@ternala/frasier-types/lib/constants/sortFields';
 import { discoveryEntityTypeEnum } from '@ternala/frasier-types/lib/constants/main';
-// interfaces 
+// interfaces
 import { DiscoveryDTO } from '@ternala/frasier-types';
 
 export interface IException {
@@ -67,7 +67,6 @@ export interface IDiscoverySearchParams {
   sortField?: createdAtSortFieldEnum;
   ids?: string[] | string;
 }
-
 
 export interface ISetLoadingAction {
   status: boolean;

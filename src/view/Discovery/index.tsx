@@ -30,9 +30,8 @@ const Discovery: React.FC<any> = ({ ...props }) => {
   const [margin, setMargin] = useState<number>(20);
   const [discovery, setDiscovery] = useState<DiscoveryDTO[]>(undefined);
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [articleCategories, setArticleCategories] = useState<ArticleDTO[]>(
-    undefined,
-  );
+  const [articleCategories, setArticleCategories] =
+    useState<ArticleDTO[]>(undefined);
   const [isJourneyClicked, setIsJourneyClicked] = useState<boolean>(false);
   const [smallLoader, setSmallLoader] = useState<boolean>(false);
   const [isDown, setIsDown] = useState<boolean>(false);
@@ -40,19 +39,17 @@ const Discovery: React.FC<any> = ({ ...props }) => {
   const [ids, setIds] = useState<number[]>([]);
   const fieldRef = createRef() as RefObject<Scrollbars>;
   const [forse, setForse] = useState<boolean>(false);
+  const [hiddenMenu, setHiddenMenu] = useState<boolean>(false);
 
   const loadMoreItems = () => {
-    const {
-      getClientHeight,
-      getScrollHeight,
-      getScrollTop,
-      scrollToBottom,
-    } = fieldRef.current as Scrollbars;
+    const { getClientHeight, getScrollHeight, getScrollTop, scrollToBottom } =
+      fieldRef.current as Scrollbars;
     if (
       props.isLoading.status === false &&
       smallLoader === false &&
       getClientHeight() + getScrollTop() >= getScrollHeight() - 1 &&
       props.itemsCount !== 0 &&
+      discovery !== undefined &&
       props.itemsCount !== discovery.length
     ) {
       loadDiscoveries('more', searchQuery);
@@ -74,10 +71,13 @@ const Discovery: React.FC<any> = ({ ...props }) => {
 
   const searchQueryProcessor = (text: string) => {
     setSearchQuery(text.trim().toLowerCase());
+    loadDiscoveries('start', searchQuery);
     if (text.trim().length !== 0) {
       loadDiscoveries('start', text.trim());
+      setHiddenMenu(true);
     } else {
       loadDiscoveries('start', '');
+      setHiddenMenu(false);
     }
   };
 
@@ -85,6 +85,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
     loadDiscoveries('start', '');
     setSearchQuery('');
     setISmoreStated('start');
+    setHiddenMenu(false);
   };
 
   useEffect(() => {
@@ -210,7 +211,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
     if (
       ids.filter((elem) => elem === id).length === 0 &&
       articleCategories
-        .filter((elem) => elem.id === id)[0]
+        .filter((elem: any) => elem.id === id)[0]
         .title.toLowerCase() !== 'journeys'
     ) {
       setIds([id]);
@@ -227,7 +228,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       setIsJourneyClicked(false);
     } else if (
       articleCategories
-        .filter((elem) => elem.id === id)[0]
+        .filter((elem: any) => elem.id === id)[0]
         .title.toLowerCase() === 'journeys' &&
       isJourneyClicked === false
     ) {
@@ -244,7 +245,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       setDiscovery(undefined);
     } else if (
       articleCategories
-        .filter((elem) => elem.id === id)[0]
+        .filter((elem: any) => elem.id === id)[0]
         .title.toLowerCase() === 'journeys' &&
       isJourneyClicked === true
     ) {
@@ -311,6 +312,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
               }
               arraySetter={arraySetter}
               allSetter={allSetter}
+              hiddenMenu={hiddenMenu}
             />
 
             <DiscoveryTopicList

@@ -1,5 +1,8 @@
 import {
-  ArticleGetResponse, DayOffCreateRequest, DayOffDeleteRequest, DayOffDeleteResponse,
+  ArticleGetResponse,
+  DayOffCreateRequest,
+  DayOffDeleteRequest,
+  DayOffDeleteResponse,
   DayOffGetListRequest,
   DayOffGetListResponse,
   TimeSlotGetListRequest,
@@ -16,7 +19,7 @@ class API {
     let url = new URL(Config.MAIN_SERVICE_ENDPOINT + `time-slot/list-by-days`);
 
     url = appendSearchParams(url, data);
-    if(date) url.searchParams.append('date', String(date))
+    if (date) url.searchParams.append('date', String(date));
 
     return handleErrors(
       fetch(url.toString(), {
@@ -31,10 +34,12 @@ class API {
     { date, ...data }: TimeSlotGetListRequest,
     accessToken: string,
   ): Promise<ArticleGetResponse | string> {
-    let url = new URL(Config.MAIN_SERVICE_ENDPOINT + `time-slot/list-previously-uncompleted`);
+    let url = new URL(
+      Config.MAIN_SERVICE_ENDPOINT + `time-slot/list-previously-uncompleted`,
+    );
 
     url = appendSearchParams(url, data);
-    if(date) url.searchParams.append('date', String(date))
+    if (date) url.searchParams.append('date', String(date));
 
     return handleErrors(
       fetch(url.toString(), {

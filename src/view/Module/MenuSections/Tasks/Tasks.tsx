@@ -49,7 +49,8 @@ const Task: React.FC<IProps> = ({ id }) => {
   const [uncompleted, setUncompleted] = useState<IDayWithTimeSlots>();
   const [days, setDays] = useState<Moment[]>([]);
   const [selectedDay, setSelectedDay] = useState<Moment | undefined>();
-  const [isCompletedForToday, setIsCompletedForToday] = useState<boolean>(false);
+  const [isCompletedForToday, setIsCompletedForToday] =
+    useState<boolean>(false);
   const [isFirstLoaded, setIsFirstLoaded] = useState<boolean>(undefined);
 
   const [module, setModule] = useState<ModuleExpandDTO | undefined>();
@@ -79,10 +80,11 @@ const Task: React.FC<IProps> = ({ id }) => {
   }, [selectedDay, module, module?.timeSlotData]);
 
   useEffect(() => {
-    if(isCompletedForToday) setTimeout(() => {
-      setIsCompletedForToday(false);
-    }, 2000)
-  }, [isCompletedForToday])
+    if (isCompletedForToday)
+      setTimeout(() => {
+        setIsCompletedForToday(false);
+      }, 2000);
+  }, [isCompletedForToday]);
 
   useEffect(() => {
     if (module?.uncompletedTimeSlotData) {
@@ -349,14 +351,13 @@ const Task: React.FC<IProps> = ({ id }) => {
   //   setSelectedDate(date);
   // };
 
-
   const toggleTask = ({
-                        id,
-                        date,
-                        timeSlot,
-                        action,
-                        callback,
-                      }: {
+    id,
+    date,
+    timeSlot,
+    action,
+    callback,
+  }: {
     id: number;
     date: Moment;
     timeSlot: number;
@@ -376,11 +377,39 @@ const Task: React.FC<IProps> = ({ id }) => {
 
     const res = timeSlots.every((timeSlot) => {
       return timeSlot.tasks.every((task) => {
-        return (task.executions.length > 0 && task.id !== id) || (task.id === id && task.executions.length === 0);
+        return (
+          (task.executions.length > 0 && task.id !== id) ||
+          (task.id === id && task.executions.length === 0)
+        );
       });
     });
 
     setIsCompletedForToday(res);
+  };
+
+  const toggleUncompletedTask = ({
+    id,
+    date,
+    timeSlot,
+    action,
+    callback,
+  }: {
+    id: number;
+    date: Moment;
+    timeSlot: number;
+    action: 'create' | 'remove';
+    callback: (state: boolean) => void;
+  }) => {
+    dispatch(
+      toggleExecuteTaskAction.request({
+        action,
+        task: id,
+        purposeDate: date.toDate(),
+        timeSlot,
+        module: module?.id,
+        callback,
+      }),
+    );
   };
 
   const uncompletedWithoutSelectedDay: IDayWithTimeSlots = omit(uncompleted, [
@@ -388,25 +417,25 @@ const Task: React.FC<IProps> = ({ id }) => {
   ]);
   const hasUncompleted = Boolean(
     uncompletedWithoutSelectedDay &&
-    Object.values(uncompletedWithoutSelectedDay).reduce(
-      (acc, day) =>
-        acc +
-        (day
-          ? day.reduce(
-            (acc, timeSlot) =>
-              acc +
-              (timeSlot
-                ? timeSlot.tasks.reduce(
-                  (acc, task) =>
-                    acc + (task ? (task.executions?.length ? 0 : 1) : 0),
-                  0,
-                )
-                : 0),
-            0,
-          )
-          : 0),
-      0,
-    ),
+      Object.values(uncompletedWithoutSelectedDay).reduce(
+        (acc, day) =>
+          acc +
+          (day
+            ? day.reduce(
+                (acc, timeSlot) =>
+                  acc +
+                  (timeSlot
+                    ? timeSlot.tasks.reduce(
+                        (acc, task) =>
+                          acc + (task ? (task.executions?.length ? 0 : 1) : 0),
+                        0,
+                      )
+                    : 0),
+                0,
+              )
+            : 0),
+        0,
+      ),
   );
 
   return (
@@ -418,14 +447,16 @@ const Task: React.FC<IProps> = ({ id }) => {
         selectedDay={selectedDay}
         uncompletedSchedule={uncompleted}
       />
-      <div className='tasks-wrapper'>
+      <div className="tasks-wrapper">
         {isFirstLoaded ? (
-          Boolean(loaders.filter((item) => item.type === LoaderAction.module.getSchedule)
-            .length) && (
-            <Loader isSmall={true} isAbsolute={true} />
-          )
-        ) : (<></>)}
-
+          Boolean(
+            loaders.filter(
+              (item) => item.type === LoaderAction.module.getSchedule,
+            ).length,
+          ) && <Loader isSmall={true} isAbsolute={true} />
+        ) : (
+          <></>
+        )}
 
         {timeSlots.length ? (
           <Current
@@ -446,11 +477,14 @@ const Task: React.FC<IProps> = ({ id }) => {
           <NoTasks />
         )}
 
-        {hasUncompleted ? <Uncompleted
-          prevData={uncompletedWithoutSelectedDay}
-          toggleTask={toggleTask}
-        /> : <></>}
-
+        {hasUncompleted ? (
+          <Uncompleted
+            prevData={uncompletedWithoutSelectedDay}
+            toggleTask={toggleUncompletedTask}
+          />
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

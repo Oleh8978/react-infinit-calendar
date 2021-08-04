@@ -1,0 +1,124 @@
+.overview-text,
+.overview-iframe,
+.overview-video {
+  h1, h2, h3, p, li, blockquote {
+    margin-bottom: 10px;
+  }
+
+  h1, h2, h3, a {
+    font-family: $NotoSansSC;
+    font-style: normal;
+    font-weight: 700;
+  }
+
+  h1 {
+    font-size: 16px;
+    line-height: 23px;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    font-size: 15px;
+    line-height: 22px;
+  }
+
+  h3 {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  p, li {
+    font-family: $Spartan;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: -0.04em;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    margin-bottom: 10px;
+
+    li {
+      position: relative;
+      padding-left: 17px;
+
+      &::before {
+        position: absolute;
+        content: '';
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background-color: $text-color;
+        left: 0;
+        top: 7px;
+      }
+    }
+  }
+
+  ol {
+    margin: 0;
+    padding-left: 0;
+    margin-bottom: 10px;
+
+    li {
+      list-style-position: inside;
+    }
+  }
+
+  a {
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: -0.04em;
+    color: $primary-action-color !important;
+    text-decoration: none;
+  }
+
+  b, strong {
+    font-weight: 700;
+  }
+
+  blockquote {
+    font-family: $Spartan;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    padding-left: 20px;
+    border-left: 4px solid $success-color;
+  }
+
+  table {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  tr {
+    padding: 15px 10px 15px 0;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid $divider-color;
+
+    td {
+      font-family: $Spartan;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 16px;
+      text-align: right;
+
+      &:first-of-type {
+        font-family: $NotoSansSC;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 17px;
+        text-transform: uppercase;
+        color: $secondary-grey-text-color !important;
+      }
+    }
+  }
+}

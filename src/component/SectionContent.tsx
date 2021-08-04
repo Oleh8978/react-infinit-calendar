@@ -7,7 +7,9 @@ import Slider from '@app/view/Module/MenuSections/Overview/HelpSection/Slider';
 import React from 'react';
 import { SectionShortDTO } from '@ternala/frasier-types';
 
-export const SectionContent: React.FC<{section: SectionShortDTO}> = ({section}) => {
+export const SectionContent: React.FC<{ section: SectionShortDTO }> = ({
+  section,
+}) => {
   console.log('section: ', section);
   switch (section.type) {
     case 'text':

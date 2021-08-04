@@ -6,6 +6,7 @@ import LInk from '@app/routing/Link';
 interface IProps {
   title: string;
   subtitle: string;
+  moduleId: number;
 }
 
 const BottomComponent: React.FC<IProps> = ({ ...props }) => {

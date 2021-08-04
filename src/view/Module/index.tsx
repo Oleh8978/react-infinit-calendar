@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState, createRef, RefObject } from 'react';
+import { useDispatch, useSelector, connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 // config
 import { LoaderAction } from '@app/config/constants';
+
+// actions
+import { getArticleListByModuleCqategory } from '@app/controller/articles/actions';
 
 // custom components
 import NavigationBar from '@app/component/NavigationBar';
@@ -19,15 +22,47 @@ import { getLoader, getModules } from '@app/controller/module';
 // View
 import TrialExpired from '@app/view/Schedule/TrialExpired/TrialExpired';
 
+// interfaces
+import { IStore } from '@app/controller/model';
+
 type IProps = RouteComponentProps<{ id: string }>;
 
-const Module: React.FC<IProps> = (props) => {
+const Module: React.FC<any> = (props) => {
   const { id } = props.match.params;
   const idNumber = Number(id);
   const [isFirstLoaded, setIsFirstLoaded] = useState<boolean>(undefined);
-
+  const fieldRef = createRef() as RefObject<Scrollbars>;
   const modules: any = useSelector(getModules);
   const loaders = useSelector(getLoader);
+
+  const loadMoreItems = () => {
+    const { getClientHeight, getScrollHeight, getScrollTop, scrollToBottom } =
+      fieldRef.current as Scrollbars;
+    if (
+      props.articles.counts &&
+      props.articles.items.length === props.articles.counts
+    ) {
+      return;
+    }
+
+    if (
+      getClientHeight() + getScrollTop() >= getScrollHeight() - 1 &&
+      props.articles.counts !== undefined &&
+      props.moduleId !== undefined
+    ) {
+      console.log('articles ', props.articles);
+      dispatch(
+        getArticleListByModuleCqategory.request({
+          limit: 10,
+          offset: props.articles.length,
+          query: '',
+          moduleCategories: [Number(Object.keys(props.moduleId)[0])],
+        }),
+      );
+    }
+
+    return;
+  };
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -40,117 +75,18 @@ const Module: React.FC<IProps> = (props) => {
   }, []);
 
   useEffect(() => {
-    if(loaders.length === 0 && isFirstLoaded === false) {
+    if (loaders.length === 0 && isFirstLoaded === false) {
       setIsFirstLoaded(true);
     }
-  }, [loaders])
-
-  // const [isSaveBTNActive, setIsSaveBTNActive] = useState<boolean>(false);
-  // const [isBtnSaveActive, setIsBtnSaveActive] = useState<boolean>(false);
-  // const [modalWidowIsOpened, setModalWidowIsOpened] = useState<boolean>(false);
-  // const [prevText, setPrevText] = useState<any | undefined>(
-  //   // EditorState.createWithContent(ContentState.createFromText('Type...')),
-  //   EditorState.createWithContent(
-  //     convertFromRaw(JSON.parse(menuConstats.defaultTXT)),
-  //   ),
-  // );
-  // const [textFromNotes, setTextFromNotes] = useState<any | undefined>(
-  //   // EditorState.createWithContent(ContentState.createFromText('Type...')),
-  //   EditorState.createWithContent(
-  //     convertFromRaw(JSON.parse(menuConstats.defaultTXT)),
-  //   ),
-  // );
-  // const [isNotes, setIsNotes] = useState<boolean>(false);
-  // const [rout, seRout] = useState<string>('schedule');
-  //
-  // const setIsclicked = (name: string) => {
-  //   const arr = [...menuItems];
-  //   arr.map((item: INavigationMenu) => {
-  //     if (item.name === 'Notes' && isSaveBTNActive && item.isActive) {
-  //       setModalWidowIsOpened(true);
-  //     } else {
-  //       if (item.name === name) {
-  //         item.isActive = true;
-  //       } else {
-  //         item.isActive = false;
-  //       }
-  //     }
-  //   });
-  //   setMenuItems(arr);
-  // };
-  //
-  // useEffect(() => {
-  //   addSavedBTN();
-  //
-  //   if (!textFromNotes) {
-  //     setTextFromNotes(
-  //       EditorState.createWithContent(ContentState.createFromText('')),
-  //     );
-  //   }
-  //
-  //   if (
-  //     JSON.stringify(convertToRaw(textFromNotes.getCurrentContent())) !==
-  //     JSON.stringify(convertToRaw(prevText.getCurrentContent()))
-  //   ) {
-  //     setIsBtnSaveActive(true);
-  //   } else {
-  //     setIsBtnSaveActive(false);
-  //   }
-  // }, [menuItems, textFromNotes, isBtnSaveActive, modalWidowIsOpened]);
-  //
-  // const addSavedBTN = () => {
-  //   menuItems.map((item) => {
-  //     if (item.name === 'Notes' && item.isActive === true) {
-  //       setIsNotes(true);
-  //       seRout('module');
-  //     } else {
-  //       setIsNotes(false);
-  //       seRout('schedule');
-  //     }
-  //   });
-  // };
-  //
-  // const setTextFromChildNotesCop = (txt: string): void => {
-  //   setTextFromNotes(txt);
-  // };
-  //
-  // const save = () => {
-  //   setModalWidowIsOpened(false);
-  //   setIsBtnSaveActive(false);
-  //   setPrevText(textFromNotes);
-  // };
-  //
-  // const discard = () => {
-  //   setModalWidowIsOpened(false);
-  //   setIsBtnSaveActive(false);
-  //   setTextFromNotes(prevText);
-  // };
-  //
-  // const saveBtnFunctionality = () => {
-  //   setIsBtnSaveActive(false);
-  //   setPrevText(textFromNotes);
-  // }
-  //
-  // const openWindow = () => {
-  //   setModalWidowIsOpened(!modalWidowIsOpened);
-  // };
+  }, [loaders]);
 
   return (
     <div className={'module'}>
-      {/*{modalWidowIsOpened ? (*/}
-      {/*  <ModalWindow save={save} discard={discard} />*/}
-      {/*) : (*/}
-      {/*  <> </>*/}
-      {/*)}*/}
       <NavigationBar
         rout={'/schedule'}
         name={modules[idNumber]?.title}
         page={'schedule'}
-        // isNotes={isNotes}
         isSaveActive={true}
-        // isBtnSaveActive={isBtnSaveActive}
-        // modalToogle={openWindow}
-        // saveBtnFunctionality={saveBtnFunctionality}
       />
       <div className="module-content">
         <Scrollbars
@@ -160,7 +96,9 @@ const Module: React.FC<IProps> = (props) => {
             height: '100%',
             maxHeight: '100%',
             display: 'flex',
-          }}>
+          }}
+          ref={fieldRef}
+          onScroll={loadMoreItems}>
           {modules?.[idNumber]?.isExpired ? (
             <TrialExpired id={modules?.[idNumber]?.journey?.id} />
           ) : (
@@ -168,23 +106,27 @@ const Module: React.FC<IProps> = (props) => {
           )}
         </Scrollbars>
         {isFirstLoaded ? (
-          Boolean(loaders.filter((item) => item.type === LoaderAction.module.getModule)
-              .length) && (
-          <Loader isSmall={true} isAbsolute={true} />
-        )
-        ) : (<></>)}
-        {/*<Loader*/}
-        {/*  isSmall={true}*/}
-        {/*  className={'custom'}*/}
-        {/*  isShow={*/}
-        {/*    loaders.filter(*/}
-        {/*      (item) => item.type === LoaderAction.module.getModule,*/}
-        {/*    ).length > 0*/}
-        {/*  }*/}
-        {/*/>*/}
+          Boolean(
+            loaders.filter(
+              (item) => item.type === LoaderAction.module.getModule,
+            ).length,
+          ) && <Loader isSmall={true} isAbsolute={true} />
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );
 };
 
-export default Module;
+export default connect(
+  (state: IStore) => ({
+    articles: state.articleListReducer.state,
+    counts: state.articleListReducer.state.counts,
+    moduleId: state.moduleState.moduleData,
+    storedSearchParams: state.articleListReducer.storedSearchParams,
+  }),
+  {
+    getArticleListByModuleCqategory,
+  },
+)(Module);

@@ -44,17 +44,12 @@ interface IProps {
 
 const BodyEdditProfile: React.FC<any> = ({ ...props }) => {
   const [userData, setUserData] = useState<IUser>(undefined);
-  const [validationObject, setValidationObject] = useState<IvalidatorState[]>(
-    validation,
-  );
-  const [
-    isAllSiealdsArefiledOut,
-    setIsAllSiealdsArefiledOut,
-  ] = useState<boolean>(false);
-  const [
-    editProfileStateObject,
-    setEditProfileStateObject,
-  ] = useState<IFullObjectState>(editProfileState);
+  const [validationObject, setValidationObject] =
+    useState<IvalidatorState[]>(validation);
+  const [isAllSiealdsArefiledOut, setIsAllSiealdsArefiledOut] =
+    useState<boolean>(false);
+  const [editProfileStateObject, setEditProfileStateObject] =
+    useState<IFullObjectState>(editProfileState);
   const [timeZone, setTimeZone] = useState<string>('');
   const dispatch = useDispatch();
 
@@ -99,28 +94,24 @@ const BodyEdditProfile: React.FC<any> = ({ ...props }) => {
         if (item.name === 'phone') {
           if (
             validationObjectUpdate[validationObject.indexOf(item)].value.trim()
-              .length === 15
+              .length === 14
           ) {
-            validationObjectUpdate[
-              validationObject.indexOf(item)
-            ].isValid = true;
+            validationObjectUpdate[validationObject.indexOf(item)].isValid =
+              true;
           } else {
-            validationObjectUpdate[
-              validationObject.indexOf(item)
-            ].isValid = false;
+            validationObjectUpdate[validationObject.indexOf(item)].isValid =
+              false;
           }
         } else if (item.name === 'email') {
           if (
             validationObjectUpdate[validationObject.indexOf(item)].value
               .length === 0
           ) {
-            validationObjectUpdate[
-              validationObject.indexOf(item)
-            ].isValid = false;
+            validationObjectUpdate[validationObject.indexOf(item)].isValid =
+              false;
           } else {
-            validationObjectUpdate[
-              validationObject.indexOf(item)
-            ].isValid = true;
+            validationObjectUpdate[validationObject.indexOf(item)].isValid =
+              true;
           }
           props.validationStateSetter(validationObjectUpdate);
         }

@@ -60,15 +60,15 @@ const Tips: React.FC<any> = ({ ...props }) => {
     }
   }, [props.items]);
 
-  if (props.items.filter((item: TipSendShortDTO) => item.isRead === false)
-  .length === 0 ) {
+  if (
+    props.items.filter((item: TipSendShortDTO) => item.isRead === false)
+      .length === 0
+  ) {
     return <></>;
   }
   return (
     <>
-      {props.counts
-      &&
-      !props.loader ? (
+      {props.counts && !props.loader ? (
         <div className={'tips'}>
           <span className={'tips-header'}>Tips from frasier</span>
           <Link to={'tip-list'} className={'tips-wrapper'}>

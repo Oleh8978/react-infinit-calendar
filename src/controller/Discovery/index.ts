@@ -99,7 +99,7 @@ export const discoveryListReducer = createReducer<
           }
         });
 
-        articlePayload.map((item) => {
+        articlePayload.map((item: any) => {
           if (
             articleState.find(
               (element) => element.article.id === item.article.id,

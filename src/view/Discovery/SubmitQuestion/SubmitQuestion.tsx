@@ -30,9 +30,8 @@ interface IProps {
 }
 
 const SubmitQuestion: React.FC<IProps> = ({ ...props }) => {
-  const [articleCategories, setArticleCategories] = useState<ArticleDTO[]>(
-    undefined,
-  );
+  const [articleCategories, setArticleCategories] =
+    useState<ArticleDTO[]>(undefined);
   const [isModal, setIsModal] = useState<boolean>(false);
   const [isClosed, setIsClosed] = useState<boolean>(true);
   const [isActive, setIsActive] = useState<boolean>(false);

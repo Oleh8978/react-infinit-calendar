@@ -48,12 +48,12 @@ const SettingsBlock: React.FC<IProps> = ({ ...props }) => {
       signIn.success({
         error: props.user.error,
         accessToken: props.user.accessToken,
-        refreshToken: props.user.accessToken,
+        refreshToken: props.user.refreshToken,
         user: {
           createdAt: props.user.user.createdAt,
           id: props.user.user.id,
           isCanSendEmail: auThMail !== undefined ? auThMail : mail,
-          isCanSendSMS: auThSms !== undefined ? auThSms : sms ,
+          isCanSendSMS: auThSms !== undefined ? auThSms : sms,
           isNeedSecondStep: props.user.user.isNeedSecondStep,
           userData: props.user.user.userData,
           userAuthorizations: props.user.user.userAuthorizations,

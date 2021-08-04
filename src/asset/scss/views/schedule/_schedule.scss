@@ -450,6 +450,13 @@
     padding-top: 50px;
   }
 
+  &-holiday-icon {
+    img {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
   &-dayoff {
     padding-top: 40px;
   }
@@ -458,16 +465,10 @@
   &-holiday {
     margin-top: 0;
     position: absolute;
-    //z-index: 2;
     top: 170px;
-
-    //top: 0;
     left: 0;
-    //margin: 0;
-    //margin-top: 39px;
     padding-bottom: 60px;
     z-index: 0;
-    //height: 100%;
     height: calc(100% - 170px);
 
     &::after {

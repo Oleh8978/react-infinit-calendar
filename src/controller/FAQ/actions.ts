@@ -3,7 +3,12 @@ import { createAction, createAsyncAction } from 'typesafe-actions';
 import { appName } from '@app/config';
 
 // interfaces
-import { IfaqState, IsubmitData, IloaderState, IsubmitDataRequest } from './models';
+import {
+  IfaqState,
+  IsubmitData,
+  IloaderState,
+  IsubmitDataRequest,
+} from './models';
 
 // widjet name
 export const widgetName = 'FAQ';

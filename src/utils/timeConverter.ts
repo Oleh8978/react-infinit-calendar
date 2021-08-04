@@ -12,4 +12,4 @@ export const timeConvert = (n) => {
   if (rminutes !== 0 && rhours === 0) {
     return rminutes + ' MIN';
   }
-}
+};

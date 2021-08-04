@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-
 import { ITopic } from './Models/DiscoveryModels';
 
 interface IProps {
@@ -9,11 +8,38 @@ interface IProps {
   loadDiscovloadArticleCategoeries: (point: string) => void;
   arraySetter?: (id: number, element: string) => void;
   allSetter?: () => void;
+  hiddenMenu?: boolean;
 }
 
 const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
   const [smallMenu, setSmallMenu] = useState<boolean>(false);
   const [articleCategories, setrticleCategories] = useState<any>([]);
+  const [disabled, setDisabled] = useState<boolean>(false);
+  const [isClicked, setIsClicked] = useState<boolean>(false);
+
+  // return (
+  //   <div
+  //     onMouseDown={() => {
+  //       setSwiping(false);
+  //     }}
+  //     onMouseMove={() => {
+  //       setSwiping(true);
+  //     }}
+  //     onMouseUp={() => {
+  //       setSwiping(false);
+  //     }}
+  //     onTouchStart={() => {
+  //       setSwiping(false);
+  //     }}
+  //     onTouchMove={() => {
+  //       setSwiping(true);
+  //     }}
+  //     onTouchEnd={e => {
+  //       e.preventDefault();
+  //       setSwiping(false);
+  //     }}
+  //   ></div>
+  // );
   // console.log('article categiries ', articleCategories);
 
   const scrollTracker = () => {
@@ -184,7 +210,10 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
                   : arr[arr.length - 1].color,
             }}
             onClick={() => {
-              props.arraySetter(arr[arr.length - 1].id, arr[arr.length - 1].title);
+              props.arraySetter(
+                arr[arr.length - 1].id,
+                arr[arr.length - 1].title,
+              );
               colorChanger(arr[arr.length - 1].id);
             }}>
             <div className="topic-item-img">
@@ -200,19 +229,31 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
     return arrSorted;
   };
 
-
   const onAllHendaler = () => {
-    articleCategories.map(item => {
-      item.subColor = ''
-    })
+    articleCategories.map((item) => {
+      item.subColor = '';
+    });
     setrticleCategories(articleCategories);
-    props.allSetter()
-    scrollToTop()
-  }
+    props.allSetter();
+    scrollToTop();
+  };
 
   const smallMenuRender = (items: ITopic[]) => {
     return (
-      <div className="discovery-menu-small">
+      <div
+        className="discovery-menu-small"
+        onMouseDown={(e) => {
+          setIsClicked(true);
+        }}
+        onMouseMove={(e) => {
+          if (isClicked) {
+            setDisabled(true);
+          }
+        }}
+        onMouseUp={() => {
+          setIsClicked(false);
+          setDisabled(false);
+        }}>
         <div
           className="discovery-menu-small-btn"
           onClick={() => onAllHendaler()}
@@ -239,9 +280,11 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
               <div
                 className="discovery-menu-small-item"
                 style={{ backgroundColor: element.subColor }}
-                onClick={() => {
-                  props.arraySetter(element.id, element.title);
-                  colorChanger(element.id);
+                onMouseUp={() => {
+                  if (!disabled) {
+                    props.arraySetter(element.id, element.title);
+                    colorChanger(element.id);
+                  }
                 }}>
                 <span
                   className="discovery-menu-small-item-txt"
@@ -261,7 +304,11 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
   return (
     <>
       <div
-        className={'discovery-menu '}
+        className={
+          props.hiddenMenu
+            ? 'discovery-menu-hidden discovery-menu'
+            : 'discovery-menu'
+        }
         style={{
           position: 'fixed',
           top: '50px',
@@ -279,7 +326,12 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
         </>
       </div>
 
-      <div className={'discovery-menu'}>
+      <div
+        className={
+          props.hiddenMenu
+            ? 'discovery-menu-hidden discovery-menu'
+            : 'discovery-menu'
+        }>
         <span className={'discovery-select'}>Select your topic interest</span>
         <>
           {articleCategories !== undefined && (

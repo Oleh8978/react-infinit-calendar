@@ -1,4 +1,4 @@
-import { all, put, takeEvery } from 'redux-saga/effects';
+import { all, put, select, takeEvery } from 'redux-saga/effects';
 
 // exceptions
 import { BadRequest } from '@app/utils/API/exceptions';
@@ -11,6 +11,7 @@ import * as action from '../actions';
 
 // utils
 import { getSavedAccess } from '@app/utils/manageAccess';
+import { getAccessToken } from '@app/controller/auth';
 
 export function* getHolidayData({
   payload,
@@ -24,11 +25,10 @@ export function* getHolidayData({
     }),
   );
 
+  const accessToken: string | undefined = yield yield select(getAccessToken);
+
   try {
-    const res = yield HolidayAPI.getHoliday(
-      payload,
-      getSavedAccess().accessToken,
-    );
+    const res = yield HolidayAPI.getHoliday(payload, accessToken);
 
     if (res) {
       yield put(action.getHolidayDataAction.success(res));

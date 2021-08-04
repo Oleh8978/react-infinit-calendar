@@ -38,7 +38,7 @@ interface IProps {
 }
 
 const ConnectedAccountBody: React.FC<any> = ({ ...props }) => {
-  const [socialMediaNetworks, setSocialMediaNetworks] = useState<string[]>();
+  const [socialMediaNetworks, setSocialMediaNetworks] = useState<string[]>([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -51,27 +51,34 @@ const ConnectedAccountBody: React.FC<any> = ({ ...props }) => {
   }, [props.linkedAccounts]);
 
   const onRemoveFromAccount = (type: string) => {
-    console.log('inn')
+    console.log('inn', type);
     dispatch(
       removeLinkedSocialNetwork.request({
         receivedToken: getSavedAccess().accessToken,
         socialMediaNetworkType: type,
       }),
     );
-    props.loginByTokenAction(getSavedAccess());
+    const updatedData = [...socialMediaNetworks];
+    if (updatedData.length !== 1) {
+      setSocialMediaNetworks(
+        updatedData.map((item) => {
+          if (item !== type && item !== undefined) {
+            return item;
+          }
+        }),
+      );
+    }
+
+    // props.loginByTokenAction(getSavedAccess());
   };
+  console.log('socialMediaNetworks ', socialMediaNetworks);
 
   const onResponseGoogle = (response: any) => {
     let signedData: ISignedData = { type: 'google' };
     if (!response.error) {
       if (response.profileObj) {
-        const {
-          email,
-          familyName,
-          givenName,
-          imageUrl,
-          googleId,
-        } = response.profileObj;
+        const { email, familyName, givenName, imageUrl, googleId } =
+          response.profileObj;
         signedData = {
           id: googleId,
           firstName: givenName,
@@ -90,7 +97,10 @@ const ConnectedAccountBody: React.FC<any> = ({ ...props }) => {
           redirectURL: ``,
         }),
       );
-      props.loginByTokenAction(getSavedAccess());
+      const updatedData = [...socialMediaNetworks];
+      updatedData.push('google');
+      setSocialMediaNetworks(updatedData);
+      // props.loginByTokenAction(getSavedAccess());
     }
   };
 
@@ -121,7 +131,10 @@ const ConnectedAccountBody: React.FC<any> = ({ ...props }) => {
           redirectURL: ``,
         }),
       );
-      props.loginByTokenAction(getSavedAccess());
+      const updatedData = [...socialMediaNetworks];
+      updatedData.push('facebook');
+      setSocialMediaNetworks(updatedData);
+      // props.loginByTokenAction(getSavedAccess());
     }
   };
 
@@ -142,7 +155,10 @@ const ConnectedAccountBody: React.FC<any> = ({ ...props }) => {
           redirectURL: `${window.location.origin}/linkedin`,
         }),
       );
-      props.loginByTokenAction(getSavedAccess());
+      const updatedData = [...socialMediaNetworks];
+      updatedData.push('linkedIn');
+      setSocialMediaNetworks(updatedData);
+      // props.loginByTokenAction(getSavedAccess());
     }
   }
 

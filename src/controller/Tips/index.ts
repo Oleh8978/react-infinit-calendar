@@ -6,7 +6,7 @@ import { omit } from 'lodash';
 import * as actions from './actions';
 
 // Interfaces
-import { TipSendDTO } from '@ternala/frasier-types';
+import { TipFullDTO, TipSendDTO } from '@ternala/frasier-types';
 import { ITipsState } from './models';
 
 // utils
@@ -120,6 +120,21 @@ export const tipsListReducer = createReducer<ITipsState, TipsListActionType>(
           status: false,
           isAnyErrors: false,
           error: '',
+        },
+      };
+    },
+  )
+  .handleAction(
+    [actions.addNewTip],
+    (state: ITipsState, { payload }): ITipsState => {
+      return {
+        ...state,
+        tips: {
+          itemsCount: undefined,
+          items: concatWithUnique<TipSendDTO>(state.tips.items, [payload]),
+          newItemsCount: state.tips.newItemsCount
+            ? state.tips.newItemsCount + 1
+            : 1,
         },
       };
     },

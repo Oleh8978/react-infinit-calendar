@@ -35,3 +35,27 @@ export interface ILoaderState {
   code: string;
   message: string;
 }
+
+/// data
+export interface IResponse {
+  city: string;
+  deletedAt: string;
+  email: string;
+  firstName: string;
+  image: string;
+  isImageDeleted: boolean;
+  lastName: string;
+  phone: string;
+  startTime: number;
+  state: string;
+  street: string;
+  timezone: string;
+  user: {
+    createdAt: string;
+    id: number;
+    isCanSendEmail: boolean;
+    isCanSendSMS: boolean;
+    isNeedSecondStep: boolean;
+    zipCode: string;
+  };
+}

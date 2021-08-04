@@ -16,22 +16,25 @@ import { IUserDataExtended } from '@app/controller/secondStepDataUpdater/models'
 
 // constants
 import { validation } from './utils/validation';
-import pen from '../Account/Settings/static/pen.png';
+import pen from '../Account/Settings/static/pen.svg';
 
 // components
 import NoImageFound from '@app/view/LoginPages/NoImage';
 
 // actions
 import { updateUserDataAction } from '@app/controller/secondStepDataUpdater/actions';
-
+import { loginByTokenAction } from '@app/controller/auth/actions';
 // utils
 import {
   entryValidator,
   timeZoneReturner,
 } from '../Account/EditProfile/EditProfileComponents/utils/utils';
 
+import { validationShort } from './utils/validation';
 // static
 import onErorImage from './imageAcountError/onErrorImage.png';
+// utils
+import { getSavedAccess } from '@app/utils/manageAccess';
 
 interface IProps {
   user?: IUser;
@@ -42,25 +45,52 @@ interface IProps {
 }
 
 const AddYourData: React.FC<any> = ({ ...props }) => {
-  const [isSaveBtnActivState, setISSaveBtnActiveState] = useState<boolean>(
-    false,
-  );
+  const [isSaveBtnActivState, setISSaveBtnActiveState] =
+    useState<boolean>(false);
   const [image, setImage] = useState<string>(null);
-  const [validationObject, setValidationObject] = useState<IvalidatorState[]>(
-    validation,
-  );
-  const [
-    isAllSiealdsArefiledOut,
-    setIsAllSiealdsArefiledOut,
-  ] = useState<boolean>(false);
+  const [validationObject, setValidationObject] =
+    useState<IvalidatorState[]>(validation);
+  const [isAllSiealdsArefiledOut, setIsAllSiealdsArefiledOut] =
+    useState<boolean>(false);
   const [userData, setUserData] = useState<IUser>(undefined);
   const [validationState, setValidationState] = useState<any>([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (props.user !== undefined) {
+    if (props.user !== undefined && props.user.userData !== undefined) {
       setImage(props.user.userData.image);
       setUserData(props.user);
+      const newValidation = [];
+      validationShort.map((item) => {
+        if (
+          String(props.user.userData[item.name]) === 'null' ||
+          String(props.user.userData[item.name]).trim().length === 0
+        ) {
+          newValidation.push({
+            name: item.name,
+            value: '',
+            isValid: false,
+            hasAnyError: true,
+          });
+        } else {
+          newValidation.push({
+            name: item.name,
+            value: props.user.userData[item.name],
+            isValid: true,
+            hasAnyError: false,
+          });
+        }
+      });
+      setValidationState(newValidation);
+    }
+
+    if (props.user === undefined) {
+      dispatch(
+        loginByTokenAction({
+          accessToken: getSavedAccess().accessToken,
+          refreshToken: getSavedAccess().refreshToken,
+        }),
+      );
     }
   }, [props.user, image]);
 
@@ -117,13 +147,11 @@ const AddYourData: React.FC<any> = ({ ...props }) => {
             validationObjectUpdate[validationObject.indexOf(item)].value.trim()
               .length >= 15
           ) {
-            validationObjectUpdate[
-              validationObject.indexOf(item)
-            ].isValid = true;
+            validationObjectUpdate[validationObject.indexOf(item)].isValid =
+              true;
           } else {
-            validationObjectUpdate[
-              validationObject.indexOf(item)
-            ].isValid = false;
+            validationObjectUpdate[validationObject.indexOf(item)].isValid =
+              false;
           }
         } else if (item.name === 'email') {
           if (
@@ -131,13 +159,11 @@ const AddYourData: React.FC<any> = ({ ...props }) => {
               /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
             )
           ) {
-            validationObjectUpdate[
-              validationObject.indexOf(item)
-            ].isValid = true;
+            validationObjectUpdate[validationObject.indexOf(item)].isValid =
+              true;
           } else {
-            validationObjectUpdate[
-              validationObject.indexOf(item)
-            ].isValid = false;
+            validationObjectUpdate[validationObject.indexOf(item)].isValid =
+              false;
           }
           setValidationObject(validationObjectUpdate);
         }
@@ -178,7 +204,7 @@ const AddYourData: React.FC<any> = ({ ...props }) => {
   };
   return (
     <>
-      {props.loader ? (
+      {props.loader && props.user === undefined ? (
         <>
           <Loader />
         </>

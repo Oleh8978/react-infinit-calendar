@@ -6,7 +6,7 @@ module.exports = {
       parserOptions: {
         project: ['./tsconfig.json'],
       },
-    }
+    },
   ],
   plugins: ['@typescript-eslint/eslint-plugin', 'prettier'],
   extends: [
@@ -24,6 +24,7 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-empty-interface': 'warn',
+    '@typescript-eslint/no-var-requires': 0,
     'prettier/prettier': 'warn',
   },
 };

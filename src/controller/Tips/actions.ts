@@ -3,7 +3,11 @@ import { createAction, createAsyncAction } from 'typesafe-actions';
 import { appName } from '@app/config/index';
 
 // interfaces
-import { TipSendGetListResponse } from '@ternala/frasier-types';
+import {
+  TipFullDTO,
+  TipSendDTO,
+  TipSendGetListResponse,
+} from '@ternala/frasier-types';
 import {
   ISetLoadingAction,
   ITipsSearchParams,
@@ -33,6 +37,10 @@ export const getTipsListRequest = createAsyncAction(
   },
   ISetLoadingAction
 >();
+
+export const addNewTip = createAction(
+  `${appName}/${widgetName}/ADD_NEW_TIP`,
+)<TipSendDTO>();
 
 export const setReadedItems = createAsyncAction(
   `${appName}/${widgetName}/POST_READED_TIPS_REQUEST`,

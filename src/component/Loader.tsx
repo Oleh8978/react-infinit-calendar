@@ -22,8 +22,7 @@ export const Loader: React.FC<IProps> = ({ className, isShow, ...props }) => {
             (props.isAbsolute ? ' absoluteLoader' : '')
           }>
           {props.isAbsolute ? (
-            <div
-              className={'loader'}>
+            <div className={'loader'}>
               <span />
               <span />
               <span />
