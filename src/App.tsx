@@ -5,7 +5,6 @@ import { LinkedInPopUp } from 'react-linkedin-login-oauth2';
 import Terms from './component/Terms';
 import PrivacyPolicy from './component/PrivacyPolicy';
 
-
 window.addEventListener('DOMContentLoaded', (event) => {
   console.log('DOM fully loaded and parsed');
 });
@@ -16,15 +15,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
 //   console.log('offline');
 // }
 
-
-
 export const App: React.FC = () => {
-  useEffect(() => {
-if (document.readyState === 'complete') {
-  console.log('done ')
-}
-
-  }, [document])
+  // useEffect(() => {
+  //   if (document.readyState === 'complete') {
+  //     console.log('done ');
+  //   }
+  // }, [document]);
 
   useEffect(() => console.log('mounted'), []);
   return (

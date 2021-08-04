@@ -2,12 +2,7 @@
 .overview-iframe,
 .overview-video {
   h1, h2, h3, p, li, blockquote {
-    color: $text-color !important;
     margin-bottom: 10px;
-
-    span {
-      color: $text-color !important;
-    }
   }
 
   h1, h2, h3, a {
@@ -84,10 +79,6 @@
 
   b, strong {
     font-weight: 700;
-
-    span {
-      color: $text-color !important;
-    }
   }
 
   blockquote {
@@ -118,7 +109,6 @@
       font-size: 14px;
       line-height: 16px;
       text-align: right;
-      color: $text-color !important;
 
       &:first-of-type {
         font-family: $NotoSansSC;

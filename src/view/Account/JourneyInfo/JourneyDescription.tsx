@@ -52,7 +52,17 @@ const JourneyDescription: React.FC<IProps> = ({
       tabContent: <SectionsContent journey={journey} />,
     },
   ];
+  // console.log('journey.status ', journey.status)
+  // console.log('statistic', statistic[`${Object.keys(statistic)[0]}`].modules)
 
+  // if (statistic[`${Object.keys(statistic)[0]}`].modules !== undefined) {
+  //   if( statistic[`${Object.keys(statistic)[0]}`].modules.length === statistic[`${Object.keys(statistic)[0]}`].modules.filter( item => item.maxSpent !== undefined).length) {
+  //   }
+  // }
+
+  const dateReturner = () => {
+    const newStatistic = statistic.modules.filter( item => item[''])
+  }
   return (
     <div
       className={'journeyinfo-body-wrapper'}

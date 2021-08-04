@@ -18,8 +18,14 @@ const NotesList: React.FC<IProps> = ({ ...props }) => {
       {props.data.map((item) => {
         return <NotesListItem data={item} key={item.id} />;
       })}
-      {props.counts !== props.data.length ? 
-      <div style={{height: '30px', width: '100%'}}> <Loader isSmall={true} /> </div> : <> </>}
+      {props.counts !== props.data.length ? (
+        <div style={{ height: '30px', width: '100%' }}>
+          {' '}
+          <Loader isSmall={true} />{' '}
+        </div>
+      ) : (
+        <> </>
+      )}
     </div>
   );
 };
