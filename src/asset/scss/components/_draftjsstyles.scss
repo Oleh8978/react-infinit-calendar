@@ -31,11 +31,12 @@
   &-editor {
     &-toolbar {
       position: sticky;
-      top: 55px;
+      top: -5px;
       z-index: 3;
       visibility: visible !important;
       display: flex;
       width: 100%;
+      padding-top: 50px;
       padding: 10px 0;
       margin-top: 0;
       border-radius: 0;
@@ -70,6 +71,14 @@
 
       li {
         margin-top: 10px;
+      }
+
+      span {
+        display: flex;
+        overflow-x: hidden;
+        width: 100%;
+        max-width: 590px;
+        flex-flow: column;
       }
     }
 
