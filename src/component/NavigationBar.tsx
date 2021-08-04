@@ -189,9 +189,8 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
                 )}
               </>
             ) : (
-              <Link backFlag={true} to='discovery'
+              <Link backFlag={true}
                 className="module-menu-back"
-                // onClick={() => dispatch(push('/account'))}
                 >
                 <div className="module-menu-back__top" />
                 <div className="module-menu-back__bottom" />

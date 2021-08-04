@@ -18,13 +18,62 @@ const Menu: React.FC<any> = ({ ...props }) => {
   const location = useLocation();
   const nameRoute = schema.getName(location.pathname);
 
+  const nestedRoutes = (name) => {
+    if (String(name) === 'discovery' && String(String(location.pathname).search(/\/journey\/(.*)/g)) !== '-1') {
+      return 'active'
+    }
+
+    if (String(name) === 'schedule' && String(String(location.pathname).search(/\/module\/(.*)/g)) !== '-1') {
+      return 'active'
+    }
+
+    if (String(name) === 'schedule' && String(String(location.pathname).search(/\/expert-help\/(.*)/g)) !== '-1') {
+      return 'active'
+    }
+
+    if (String(name) === 'account' && String(String(location.pathname).search(/\/notes/g)) !== '-1') {
+      return 'active'
+    }
+
+    if (String(name) === 'account' && String(String(location.pathname).search(/\/note-details\/(.*)/g)) !== '-1') {
+      return 'active'
+    }
+
+    if (String(name) === 'account' && String(String(location.pathname).search(/\/settings/g)) !== '-1') {
+      return 'active'
+    }
+
+    if (String(name) === 'account' && String(String(location.pathname).search(/\/account-edit/g)) !== '-1') {
+      return 'active'
+    }
+
+    if (String(name) === 'account' && String(String(location.pathname).search(/\/about/g)) !== '-1') {
+      return 'active'
+    }
+
+    return ''
+  }
+
   const isActive = (name, rout) => {
     if (name === rout) {
       return 'active';
     } else {
-      return '';
+      return nestedRoutes(name);
     }
   };
+
+  const isActiveForNotes = (name) => {
+
+    if (String(String(location.pathname).search(/\/module\/(.*)/g)) !== '-1' && String(name) === 'schedule') {
+      return 'active';
+    }
+
+    if (String(String(location.pathname).search(/\/note-details\/(.*)/g)) !== '-1' && String(name) === 'account') {
+      return 'active';
+    }
+
+    return ''
+  }
 
   const windowFunctionality = ({ title, icon: Icon, name }) => {
     if (
@@ -32,7 +81,7 @@ const Menu: React.FC<any> = ({ ...props }) => {
       props.isBtnSaveActive === true
     ) {
       return (
-        <li className={`${isActive(name, nameRoute)}`}>
+        <li className={`${isActiveForNotes(name)}`}>
           <div
             className={'link-regular'}
             onClick={() => {
