@@ -17,4 +17,4 @@ export const getStatisticToday = createAsyncAction(
   `${appName}/${widgetName}/STATISTIC_TODAY_REQUEST`,
   `${appName}/${widgetName}/STATISTIC_TODAY_SUCCESS`,
   `${appName}/${widgetName}/STATISTIC_TODAY_FAILURE`,
-)<any, IstatisticToday, IErrorState>();
+)<any, IstatisticToday | undefined, IErrorState>();

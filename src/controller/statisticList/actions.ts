@@ -23,4 +23,4 @@ export const getStatisticList = createAsyncAction(
   `${appName}/${widgetName}/STATISTIC_LIST_REQUEST`,
   `${appName}/${widgetName}/STATISTIC_LIST_SUCCESS`,
   `${appName}/${widgetName}/STATISTIC_LIST_FAILURE`,
-)<any, IJourney[], IErrorState>();
+)<any, IJourney[] | undefined, IErrorState>();
