@@ -68,6 +68,17 @@
             }
           }
         }
+
+        div{
+          &, span{
+            color: $primary-action-color;
+          }
+          svg{
+            path{
+              fill: $primary-action-color;
+            }
+          }
+        }
       }
     }
     @media screen and (min-width: 650px) {

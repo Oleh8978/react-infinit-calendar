@@ -12,7 +12,7 @@ import { pushHistoryState, popHistoryState, setHistoryState } from "@app/control
 import { IStore } from '@app/controller/model';
 
 interface ILinkProps {
-  to: Pages;
+  to?: Pages;
   params?: {
     id?: string;
     orderNumber?: string;

@@ -52,16 +52,24 @@ const JourneyDescription: React.FC<IProps> = ({
       tabContent: <SectionsContent journey={journey} />,
     },
   ];
-  // console.log('journey.status ', journey.status)
-  // console.log('statistic', statistic[`${Object.keys(statistic)[0]}`].modules)
-
-  // if (statistic[`${Object.keys(statistic)[0]}`].modules !== undefined) {
-  //   if( statistic[`${Object.keys(statistic)[0]}`].modules.length === statistic[`${Object.keys(statistic)[0]}`].modules.filter( item => item.maxSpent !== undefined).length) {
-  //   }
-  // }
 
   const dateReturner = () => {
-    const newStatistic = statistic.modules.filter( item => item[''])
+    if (statistic[Object.keys(statistic)[0]] !== undefined) {
+      if( statistic[Object.keys(statistic)[0]].modules.length !== statistic[Object.keys(statistic)[0]].modules.filter( item => item.maxSpent !== undefined).length) {
+        const hours: any = statistic[Object.keys(statistic)[0]].statistic.spent / 60
+        return <span className="journeyinfo-body-progress-numbers">{Number.parseFloat(hours).toFixed(1)}{' '} hrs</span>
+      }
+    }
+    return <>
+    <div className="journeyinfo-body-progress-numbers-item">
+                <span className="journeyinfo-body-progress-numbers">
+                  {moment(journey.status.trialEndDate).format('MM/DD/YY')}
+                </span>
+                <span className="journeyinfo-body-progress-numbers-text">
+                  {'ends'}
+                </span>
+              </div>
+    </>
   }
   return (
     <div
@@ -113,17 +121,9 @@ const JourneyDescription: React.FC<IProps> = ({
               ) : (
                 <></>
               )}
-
-              <div className="journeyinfo-body-progress-numbers-item">
-                <span className="journeyinfo-body-progress-numbers">
-                  {journey.status
-                    ? moment(journey.status.trialEndDate).format('MM/DD/YY')
-                    : 'Endless'}
-                </span>
-                <span className="journeyinfo-body-progress-numbers-text">
-                  {journey.status ? 'ends' : 'duration'}
-                </span>
-              </div>
+{/*  */}
+              {dateReturner()}
+              {/*  */}
             </div>
           </div>
           <div className={'journeyinfo-body-wrapper-dayweek'}>
