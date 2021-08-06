@@ -14,12 +14,22 @@ import NotesList from './List';
 
 // actions
 import { getNotesList } from '@app/controller/notes/actions';
+import { getNoteByID } from '@app/controller/singleNote/actions';
+
+// history
+import history from '@app/historyApi';
 
 // interfaces
 import { IStore } from '@app/controller/model';
 import { INotesSearchParams } from '@app/controller/notes/models';
 
 interface IProps {}
+
+const CustomReRenderHook = (functionality) => {
+  useEffect(() => {
+    functionality();
+  }, []);
+};
 
 const Notes: React.FC<any> = ({ ...props }) => {
   const fieldRef = createRef() as RefObject<Scrollbars>;
@@ -68,9 +78,16 @@ const Notes: React.FC<any> = ({ ...props }) => {
     dispatch(getNotesList.request({ ...searchParams, callback }));
   };
 
+  CustomReRenderHook(loadNotesData);
+
   useEffect(() => {
     if (props.count === undefined) {
       loadNotesData();
+    }
+    if (
+      String(String(location.pathname).search(/\/note-details\/(.*)/g)) === '-1'
+    ) {
+      dispatch(getNoteByID.success(undefined));
     }
   }, [props.count]);
   console.log('notes ', props.data.length, props.count);
@@ -103,5 +120,5 @@ export default connect(
     count: state.notesListReducer.state.counts,
     user: state.authState.user.id,
   }),
-  { getNotesList },
+  { getNotesList, getNoteByID },
 )(Notes);

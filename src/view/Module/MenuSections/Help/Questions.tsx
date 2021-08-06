@@ -21,9 +21,6 @@ interface IProps {
 }
 
 const Questions: React.FC<any> = ({ ...props }) => {
-  const jorneyInfo = () => {
-    history.push('/journey');
-  };
 
   const dispatch = useDispatch();
 
@@ -40,8 +37,6 @@ const Questions: React.FC<any> = ({ ...props }) => {
           moduleCategories: [Number(Object.keys(props.moduleId)[0])],
         }),
       );
-    } else {
-      console.log(props.articles);
     }
   }, [props.articles.counts, props.moduleId]);
 
@@ -79,9 +74,7 @@ const Questions: React.FC<any> = ({ ...props }) => {
                   </span>
                   <div
                     className="card-text-start-btn"
-                    onClick={() => {
-                      jorneyInfo();
-                    }}>
+                    >
                     {item.link}
                   </div>
                 </div>

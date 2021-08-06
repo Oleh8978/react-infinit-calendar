@@ -5,9 +5,9 @@ import { LinkedInPopUp } from 'react-linkedin-login-oauth2';
 import Terms from './component/Terms';
 import PrivacyPolicy from './component/PrivacyPolicy';
 
-window.addEventListener('DOMContentLoaded', (event) => {
-  console.log('DOM fully loaded and parsed');
-});
+// window.addEventListener('DOMContentLoaded', (event) => {
+//   console.log('DOM fully loaded and parsed');
+// });
 
 // if (navigator.onLine) {
 //   console.log('online');

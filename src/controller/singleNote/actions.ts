@@ -36,7 +36,7 @@ export const createNewNote = createAsyncAction(
   `${appName}/${widgetName}/POST_SINGLE_NOTE_FAILED`,
 )<ICreateNoteID, NoteDTO, ISetLoadingAction>();
 
-export const updateNoteByID = createAsyncAction(
+export const updateNoteById = createAsyncAction(
   `${appName}/${widgetName}/PUT_SINGLE_NOTE_ID_REQUEST`,
   `${appName}/${widgetName}/PUT_SINGLE_NOTE_ID_SUCCESS`,
   `${appName}/${widgetName}/PUT_SINGLE_NOTE_ID_FAILED`,

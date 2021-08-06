@@ -19,11 +19,9 @@ const NotFound: React.FC<IProps> = () => {
           <span className="not-found-page-header__bottom">
             The page you are looking for was moved, removed or renamed
           </span>
-          <div className="not-found-page-btn">
-            <Link to="discovery" className="not-found-page-btn-txt">
-              Go to home page
-            </Link>
-          </div>
+          <Link to="discovery" className="not-found-page-btn">
+            <div className="not-found-page-btn-txt">Go to home page</div>
+          </Link>
         </div>
         <div className="not-found-page-body">
           <img className="not-found-page-body-img" src={img} alt="img" />

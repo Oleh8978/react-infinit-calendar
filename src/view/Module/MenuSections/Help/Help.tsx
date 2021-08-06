@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
-import { Scrollbars } from 'react-custom-scrollbars';
 
 import HelpSection from '../Overview/HelpSection/HelpSection';
 import Slider from '../Overview/HelpSection/Slider';
 import Questions from './Questions';
-import { experts } from '../staticHardcoded/data';
+import Loader from '@app/component/Loader';
 
 //actions
 import { getExpersList } from '@app/controller/experts/actions';
@@ -31,7 +30,6 @@ const Help: React.FC<any> = ({ ...props }) => {
     }
   }, [props.expertState.items, props.moduleId]);
 
-  console.log('moduleInfo ', props.moduleInfo);
 
   const headerSetter = () => {
     if (
@@ -49,16 +47,17 @@ const Help: React.FC<any> = ({ ...props }) => {
 
   return (
     <div className={'help'}>
+      {props.expertState.items !== undefined ? 
       <HelpSection
         header={`Do you need any help with ${headerSetter()}?`}
         description={
           'Book a consultation with one of our lead accounting experts'
         }
-      />
+      /> : <></>}
       {props.expertState.items !== undefined ? (
         <Slider people={props.expertState.items} isMain={true} />
       ) : (
-        <></>
+        <><Loader isSmall={true} /></>
       )}
 
       <Questions text={'Related articles'} />

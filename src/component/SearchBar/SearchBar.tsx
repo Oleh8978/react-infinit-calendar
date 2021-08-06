@@ -26,6 +26,8 @@ const SearchBar: React.FC<IProps> = ({ smallMenu, ...props }) => {
       //   position: 'fixed',
       // }}
     >
+      {' '}
+      {isOpened ? '' : <span className="searchbar__top-text">Discovery</span>}
       {isOpened ? (
         <>
           <img

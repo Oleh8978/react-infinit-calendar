@@ -22,6 +22,7 @@ import { DiscoveryGetListRequest } from '@ternala/frasier-types';
 // constants
 import { discoveryEntityTypeEnum } from '@ternala/frasier-types/lib/constants/main';
 
+
 interface IProps extends RouteComponentProps {
   storedSearchParams: any;
 }
@@ -48,7 +49,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       props.isLoading.status === false &&
       smallLoader === false &&
       getClientHeight() + getScrollTop() >= getScrollHeight() - 1 &&
-      props.itemsCount !== 0 &&
+      props.itemsCount && props.itemsCount.counts !== 0 &&
       discovery !== undefined &&
       props.itemsCount !== discovery.length
     ) {
@@ -57,7 +58,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
 
       if (
         discovery &&
-        props.itemsCount &&
+        props.itemsCount && props.itemsCount.counts &&
         discovery.length === props.itemsCount
       ) {
         setIsDown(false);
@@ -89,8 +90,8 @@ const Discovery: React.FC<any> = ({ ...props }) => {
   };
 
   useEffect(() => {
-    if (props.discoveryList !== undefined && ids.length === 0) {
-      setDiscovery(props.discoveryList);
+    if (props.discoveryList && props.discoveryList.items !== undefined && ids.length === 0) {
+      setDiscovery(props.discoveryList.items);
       setISmoreStated('start');
     }
 
@@ -102,8 +103,8 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       loadDiscovloadArticleCategoeries();
       loadDiscoveries('start', searchQuery);
     }
-    if (isMoreStated === 'more' && props.discoveryList !== undefined) {
-      setDiscovery(props.discoveryList);
+    if (isMoreStated === 'more' && props.discoveryList && props.discoveryList.items !== undefined) {
+      setDiscovery(props.discoveryList.items);
     }
 
     if (
@@ -115,8 +116,8 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       setISmoreStated('start');
     }
 
-    if (searchQuery.trim().length !== 0 && props.discoveryList) {
-      setDiscovery(props.discoveryList);
+    if (searchQuery.trim().length !== 0 && props.discoveryList && props.discoveryList.items) {
+      setDiscovery(props.discoveryList.items);
     }
 
     if (isDown === true) {
@@ -130,8 +131,8 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       setForse(false);
     }
 
-    if (ids.length !== 0 && props.discoveryList !== undefined) {
-      setDiscovery(props.discoveryList);
+    if (ids.length !== 0 && props.discoveryList && props.discoveryList.items!== undefined) {
+      setDiscovery(props.discoveryList.items);
     }
   }, [
     props.articleCategories,
@@ -295,7 +296,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       )}>
       {props.topicListLoader === true ||
       articleCategories === undefined ||
-      props.discoveryList === undefined ? (
+      props.discoveryList && props.discoveryList.items === undefined ? (
         <Loader isSmall={true} />
       ) : (
         <>
@@ -330,10 +331,10 @@ const Discovery: React.FC<any> = ({ ...props }) => {
 
 export default connect(
   (state: IStore) => ({
-    discoveryList: state.discoveryListReducer.discoveryList.items,
+    discoveryList: state.discoveryListReducer.discoveryList,
     storedSearchParams: state.discoveryListReducer.storedSearchParams,
     articleCategories: state.ArticleReducer.articleCategoriesObject.items,
-    itemsCount: state.discoveryListReducer.discoveryList.counts,
+    itemsCount: state.discoveryListReducer.discoveryList,
     isLoading: state.discoveryListReducer.isLoading,
     topicListLoader: state.ArticleReducer.isLoading.status,
   }),

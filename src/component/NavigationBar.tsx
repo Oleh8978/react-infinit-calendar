@@ -15,7 +15,7 @@ import { sendNoteAction } from '@app/controller/sendNoteReducer/actions';
 import { setModalWindowOpened } from '@app/controller/modalWindowReducer/actions';
 import {
   deleteNoteByID,
-  updateNoteByID,
+  updateNoteById,
 } from '@app/controller/singleNote/actions';
 import { setLocalDataForNotePrevState } from '@app/controller/previouseNoteText/actions';
 import { setLocalDataForNotePrevStateModule } from '@app/controller/previouseNoteTextModule/actions';
@@ -114,7 +114,7 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
   const updateNoteData = () => {
     if (emptyValueChecker(props.noteData.content) === false) {
       dispatch(
-        updateNoteByID.request({
+        updateNoteById.request({
           content: String(props.noteData.content),
           module: props.noteData.module,
           user: props.noteData.user,
@@ -182,16 +182,14 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
                     <div className="module-menu-back__bottom" />
                   </div>
                 ) : (
-                  <Link to={'schedule'} className="module-menu-back">
+                  <Link to={'notes'} className="module-menu-back">
                     <div className="module-menu-back__top" />
                     <div className="module-menu-back__bottom" />
                   </Link>
                 )}
               </>
             ) : (
-              <Link backFlag={true}
-                className="module-menu-back"
-                >
+              <Link backFlag={true} className="module-menu-back">
                 <div className="module-menu-back__top" />
                 <div className="module-menu-back__bottom" />
               </Link>

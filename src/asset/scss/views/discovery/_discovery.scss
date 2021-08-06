@@ -114,6 +114,7 @@
         border-radius: 14px;
         cursor: pointer;
         min-height: 300px;
+        border: 1px solid $divider-color;
 
         &__half {
           @extend .discovery-list-item-holder;

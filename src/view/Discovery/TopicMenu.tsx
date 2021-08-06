@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 
 import { ITopic } from './Models/DiscoveryModels';
 
+//uuid
+import  uuid from '@app/utils/uuid';
+
 interface IProps {
   marginAdder: (isSmall: boolean) => void;
   articleCategories: any | undefined;
@@ -242,6 +245,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
     return (
       <div
         className="discovery-menu-small"
+        key={uuid()}
         onMouseDown={(e) => {
           setIsClicked(true);
         }}
@@ -279,6 +283,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
             return (
               <div
                 className="discovery-menu-small-item"
+                key={uuid()}
                 style={{ backgroundColor: element.subColor }}
                 onMouseUp={() => {
                   if (!disabled) {
@@ -332,7 +337,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
             ? 'discovery-menu-hidden discovery-menu'
             : 'discovery-menu'
         }>
-        <span className={'discovery-select'}>Select your topic interest</span>
+        {articleCategories !== undefined && (<span className={'discovery-select'}>Select your topic interest</span>)}
         <>
           {articleCategories !== undefined && (
             <div className={'discovery-menu-wrapper scrollbar__hidden'}>
