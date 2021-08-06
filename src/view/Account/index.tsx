@@ -23,13 +23,13 @@ import { IStore } from '@app/controller/model';
 
 type IProps = RouteComponentProps;
 
-function CustomReRenderHook() {
+const CustomReRenderHook = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getStatisticList.request({}));
     dispatch(getStatisticToday.request({}));
   }, []);
-} 
+};
 
 const Account: React.FC<any> = ({ ...props }) => {
   const dispatch = useDispatch();
@@ -38,11 +38,10 @@ const Account: React.FC<any> = ({ ...props }) => {
   useEffect(() => {
     if (props.listStatistic === undefined) {
       dispatch(getStatisticList.request({}));
-    } 
+    }
     if (props.statisticToday.today === undefined) {
       dispatch(getStatisticToday.request({}));
-    };
-
+    }
   }, [props.statisticToday.today, props.listStatistic]);
   const bodySetter = () => {
     if (

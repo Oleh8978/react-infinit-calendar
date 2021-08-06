@@ -39,7 +39,7 @@ const initialState: IScheduleState = {
     errors: [],
   },
   storedSearchParams: null,
-  timeSlotData: {},
+  timeSlotData: undefined,
   uncompletedTimeSlotData: {},
   daysOff: [],
   exceptions: [],

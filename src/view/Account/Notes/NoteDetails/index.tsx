@@ -13,13 +13,15 @@ import _ from 'lodash';
 import NavigationBar from '@app/component/NavigationBar';
 import BottomComponent from './Bottom';
 import ModalWindow from '@app/component/modalWindow/modalWindow';
+import Loader from '@app/component/Loader';
 
 // actions
 import {
   getNoteByID,
   deleteNoteByID,
-  updateNoteByID,
+  updateNoteById,
 } from '@app/controller/singleNote/actions';
+import { updateNoteByID } from '@app/controller/notes/actions';
 import { setSaveBTNStatus } from '@app/controller/saveBTN/actions';
 import { setLocalDataForNote } from '@app/controller/sendNoteReducer/actions';
 import { setModalWindowOpened } from '@app/controller/modalWindowReducer/actions';
@@ -41,7 +43,6 @@ interface IProps {}
 
 const NoteDetails: React.FC<any> = ({ ...props }) => {
   const noteDetails: Pages = 'notes';
-
   const [text, setText] = useState<any | undefined>(undefined);
   const [isReadOnly, setIsReadOnly] = useState<boolean>(true);
   const [isSaveActive, setIsSaveActive] = useState<boolean>(false);
@@ -52,7 +53,6 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('text ', text);
     if (
       text !== undefined &&
       props.prevText.contnet !== undefined &&
@@ -74,7 +74,7 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
     } else {
       setIsToolbarOpened(false);
     }
-  }, [text, isSaveActive, props.prevText, isReadOnly]);
+  }, [text, isSaveActive, props.prevText, isReadOnly, props.saveBtnStatus]);
 
   useEffect(() => {
     if (text === undefined) {
@@ -139,15 +139,17 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
   const save = () => {
     setIsReadOnly(true);
     setIsSaveActive(false);
-    dispatch(setModalWindowOpened({ status: false }));
     dispatch(
       setLocalDataForNotePrevState({
-        contnet: EditorState.createWithContent(
-          convertFromRaw(JSON.parse(String(text).replace(/'/g, '"'))),
+        contnet: JSON.stringify(convertToRaw(text.getCurrentContent())).replace(
+          /"/g,
+          "'",
         ),
       }),
     );
+    dispatch(setSaveBTNStatus({ isActive: false }));
     saveBtnBackEndFunctionality(text);
+    dispatch(setModalWindowOpened({ status: false }));
   };
 
   const discard = () => {
@@ -163,6 +165,7 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
       );
       // setText(props.prevText.contnet);
     }
+    dispatch(setSaveBTNStatus({ isActive: false }));
     dispatch(setModalWindowOpened({ status: false }));
   };
 
@@ -171,9 +174,30 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
   };
 
   const saveBtnBackEndFunctionality = (text) => {
+    // console.log('inn valuechecker ', emptyValueChecker(text));
+    // console.log('JSON  ', String(
+    //   JSON.stringify(convertToRaw(text.getCurrentContent())).replace(
+    //     /"/g,
+    //     "'",
+    //   ),
+    // ));
+
     if (emptyValueChecker(text) === false) {
       dispatch(
-        updateNoteByID.request({
+        updateNoteById.request({
+          content: String(
+            JSON.stringify(convertToRaw(text.getCurrentContent())).replace(
+              /"/g,
+              "'",
+            ),
+          ),
+          module: props.note.module.id,
+          user: props.user,
+          id: props.note.id,
+        }),
+      );
+      dispatch(
+        updateNoteByID({
           content: String(
             JSON.stringify(convertToRaw(text.getCurrentContent())).replace(
               /"/g,
@@ -258,7 +282,9 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
           </div>
         </div>
       ) : (
-        <></>
+        <>
+          <Loader isSmall={false} />
+        </>
       )}
     </>
   );
@@ -272,9 +298,11 @@ export default connect(
     notes: state.moduleState.moduleData,
     modalWindowState: state.ModalWindowReducer.status,
     prevText: state.notePrevStateReducer.state,
+    saveBtnStatus: state.saveBtnReducer.isActive,
   }),
   {
     getNoteByID,
+    updateNoteById,
     setSaveBTNStatus,
     setLocalDataForNote,
     setLocalDataForNotePrevState,

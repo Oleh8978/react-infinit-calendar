@@ -92,7 +92,9 @@ const ContactList: React.FC<IProps> = ({ ...props }) => {
         <>
           {props.data.emails.map((item) => {
             return (
-              <a href={`mailto:${item}`} className={'expert-help-contact-body-right-text'}>
+              <a
+                href={`mailto:${item}`}
+                className={'expert-help-contact-body-right-text'}>
                 <span className={'expert-text'}>{item}</span>
               </a>
             );
@@ -106,7 +108,9 @@ const ContactList: React.FC<IProps> = ({ ...props }) => {
         <>
           {props.data.phones.map((item) => {
             return (
-              <a href={`tel:${item.phone}`} className={'expert-help-contact-body-right-text'}>
+              <a
+                href={`tel:${item.phone}`}
+                className={'expert-help-contact-body-right-text'}>
                 <span className={'expert-text'}>{item.phone}</span>
               </a>
             );

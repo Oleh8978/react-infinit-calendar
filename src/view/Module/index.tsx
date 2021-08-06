@@ -50,7 +50,6 @@ const Module: React.FC<any> = (props) => {
       props.articles.counts !== undefined &&
       props.moduleId !== undefined
     ) {
-      console.log('articles ', props.articles);
       dispatch(
         getArticleListByModuleCqategory.request({
           limit: 10,
@@ -82,12 +81,12 @@ const Module: React.FC<any> = (props) => {
 
   return (
     <div className={'module'}>
-      <NavigationBar
+      {modules !== undefined ?<NavigationBar
         rout={'/schedule'}
         name={modules[idNumber]?.title}
         page={'schedule'}
         isSaveActive={true}
-      />
+      /> : <></>}
       <div className="module-content">
         <Scrollbars
           style={{

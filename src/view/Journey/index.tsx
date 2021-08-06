@@ -39,7 +39,8 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
   const journeyLoader = useSelector(getJourneyLoader);
   const id = Number(props.match.params.id);
   const dispatch = useDispatch();
-
+  console.log('statistic ', statistic);
+  console.log('journey ', journey);
   useEffect(() => {
     dispatch(getJourneyDataAction.request(id));
     dispatch(getJourneyStatisticAction.request({ id }));

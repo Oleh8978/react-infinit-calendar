@@ -14,6 +14,31 @@ interface IProps {
 }
 
 const JourneyCompletedItem: React.FC<IProps> = ({ ...props }) => {
+  const statisticDataReturner = () => {
+    if (
+      props.data.statistic.maxTaskCount ===
+      props.data.statistic.completedTaskCount
+    ) {
+      return 100;
+    }
+
+    if (
+      props.data.statistic.maxTaskCount &&
+      props.data.statistic.completedTaskCount
+    ) {
+      return Number.parseFloat(
+        String(
+          (props.data.statistic.maxTaskCount /
+            props.data.statistic.completedTaskCount) *
+            100,
+        ),
+      ).toFixed(1);
+    }
+
+    if (props.data.statistic.completedTaskCount === 0) {
+      return 0;
+    }
+  };
   return (
     <Link
       to={`/journey-info/${props.data.id}`}
@@ -31,11 +56,7 @@ const JourneyCompletedItem: React.FC<IProps> = ({ ...props }) => {
               className={
                 'journey-completed-item-body-description-progress__top'
               }>
-              {Math.round(
-                (props.data.statistic.completedTaskCount / 100) *
-                  props.data.statistic.maxTaskCount,
-              )}
-              %
+              {statisticDataReturner()}%
             </span>
             <span
               className={
@@ -48,7 +69,9 @@ const JourneyCompletedItem: React.FC<IProps> = ({ ...props }) => {
             <span
               className={'journey-completed-item-body-description-days__top'}>
               {props.data.statistic.spent > 1440
-                ? Math.floor(props.data.statistic.spent / 1440)
+                ? Number.parseFloat(
+                    String(props.data.statistic.spent / 1440),
+                  ).toFixed(1)
                 : 0}
             </span>
             <span

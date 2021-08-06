@@ -55,22 +55,34 @@ const JourneyDescription: React.FC<IProps> = ({
 
   const dateReturner = () => {
     if (statistic[Object.keys(statistic)[0]] !== undefined) {
-      if( statistic[Object.keys(statistic)[0]].modules.length !== statistic[Object.keys(statistic)[0]].modules.filter( item => item.maxSpent !== undefined).length) {
-        const hours: any = statistic[Object.keys(statistic)[0]].statistic.spent / 60
-        return <span className="journeyinfo-body-progress-numbers">{Number.parseFloat(hours).toFixed(1)}{' '} hrs</span>
+      if (
+        statistic[Object.keys(statistic)[0]].modules.length !==
+        statistic[Object.keys(statistic)[0]].modules.filter(
+          (item) => item.maxSpent !== undefined,
+        ).length
+      ) {
+        const hours: any =
+          statistic[Object.keys(statistic)[0]].statistic.spent / 60;
+        return (
+          <span className="journeyinfo-body-progress-numbers">
+            {Number.parseFloat(hours).toFixed(1)} hrs
+          </span>
+        );
       }
     }
-    return <>
-    <div className="journeyinfo-body-progress-numbers-item">
-                <span className="journeyinfo-body-progress-numbers">
-                  {moment(journey.status.trialEndDate).format('MM/DD/YY')}
-                </span>
-                <span className="journeyinfo-body-progress-numbers-text">
-                  {'ends'}
-                </span>
-              </div>
-    </>
-  }
+    return (
+      <>
+        <div className="journeyinfo-body-progress-numbers-item">
+          <span className="journeyinfo-body-progress-numbers">
+            {moment(journey.status.trialEndDate).format('MM/DD/YY')}
+          </span>
+          <span className="journeyinfo-body-progress-numbers-text">
+            {'ends'}
+          </span>
+        </div>
+      </>
+    );
+  };
   return (
     <div
       className={'journeyinfo-body-wrapper'}
@@ -121,7 +133,7 @@ const JourneyDescription: React.FC<IProps> = ({
               ) : (
                 <></>
               )}
-{/*  */}
+              {/*  */}
               {dateReturner()}
               {/*  */}
             </div>
@@ -154,7 +166,7 @@ const JourneyDescription: React.FC<IProps> = ({
               }
             })}
           </div>
-          <Tab data={tabData} />
+          {journey.sections.length !== 0 ?<Tab data={tabData} /> : <></>}
         </>
       ) : (
         <>
@@ -197,7 +209,7 @@ const JourneyDescription: React.FC<IProps> = ({
             })}
           </div>
           <div>
-            <TextComponent data={journey.subTitle} isSubtitle={true} />
+            {/* <TextComponent data={journey.subTitle} isSubtitle={true} /> */}
             {journey.sections
               .sort((el1, el2) => {
                 if (el1.orderNumber < el2.orderNumber) return -1;

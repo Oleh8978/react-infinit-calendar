@@ -109,6 +109,36 @@ export const GetNotesListReducer = createReducer<INotesState, NotesActionType>(
     },
   )
   .handleAction(
+    [actions.updateNoteByID],
+    (state: INotesState, { payload }): INotesState => {
+      const iNotesState = { ...state.state };
+
+      const NewNotesState = [...iNotesState.items];
+
+      const newState = NewNotesState.map((item) => {
+        if (item.id === payload.id) {
+          return {
+            ...item,
+            content: payload.content,
+          };
+        } else {
+          return {
+            ...item,
+          };
+        }
+      });
+
+      return {
+        ...state,
+        state: {
+          counts: iNotesState.counts,
+          items: newState,
+        },
+        storedSearchParams: state.storedSearchParams,
+      };
+    },
+  )
+  .handleAction(
     [actions.singleNoutesRemoveFromList],
     (state: INotesState, { payload }): INotesState => {
       const iNotesState = { ...state.state };

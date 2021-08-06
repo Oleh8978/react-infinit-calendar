@@ -5,8 +5,8 @@ import schema from '@app/routing/schema';
 
 import { IStore } from '@app/controller/model';
 import Link from '@app/routing/Link';
-// Icons
 
+// Icons
 import Logo from '@app/component/icon/Logo';
 import { menuItems, routsWhereShowMenu } from '../config';
 
@@ -19,40 +19,64 @@ const Menu: React.FC<any> = ({ ...props }) => {
   const nameRoute = schema.getName(location.pathname);
 
   const nestedRoutes = (name) => {
-    if (String(name) === 'discovery' && String(String(location.pathname).search(/\/journey\/(.*)/g)) !== '-1') {
-      return 'active'
+    if (
+      String(name) === 'discovery' &&
+      String(String(location.pathname).search(/\/journey\/(.*)/g)) !== '-1'
+    ) {
+      return 'active';
     }
 
-    if (String(name) === 'schedule' && String(String(location.pathname).search(/\/module\/(.*)/g)) !== '-1') {
-      return 'active'
+    if (
+      String(name) === 'schedule' &&
+      String(String(location.pathname).search(/\/module\/(.*)/g)) !== '-1'
+    ) {
+      return 'active';
     }
 
-    if (String(name) === 'schedule' && String(String(location.pathname).search(/\/expert-help\/(.*)/g)) !== '-1') {
-      return 'active'
+    if (
+      String(name) === 'schedule' &&
+      String(String(location.pathname).search(/\/expert-help\/(.*)/g)) !== '-1'
+    ) {
+      return 'active';
     }
 
-    if (String(name) === 'account' && String(String(location.pathname).search(/\/notes/g)) !== '-1') {
-      return 'active'
+    if (
+      String(name) === 'account' &&
+      String(String(location.pathname).search(/\/notes/g)) !== '-1'
+    ) {
+      return 'active';
     }
 
-    if (String(name) === 'account' && String(String(location.pathname).search(/\/note-details\/(.*)/g)) !== '-1') {
-      return 'active'
+    if (
+      String(name) === 'account' &&
+      String(String(location.pathname).search(/\/note-details\/(.*)/g)) !== '-1'
+    ) {
+      return 'active';
     }
 
-    if (String(name) === 'account' && String(String(location.pathname).search(/\/settings/g)) !== '-1') {
-      return 'active'
+    if (
+      String(name) === 'account' &&
+      String(String(location.pathname).search(/\/settings/g)) !== '-1'
+    ) {
+      return 'active';
     }
 
-    if (String(name) === 'account' && String(String(location.pathname).search(/\/account-edit/g)) !== '-1') {
-      return 'active'
+    if (
+      String(name) === 'account' &&
+      String(String(location.pathname).search(/\/account-edit/g)) !== '-1'
+    ) {
+      return 'active';
     }
 
-    if (String(name) === 'account' && String(String(location.pathname).search(/\/about/g)) !== '-1') {
-      return 'active'
+    if (
+      String(name) === 'account' &&
+      String(String(location.pathname).search(/\/about/g)) !== '-1'
+    ) {
+      return 'active';
     }
 
-    return ''
-  }
+    return '';
+  };
 
   const isActive = (name, rout) => {
     if (name === rout) {
@@ -63,17 +87,23 @@ const Menu: React.FC<any> = ({ ...props }) => {
   };
 
   const isActiveForNotes = (name) => {
-
-    if (String(String(location.pathname).search(/\/module\/(.*)/g)) !== '-1' && String(name) === 'schedule') {
+    if (
+      String(String(location.pathname).search(/\/module\/(.*)/g)) !== '-1' &&
+      String(name) === 'schedule'
+    ) {
       return 'active';
     }
 
-    if (String(String(location.pathname).search(/\/note-details\/(.*)/g)) !== '-1' && String(name) === 'account') {
+    if (
+      String(String(location.pathname).search(/\/note-details\/(.*)/g)) !==
+        '-1' &&
+      String(name) === 'account'
+    ) {
       return 'active';
     }
 
-    return ''
-  }
+    return '';
+  };
 
   const windowFunctionality = ({ title, icon: Icon, name }) => {
     if (

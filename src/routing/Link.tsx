@@ -1,12 +1,19 @@
 import React, { CSSProperties } from 'react';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import { Link, generatePath } from 'react-router-dom';
 
 import schema, { Pages } from './schema';
 
 //actions
-import { IHistoryState, IHistoryStep } from "@app/controller/historyReducer/models";
-import { pushHistoryState, popHistoryState, setHistoryState } from "@app/controller/historyReducer/actions";
+import {
+  IHistoryState,
+  IHistoryStep,
+} from '@app/controller/historyReducer/models';
+import {
+  pushHistoryState,
+  popHistoryState,
+  setHistoryState,
+} from '@app/controller/historyReducer/actions';
 
 //interfaces
 import { IStore } from '@app/controller/model';
@@ -24,12 +31,12 @@ interface ILinkProps {
   query?: string;
   children?: any;
   style?: CSSProperties;
-  backFlag?: boolean,
-  popHistory: () => void,
-  historyState: IHistoryState,
-  additionalParameter?: string,
-  pushHistory: (historyStep: IHistoryStep) => void,
-  setHistory: (historyStep: IHistoryStep) => void,
+  backFlag?: boolean;
+  popHistory: () => void;
+  historyState: IHistoryState;
+  additionalParameter?: string;
+  pushHistory: (historyStep: IHistoryStep) => void;
+  setHistory: (historyStep: IHistoryStep) => void;
 }
 
 export const InternalLink: React.FC<ILinkProps> = ({
@@ -40,12 +47,12 @@ export const InternalLink: React.FC<ILinkProps> = ({
   onClick,
   query,
   style,
-  popHistory, 
-  pushHistory, 
-  setHistory, 
+  popHistory,
+  pushHistory,
+  setHistory,
   historyState,
   additionalParameter,
-  backFlag
+  backFlag,
 }) => {
   let id, slug, orderNumber, tabName;
 
@@ -66,14 +73,14 @@ export const InternalLink: React.FC<ILinkProps> = ({
         })
       : schema.getLink(to) || '/error';
 
-      if (backFlag) {
-        if (historyState.length) {
-          const prev: IHistoryStep = historyState[historyState.length - 2];
-          if (prev) {
-            link = prev.link;
-          }
-        }
+  if (backFlag) {
+    if (historyState.length) {
+      const prev: IHistoryStep = historyState[historyState.length - 2];
+      if (prev) {
+        link = prev.link;
       }
+    }
+  }
   if (query) {
     link = link + '?' + query;
   }
@@ -83,13 +90,13 @@ export const InternalLink: React.FC<ILinkProps> = ({
       onClick();
     }
     if (backFlag) {
-      popHistory()
+      popHistory();
     } else {
       pushHistory({
         link,
         name: to,
-        additionalParameter
-      })
+        additionalParameter,
+      });
     }
   };
 
@@ -106,13 +113,12 @@ export const InternalLink: React.FC<ILinkProps> = ({
 // export default InternalLink;
 
 export default connect(
-  (state: IStore) =>
-    ({
-      historyState: state.historyState
-    }),
+  (state: IStore) => ({
+    historyState: state.historyState,
+  }),
   {
     pushHistory: pushHistoryState,
     popHistory: popHistoryState,
     setHistory: setHistoryState,
-  }
-)(InternalLink)
+  },
+)(InternalLink);

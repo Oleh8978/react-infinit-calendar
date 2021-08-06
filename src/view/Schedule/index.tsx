@@ -85,9 +85,11 @@ const Schedule: React.FC<IProps> = () => {
   }, [loader]);
 
   useEffect(() => {
-    setTimeSlots(
-      schedule[moment(selectedDay).format(timeSlotDateFormat)] || [],
-    );
+    if (schedule) {
+      setTimeSlots(
+        schedule[moment(selectedDay).format(timeSlotDateFormat)] || [],
+      );
+    }
   }, [selectedDay, schedule]);
 
   const isCurrentDayOff = daysOff.find((day) =>
@@ -124,6 +126,10 @@ const Schedule: React.FC<IProps> = () => {
         0,
       ),
   );
+
+  if (schedule === undefined) {
+    return <Loader />
+  }
 
   return (
     <div className={'schedule'}>

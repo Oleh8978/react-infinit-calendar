@@ -114,7 +114,7 @@ export function* addNewNoteSaga({
 
 export function* updateNoteSaga({
   payload,
-}: ReturnType<typeof action.updateNoteByID.request>) {
+}: ReturnType<typeof action.updateNoteById.request>) {
   const accessToken: string | undefined = yield yield select(getAccessToken);
 
   try {
@@ -131,7 +131,7 @@ export function* updateNoteSaga({
         }),
       );
     } else {
-      yield put(action.updateNoteByID.success({ ...res }));
+      yield put(action.updateNoteById.success({ ...res }));
       yield put(
         action.setLoadingAction({
           status: false,
@@ -196,7 +196,7 @@ export function* singleNoteSaga() {
   yield all([
     takeEvery(action.getNoteByID.request, getNoteByIDSaga),
     takeEvery(action.createNewNote.request, addNewNoteSaga),
-    takeEvery(action.updateNoteByID.request, updateNoteSaga),
+    takeEvery(action.updateNoteById.request, updateNoteSaga),
     takeEvery(action.deleteNoteByID.request, deleteNoteSaga),
   ]);
 }

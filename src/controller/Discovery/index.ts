@@ -23,10 +23,7 @@ export const DiscoverySaga = function* () {
 
 /* Reducer */
 const initialState: IDiscoveryState = {
-  discoveryList: {
-    counts: 0,
-    items: [],
-  },
+  discoveryList: undefined,
   storedSearchParams: {
     limit: '',
     offset: '',

@@ -61,7 +61,7 @@ export const GetSingleNoteReducer = createReducer<INoteState, NotesActionType>(
     }),
   )
   .handleAction(
-    [actions.updateNoteByID.success],
+    [actions.updateNoteById.success],
     (state: INoteState, { payload }): INoteState => ({
       ...state,
       state: {

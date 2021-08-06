@@ -55,11 +55,9 @@ export const createNewNote = createAsyncAction(
   `${appName}/${widgetName}/POST_NOTE_FAILED`,
 )<ICreateNoteID, NoteDTO, ISetLoadingAction>();
 
-export const updateNoteByID = createAsyncAction(
-  `${appName}/${widgetName}/PUT_NOTE_ID_REQUEST`,
-  `${appName}/${widgetName}/PUT_NOTE_ID_SUCCESS`,
-  `${appName}/${widgetName}/PUT_NOTE_ID_FAILED`,
-)<IRequestBodyNotes, NoteDTO, ISetLoadingAction>();
+export const updateNoteByID = createAction(
+  `${appName}/${widgetName}/PUT_NOTE_INTO_THELIST`,
+)<IRequestBodyNotes>();
 
 export const deleteNoteByID = createAsyncAction(
   `${appName}/${widgetName}/DELETE_NOTE_ID_REQUEST`,
