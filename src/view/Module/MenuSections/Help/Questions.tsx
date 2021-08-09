@@ -21,7 +21,6 @@ interface IProps {
 }
 
 const Questions: React.FC<any> = ({ ...props }) => {
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -72,11 +71,7 @@ const Questions: React.FC<any> = ({ ...props }) => {
                     <h1 className="card-text-header">{item.title}</h1>
                     {item.description}
                   </span>
-                  <div
-                    className="card-text-start-btn"
-                    >
-                    {item.link}
-                  </div>
+                  <div className="card-text-start-btn">{item.link}</div>
                 </div>
               </Link>
             );

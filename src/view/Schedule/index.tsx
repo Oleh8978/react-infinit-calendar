@@ -128,7 +128,7 @@ const Schedule: React.FC<IProps> = () => {
   );
 
   if (schedule === undefined) {
-    return <Loader />
+    return <Loader />;
   }
 
   return (

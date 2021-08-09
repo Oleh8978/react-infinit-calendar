@@ -1,8 +1,5 @@
 import React from 'react';
 
-// hardcoded
-import img from './hardcoded/journeyMain.png';
-
 interface IProps {
   img?: string;
 }

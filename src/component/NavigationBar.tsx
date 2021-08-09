@@ -139,7 +139,7 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
         <>
           <div className={'module-menu'}>
             <div className="module-menu-col1">
-              <Link to={props.page} className="module-menu-back">
+              <Link backFlag={true} className="module-menu-back">
                 <div className="module-menu-back__top" />
                 <div className="module-menu-back__bottom" />
               </Link>
@@ -182,7 +182,7 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
                     <div className="module-menu-back__bottom" />
                   </div>
                 ) : (
-                  <Link to={'notes'} className="module-menu-back">
+                  <Link backFlag={true} className="module-menu-back">
                     <div className="module-menu-back__top" />
                     <div className="module-menu-back__bottom" />
                   </Link>

@@ -30,7 +30,6 @@ const Help: React.FC<any> = ({ ...props }) => {
     }
   }, [props.expertState.items, props.moduleId]);
 
-
   const headerSetter = () => {
     if (
       props.moduleInfo !== undefined &&
@@ -47,17 +46,22 @@ const Help: React.FC<any> = ({ ...props }) => {
 
   return (
     <div className={'help'}>
-      {props.expertState.items !== undefined ? 
-      <HelpSection
-        header={`Do you need any help with ${headerSetter()}?`}
-        description={
-          'Book a consultation with one of our lead accounting experts'
-        }
-      /> : <></>}
+      {props.expertState.items !== undefined ? (
+        <HelpSection
+          header={`Do you need any help with ${headerSetter()}?`}
+          description={
+            'Book a consultation with one of our lead accounting experts'
+          }
+        />
+      ) : (
+        <></>
+      )}
       {props.expertState.items !== undefined ? (
         <Slider people={props.expertState.items} isMain={true} />
       ) : (
-        <><Loader isSmall={true} /></>
+        <>
+          <Loader isSmall={true} />
+        </>
       )}
 
       <Questions text={'Related articles'} />

@@ -15,6 +15,11 @@ interface IProps {
 
 const JourneyCompletedItem: React.FC<IProps> = ({ ...props }) => {
   const statisticDataReturner = () => {
+
+    if (props.data.statistic.completedTaskCount === 0) {
+      return 0;
+    }
+    
     if (
       props.data.statistic.maxTaskCount ===
       props.data.statistic.completedTaskCount
@@ -28,16 +33,12 @@ const JourneyCompletedItem: React.FC<IProps> = ({ ...props }) => {
     ) {
       return Number.parseFloat(
         String(
-          (props.data.statistic.maxTaskCount /
-            props.data.statistic.completedTaskCount) *
+          (props.data.statistic.completedTaskCount / props.data.statistic.maxTaskCount ) *
             100,
         ),
       ).toFixed(1);
     }
 
-    if (props.data.statistic.completedTaskCount === 0) {
-      return 0;
-    }
   };
   return (
     <Link

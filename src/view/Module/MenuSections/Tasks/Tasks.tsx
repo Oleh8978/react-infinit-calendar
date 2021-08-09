@@ -237,57 +237,65 @@ const Task: React.FC<IProps> = ({ id }) => {
       ),
   );
   return (
-    <>{module !== undefined ?
-    <div className={'tasks'}>
-      {isCompletedForToday ? <WellDone /> : <></>}
-      <Calendar
-        days={days}
-        selectDay={setSelectedDay}
-        selectedDay={selectedDay}
-        uncompletedSchedule={uncompleted}
-      />
-      <div className="tasks-wrapper">
-        {isFirstLoaded ? (
-          Boolean(
-            loaders.filter(
-              (item) => item.type === LoaderAction.module.getSchedule,
-            ).length,
-          ) && <Loader isSmall={true} isAbsolute={true} />
-        ) : (
-          <></>
-        )}
-
-        {module !== undefined && timeSlots.length !== 0? (
-          <Current
-            timeSlots={timeSlots}
-            toggleTask={(data: {
-              id: number;
-              timeSlot: number;
-              action: 'create' | 'remove';
-              callback: (state: boolean) => void;
-            }) => {
-              toggleTask({
-                ...data,
-                date: selectedDay,
-              });
-            }}
+    <>
+      {module !== undefined ? (
+        <div className={'tasks'}>
+          {isCompletedForToday ? <WellDone /> : <></>}
+          <Calendar
+            days={days}
+            selectDay={setSelectedDay}
+            selectedDay={selectedDay}
+            uncompletedSchedule={uncompleted}
           />
-        ) : (
-          <>
-            {module !== undefined && Object.keys(modules).length === 0  ? <NoTasks /> : <></>}
-          </>
-        )}
+          <div className="tasks-wrapper">
+            {isFirstLoaded ? (
+              Boolean(
+                loaders.filter(
+                  (item) => item.type === LoaderAction.module.getSchedule,
+                ).length,
+              ) && <Loader isSmall={true} isAbsolute={true} />
+            ) : (
+              <></>
+            )}
 
-        {hasUncompleted ? (
-          <Uncompleted
-            prevData={uncompletedWithoutSelectedDay}
-            toggleTask={toggleUncompletedTask}
-          />
-        ) : (
-          <></>
-        )}
-      </div>
-    </div> : <Loader/>}
+            {module !== undefined && timeSlots.length !== 0 ? (
+              <Current
+                timeSlots={timeSlots}
+                toggleTask={(data: {
+                  id: number;
+                  timeSlot: number;
+                  action: 'create' | 'remove';
+                  callback: (state: boolean) => void;
+                }) => {
+                  toggleTask({
+                    ...data,
+                    date: selectedDay,
+                  });
+                }}
+              />
+            ) : (
+              <>
+                {module !== undefined && Object.keys(modules).length === 0 ? (
+                  <NoTasks />
+                ) : (
+                  <></>
+                )}
+              </>
+            )}
+
+            {hasUncompleted ? (
+              <Uncompleted
+                prevData={uncompletedWithoutSelectedDay}
+                toggleTask={toggleUncompletedTask}
+              />
+            ) : (
+              <></>
+            )}
+          </div>
+        </div>
+      ) : (
+        <Loader />
+      )}
     </>
   );
 };

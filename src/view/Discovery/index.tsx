@@ -22,7 +22,6 @@ import { DiscoveryGetListRequest } from '@ternala/frasier-types';
 // constants
 import { discoveryEntityTypeEnum } from '@ternala/frasier-types/lib/constants/main';
 
-
 interface IProps extends RouteComponentProps {
   storedSearchParams: any;
 }
@@ -49,7 +48,8 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       props.isLoading.status === false &&
       smallLoader === false &&
       getClientHeight() + getScrollTop() >= getScrollHeight() - 1 &&
-      props.itemsCount && props.itemsCount.counts !== 0 &&
+      props.itemsCount &&
+      props.itemsCount.counts !== 0 &&
       discovery !== undefined &&
       props.itemsCount !== discovery.length
     ) {
@@ -58,7 +58,8 @@ const Discovery: React.FC<any> = ({ ...props }) => {
 
       if (
         discovery &&
-        props.itemsCount && props.itemsCount.counts &&
+        props.itemsCount &&
+        props.itemsCount.counts &&
         discovery.length === props.itemsCount
       ) {
         setIsDown(false);
@@ -90,7 +91,11 @@ const Discovery: React.FC<any> = ({ ...props }) => {
   };
 
   useEffect(() => {
-    if (props.discoveryList && props.discoveryList.items !== undefined && ids.length === 0) {
+    if (
+      props.discoveryList &&
+      props.discoveryList.items !== undefined &&
+      ids.length === 0
+    ) {
       setDiscovery(props.discoveryList.items);
       setISmoreStated('start');
     }
@@ -103,7 +108,11 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       loadDiscovloadArticleCategoeries();
       loadDiscoveries('start', searchQuery);
     }
-    if (isMoreStated === 'more' && props.discoveryList && props.discoveryList.items !== undefined) {
+    if (
+      isMoreStated === 'more' &&
+      props.discoveryList &&
+      props.discoveryList.items !== undefined
+    ) {
       setDiscovery(props.discoveryList.items);
     }
 
@@ -116,7 +125,11 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       setISmoreStated('start');
     }
 
-    if (searchQuery.trim().length !== 0 && props.discoveryList && props.discoveryList.items) {
+    if (
+      searchQuery.trim().length !== 0 &&
+      props.discoveryList &&
+      props.discoveryList.items
+    ) {
       setDiscovery(props.discoveryList.items);
     }
 
@@ -131,7 +144,11 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       setForse(false);
     }
 
-    if (ids.length !== 0 && props.discoveryList && props.discoveryList.items!== undefined) {
+    if (
+      ids.length !== 0 &&
+      props.discoveryList &&
+      props.discoveryList.items !== undefined
+    ) {
       setDiscovery(props.discoveryList.items);
     }
   }, [
@@ -296,7 +313,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       )}>
       {props.topicListLoader === true ||
       articleCategories === undefined ||
-      props.discoveryList && props.discoveryList.items === undefined ? (
+      (props.discoveryList && props.discoveryList.items === undefined) ? (
         <Loader isSmall={true} />
       ) : (
         <>

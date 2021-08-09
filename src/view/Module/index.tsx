@@ -81,12 +81,16 @@ const Module: React.FC<any> = (props) => {
 
   return (
     <div className={'module'}>
-      {modules !== undefined ?<NavigationBar
-        rout={'/schedule'}
-        name={modules[idNumber]?.title}
-        page={'schedule'}
-        isSaveActive={true}
-      /> : <></>}
+      {modules !== undefined ? (
+        <NavigationBar
+          rout={'/schedule'}
+          name={modules[idNumber]?.title}
+          page={'schedule'}
+          isSaveActive={true}
+        />
+      ) : (
+        <></>
+      )}
       <div className="module-content">
         <Scrollbars
           style={{

@@ -1,9 +1,10 @@
 import Routing from '@app/routing';
-import React, { useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import { LinkedInPopUp } from 'react-linkedin-login-oauth2';
 import Terms from './component/Terms';
 import PrivacyPolicy from './component/PrivacyPolicy';
+import SplashScreen from '@app/pwa/SplashScreen';
 
 // window.addEventListener('DOMContentLoaded', (event) => {
 //   console.log('DOM fully loaded and parsed');
@@ -16,20 +17,45 @@ import PrivacyPolicy from './component/PrivacyPolicy';
 // }
 
 export const App: React.FC = () => {
-  // useEffect(() => {
-  //   if (document.readyState === 'complete') {
-  //     console.log('done ');
-  //   }
-  // }, [document]);
+  const [spash, setSplash] = useState<boolean>(false);
+  const [ locationKeys, setLocationKeys ] = useState([])
+  const history = useHistory()
 
-  useEffect(() => console.log('mounted'), []);
+  useEffect(() => {
+    setTimeout(() => {
+      setSplash(true);
+    }, 4000);
+  }, [spash]);
+
+  useEffect(() => {
+    return history.listen(location => {
+      if (history.action === 'PUSH') {
+        setLocationKeys([ location.key ])
+      }
+  
+      if (history.action === 'POP') {
+        if (locationKeys[1] === location.key) {
+          setLocationKeys(([ _, ...keys ]) => keys)
+        } else {
+          setLocationKeys((keys) => [ location.key, ...keys ])
+        }
+      }
+    })
+  }, [locationKeys])
+
   return (
-    <Switch>
-      <Route exact path="/linkedin" component={LinkedInPopUp} />
-      <Route exact path="/privacy-policy" component={PrivacyPolicy} />
-      <Route exact path="/terms" component={Terms} />
-      <Route path="*" component={Routing} />
-    </Switch>
+    <>
+      {spash === false ? (
+        <SplashScreen />
+      ) : (
+        <Switch>
+          <Route exact path="/linkedin" component={LinkedInPopUp} />
+          <Route exact path="/privacy-policy" component={PrivacyPolicy} />
+          <Route exact path="/terms" component={Terms} />
+          <Route path="*" component={Routing} />
+        </Switch>
+      )}
+    </>
   );
 };
 
