@@ -1,20 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import React from 'react';
 
 // components
 import JorneyComponent from './JorneyComponent/JorneyComponent';
 import CompletedJourneys from './Completed/CompletedJourneys';
 import Loader from '@app/component/Loader';
-
-// Actions
-import { getStatisticList } from '@app/controller/statisticList/actions';
-
-// interfaces
-import { IModule } from './Models';
-import { IStore } from '@app/controller/model';
-import { IJourney } from '@app/controller/statisticList/models';
-
-interface IProps {}
 
 const MyJourneys: React.FC<any> = ({ ...props }) => {
   const listData = props.listData;

@@ -20,14 +20,17 @@ const Overview: React.FC<IProps> = ({ id }) => {
   useEffect(() => {
     setModule(modules[id]);
   }, [modules]);
-  
+
   return (
-    <>{module ?
-      <div className={'overview'}>
-        <Header module={module} />
-        <Body module={module} />
-      </div> : <Loader />
-      }
+    <>
+      {module ? (
+        <div className={'overview'}>
+          <Header module={module} />
+          <Body module={module} />
+        </div>
+      ) : (
+        <Loader />
+      )}
     </>
   );
 };

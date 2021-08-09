@@ -319,7 +319,7 @@ const Calendar: React.FC<IProps> = ({
         <></>
       )}
       <div className="calendar-headwraper">
-        <img src={calendarImg} className="calendar-img" alt="img" />
+        {/* <img src={calendarImg} className="calendar-img" alt="img" /> */}
         <span className="calendar-mnth">
           {selectedDay.format('MMMM, YYYY')}
         </span>

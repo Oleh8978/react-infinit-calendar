@@ -8,6 +8,9 @@ import TextComponent from '@app/view/Account/JourneyInfo/JourneyTextComponents';
 // dayweeks
 import moment from 'moment';
 
+// utils 
+import uuid from '@app/utils/uuid';
+
 // types
 import { JourneyGetResponse } from '@ternala/frasier-types';
 import JourneyStatisticTable from '@app/view/Journey/JourneyStatisticTable';
@@ -39,7 +42,7 @@ const JourneyDescription: React.FC<IProps> = ({
       .isoWeekday(i + 1)
       .format('ddd');
   });
-
+  // console.log('statistic ', statistic)
   const tabData = [
     {
       id: '1',
@@ -54,34 +57,38 @@ const JourneyDescription: React.FC<IProps> = ({
   ];
 
   const dateReturner = () => {
-    if (statistic[Object.keys(statistic)[0]] !== undefined) {
-      if (
-        statistic[Object.keys(statistic)[0]].modules.length !==
-        statistic[Object.keys(statistic)[0]].modules.filter(
-          (item) => item.maxSpent !== undefined,
-        ).length
-      ) {
-        const hours: any =
-          statistic[Object.keys(statistic)[0]].statistic.spent / 60;
-        return (
-          <span className="journeyinfo-body-progress-numbers">
-            {Number.parseFloat(hours).toFixed(1)} hrs
-          </span>
-        );
-      }
+    // if (statistic[Object.keys(statistic)[0]] !== undefined && statistic[Object.keys(statistic)[0]].endDate ) {
+    //   if (
+    //     statistic[Object.keys(statistic)[0]].modules.length !==
+    //     statistic[Object.keys(statistic)[0]].modules.filter(
+    //       (item) => item.maxSpent !== undefined,
+    //     ).length
+    //   ) {
+    //     const hours: any =
+    //       statistic[Object.keys(statistic)[0]].statistic.spent / 60;
+    //     return (
+    //       <span className="journeyinfo-body-progress-numbers">
+    //         {Number.parseFloat(hours).toFixed(1)} hrs
+    //       </span>
+    //     );
+    //   }
+    // }
+    if (statistic[Object.keys(statistic)[0]] && statistic[Object.keys(statistic)[0]].statistic.endDate !== undefined) {
+      return (
+        <>
+          <div className="journeyinfo-body-progress-numbers-item">
+            <span className="journeyinfo-body-progress-numbers">
+              {moment(journey.status.trialEndDate).format('MM/DD/YY')}
+            </span>
+            <span className="journeyinfo-body-progress-numbers-text">
+              {'ends'}
+            </span>
+          </div>
+        </>
+      );
+    } else {
+      return <></>
     }
-    return (
-      <>
-        <div className="journeyinfo-body-progress-numbers-item">
-          <span className="journeyinfo-body-progress-numbers">
-            {moment(journey.status.trialEndDate).format('MM/DD/YY')}
-          </span>
-          <span className="journeyinfo-body-progress-numbers-text">
-            {'ends'}
-          </span>
-        </div>
-      </>
-    );
   };
   return (
     <div
@@ -97,41 +104,57 @@ const JourneyDescription: React.FC<IProps> = ({
           <div className="journeyinfo-body-progress">
             <div className="journeyinfo-body-progress-line"></div>
             <div className="journeyinfo-body-progress-numbers-wrap">
-              {statistic[id]?.statistic?.spent !== undefined &&
-              statistic[id]?.statistic?.maxSpent !== undefined ? (
+              {statistic[id]?.statistic?.spent !== undefined && statistic[id]?.statistic?.spent !== 0 ? (
                 <div className="journeyinfo-body-progress-numbers-item">
                   <span className="journeyinfo-body-progress-numbers">
                     {Math.round((statistic[id]?.statistic.spent / 60) * 10) /
                       10}
                   </span>
-                  <span className="journeyinfo-body-progress-numbers">
+                  {statistic[Object.keys(statistic)[0]] && statistic[Object.keys(statistic)[0]].statistic.endDate !== undefined ? <span className="journeyinfo-body-progress-numbers">
                     &nbsp;/{' '}
-                    {Math.round((statistic[id]?.statistic.maxSpent / 60) * 10) /
+                    {Math.round((statistic[id]?.statistic.maxDaySpent / 60) * 10) /
                       10}
-                  </span>
+                  </span> : <> </>}
                   <span className="journeyinfo-body-progress-numbers-text">
                     hrs spent
                   </span>
                 </div>
               ) : (
-                <></>
+                <>
+                <div className="journeyinfo-body-progress-numbers-item">
+                  <span className="journeyinfo-body-progress-numbers">
+                    {Math.round((statistic[id]?.statistic.spent / 60) * 10) /
+                      10}
+                  </span>
+                  <span className="journeyinfo-body-progress-numbers-text">
+                    hrs spent
+                  </span>
+                </div></>
               )}
 
-              {statistic[id]?.statistic?.completedTaskCount !== undefined &&
-              statistic[id]?.statistic?.maxTaskCount !== undefined ? (
+              {statistic[id]?.statistic?.completedTaskCount !== undefined && statistic[id]?.statistic?.completedTaskCount !== 0 && statistic[id]?.statistic.maxTaskCount !== 0 ? (
                 <div className="journeyinfo-body-progress-numbers-item">
                   <span className="journeyinfo-body-progress-numbers">
                     {statistic[id]?.statistic.completedTaskCount}
                   </span>
+                  {statistic[Object.keys(statistic)[0]] && statistic[Object.keys(statistic)[0]].statistic.endDate !== undefined ? 
                   <span className="journeyinfo-body-progress-numbers">
                     &nbsp;/ {statistic[id]?.statistic.maxTaskCount}
-                  </span>
+                  </span> : <></>}
                   <span className="journeyinfo-body-progress-numbers-text">
                     tasks
                   </span>
                 </div>
               ) : (
-                <></>
+                <>
+                  <div className="journeyinfo-body-progress-numbers-item">
+                  <span className="journeyinfo-body-progress-numbers">
+                    {statistic[id]?.statistic.completedTaskCount}
+                  </span>
+                  <span className="journeyinfo-body-progress-numbers-text">
+                    tasks
+                  </span>
+                </div></>
               )}
               {/*  */}
               {dateReturner()}
@@ -143,6 +166,7 @@ const JourneyDescription: React.FC<IProps> = ({
               if (journey.workDays.includes(index)) {
                 return (
                   <div
+                    key={uuid()}
                     className={
                       'journeyinfo-body-wrapper-dayweek-day__selected'
                     }>
@@ -156,7 +180,7 @@ const JourneyDescription: React.FC<IProps> = ({
                 );
               } else {
                 return (
-                  <div className={'journeyinfo-body-wrapper-dayweek-day'}>
+                  <div className={'journeyinfo-body-wrapper-dayweek-day'} key={uuid()}>
                     <span
                       className={'journeyinfo-body-wrapper-dayweek-day-text'}>
                       {dayItem}
@@ -166,7 +190,7 @@ const JourneyDescription: React.FC<IProps> = ({
               }
             })}
           </div>
-          {journey.sections.length !== 0 ?<Tab data={tabData} /> : <></>}
+          {journey.sections.length !== 0 ? <Tab data={tabData} /> : <></>}
         </>
       ) : (
         <>
@@ -185,6 +209,7 @@ const JourneyDescription: React.FC<IProps> = ({
               if (journey.workDays.includes(index)) {
                 return (
                   <div
+                    key={uuid()}
                     className={
                       'journeyinfo-body-wrapper-dayweek-day__selected'
                     }>
@@ -198,7 +223,7 @@ const JourneyDescription: React.FC<IProps> = ({
                 );
               } else {
                 return (
-                  <div className={'journeyinfo-body-wrapper-dayweek-day'}>
+                  <div className={'journeyinfo-body-wrapper-dayweek-day'} key={uuid()}>
                     <span
                       className={'journeyinfo-body-wrapper-dayweek-day-text'}>
                       {dayItem}

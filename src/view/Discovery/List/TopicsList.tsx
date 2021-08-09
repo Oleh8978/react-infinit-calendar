@@ -7,7 +7,7 @@ import AnswerNotFound from '../AnswerNotFound/AnswerNotFound';
 import ImageL from '@app/component/Image';
 
 //uuid
-import  uuid from '@app/utils/uuid';
+import uuid from '@app/utils/uuid';
 
 // interface
 import { DiscoveryDTO } from '@ternala/frasier-types';
@@ -19,8 +19,8 @@ interface IProps {
   discoveryItems: DiscoveryDTO[];
   isLoading?: ISetLoadingAction;
   itemsCount?: {
-    counts: number}
-    ;
+    counts: number;
+  };
   loadMore?: (callback?: any, loadMore?: string) => void;
 }
 
@@ -40,39 +40,16 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
         <Loader />
       ) : (
         <div className={'discovery-list'} ref={fieldRef}>
-          { props.isLoading.status === true && props.discoveryItems === undefined ? <span className="discovery-list-title">Full list</span> :<></>}
+          {props.isLoading.status === true &&
+          props.discoveryItems === undefined ? (
+            <span className="discovery-list-title">Full list</span>
+          ) : (
+            <></>
+          )}
           <>
-            {/* {props.isLoading.status === true && discoveryItems.length === 0 ? ( */}
-
-            {/* ) : ( */}
             <div className="discovery-list-holder">
               {discoveryItems.length > 0 &&
                 discoveryItems.map((item: any): DiscoveryDTO => {
-                  // if (item.article.appearance === 'small') {
-                  // return (
-                  //   <div className="discovery-list-item-holder">
-                  //     <div className="discovery-list-item-imgwrapper">
-                  //       <img
-                  //         className="discovery-list-item-img"
-                  //         src={item.article.image}
-                  //         alt="image"
-                  //       />
-                  //     </div>
-
-                  //     <div
-                  //       className="discovery-list-item-description"
-                  //       style={{
-                  //         color: 'red',
-                  //         backgroundColor: 'yellow',
-                  //       }}>
-                  //       <span className="card-text-wrapper">
-                  //         <h1 className="card-text-header">{item.article.title}</h1>
-                  //         {item.article.sections}
-                  //       </span>
-                  //   </div>
-                  // </div>
-                  // );
-                  //     } else if (item.article.appearance === 'half') {
                   if (
                     Object.keys(item).find(
                       (element) => String(element) === 'article',
@@ -86,11 +63,6 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
                           key={uuid()}
                           className="discovery-list-item-holder__half"
                           style={{ display: 'flex', flexFlow: 'row' }}>
-                          {/* <img
-                            className="discovery-list-item-img__half"
-                            src={item.article.image}
-                            alt="image"
-                          /> */}
                           <ImageL
                             className={'discovery-list-item-img__half'}
                             src={item.article.image}
@@ -98,11 +70,10 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
                           />
                           <span className="card-text-wrapper-link">
                             <span>
-                              <h1 className="card-text-link">
+                              <h1 className="card-text-header">
                                 {item.article.title}
                               </h1>
                             </span>
-                            {/* <h1 className="card-text-header">{item.title}</h1>*/}
                             {item.article.description}
                           </span>
                         </Link>
@@ -114,27 +85,19 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
                           to={'article'}
                           params={{ id: String(item.article.id) }}
                           key={uuid()}
-                          className="discovery-list-item-holder__half"
-                          style={{ display: 'flex', flexFlow: 'row' }}>
-                          {/* <img
-                            className="discovery-list-item-img__half"
-                            src={item.article.image}
-                            alt="image"
-                          /> */}
+                          className="discovery-list-item-fullarticle"
+                          style={{ display: 'flex', flexFlow: 'column' }}>
+                          <span className="card-text-wrapper-link">
+                            <h1 className="card-text-header">
+                              {item.article.title}
+                            </h1>
+                            {item.article.description}
+                          </span>
                           <ImageL
-                            className={'discovery-list-item-img__half'}
+                            className={'discovery-list-item-img__fullarticle'}
                             src={item.article.image}
                             isNeededLoader={true}
                           />
-                          <span className="card-text-wrapper-link">
-                            {/* <Link to={'article'}> */}
-                            <h1 className="card-text-link">
-                              {item.article.title}
-                            </h1>
-                            {/* </Link> */}
-                            {/* <h1 className="card-text-header">{item.title}</h1>*/}
-                            {item.article.description}
-                          </span>
                         </Link>
                       );
                     }
@@ -143,7 +106,6 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
                       (element) => String(element) === 'journey',
                     ) !== undefined
                   ) {
-                    // console.log('id: ', item.journey.id);
                     return (
                       <Link
                         to={'journey'}
@@ -151,12 +113,6 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
                         params={{ id: String(item.journey.id) }}>
                         <div className="discovery-list-item-holder">
                           <div className="discovery-list-item-imgwrapper">
-                            {/* <img
-                              className="discovery-list-item-img"
-                              src={item.journey.image}
-                              alt="image"
-                              // onLoad=
-                            /> */}
                             <ImageL
                               className={'discovery-list-item-img'}
                               src={item.journey.image}
@@ -184,7 +140,8 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
                 })}
               <>
                 {' '}
-                {props.itemsCount !== undefined && props.itemsCount.counts === discoveryItems.length ? (
+                {props.itemsCount !== undefined &&
+                props.itemsCount.counts === discoveryItems.length ? (
                   <AnswerNotFound />
                 ) : (
                   <Loader isSmall={true} />

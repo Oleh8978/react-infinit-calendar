@@ -30,6 +30,10 @@ const Notes: React.FC<any> = ({ ...props }) => {
     }
   }, [props.countNotes]);
 
+  if (numberOfNotes !== undefined && numberOfNotes === 0) {
+    return <> </>;
+  }
+
   if (numberOfNotes !== undefined) {
     return (
       <div className={'profile-journey-notes'}>
@@ -44,9 +48,6 @@ const Notes: React.FC<any> = ({ ...props }) => {
         </div>
       </div>
     );
-  }
-  if (numberOfNotes !== undefined && numberOfNotes === 0) {
-    return <> </>;
   }
   return <> </>;
 };
