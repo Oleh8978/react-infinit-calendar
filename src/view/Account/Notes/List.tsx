@@ -13,6 +13,7 @@ interface IProps {
 }
 
 const NotesList: React.FC<IProps> = ({ ...props }) => {
+  console.log(props.data)
   return (
     <div className={'notes-list'}>
       {props.data.map((item) => {

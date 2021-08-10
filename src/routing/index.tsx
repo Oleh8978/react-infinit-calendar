@@ -119,6 +119,7 @@ const Routing: React.FC<Props> = ({
     if (props.isSecondStepPassed === true) {
       setPageOpened();
     }
+    console.log('user data for test ', user)
   }, [props.isSecondStepPassed, user, props.userData, isNeededSecondStep]);
 
   // useEffect(() => {

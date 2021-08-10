@@ -8,7 +8,7 @@ import TextComponent from '@app/view/Account/JourneyInfo/JourneyTextComponents';
 // dayweeks
 import moment from 'moment';
 
-// utils 
+// utils
 import uuid from '@app/utils/uuid';
 
 // types
@@ -73,7 +73,10 @@ const JourneyDescription: React.FC<IProps> = ({
     //     );
     //   }
     // }
-    if (statistic[Object.keys(statistic)[0]] && statistic[Object.keys(statistic)[0]].statistic.endDate !== undefined) {
+    if (
+      statistic[Object.keys(statistic)[0]] &&
+      statistic[Object.keys(statistic)[0]].statistic.endDate !== undefined
+    ) {
       return (
         <>
           <div className="journeyinfo-body-progress-numbers-item">
@@ -87,7 +90,7 @@ const JourneyDescription: React.FC<IProps> = ({
         </>
       );
     } else {
-      return <></>
+      return <></>;
     }
   };
   return (
@@ -104,43 +107,59 @@ const JourneyDescription: React.FC<IProps> = ({
           <div className="journeyinfo-body-progress">
             <div className="journeyinfo-body-progress-line"></div>
             <div className="journeyinfo-body-progress-numbers-wrap">
-              {statistic[id]?.statistic?.spent !== undefined && statistic[id]?.statistic?.spent !== 0 ? (
+              {statistic[id]?.statistic?.spent !== undefined &&
+              statistic[id]?.statistic?.spent !== 0 ? (
                 <div className="journeyinfo-body-progress-numbers-item">
                   <span className="journeyinfo-body-progress-numbers">
                     {Math.round((statistic[id]?.statistic.spent / 60) * 10) /
                       10}
                   </span>
-                  {statistic[Object.keys(statistic)[0]] && statistic[Object.keys(statistic)[0]].statistic.endDate !== undefined ? <span className="journeyinfo-body-progress-numbers">
-                    &nbsp;/{' '}
-                    {Math.round((statistic[id]?.statistic.maxDaySpent / 60) * 10) /
-                      10}
-                  </span> : <> </>}
+                  {statistic[Object.keys(statistic)[0]] &&
+                  statistic[Object.keys(statistic)[0]].statistic.endDate !==
+                    undefined ? (
+                    <span className="journeyinfo-body-progress-numbers">
+                      &nbsp;/{' '}
+                      {Math.round(
+                        (statistic[id]?.statistic.maxDaySpent / 60) * 10,
+                      ) / 10}
+                    </span>
+                  ) : (
+                    <> </>
+                  )}
                   <span className="journeyinfo-body-progress-numbers-text">
                     hrs spent
                   </span>
                 </div>
               ) : (
                 <>
-                <div className="journeyinfo-body-progress-numbers-item">
-                  <span className="journeyinfo-body-progress-numbers">
-                    {Math.round((statistic[id]?.statistic.spent / 60) * 10) /
-                      10}
-                  </span>
-                  <span className="journeyinfo-body-progress-numbers-text">
-                    hrs spent
-                  </span>
-                </div></>
+                  <div className="journeyinfo-body-progress-numbers-item">
+                    <span className="journeyinfo-body-progress-numbers">
+                      {Math.round((statistic[id]?.statistic.spent / 60) * 10) /
+                        10}
+                    </span>
+                    <span className="journeyinfo-body-progress-numbers-text">
+                      hrs spent
+                    </span>
+                  </div>
+                </>
               )}
 
-              {statistic[id]?.statistic?.completedTaskCount !== undefined && statistic[id]?.statistic?.completedTaskCount !== 0 && statistic[id]?.statistic.maxTaskCount !== 0 ? (
+              {statistic[id]?.statistic?.completedTaskCount !== undefined &&
+              statistic[id]?.statistic?.completedTaskCount !== 0 &&
+              statistic[id]?.statistic.maxTaskCount !== 0 ? (
                 <div className="journeyinfo-body-progress-numbers-item">
                   <span className="journeyinfo-body-progress-numbers">
                     {statistic[id]?.statistic.completedTaskCount}
                   </span>
-                  {statistic[Object.keys(statistic)[0]] && statistic[Object.keys(statistic)[0]].statistic.endDate !== undefined ? 
-                  <span className="journeyinfo-body-progress-numbers">
-                    &nbsp;/ {statistic[id]?.statistic.maxTaskCount}
-                  </span> : <></>}
+                  {statistic[Object.keys(statistic)[0]] &&
+                  statistic[Object.keys(statistic)[0]].statistic.endDate !==
+                    undefined ? (
+                    <span className="journeyinfo-body-progress-numbers">
+                      &nbsp;/ {statistic[id]?.statistic.maxTaskCount}
+                    </span>
+                  ) : (
+                    <></>
+                  )}
                   <span className="journeyinfo-body-progress-numbers-text">
                     tasks
                   </span>
@@ -148,13 +167,14 @@ const JourneyDescription: React.FC<IProps> = ({
               ) : (
                 <>
                   <div className="journeyinfo-body-progress-numbers-item">
-                  <span className="journeyinfo-body-progress-numbers">
-                    {statistic[id]?.statistic.completedTaskCount}
-                  </span>
-                  <span className="journeyinfo-body-progress-numbers-text">
-                    tasks
-                  </span>
-                </div></>
+                    <span className="journeyinfo-body-progress-numbers">
+                      {statistic[id]?.statistic.completedTaskCount}
+                    </span>
+                    <span className="journeyinfo-body-progress-numbers-text">
+                      tasks
+                    </span>
+                  </div>
+                </>
               )}
               {/*  */}
               {dateReturner()}
@@ -180,7 +200,9 @@ const JourneyDescription: React.FC<IProps> = ({
                 );
               } else {
                 return (
-                  <div className={'journeyinfo-body-wrapper-dayweek-day'} key={uuid()}>
+                  <div
+                    className={'journeyinfo-body-wrapper-dayweek-day'}
+                    key={uuid()}>
                     <span
                       className={'journeyinfo-body-wrapper-dayweek-day-text'}>
                       {dayItem}
@@ -223,7 +245,9 @@ const JourneyDescription: React.FC<IProps> = ({
                 );
               } else {
                 return (
-                  <div className={'journeyinfo-body-wrapper-dayweek-day'} key={uuid()}>
+                  <div
+                    className={'journeyinfo-body-wrapper-dayweek-day'}
+                    key={uuid()}>
                     <span
                       className={'journeyinfo-body-wrapper-dayweek-day-text'}>
                       {dayItem}
