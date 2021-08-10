@@ -1,15 +1,15 @@
+import uuid from '@app/utils/uuid';
 import React, { useState, useEffect } from 'react';
 
-import { ITopic } from './Models/DiscoveryModels';
+import book from './static/book.png';
 
-//uuid
-import uuid from '@app/utils/uuid';
+import { ITopic } from './Models/DiscoveryModels';
 
 interface IProps {
   marginAdder: (isSmall: boolean) => void;
   articleCategories: any | undefined;
   loadDiscovloadArticleCategoeries: (point: string) => void;
-  arraySetter?: (id: number, element: string) => void;
+  arraySetter?: (id: number, arr: any[]) => void;
   allSetter?: () => void;
   hiddenMenu?: boolean;
 }
@@ -118,6 +118,15 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
 
     if (props.articleCategories !== undefined) {
       const UpdatedArray = [];
+      const UpdatedArray1 = [{
+        color: '#747BC3',
+        subColor: '',
+        createdAt: '2021-06-17T10:48:35.933Z',
+        icon: book,
+        id: 999,
+        orderNumber: 999,
+        title: 'Journey',
+      }];
 
       props.articleCategories.map((item) => {
         UpdatedArray.push({
@@ -130,7 +139,8 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
           title: item.title,
         });
       });
-      setrticleCategories(UpdatedArray);
+      const UpdatedArray3 = UpdatedArray1.concat(UpdatedArray)
+      setrticleCategories(UpdatedArray3);
     }
 
     return () => {
@@ -153,7 +163,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
     });
     setrticleCategories(articleCategories);
   };
-
+  console.log('articleCategories ', articleCategories)
   const bigMenuRender = (arr: ITopic[]) => {
     const arrSorted = [];
     for (let i = 0; i < arr.length; i += 2) {
@@ -167,7 +177,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
                   arr[i].subColor.length !== 0 ? arr[i].subColor : arr[i].color,
               }}
               onClick={() => {
-                props.arraySetter(arr[i].id, arr[i].title);
+                props.arraySetter(arr[i].id, arr);
                 colorChanger(arr[i].id);
               }}>
               <div className="topic-item-img">
@@ -186,7 +196,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
                     : arr[i + 1].color,
               }}
               onClick={() => {
-                props.arraySetter(arr[i + 1].id, arr[i + 1].title);
+                props.arraySetter(arr[i + 1].id, arr);
                 colorChanger(arr[i + 1].id);
               }}>
               <div className="topic-item-img">
@@ -215,7 +225,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
             onClick={() => {
               props.arraySetter(
                 arr[arr.length - 1].id,
-                arr[arr.length - 1].title,
+                arr
               );
               colorChanger(arr[arr.length - 1].id);
             }}>
@@ -282,11 +292,10 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
             return (
               <div
                 className="discovery-menu-small-item"
-                key={uuid()}
-                style={{ backgroundColor: element.subColor.length !== 0 ? element.subColor : element.color }}
+                style={{ backgroundColor: element.subColor }}
                 onMouseUp={() => {
                   if (!disabled) {
-                    props.arraySetter(element.id, element.title);
+                    props.arraySetter(element.id, items);
                     colorChanger(element.id);
                   }
                 }}>
@@ -336,9 +345,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
             ? 'discovery-menu-hidden discovery-menu'
             : 'discovery-menu'
         }>
-        {articleCategories !== undefined && (
-          <span className={'discovery-select'}>Select your topic interest</span>
-        )}
+        <span className={'discovery-select'}>Select your topic interest</span>
         <>
           {articleCategories !== undefined && (
             <div className={'discovery-menu-wrapper scrollbar__hidden'}>

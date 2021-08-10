@@ -225,12 +225,12 @@ const Discovery: React.FC<any> = ({ ...props }) => {
     }
   };
 
-  const arraySetter = (id: number, element: string) => {
+  const arraySetter = (id: number, arr: any[]) => {
     if (
       ids.filter((elem) => elem === id).length === 0 &&
-      articleCategories
+      arr
         .filter((elem: any) => elem.id === id)[0]
-        .title.toLowerCase() !== 'journeys'
+        .title.toLowerCase() !== 'journey'
     ) {
       setIds([id]);
       dispatch(
@@ -245,9 +245,9 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       setDiscovery(undefined);
       setIsJourneyClicked(false);
     } else if (
-      articleCategories
+      arr
         .filter((elem: any) => elem.id === id)[0]
-        .title.toLowerCase() === 'journeys' &&
+        .title.toLowerCase() === 'journey' &&
       isJourneyClicked === false
     ) {
       setIds([]);
@@ -262,9 +262,9 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       );
       setDiscovery(undefined);
     } else if (
-      articleCategories
+      arr
         .filter((elem: any) => elem.id === id)[0]
-        .title.toLowerCase() === 'journeys' &&
+        .title.toLowerCase() === 'journey' &&
       isJourneyClicked === true
     ) {
       setIds([]);
@@ -322,17 +322,18 @@ const Discovery: React.FC<any> = ({ ...props }) => {
             onCloseHandler={onCloseHandler}
           />
           <div className={'discovery'}>
-            <Menu
-              marginAdder={marginAdder}
-              articleCategories={articleCategories}
-              loadDiscovloadArticleCategoeries={
-                loadDiscovloadArticleCategoeries
-              }
-              arraySetter={arraySetter}
-              allSetter={allSetter}
-              hiddenMenu={hiddenMenu}
-            />
-
+            <>
+              {articleCategories !== undefined ? <Menu
+                marginAdder={marginAdder}
+                articleCategories={articleCategories}
+                loadDiscovloadArticleCategoeries={
+                  loadDiscovloadArticleCategoeries
+                }
+                arraySetter={arraySetter}
+                allSetter={allSetter}
+                hiddenMenu={hiddenMenu}
+              /> : <Loader isSmall={true} />}
+            </>
             <DiscoveryTopicList
               margin={margin}
               discoveryItems={discovery}

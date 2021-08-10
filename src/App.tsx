@@ -18,8 +18,8 @@ import SplashScreen from '@app/pwa/SplashScreen';
 
 export const App: React.FC = () => {
   const [spash, setSplash] = useState<boolean>(false);
-  const [ locationKeys, setLocationKeys ] = useState([])
-  const history = useHistory()
+  const [locationKeys, setLocationKeys] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     setTimeout(() => {
@@ -28,20 +28,26 @@ export const App: React.FC = () => {
   }, [spash]);
 
   useEffect(() => {
-    return history.listen(location => {
+    return history.listen((location) => {
       if (history.action === 'PUSH') {
-        setLocationKeys([ location.key ])
-      }
-  
-      if (history.action === 'POP') {
-        if (locationKeys[1] === location.key) {
-          setLocationKeys(([ _, ...keys ]) => keys)
-        } else {
-          setLocationKeys((keys) => [ location.key, ...keys ])
+        setLocationKeys([location.key]);
+        if (history.location.pathname === '/module') {
+          history.push('/schedule')
         }
       }
-    })
-  }, [locationKeys])
+
+      if (history.action === 'POP') {
+        if (locationKeys[1] === location.key) {
+          setLocationKeys(([_, ...keys]) => keys);
+        } else {
+          setLocationKeys((keys) => [location.key, ...keys]);
+          if (history.location.pathname === '/module') {
+            history.push('/schedule')
+          }
+        }
+      }
+    });
+  }, [locationKeys]);
 
   return (
     <>
