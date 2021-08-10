@@ -113,6 +113,7 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
 
   const updateNoteData = () => {
     if (emptyValueChecker(props.noteData.content) === false) {
+      console.log('if first case  ')
       dispatch(
         updateNoteById.request({
           content: String(props.noteData.content),
@@ -129,7 +130,8 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
       );
     } else {
       dispatch(setSaveBTNStatus({ isActive: false }));
-      dispatch(deleteNoteByID.request([Number(props.note.id)]));
+      // dispatch(deleteNoteByID.request([Number(props.note.id)]));
+      console.log('else ')
     }
   };
 
@@ -270,6 +272,7 @@ export default connect(
     rout: state.router.location,
     isBtnSaveActive: state.saveBtnReducer.isActive,
     noteData: state.noteLocalDataCollectorReducer.state,
+    note: state.singleNoteReducer.state,
     modalOpened: state.ModalWindowReducer.status,
   }),
   {
