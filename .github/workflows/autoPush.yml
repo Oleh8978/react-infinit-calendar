@@ -1,0 +1,32 @@
+name: autoPush
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: pandoc/latex
+    steps:
+      - uses: actions/checkout@v2
+      - name: Push directory to repository
+        uses: ./.github/actions/push-to-repo-action
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          source-github-username: 'ternala'
+          source-repository-name: 'frasier-web'
+          source-branch-name: 'master'
+          destination-github-username: 'wellstone-tech'
+          destination-repository-name: 'frasier-web'
+          destination-branch-name: 'master'
+          user-email: share.ternala@gmail.com
+          user-name: ternala
+          commit-message: See ORIGIN_COMMIT
+      - name: Test get variable exported by push-to-another-repository
+        run: echo $DESTINATION_CLONED_DIRECTORY
