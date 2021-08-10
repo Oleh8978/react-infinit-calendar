@@ -87,10 +87,11 @@ const Notes: React.FC<any> = ({ ...props }) => {
   };
 
   const discard = () => {
+    console.log('fail ', props.prevText.contnet)
     if (props.prevText.contnet !== undefined) {
       setTextFromNotes(
         EditorState.createWithContent(
-          convertFromRaw(JSON.parse(props.prevText.contnet)),
+          convertFromRaw(JSON.parse(props.prevText.contnet.replace(/'/g, '"'))),
         ),
       );
     }

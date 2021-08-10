@@ -51,7 +51,6 @@ const ConnectedAccountBody: React.FC<any> = ({ ...props }) => {
   }, [props.linkedAccounts]);
 
   const onRemoveFromAccount = (type: string) => {
-    console.log('inn', type);
     dispatch(
       removeLinkedSocialNetwork.request({
         receivedToken: getSavedAccess().accessToken,
@@ -68,10 +67,7 @@ const ConnectedAccountBody: React.FC<any> = ({ ...props }) => {
         }),
       );
     }
-
-    // props.loginByTokenAction(getSavedAccess());
   };
-  console.log('socialMediaNetworks ', socialMediaNetworks);
 
   const onResponseGoogle = (response: any) => {
     let signedData: ISignedData = { type: 'google' };
@@ -100,7 +96,6 @@ const ConnectedAccountBody: React.FC<any> = ({ ...props }) => {
       const updatedData = [...socialMediaNetworks];
       updatedData.push('google');
       setSocialMediaNetworks(updatedData);
-      // props.loginByTokenAction(getSavedAccess());
     }
   };
 
@@ -134,7 +129,6 @@ const ConnectedAccountBody: React.FC<any> = ({ ...props }) => {
       const updatedData = [...socialMediaNetworks];
       updatedData.push('facebook');
       setSocialMediaNetworks(updatedData);
-      // props.loginByTokenAction(getSavedAccess());
     }
   };
 

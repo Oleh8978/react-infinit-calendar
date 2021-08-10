@@ -1,15 +1,14 @@
-import uuid from '@app/utils/uuid';
 import React, { useState, useEffect } from 'react';
 
-import book from './static/book.png';
-
 import { ITopic } from './Models/DiscoveryModels';
+
+import book from './static/book.png';
 
 interface IProps {
   marginAdder: (isSmall: boolean) => void;
   articleCategories: any | undefined;
   loadDiscovloadArticleCategoeries: (point: string) => void;
-  arraySetter?: (id: number, arr: any[]) => void;
+  arraySetter?: (id: number, element: string) => void;
   allSetter?: () => void;
   hiddenMenu?: boolean;
 }
@@ -118,16 +117,15 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
 
     if (props.articleCategories !== undefined) {
       const UpdatedArray = [];
-      const UpdatedArray1 = [{
-        color: '#747BC3',
-        subColor: '',
-        createdAt: '2021-06-17T10:48:35.933Z',
-        icon: book,
-        id: 999,
-        orderNumber: 999,
-        title: 'Journey',
-      }];
-
+      const UpdatedArray1 =[{
+          color: '#747BC3',
+          subColor: '',
+          createdAt: '',
+          icon: book,
+          id: 999,
+          orderNumber: 999,
+          title: "Journey",
+      }]
       props.articleCategories.map((item) => {
         UpdatedArray.push({
           color: item.color,
@@ -139,8 +137,8 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
           title: item.title,
         });
       });
-      const UpdatedArray3 = UpdatedArray1.concat(UpdatedArray)
-      setrticleCategories(UpdatedArray3);
+      const UpdatedArray2 = UpdatedArray1.concat(UpdatedArray);
+      setrticleCategories(UpdatedArray2);
     }
 
     return () => {
@@ -163,7 +161,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
     });
     setrticleCategories(articleCategories);
   };
-  console.log('articleCategories ', articleCategories)
+
   const bigMenuRender = (arr: ITopic[]) => {
     const arrSorted = [];
     for (let i = 0; i < arr.length; i += 2) {
@@ -177,7 +175,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
                   arr[i].subColor.length !== 0 ? arr[i].subColor : arr[i].color,
               }}
               onClick={() => {
-                props.arraySetter(arr[i].id, arr);
+                props.arraySetter(arr[i].id, arr[i].title);
                 colorChanger(arr[i].id);
               }}>
               <div className="topic-item-img">
@@ -196,7 +194,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
                     : arr[i + 1].color,
               }}
               onClick={() => {
-                props.arraySetter(arr[i + 1].id, arr);
+                props.arraySetter(arr[i + 1].id, arr[i + 1].title);
                 colorChanger(arr[i + 1].id);
               }}>
               <div className="topic-item-img">
@@ -225,7 +223,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
             onClick={() => {
               props.arraySetter(
                 arr[arr.length - 1].id,
-                arr
+                arr[arr.length - 1].title,
               );
               colorChanger(arr[arr.length - 1].id);
             }}>
@@ -292,10 +290,10 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
             return (
               <div
                 className="discovery-menu-small-item"
-                style={{ backgroundColor: element.subColor }}
+                style={{ backgroundColor: element.subColor.length !== 0 ? element.subColor : element.color }}
                 onMouseUp={() => {
                   if (!disabled) {
-                    props.arraySetter(element.id, items);
+                    props.arraySetter(element.id, element.title);
                     colorChanger(element.id);
                   }
                 }}>

@@ -29,7 +29,7 @@ export const Account = {
       link: 'account-edit',
     },
     {
-      name: 'Connect account for authentication',
+      name: 'Connect accounts for authentication',
       button: 'next',
       link: 'account-connected-socials',
     },

@@ -56,12 +56,16 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
     if (
       text !== undefined &&
       props.prevText.contnet !== undefined &&
+      // _.isEqual(
+      //   props.prevText.contnet.replace(/[^\w\s]/gi, ''),
+      //   JSON.stringify(convertToRaw(text.getCurrentContent())).replace(
+      //     /[^\w\s]/gi,
+      //     '',
+      //   ),
+      // ) === false
       _.isEqual(
-        props.prevText.contnet.replace(/[^\w\s]/gi, ''),
-        JSON.stringify(convertToRaw(text.getCurrentContent())).replace(
-          /[^\w\s]/gi,
-          '',
-        ),
+        props.prevText.contnet,
+        JSON.stringify(convertToRaw(text.getCurrentContent())),
       ) === false
     ) {
       dispatch(setSaveBTNStatus({ isActive: true }));
@@ -215,13 +219,13 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
   };
 
   const saveBtnFunctionality = () => {
-    dispatch(
-      setLocalDataForNotePrevState({
-        contnet: EditorState.createWithContent(
-          convertFromRaw(JSON.parse(String(text).replace(/'/g, '"'))),
-        ),
-      }),
-    );
+      dispatch(
+        setLocalDataForNotePrevState({
+          contnet: EditorState.createWithContent(
+            convertFromRaw(JSON.parse(String(text).replace(/'/g, '"'))),
+          ),
+        }),
+      );
     // setPrevText(text);
     setIsReadOnly(true);
     setIsSaveActive(false);
