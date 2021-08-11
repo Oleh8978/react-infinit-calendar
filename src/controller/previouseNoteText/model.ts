@@ -1,5 +1,5 @@
 export interface INotePrepareForSending {
-  contnet: string;
+  content: string;
 }
 
 export interface INotePrevState {
