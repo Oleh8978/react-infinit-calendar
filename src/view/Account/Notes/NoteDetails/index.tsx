@@ -120,7 +120,7 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
       props.setLocalDataForNote({
         content: JSON.stringify(
           convertToRaw(textState.getCurrentContent()),
-        ).replace(/"/g, "'"),
+        ),
         module: noteData.module.id,
         user: noteData.user.id,
         id: props.match.params.id,

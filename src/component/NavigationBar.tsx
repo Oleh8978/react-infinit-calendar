@@ -76,12 +76,13 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
 
   const emptyValueChecker = (text) => {
     const matchedData = String(JSON.stringify(text)).match(
-      /\'(text)\'\:\'(.*?)\'/g,
+      /\"(text)\"\:\"(.*?)\"/g,
     );
+    console.log(JSON.parse(text), "@matchedData@")
     if (
       matchedData !== null &&
       matchedData
-        .filter((item) => item.match(/:'(.*)'/g))
+        .filter((item) => item.match(/:"(.*)"/g))
         .map((item) => {
           if (item.length > 9) {
             return true;
@@ -115,7 +116,7 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
   };
 
   const updateNoteData = () => {
-    console.log('props.textFromComponent');
+    console.log('props.textFromComponent', props.noteData.content);
     if (emptyValueChecker(props.noteData.content) === false) {
       dispatch(
         updateNoteById.request({
