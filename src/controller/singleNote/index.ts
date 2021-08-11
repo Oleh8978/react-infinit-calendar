@@ -1,4 +1,5 @@
 import { ActionType, createReducer } from 'typesafe-actions';
+import { datdDraft } from '@app/view/Account/Notes/fakeData/fakeData';
 
 // actions
 import * as actions from './actions';
@@ -75,7 +76,7 @@ export const GetSingleNoteReducer = createReducer<INoteState, NotesActionType>(
       ...state,
       state: {
         id: 0,
-        content: '',
+        content: datdDraft,
         createdAt: null,
         module: {
           id: 0,

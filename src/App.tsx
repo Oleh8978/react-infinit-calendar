@@ -51,7 +51,7 @@ export const App: React.FC = () => {
 
   return (
     <>
-      {spash === false ? (
+      {spash === false && localStorage.getItem('authorization') === undefined ? (
         <SplashScreen />
       ) : (
         <Switch>

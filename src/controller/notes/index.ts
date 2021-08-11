@@ -17,17 +17,7 @@ const initialState: INotesState = {
     items: [],
     counts: undefined,
   },
-  storedSearchParams: {
-    limit: '',
-    offset: '',
-    query: '',
-    sortType: '',
-    type: '',
-    modules: '',
-    sortField: '',
-    ids: '',
-    user: '',
-  },
+  storedSearchParams: null,
   loaderState: {
     status: false,
     isAnyError: false,
@@ -114,17 +104,17 @@ export const GetNotesListReducer = createReducer<INotesState, NotesActionType>(
       const iNotesState = { ...state.state };
 
       const NewNotesState = [...iNotesState.items];
-
-      const newState = NewNotesState.map((item) => {
-        if (item.id === payload.id) {
-          return {
+      const newState = [];
+      NewNotesState.map((item) => {
+        if (item.id === Number(payload.id)) {
+          newState.push( {
             ...item,
             content: payload.content,
-          };
+          })
         } else {
-          return {
+          newState.push( {
             ...item,
-          };
+          })
         }
       });
 
@@ -142,10 +132,9 @@ export const GetNotesListReducer = createReducer<INotesState, NotesActionType>(
     [actions.singleNoutesRemoveFromList],
     (state: INotesState, { payload }): INotesState => {
       const iNotesState = { ...state.state };
-
+      let newData;
       if (iNotesState.counts > 0) {
-        iNotesState.counts = iNotesState.counts - 1;
-        iNotesState.items = iNotesState.items.filter(
+        newData = iNotesState.items.filter(
           (item: NoteDTO) => item.id !== payload.id,
         );
       }
@@ -153,7 +142,8 @@ export const GetNotesListReducer = createReducer<INotesState, NotesActionType>(
       return {
         ...state,
         state: {
-          ...iNotesState,
+          counts: newData.length,
+          items: newData,
         },
         storedSearchParams: state.storedSearchParams,
       };

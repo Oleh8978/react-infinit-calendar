@@ -25,7 +25,7 @@ interface IProps {
 }
 
 const NotesListItem: React.FC<IProps> = ({ ...props }) => {
-  console.log(JSON.parse(props.data.content.replace(/'/g, '"')), props.data.content);
+
   return (
     <Link
       className={'notes-list-item'}

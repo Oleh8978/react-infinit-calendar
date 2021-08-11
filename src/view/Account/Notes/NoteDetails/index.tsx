@@ -21,7 +21,7 @@ import {
   deleteNoteByID,
   updateNoteById,
 } from '@app/controller/singleNote/actions';
-import { updateNoteByID } from '@app/controller/notes/actions';
+import { updateNoteByID, singleNoutesRemoveFromList } from '@app/controller/notes/actions';
 import { setSaveBTNStatus } from '@app/controller/saveBTN/actions';
 import { setLocalDataForNote } from '@app/controller/sendNoteReducer/actions';
 import { setModalWindowOpened } from '@app/controller/modalWindowReducer/actions';
@@ -54,20 +54,19 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
 
   useEffect(() => {
     if (
-      text !== undefined &&
-      props.prevText.contnet !== undefined &&
-      // _.isEqual(
-      //   props.prevText.contnet.replace(/[^\w\s]/gi, ''),
-      //   JSON.stringify(convertToRaw(text.getCurrentContent())).replace(
-      //     /[^\w\s]/gi,
-      //     '',
-      //   ),
-      // ) === false
+      text !== undefined && props.prevText &&
+      props.prevText.content !== undefined &&
       _.isEqual(
-        props.prevText.contnet,
-        JSON.stringify(convertToRaw(text.getCurrentContent())),
+        String(props.prevText.content).replace(/"/g, "'"),
+        JSON.stringify(
+            convertToRaw(text.getCurrentContent()),
+          ).replace(/"/g, "'")
       ) === false
     ) {
+      // console.log("@@@@", String(props.prevText.content).replace(/"/g, "'"))
+      // console.log("####", JSON.stringify(
+      //   convertToRaw(text.getCurrentContent()),
+      // ).replace(/"/g, "'"))
       dispatch(setSaveBTNStatus({ isActive: true }));
     } else {
       dispatch(setSaveBTNStatus({ isActive: false }));
@@ -83,26 +82,40 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
   useEffect(() => {
     if (text === undefined) {
       dispatch(getNoteByID.request({ id: props.match.params.id }));
-    }
-    if (props.note !== undefined && props.note.id !== undefined) {
-      setNoteData(props.note);
+      // setText(datdDraft);
       setText(
-        EditorState.createWithContent(
+      EditorState.createWithContent(
           convertFromRaw(
-            JSON.parse(String(props.note.content).replace(/'/g, '"')),
+            JSON.parse(String(datdDraft).replace(/'/g, '"')),
           ),
         ),
       );
+    }
+    if (props.note !== undefined && props.note.id !== undefined) {
+      setNoteData(props.note);
+      // setText(String(props.note.content).replace(/'/g, '"'))
+      setText(
+        EditorState.createWithContent(
+            convertFromRaw(
+              JSON.parse(String(props.note.content).replace(/'/g, '"')),
+            ),
+          ),
+        );
       dispatch(
-        props.setLocalDataForNotePrevState({
-          contnet: String(props.note.content).replace(/'/g, '"'),
+        setLocalDataForNotePrevState({
+          content: String(props.note.content).replace(/'/g, '"'),
         }),
       );
     }
   }, [props.note.id]);
 
   const onEditorStateChange = (textState) => {
-    setText(textState);
+    // console.log('JSON.stringify(textState) ', JSON.parse(textState))
+    // console.log('textState.getCurrentContent() ', textState.getCurrentContent())
+    // setText(JSON.stringify(
+    //   convertToRaw(textState.getCurrentContent()),
+    // ).replace(/"/g, "'"));
+    setText(textState)
     if (noteData !== undefined) {
       props.setLocalDataForNote({
         content: JSON.stringify(
@@ -121,9 +134,7 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
   };
 
   const emptyValueChecker = (text) => {
-    const matchedData = JSON.stringify(
-      convertToRaw(text.getCurrentContent()),
-    ).match(/\"(text)\"\:\"(.*?)\"/g);
+    const matchedData = text.replace(/'/g, '"').match(/\"(text)\"\:\"(.*?)\"/g);
     if (
       matchedData
         .filter((item) => item.match(/:"(.*)"/g))
@@ -145,29 +156,54 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
     setIsSaveActive(false);
     dispatch(
       setLocalDataForNotePrevState({
-        contnet: JSON.stringify(convertToRaw(text.getCurrentContent())).replace(
+        content: JSON.stringify(convertToRaw(text.getCurrentContent())).replace(
           /"/g,
           "'",
         ),
       }),
     );
+    // dispatch(
+    //   updateNoteById.request({
+    //     content: String(
+    //       JSON.stringify(convertToRaw(text.getCurrentContent())).replace(
+    //         /"/g,
+    //         "'",
+    //       ),
+    //     ),
+    //     module: props.note.module.id,
+    //     user: props.user,
+    //     id: props.note.id,
+    //   }),
+    // );
     dispatch(setSaveBTNStatus({ isActive: false }));
-    saveBtnBackEndFunctionality(text);
+    saveBtnBackEndFunctionality(String(
+      JSON.stringify(convertToRaw(text.getCurrentContent())).replace(
+        /"/g,
+        "'",
+      ),
+    ));
     dispatch(setModalWindowOpened({ status: false }));
   };
 
   const discard = () => {
     setIsReadOnly(true);
     setIsSaveActive(false);
-    if (props.prevText.contnet !== undefined) {
+    if (props.prevText.content !== undefined) {
+      // setText(
+        // EditorState.createWithContent(
+        //   convertFromRaw(
+        //     JSON.parse(String(props.prevText.contnet).replace(/'/g, '"')),
+        //   ),
+        // ),
+      // );
       setText(
         EditorState.createWithContent(
-          convertFromRaw(
-            JSON.parse(String(props.prevText.contnet).replace(/'/g, '"')),
+            convertFromRaw(
+              JSON.parse(String(props.prevText.content).replace(/'/g, '"')),
+            ),
           ),
-        ),
-      );
-      // setText(props.prevText.contnet);
+        );
+      // setText(props.prevText.contnet.replace(/"/g, "'"));
     }
     dispatch(setSaveBTNStatus({ isActive: false }));
     dispatch(setModalWindowOpened({ status: false }));
@@ -189,11 +225,9 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
     if (emptyValueChecker(text) === false) {
       dispatch(
         updateNoteById.request({
-          content: String(
-            JSON.stringify(convertToRaw(text.getCurrentContent())).replace(
+          content: String(text).replace(
               /"/g,
               "'",
-            ),
           ),
           module: props.note.module.id,
           user: props.user,
@@ -202,28 +236,50 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
       );
       dispatch(
         updateNoteByID({
-          content: String(
-            JSON.stringify(convertToRaw(text.getCurrentContent())).replace(
-              /"/g,
-              "'",
-            ),
-          ),
+          // content: String(
+          //   JSON.stringify(convertToRaw(text.getCurrentContent())).replace(
+          //     /"/g,
+          //     "'",
+          //   ),
+          // ),
+          content: text,
           module: props.note.module.id,
           user: props.user,
           id: props.note.id,
         }),
       );
     } else {
+      dispatch(singleNoutesRemoveFromList({id:Number(props.note.id)}))
       dispatch(deleteNoteByID.request([Number(props.note.id)]));
     }
   };
 
   const saveBtnFunctionality = () => {
+    if (emptyValueChecker(text) === false ) {
+      // setText(EditorState.createWithContent(
+      //   convertFromRaw(
+      //     JSON.parse(datdDraft),
+      //   ),
+      // ),)
+      // setText(datdDraft.replace(
+      //   /"/g,
+      //   "'",
+      // ))
+      setText(
+        EditorState.createWithContent(
+            convertFromRaw(
+              JSON.parse(String(datdDraft).replace(/'/g, '"')),
+            ),
+          ),
+        );
+      
+    }
       dispatch(
         setLocalDataForNotePrevState({
-          contnet: EditorState.createWithContent(
-            convertFromRaw(JSON.parse(String(text).replace(/'/g, '"'))),
-          ),
+          content: String(text).replace(
+            /"/g,
+            "'",
+        ),
         }),
       );
     // setPrevText(text);
@@ -257,7 +313,7 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
               isToolbarOpened ? '' : 'closed'
             }`}>
             <>
-              <Editor
+              {text !== undefined ? <Editor
                 customStyleMap={styleMap}
                 defaultEditorState={text}
                 onEditorStateChange={onEditorStateChange}
@@ -274,7 +330,7 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
                     options: ['unordered', 'ordered'],
                   },
                 }}
-              />
+              /> : <></>}
               <div className="notes-details-wrapper-bottom">
                 <BottomComponent
                   title={'Customer Relationship Management'}
@@ -310,5 +366,6 @@ export default connect(
     setSaveBTNStatus,
     setLocalDataForNote,
     setLocalDataForNotePrevState,
+    singleNoutesRemoveFromList
   },
 )(NoteDetails);

@@ -25,9 +25,10 @@ import { INotesSearchParams } from '@app/controller/notes/models';
 
 interface IProps {}
 
-const CustomReRenderHook = (functionality) => {
+const CustomReRenderHook = () => {
+  const dispatch = useDispatch();
   useEffect(() => {
-    functionality();
+    dispatch(getNotesList.request({}));
   }, []);
 };
 
@@ -78,7 +79,7 @@ const Notes: React.FC<any> = ({ ...props }) => {
     dispatch(getNotesList.request({ ...searchParams, callback }));
   };
 
-  CustomReRenderHook(loadNotesData);
+  CustomReRenderHook();
 
   useEffect(() => {
     if (props.count === undefined) {
@@ -90,7 +91,7 @@ const Notes: React.FC<any> = ({ ...props }) => {
       dispatch(getNoteByID.success(undefined));
     }
   }, [props.count]);
-  console.log('notes ', props.data.length, props.count);
+
   return (
     <Scrollbars
       style={{

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
-import { push } from 'connected-react-router';
 
 // components
 import Link from '@app/routing/Link';
@@ -19,9 +18,13 @@ import {
 } from '@app/controller/singleNote/actions';
 import { setLocalDataForNotePrevState } from '@app/controller/previouseNoteText/actions';
 import { setLocalDataForNotePrevStateModule } from '@app/controller/previouseNoteTextModule/actions';
+import { getNotesList, singleNoutesRemoveFromList } from '@app/controller/notes/actions';
+// localy
+import { updateNoteByID } from '@app/controller/notes/actions';
 
 // static
 import * as menuConstats from '@app/view/Module/constants';
+import { datdDraft } from '@app/view/Account/Notes/fakeData/fakeData';
 
 // interfaces
 import { IStore } from '@app/controller/model';
@@ -112,26 +115,34 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
   };
 
   const updateNoteData = () => {
+    console.log('props.textFromComponent');
     if (emptyValueChecker(props.noteData.content) === false) {
-      console.log('if first case  ')
       dispatch(
         updateNoteById.request({
-          content: String(props.noteData.content),
+          content: props.noteData.content,
           module: props.noteData.module,
           user: props.noteData.user,
           id: props.noteData.id,
         }),
       );
-      dispatch(setSaveBTNStatus({ isActive: false }));
+
+      dispatch(updateNoteByID({
+          content: props.noteData.content,
+          module: props.noteData.module,
+          user: props.noteData.user,
+          id: props.noteData.id,
+      }))
       dispatch(
         setLocalDataForNotePrevState({
-          contnet: JSON.stringify(props.noteData.content),
+          content: props.noteData.content,
         }),
       );
+      dispatch(setSaveBTNStatus({ isActive: false }));
     } else {
       dispatch(setSaveBTNStatus({ isActive: false }));
-      // dispatch(deleteNoteByID.request([Number(props.note.id)]));
-      console.log('else ')
+      dispatch(setLocalDataForNotePrevState({content: datdDraft}))
+      dispatch(singleNoutesRemoveFromList({id:Number(props.note.id)}))
+      dispatch(deleteNoteByID.request([Number(props.note.id)]));
     }
   };
 
@@ -278,7 +289,11 @@ export default connect(
   {
     sendNoteAction: sendNoteAction.request,
     setSaveBTNStatus,
+    updateNoteByID,
+    updateNoteById,
     setLocalDataForNotePrevState,
     setLocalDataForNotePrevStateModule,
+    singleNoutesRemoveFromList,
+    getNotesList,
   },
 )(NavigationBar);
