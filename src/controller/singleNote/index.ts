@@ -12,6 +12,7 @@ const initialState: INoteState = {
     id: undefined,
     content: '',
     createdAt: null,
+    updatedAt: null,
     module: {
       id: 0,
       title: '',
@@ -78,6 +79,7 @@ export const GetSingleNoteReducer = createReducer<INoteState, NotesActionType>(
         id: 0,
         content: datdDraft,
         createdAt: null,
+        updatedAt: null,
         module: {
           id: 0,
           title: '',

@@ -18,6 +18,7 @@ const initialState: IExpertState = {
     phones: [],
     emails: [],
     links: [],
+    sections: [],
   },
   loaderState: {
     status: false,
