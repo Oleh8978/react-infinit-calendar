@@ -75,6 +75,13 @@ const Menu: React.FC<any> = ({ ...props }) => {
       return 'active';
     }
 
+    if (
+      String(name) === 'account' &&
+      String(String(location.pathname).search(/\/tip-list/g)) !== '-1'
+    ) {
+      return 'active';
+    }
+
     return '';
   };
 

@@ -8,6 +8,7 @@ import {
 } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import _ from 'lodash';
+import moment from 'moment';
 
 // components
 import NavigationBar from '@app/component/NavigationBar';
@@ -46,19 +47,18 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
   const [text, setText] = useState<any | undefined>(undefined);
   const [isReadOnly, setIsReadOnly] = useState<boolean>(true);
   const [isSaveActive, setIsSaveActive] = useState<boolean>(false);
-  const [isBtnSaveActive, setIsBtnSaveActive] = useState<boolean>(false);
   const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
   const [isToolbarOpened, setIsToolbarOpened] = useState<boolean>(false);
   const [noteData, setNoteData] = useState<any>(undefined);
+  const [date, setDate] = useState<any>('')
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (
       text !== undefined && props.prevText &&
-      props.prevText.content !== undefined &&
+      props.prevText.content !== undefined && 
       _.isEqual(
-        JSON.stringify(JSON.parse(JSON.parse(props.prevText.content))),
-        JSON.stringify(
+        props.prevText.content,JSON.stringify(
             convertToRaw(text.getCurrentContent()),
           )
       ) === false
@@ -89,6 +89,7 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
     }
     if (props.note !== undefined && props.note.id !== undefined) {
       setNoteData(props.note);
+      setDate(moment(new Date(props.note.createdAt)).format('MM/DD/YYYY'))
       setText(
         EditorState.createWithContent(
             convertFromRaw(
@@ -98,7 +99,8 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
         );
       dispatch(
         setLocalDataForNotePrevState({
-          content: JSON.stringify(props.note.content),
+          content: `${props.note.content}`,
+
         }),
       );
     }
@@ -144,12 +146,21 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
   const save = () => {
     setIsReadOnly(true);
     setIsSaveActive(false);
-    if (props.current && props.current.contnet) {
+    if (props.current && props.current.content) {
+
       dispatch(
         setLocalDataForNotePrevState({
-        content: JSON.stringify(props.props.current.contnet)
+        content: `${props.current.content}`
         }),
       );
+
+      setText(
+        EditorState.createWithContent(
+            convertFromRaw(
+              JSON.parse(`${props.current.content}`),
+            ),
+          ),
+        );
     }
 
     dispatch(setSaveBTNStatus({ isActive: false }));
@@ -166,7 +177,7 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
       setText(
         EditorState.createWithContent(
             convertFromRaw(
-              JSON.parse(JSON.parse(props.prevText.content)),
+              JSON.parse(`${props.prevText.content}`),
             ),
           ),
         );
@@ -234,12 +245,11 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
             <> </>
           )}
           <NavigationBar
-            name={'date'}
+            name={`${date}`}
             isNotes={true}
             page={noteDetails}
             setIsEditable={setIsEditable}
             isSaveActive={isSaveActive}
-            isBtnSaveActive={isBtnSaveActive}
             modalToogle={modalToogle}
             saveBtnFunctionality={saveBtnFunctionality}
           />
@@ -267,11 +277,11 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
                 }}
               /> : <></>}
               <div className="notes-details-wrapper-bottom">
-                <BottomComponent
-                  title={'Customer Relationship Management'}
-                  subtitle={'Management | Create List of Calls for the Week '}
-                  moduleId={25}
-                />
+                {props.module && props.module.title && <BottomComponent
+                  title={`${props.module.title}`}
+                  subtitle={''}
+                  moduleId={props.module.id}
+                />}
               </div>
             </>
           </div>
@@ -288,6 +298,7 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
 export default connect(
   (state: IStore) => ({
     note: state.singleNoteReducer.state,
+    module: state.singleNoteReducer.state.module,
     loader: state.singleNoteReducer.loaderState.status,
     user: state.authState.user.id,
     notes: state.moduleState.moduleData,
