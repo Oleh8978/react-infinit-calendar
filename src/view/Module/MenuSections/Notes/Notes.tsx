@@ -65,6 +65,9 @@ const Notes: React.FC<any> = ({ ...props }) => {
   }, [textFromNotes, props.prevText]);
 
   const save = () => {
+    console.log(String(
+      JSON.stringify(convertToRaw(textFromNotes.getCurrentContent())),
+    ))
     dispatch(
       setLocalDataForNotePrevStateModule({
         contnet: String(
@@ -119,6 +122,7 @@ const Notes: React.FC<any> = ({ ...props }) => {
         defaultEditorState={textFromNotes}
         onEditorStateChange={onEditorStateChange}
         editorState={textFromNotes}
+        placeholder={'Type...'}
         toolbarOnFocus
         toolbar={{
           options: ['inline', 'list'],
