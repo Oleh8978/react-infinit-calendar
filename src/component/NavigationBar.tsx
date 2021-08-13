@@ -5,6 +5,9 @@ import { connect, useDispatch } from 'react-redux';
 import Link from '@app/routing/Link';
 import Pen from './CustomButtons/Pen';
 
+// history 
+import history from '@app/historyApi';
+
 // types
 import { Pages } from '@app/routing/schema';
 
@@ -58,7 +61,6 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
     ) {
       setIsNotes(true);
     } else {
-      console.log();
       dispatch(
         setLocalDataForNotePrevStateModule({
           contnet: String(menuConstats.defaultTXT),
@@ -73,6 +75,22 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
       setIsNotesID(false);
     }
   }, [props.rout, props.isBtnSaveActive]);
+
+  const LinkForNotes = () => {
+    if (String(String(location.pathname).search(/\/note-details\/(.*)/g)) !== '-1') {
+      return (
+      <Link to="notes" className="module-menu-back">
+        <div className="module-menu-back__top" />
+        <div className="module-menu-back__bottom" />
+      </Link>)
+    }
+
+    return (
+      <Link backFlag={true} className="module-menu-back">
+        <div className="module-menu-back__top" />
+        <div className="module-menu-back__bottom" />
+      </Link>)
+  }
 
   const emptyValueChecker = (text) => {
     const matchedData = String(text).match(
@@ -116,11 +134,10 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
   };
 
   const updateNoteData = () => {
-    console.log(props.noteData.content)
     if (emptyValueChecker(props.noteData.content) === false) {
       dispatch(
         updateNoteById.request({
-          content: JSON.stringify(props.noteData.content),
+          content: props.noteData.content,
           module: props.noteData.module,
           user: props.noteData.user,
           id: props.noteData.id,
@@ -128,14 +145,14 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
       );
 
       dispatch(updateNoteByID({
-          content: JSON.stringify(props.noteData.content),
+          content: props.noteData.content,
           module: props.noteData.module,
           user: props.noteData.user,
           id: props.noteData.id,
       }))
       dispatch(
         setLocalDataForNotePrevState({
-          content: JSON.stringify(props.noteData.content),
+          content: props.noteData.content,
         }),
       );
       dispatch(setSaveBTNStatus({ isActive: false }));
@@ -195,11 +212,11 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
                     <div className="module-menu-back__top" />
                     <div className="module-menu-back__bottom" />
                   </div>
-                ) : (
-                  <Link backFlag={true} className="module-menu-back">
-                    <div className="module-menu-back__top" />
-                    <div className="module-menu-back__bottom" />
-                  </Link>
+                ) : (<>{LinkForNotes()}</>
+                  // <Link backFlag={true} className="module-menu-back">
+                  //   <div className="module-menu-back__top" />
+                  //   <div className="module-menu-back__bottom" />
+                  // </Link>
                 )}
               </>
             ) : (
@@ -227,7 +244,7 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
                         props.isBtnSaveActive
                           ? /// here is will be our push method
                             () => updateNoteData()
-                          : () => console.log('inactive')
+                          : () => console.log('')
                       }>
                       Save
                     </span>
@@ -242,7 +259,7 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
                         props.isBtnSaveActive
                           ? /// here is will be our push method
                             () => sendData()
-                          : () => console.log('inactive')
+                          : () => console.log('')
                       }>
                       Save
                     </span>
@@ -263,7 +280,7 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
                     onClick={
                       props.isBtnSaveActive
                         ? () => props.saveBtnFunctionality()
-                        : () => console.log('inactive')
+                        : () => console.log('')
                     }>
                     Save
                   </span>
