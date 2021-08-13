@@ -52,13 +52,13 @@ const NotesListItem: React.FC<IProps> = ({ ...props }) => {
             <Editor
               editorState={EditorState.createWithContent(
                 convertFromRaw(
-                  JSON.parse(props.data.content.replace(/'/g, '"')),
+                  JSON.parse(props.data.content),
                 ),
               )}
               customStyleMap={styleMap}
               defaultEditorState={EditorState.createWithContent(
                 convertFromRaw(
-                  JSON.parse(props.data.content.replace(/'/g, '"')),
+                  JSON.parse(props.data.content),
                 ),
               )}
               readOnly={true}

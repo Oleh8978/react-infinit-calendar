@@ -75,13 +75,14 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
   }, [props.rout, props.isBtnSaveActive]);
 
   const emptyValueChecker = (text) => {
-    const matchedData = String(JSON.stringify(text)).match(
-      /\'(text)\'\:\'(.*?)\'/g,
+    const matchedData = String(text).match(
+      /\"(text)\"\:\"(.*?)\"/g,
     );
+
     if (
       matchedData !== null &&
       matchedData
-        .filter((item) => item.match(/:'(.*)'/g))
+        .filter((item) => item.match(/:"(.*)"/g))
         .map((item) => {
           if (item.length > 9) {
             return true;
@@ -115,11 +116,11 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
   };
 
   const updateNoteData = () => {
-    console.log('props.textFromComponent');
+    console.log(props.noteData.content)
     if (emptyValueChecker(props.noteData.content) === false) {
       dispatch(
         updateNoteById.request({
-          content: props.noteData.content,
+          content: JSON.stringify(props.noteData.content),
           module: props.noteData.module,
           user: props.noteData.user,
           id: props.noteData.id,
@@ -127,20 +128,20 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
       );
 
       dispatch(updateNoteByID({
-          content: props.noteData.content,
+          content: JSON.stringify(props.noteData.content),
           module: props.noteData.module,
           user: props.noteData.user,
           id: props.noteData.id,
       }))
       dispatch(
         setLocalDataForNotePrevState({
-          content: props.noteData.content,
+          content: JSON.stringify(props.noteData.content),
         }),
       );
       dispatch(setSaveBTNStatus({ isActive: false }));
     } else {
       dispatch(setSaveBTNStatus({ isActive: false }));
-      dispatch(setLocalDataForNotePrevState({content: datdDraft}))
+      dispatch(setLocalDataForNotePrevState({content: JSON.stringify(datdDraft)}))
       dispatch(singleNoutesRemoveFromList({id:Number(props.note.id)}))
       dispatch(deleteNoteByID.request([Number(props.note.id)]));
     }

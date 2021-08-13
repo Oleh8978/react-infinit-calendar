@@ -57,16 +57,12 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
       text !== undefined && props.prevText &&
       props.prevText.content !== undefined &&
       _.isEqual(
-        String(props.prevText.content).replace(/"/g, "'"),
+        JSON.stringify(JSON.parse(JSON.parse(props.prevText.content))),
         JSON.stringify(
             convertToRaw(text.getCurrentContent()),
-          ).replace(/"/g, "'")
+          )
       ) === false
     ) {
-      // console.log("@@@@", String(props.prevText.content).replace(/"/g, "'"))
-      // console.log("####", JSON.stringify(
-      //   convertToRaw(text.getCurrentContent()),
-      // ).replace(/"/g, "'"))
       dispatch(setSaveBTNStatus({ isActive: true }));
     } else {
       dispatch(setSaveBTNStatus({ isActive: false }));
@@ -82,45 +78,39 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
   useEffect(() => {
     if (text === undefined) {
       dispatch(getNoteByID.request({ id: props.match.params.id }));
-      // setText(datdDraft);
+
       setText(
-      EditorState.createWithContent(
+        EditorState.createWithContent(
           convertFromRaw(
-            JSON.parse(String(datdDraft).replace(/'/g, '"')),
+            JSON.parse(datdDraft),
           ),
         ),
       );
     }
     if (props.note !== undefined && props.note.id !== undefined) {
       setNoteData(props.note);
-      // setText(String(props.note.content).replace(/'/g, '"'))
       setText(
         EditorState.createWithContent(
             convertFromRaw(
-              JSON.parse(String(props.note.content).replace(/'/g, '"')),
+              JSON.parse(props.note.content),
             ),
           ),
         );
       dispatch(
         setLocalDataForNotePrevState({
-          content: String(props.note.content).replace(/'/g, '"'),
+          content: JSON.stringify(props.note.content),
         }),
       );
     }
   }, [props.note.id]);
 
   const onEditorStateChange = (textState) => {
-    // console.log('JSON.stringify(textState) ', JSON.parse(textState))
-    // console.log('textState.getCurrentContent() ', textState.getCurrentContent())
-    // setText(JSON.stringify(
-    //   convertToRaw(textState.getCurrentContent()),
-    // ).replace(/"/g, "'"));
     setText(textState)
     if (noteData !== undefined) {
       props.setLocalDataForNote({
         content: JSON.stringify(
           convertToRaw(textState.getCurrentContent()),
-        ).replace(/"/g, "'"),
+        ),
         module: noteData.module.id,
         user: noteData.user.id,
         id: props.match.params.id,
@@ -154,34 +144,18 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
   const save = () => {
     setIsReadOnly(true);
     setIsSaveActive(false);
-    dispatch(
-      setLocalDataForNotePrevState({
-        content: JSON.stringify(convertToRaw(text.getCurrentContent())).replace(
-          /"/g,
-          "'",
-        ),
-      }),
-    );
-    // dispatch(
-    //   updateNoteById.request({
-    //     content: String(
-    //       JSON.stringify(convertToRaw(text.getCurrentContent())).replace(
-    //         /"/g,
-    //         "'",
-    //       ),
-    //     ),
-    //     module: props.note.module.id,
-    //     user: props.user,
-    //     id: props.note.id,
-    //   }),
-    // );
+    if (props.current && props.current.contnet) {
+      dispatch(
+        setLocalDataForNotePrevState({
+        content: JSON.stringify(props.props.current.contnet)
+        }),
+      );
+    }
+
     dispatch(setSaveBTNStatus({ isActive: false }));
-    saveBtnBackEndFunctionality(String(
-      JSON.stringify(convertToRaw(text.getCurrentContent())).replace(
-        /"/g,
-        "'",
-      ),
-    ));
+    saveBtnBackEndFunctionality(
+      JSON.stringify(convertToRaw(text.getCurrentContent())),
+    );
     dispatch(setModalWindowOpened({ status: false }));
   };
 
@@ -189,21 +163,13 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
     setIsReadOnly(true);
     setIsSaveActive(false);
     if (props.prevText.content !== undefined) {
-      // setText(
-        // EditorState.createWithContent(
-        //   convertFromRaw(
-        //     JSON.parse(String(props.prevText.contnet).replace(/'/g, '"')),
-        //   ),
-        // ),
-      // );
       setText(
         EditorState.createWithContent(
             convertFromRaw(
-              JSON.parse(String(props.prevText.content).replace(/'/g, '"')),
+              JSON.parse(JSON.parse(props.prevText.content)),
             ),
           ),
         );
-      // setText(props.prevText.contnet.replace(/"/g, "'"));
     }
     dispatch(setSaveBTNStatus({ isActive: false }));
     dispatch(setModalWindowOpened({ status: false }));
@@ -214,21 +180,10 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
   };
 
   const saveBtnBackEndFunctionality = (text) => {
-    // console.log('inn valuechecker ', emptyValueChecker(text));
-    // console.log('JSON  ', String(
-    //   JSON.stringify(convertToRaw(text.getCurrentContent())).replace(
-    //     /"/g,
-    //     "'",
-    //   ),
-    // ));
-
     if (emptyValueChecker(text) === false) {
       dispatch(
         updateNoteById.request({
-          content: String(text).replace(
-              /"/g,
-              "'",
-          ),
+          content: String(text),
           module: props.note.module.id,
           user: props.user,
           id: props.note.id,
@@ -236,12 +191,6 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
       );
       dispatch(
         updateNoteByID({
-          // content: String(
-          //   JSON.stringify(convertToRaw(text.getCurrentContent())).replace(
-          //     /"/g,
-          //     "'",
-          //   ),
-          // ),
           content: text,
           module: props.note.module.id,
           user: props.user,
@@ -256,39 +205,25 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
 
   const saveBtnFunctionality = () => {
     if (emptyValueChecker(text) === false ) {
-      // setText(EditorState.createWithContent(
-      //   convertFromRaw(
-      //     JSON.parse(datdDraft),
-      //   ),
-      // ),)
-      // setText(datdDraft.replace(
-      //   /"/g,
-      //   "'",
-      // ))
       setText(
         EditorState.createWithContent(
-            convertFromRaw(
-              JSON.parse(String(datdDraft).replace(/'/g, '"')),
-            ),
+          convertFromRaw(
+            JSON.parse(datdDraft),
           ),
+        ),
         );
       
     }
       dispatch(
         setLocalDataForNotePrevState({
-          content: String(text).replace(
-            /"/g,
-            "'",
-        ),
+          content: String(text),
         }),
       );
-    // setPrevText(text);
     setIsReadOnly(true);
     setIsSaveActive(false);
     emptyValueChecker(text);
     saveBtnBackEndFunctionality(text);
   };
-
   return (
     <>
       {text ? (
@@ -359,6 +294,7 @@ export default connect(
     modalWindowState: state.ModalWindowReducer.status,
     prevText: state.notePrevStateReducer.state,
     saveBtnStatus: state.saveBtnReducer.isActive,
+    current: state.noteLocalDataCollectorReducer.state
   }),
   {
     getNoteByID,

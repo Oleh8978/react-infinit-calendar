@@ -44,11 +44,8 @@ const Notes: React.FC<any> = ({ ...props }) => {
       props.prevText.contnet !== undefined &&
       _.isEqual(
         // .replace(/[^\w\s]/gi, '')
-        props.prevText.contnet.replace(/[^\w\s]/gi, ''),
-        JSON.stringify(convertToRaw(textFromNotes.getCurrentContent())).replace(
-          /[^\w\s]/gi,
-          '',
-        ),
+        props.prevText.contnet,
+        JSON.stringify(convertToRaw(textFromNotes.getCurrentContent())),
       ) === false
     ) {
       dispatch(setSaveBTNStatus({ isActive: true }));
@@ -61,7 +58,7 @@ const Notes: React.FC<any> = ({ ...props }) => {
         setLocalDataForNotePrevStateModule({
           contnet: String(
             JSON.stringify(convertToRaw(textFromNotes.getCurrentContent())),
-          ).replace(/'/g, '"'),
+          ),
         }),
       );
     }
@@ -72,7 +69,7 @@ const Notes: React.FC<any> = ({ ...props }) => {
       setLocalDataForNotePrevStateModule({
         contnet: String(
           JSON.stringify(convertToRaw(textFromNotes.getCurrentContent())),
-        ).replace(/'/g, '"'),
+        ),
       }),
     );
     dispatch(setModalWindowOpened({ status: false }));
@@ -91,7 +88,7 @@ const Notes: React.FC<any> = ({ ...props }) => {
     if (props.prevText.contnet !== undefined) {
       setTextFromNotes(
         EditorState.createWithContent(
-          convertFromRaw(JSON.parse(props.prevText.contnet.replace(/'/g, '"'))),
+          convertFromRaw(JSON.parse(props.prevText.contnet)),
         ),
       );
     }
@@ -104,7 +101,7 @@ const Notes: React.FC<any> = ({ ...props }) => {
       props.setLocalDataForNote({
         content: JSON.stringify(
           convertToRaw(textState.getCurrentContent()),
-        ).replace(/"/g, "'"),
+        ),
         module: Number(Object.keys(props.notes)[0]),
         user: props.user.id,
       });
