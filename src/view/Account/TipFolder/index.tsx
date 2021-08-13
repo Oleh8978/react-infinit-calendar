@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createRef, RefObject } from 'react';
 import { connect, useDispatch } from 'react-redux';
+import { Scrollbars } from 'react-custom-scrollbars';
 
 // actions
 import {
@@ -22,10 +23,48 @@ interface IProps {
   counts: number;
 }
 
+// const CustomReRenderHook = () => {
+//   const dispatch = useDispatch();
+//   useEffect(() => {
+//     dispatch(getStatisticList.request({}));
+//     dispatch(getStatisticToday.request({}));
+//   }, []);
+// };
+
 const TipsInfo: React.FC<any> = ({ ...props }) => {
   const [items, setItems] = useState<any>([]);
   const [unreadedItems, setUnreadedItems] = useState<any>([]);
+  const fieldRef = createRef() as RefObject<Scrollbars>;
   const dispatch = useDispatch();
+
+  const loadMoreItems = () => {
+    const { getClientHeight, getScrollHeight, getScrollTop, scrollToBottom } =
+      fieldRef.current as Scrollbars;
+    if (
+      props.counts &&
+      props.items.length === props.counts
+    ) {
+      return;
+    }
+
+    if (
+      getClientHeight() + getScrollTop() >= getScrollHeight() - 1 &&
+      props.counts !== undefined &&
+      props.userID !== undefined
+    ) {
+      dispatch(
+        getTipsListRequest.request({
+          searchParams: {
+            limit: 20,
+            offset: props.items.length,
+          },
+          userId: `${props.userID}`,
+        }),
+      );
+    }
+
+    return;
+  };
 
   useEffect(() => {
     if (props.counts === undefined) {
@@ -56,17 +95,28 @@ const TipsInfo: React.FC<any> = ({ ...props }) => {
         }),
       );
     }
-  }, [props.items]);
+  }, [props.counts]);
   // console.log('unreadedItems ', unreadedItems);
   console.log('props.items', props.items);
   // console.log('props.userID ', props.userID);
   return (
     <>
-      {props.loader ? (
-        <Loader isSmall={true} />
+      {props.counts === undefined ? (
+        <Loader isSmall={false} />
       ) : (
         <div className={'tips-main'}>
           <NavigationBar rout={'account'} name={'Tips'} hasSaveButton={false} />
+        <Scrollbars
+          style={{
+            position: 'inherit',
+            width: '100%',
+            maxWidth: 639,
+            height: '100%',
+            maxHeight: '100%',
+            display: 'flex',
+          }}
+          ref={fieldRef}
+          onScroll={loadMoreItems}>
           <div className={'tips-main-body'}>
             {items
               .filter((item: TipSendDTO) => item.isRead === false)
@@ -119,6 +169,8 @@ const TipsInfo: React.FC<any> = ({ ...props }) => {
                 );
               })}
           </div>
+          </Scrollbars>
+          
         </div>
       )}
     </>

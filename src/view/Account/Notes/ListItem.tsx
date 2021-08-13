@@ -19,7 +19,7 @@ interface IProps {
 }
 
 const NotesListItem: React.FC<IProps> = ({ ...props }) => {
-
+  console.log(' data ', props.data)
   return (
     <Link
       className={'notes-list-item'}
@@ -28,12 +28,12 @@ const NotesListItem: React.FC<IProps> = ({ ...props }) => {
         pathname: `/note-details/${props.data.id}`,
       })}>
       <div className={'notes-list-item__left'}>
-        <span className={'notes-list-item__left-headtop'}>
+        {props.data.module && props.data.module.title && <span className={'notes-list-item__left-headtop'}>
           {props.data.module.title}
-        </span>
-        <span className={'notes-list-item__left-subhead'}>
+        </span>}
+        {props.data.module.journey && props.data.module.journey.title && <span className={'notes-list-item__left-subhead'}>
           {props.data.module.journey.title}
-        </span>
+        </span>}
         <div className={'notes-list-item__left-body'}>
           {props.data.content !== undefined ? (
             <Editor
