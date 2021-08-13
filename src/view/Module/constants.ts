@@ -8,4 +8,4 @@ export const menuOptions: INavigationMenu[] = [
   { name: 'Notes', slug: 'note' },
 ];
 
-export const defaultTXT = `{"blocks":[{"key":"4dl86","text":"Type...","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}`;
+export const defaultTXT = `{"blocks":[{"key":"4dl86","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}`;

@@ -161,6 +161,7 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
       dispatch(setLocalDataForNotePrevState({content: JSON.stringify(datdDraft)}))
       dispatch(singleNoutesRemoveFromList({id:Number(props.note.id)}))
       dispatch(deleteNoteByID.request([Number(props.note.id)]));
+      history.push('/notes');
     }
   };
 

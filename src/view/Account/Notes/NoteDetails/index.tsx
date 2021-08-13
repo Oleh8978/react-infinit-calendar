@@ -10,6 +10,9 @@ import { Editor } from 'react-draft-wysiwyg';
 import _ from 'lodash';
 import moment from 'moment';
 
+// history
+import history from '@app/historyApi';
+
 // components
 import NavigationBar from '@app/component/NavigationBar';
 import BottomComponent from './Bottom';
@@ -211,6 +214,7 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
     } else {
       dispatch(singleNoutesRemoveFromList({id:Number(props.note.id)}))
       dispatch(deleteNoteByID.request([Number(props.note.id)]));
+      history.push('/notes')
     }
   };
 
