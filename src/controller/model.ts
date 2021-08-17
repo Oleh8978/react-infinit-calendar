@@ -34,6 +34,7 @@ import { IExpertsState } from '@app/controller/experts/models';
 import { ISelectedExpert } from '@app/controller/selectedExpert/models';
 import { IExpertState } from '@app/controller/expert/models';
 import { IHistoryState } from '@app/controller/historyReducer/models';
+import { ISurveyState } from '@app/controller/questions/models';
 
 export interface IStore {
   router: RouterState;
@@ -66,6 +67,7 @@ export interface IStore {
   ExpertSelectedStateReducer: ISelectedExpert;
   SingleExpertReducer: IExpertState;
   historyState: IHistoryState;
+  surveyListReducer: ISurveyState;
 }
 
 export interface ISimpleState {

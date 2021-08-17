@@ -227,7 +227,8 @@ const Discovery: React.FC<any> = ({ ...props }) => {
 
   const arraySetter = (id: number, element?: string) => {
     if (
-      ids.filter((elem) => elem === id).length === 0 && element !== 'Journey'
+      ids.filter((elem) => elem === id).length === 0 &&
+      element !== 'Journey'
       // articleCategories
       //   .filter((elem: any) => elem.id === id)[0]
       //   .title.toLowerCase() !== 'journeys'
@@ -244,13 +245,11 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       );
       setDiscovery(undefined);
       setIsJourneyClicked(false);
-    } 
-    
-    else if (
+    } else if (
       // articleCategories
       //   .filter((elem: any) => elem.id === id)[0]
       //   .title.toLowerCase() === 'journeys' &&
-      element === "Journey" &&
+      element === 'Journey' &&
       isJourneyClicked === false
     ) {
       setIds([]);
@@ -264,12 +263,11 @@ const Discovery: React.FC<any> = ({ ...props }) => {
         }),
       );
       setDiscovery(undefined);
-    } 
-    else if (
+    } else if (
       // articleCategories
       //   .filter((elem: any) => elem.id === id)[0]
       //   .title.toLowerCase() === 'journeys' &&
-      element === "Journey" &&
+      element === 'Journey' &&
       isJourneyClicked === true
     ) {
       setIds([]);

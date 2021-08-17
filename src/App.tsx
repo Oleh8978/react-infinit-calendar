@@ -32,7 +32,7 @@ export const App: React.FC = () => {
       if (history.action === 'PUSH') {
         setLocationKeys([location.key]);
         if (history.location.pathname === '/module') {
-          history.push('/schedule')
+          history.push('/schedule');
         }
       }
 
@@ -42,7 +42,7 @@ export const App: React.FC = () => {
         } else {
           setLocationKeys((keys) => [location.key, ...keys]);
           if (history.location.pathname === '/module') {
-            history.push('/schedule')
+            history.push('/schedule');
           }
         }
       }
@@ -51,7 +51,8 @@ export const App: React.FC = () => {
 
   return (
     <>
-      {spash === false && localStorage.getItem('authorization') === undefined ? (
+      {spash === false &&
+      localStorage.getItem('authorization') === undefined ? (
         <SplashScreen />
       ) : (
         <Switch>
