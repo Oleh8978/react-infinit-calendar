@@ -17,9 +17,7 @@ import Loader from '@app/component/Loader';
 // interfaces
 import { IStore } from '@app/controller/model';
 import { GetListParameters } from '@ternala/frasier-types/lib/modules/query.dto';
-import {
-  ISurveySearchParams,
-} from '@app/controller/questions/models';
+import { ISurveySearchParams } from '@app/controller/questions/models';
 import { QuestionDTO } from '@ternala/frasier-types';
 
 export interface QuestionDTOExtended extends QuestionDTO {
@@ -31,7 +29,7 @@ interface IProps {
   storedSearchParams: GetListParameters;
   counts: number;
   loader: boolean;
-  title: string
+  title: string;
   match: any;
 }
 
@@ -77,7 +75,7 @@ const Survey: React.FC<IProps> = ({ ...props }) => {
 
   useEffect(() => {
     if (!props.counts) {
-        loadSurveys();
+      loadSurveys();
     }
 
     if (props.questions !== undefined) {
@@ -124,46 +122,42 @@ const Survey: React.FC<IProps> = ({ ...props }) => {
 
   const loadMoreItems = () => {
     const { getClientHeight, getScrollHeight, getScrollTop, scrollToBottom } =
-    fieldRef.current as Scrollbars;
-  if (
-    getClientHeight() + getScrollTop() >= getScrollHeight() - 1 &&
-    props.counts !== 0 &&
-    props.questions!== undefined &&
-    props.counts !== props.questions.length
-  ) {
-    loadSurveys('more');
-  }
+      fieldRef.current as Scrollbars;
+    if (
+      getClientHeight() + getScrollTop() >= getScrollHeight() - 1 &&
+      props.counts !== 0 &&
+      props.questions !== undefined &&
+      props.counts !== props.questions.length
+    ) {
+      loadSurveys('more');
+    }
   };
 
   const sendData = () => {
-      const answers = [];
-      items.map( item => {
-        answers.push({
-            answer: item.status,
-            question: item.id
-        })
-      })
+    const answers = [];
+    items.map((item) => {
+      answers.push({
+        answer: item.status,
+        question: item.id,
+      });
+    });
 
-      if (items.filter(item => item.status === '').length === 0 ) {
-          dispatch(setLoadingAction({status: true}))
-          dispatch(
-            submitAnswerRequest.request({
-                survey: props.match.params.id,
-                questionResults: answers,
-            })
-          )
-      }
-  } 
+    if (items.filter((item) => item.status === '').length === 0) {
+      dispatch(setLoadingAction({ status: true }));
+      dispatch(
+        submitAnswerRequest.request({
+          survey: props.match.params.id,
+          questionResults: answers,
+        }),
+      );
+    }
+  };
 
   return (
     <>
-      {props.counts !== undefined? (
+      {props.counts !== undefined ? (
         <div className="survey-main">
-          <NavigationBar
-            rout={'account'}
-            name={''}
-            hasSaveButton={false}
-          />
+          <NavigationBar rout={'account'} name={''} hasSaveButton={false} />
           <Scrollbars
             style={{
               width: '100%',
@@ -209,19 +203,27 @@ const Survey: React.FC<IProps> = ({ ...props }) => {
                   </div>
                 );
               })}
-              {props.questions && props.counts !== props.questions.length ? <Loader isSmall={true}/> : <></>}
+              {props.questions && props.counts !== props.questions.length ? (
+                <Loader isSmall={true} />
+              ) : (
+                <></>
+              )}
             </>
-            {props.questions && props.counts === props.questions.length ? <div
-              className={`survey-submit ${
-                items.filter((item) => item.status === '').length === 0
-                  ? 'btn-submitactive'
-                  : ''
-              }`}
-              onClick={() => {
-                sendData()
-              }}>
-              <span className="survey-submit-txt">Submit</span>
-            </div> : <></>}
+            {props.questions && props.counts === props.questions.length ? (
+              <div
+                className={`survey-submit ${
+                  items.filter((item) => item.status === '').length === 0
+                    ? 'btn-submitactive'
+                    : ''
+                }`}
+                onClick={() => {
+                  sendData();
+                }}>
+                <span className="survey-submit-txt">Submit</span>
+              </div>
+            ) : (
+              <></>
+            )}
           </Scrollbars>
         </div>
       ) : (

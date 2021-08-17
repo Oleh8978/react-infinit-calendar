@@ -4,7 +4,6 @@ import { authHeader, handleErrors } from '@app/utils/API';
 // cfunctionality
 import { appendSearchParams } from '@app/utils/appendSearchParams';
 
-
 //interfaces
 import { ISurveySearchParams, ISurveyAnswer } from '../models';
 
@@ -59,12 +58,8 @@ class API {
     );
   }
 
-  public async getsurveyTitle(
-    id: number,
-  ): Promise<boolean | string> {
-    const url = new URL(
-      Config.MAIN_SERVICE_ENDPOINT + 'survey/' + id,
-    );
+  public async getsurveyTitle(id: number): Promise<boolean | string> {
+    const url = new URL(Config.MAIN_SERVICE_ENDPOINT + 'survey/' + id);
 
     return handleErrors(
       fetch(url.toString(), {

@@ -53,11 +53,12 @@ export const surveyListReducer = createReducer<ISurveyState, SurveysActionType>(
         const payloadResponseArray = [];
 
         payload.response.items.map((item) => {
-          if (state.surveys.items.find((elem) => elem.id === item.id) ===
+          if (
+            state.surveys.items.find((elem) => elem.id === item.id) ===
             undefined
           ) {
-            payloadResponseArray.push({...item});
-          } 
+            payloadResponseArray.push({ ...item });
+          }
         });
 
         surveyList = concatWithUnique<QuestionDTO>(
@@ -65,7 +66,6 @@ export const surveyListReducer = createReducer<ISurveyState, SurveysActionType>(
           payloadResponseArray,
         );
       } else {
-
         surveyList = concatWithUnique<QuestionDTO>(
           [],
           payload.response.items.map((item) => item),
@@ -90,4 +90,4 @@ export const surveyListReducer = createReducer<ISurveyState, SurveysActionType>(
     loaderState: {
       status: false,
     },
-  }))
+  }));
