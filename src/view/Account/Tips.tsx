@@ -39,12 +39,9 @@ const Tips: React.FC<any> = ({ ...props }) => {
         }),
       );
     }
-
   }, [props.items]);
 
-  if (
-    props.counts === 0
-  ) {
+  if (props.counts === 0) {
     return <></>;
   }
   return (
@@ -53,8 +50,16 @@ const Tips: React.FC<any> = ({ ...props }) => {
         <div className={'tips'}>
           <span className={'tips-header'}>Tips from frasier</span>
           <Link to={'tip-list'} className={'tips-wrapper'}>
-            {props.newItemsCount !== 0 && props.counts !== 0 ? <span className={'tips-number'}>{props.newItemsCount}</span> : <span className={'tips-number'}>{props.counts}</span> }
-            {props.newItemsCount !== 0 ? <span className={'tips-new'}>new</span> : <> </>}
+            {props.newItemsCount !== 0 && props.counts !== 0 ? (
+              <span className={'tips-number'}>{props.newItemsCount}</span>
+            ) : (
+              <span className={'tips-number'}>{props.counts}</span>
+            )}
+            {props.newItemsCount !== 0 ? (
+              <span className={'tips-new'}>new</span>
+            ) : (
+              <> </>
+            )}
             <span className={'tips-tip'}>tips</span>
             <img
               src={img}
@@ -80,7 +85,7 @@ export default connect(
     loader: state.tipsListReducer.loaderState.status,
     items: state.tipsListReducer.tips.items,
     userID: state.authState.user.id,
-    newItemsCount: state.tipsListReducer.tips.newItemsCount
+    newItemsCount: state.tipsListReducer.tips.newItemsCount,
   }),
   {
     getTipsListRequest: getTipsListRequest.request,

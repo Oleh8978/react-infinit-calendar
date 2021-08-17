@@ -40,10 +40,7 @@ const TipsInfo: React.FC<any> = ({ ...props }) => {
   const loadMoreItems = () => {
     const { getClientHeight, getScrollHeight, getScrollTop, scrollToBottom } =
       fieldRef.current as Scrollbars;
-    if (
-      props.counts &&
-      props.items.length === props.counts
-    ) {
+    if (props.counts && props.items.length === props.counts) {
       return;
     }
 
@@ -106,71 +103,74 @@ const TipsInfo: React.FC<any> = ({ ...props }) => {
       ) : (
         <div className={'tips-main'}>
           <NavigationBar rout={'account'} name={'Tips'} hasSaveButton={false} />
-        <Scrollbars
-          style={{
-            position: 'inherit',
-            width: '100%',
-            maxWidth: 639,
-            height: '100%',
-            maxHeight: '100%',
-            display: 'flex',
-          }}
-          ref={fieldRef}
-          onScroll={loadMoreItems}>
-          <div className={'tips-main-body'}>
-            {items
-              .filter((item: TipSendDTO) => item.isRead === false)
-              .filter((elem: TipSendDTO) => Object.keys(elem.tip).length !== 0)
-              .map((elem) => {
-                return (
-                  <div className="tips-main-body-item-wrapper-unread">
-                    <div className={'tips-main-body-item-unread'}>
-                      <>
-                        {elem.tip.image ? (
-                          <img
-                            src={elem.tip.image}
-                            className={'tips-main-body-item-img'}
-                            alt="img"
-                          />
-                        ) : (
-                          <> </>
-                        )}
-                      </>
-                      <span className={'tips-main-body-item-text'}>
-                        {elem.tip.copy}
-                      </span>
+          <Scrollbars
+            style={{
+              position: 'inherit',
+              width: '100%',
+              maxWidth: 639,
+              height: '100%',
+              maxHeight: '100%',
+              display: 'flex',
+            }}
+            ref={fieldRef}
+            onScroll={loadMoreItems}>
+            <div className={'tips-main-body'}>
+              {items
+                .filter((item: TipSendDTO) => item.isRead === false)
+                .filter(
+                  (elem: TipSendDTO) => Object.keys(elem.tip).length !== 0,
+                )
+                .map((elem) => {
+                  return (
+                    <div className="tips-main-body-item-wrapper-unread">
+                      <div className={'tips-main-body-item-unread'}>
+                        <>
+                          {elem.tip.image ? (
+                            <img
+                              src={elem.tip.image}
+                              className={'tips-main-body-item-img'}
+                              alt="img"
+                            />
+                          ) : (
+                            <> </>
+                          )}
+                        </>
+                        <span className={'tips-main-body-item-text'}>
+                          {elem.tip.copy}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
-            {items
-              .filter((item: TipSendDTO) => item.isRead === true)
-              .filter((elem: TipSendDTO) => Object.keys(elem.tip).length !== 0)
-              .map((elem) => {
-                return (
-                  <div className="tips-main-body-item-wrapper">
-                    <div className={'tips-main-body-item-read'}>
-                      <>
-                        {elem.tip.image ? (
-                          <img
-                            src={elem.tip.image}
-                            className={'tips-main-body-item-img'}
-                            alt="img"
-                          />
-                        ) : (
-                          <> </>
-                        )}
-                      </>
-                      <span className={'tips-main-body-item-text'}>
-                        {elem.tip.copy}
-                      </span>
+                  );
+                })}
+              {items
+                .filter((item: TipSendDTO) => item.isRead === true)
+                .filter(
+                  (elem: TipSendDTO) => Object.keys(elem.tip).length !== 0,
+                )
+                .map((elem) => {
+                  return (
+                    <div className="tips-main-body-item-wrapper">
+                      <div className={'tips-main-body-item-read'}>
+                        <>
+                          {elem.tip.image ? (
+                            <img
+                              src={elem.tip.image}
+                              className={'tips-main-body-item-img'}
+                              alt="img"
+                            />
+                          ) : (
+                            <> </>
+                          )}
+                        </>
+                        <span className={'tips-main-body-item-text'}>
+                          {elem.tip.copy}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
-          </div>
+                  );
+                })}
+            </div>
           </Scrollbars>
-          
         </div>
       )}
     </>

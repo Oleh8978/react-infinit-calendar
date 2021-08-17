@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 // components
 import LInk from '@app/routing/Link';
 
-// history 
+// history
 import history from '@app/historyApi';
 
 interface IProps {
@@ -23,7 +23,11 @@ const BottomComponent: React.FC<IProps> = ({ ...props }) => {
           {props.subtitle}
         </span>
       </div>
-      <div className="notes-details-wrapper-bottom-item-link" onClick={() => {history.push(`/module/${props.moduleId}/task`)}}>
+      <div
+        className="notes-details-wrapper-bottom-item-link"
+        onClick={() => {
+          history.push(`/module/${props.moduleId}/task`);
+        }}>
         Open module
       </div>
     </div>

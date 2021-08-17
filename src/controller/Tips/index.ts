@@ -55,15 +55,16 @@ export const tipsListReducer = createReducer<ITipsState, TipsListActionType>(
         JSON.stringify(omit(storedSearchParams, ['limit', 'offset'])) ===
         JSON.stringify(omit(searchParams, ['limit', 'offset']))
       ) {
-
         const payloadResponseArray = [];
 
         payload.response.items.map((item) => {
-          if (state.tips.items.find((elem) => elem.id !== item.id) === undefined) {
+          if (
+            state.tips.items.find((elem) => elem.id !== item.id) === undefined
+          ) {
             payloadResponseArray.push(item);
           }
         });
- 
+
         tipsList = concatWithUnique<TipSendDTO>(
           state.tips.items || [],
           payloadResponseArray,

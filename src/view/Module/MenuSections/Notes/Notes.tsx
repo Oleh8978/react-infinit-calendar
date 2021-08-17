@@ -65,9 +65,9 @@ const Notes: React.FC<any> = ({ ...props }) => {
   }, [textFromNotes, props.prevText]);
 
   const save = () => {
-    console.log(String(
-      JSON.stringify(convertToRaw(textFromNotes.getCurrentContent())),
-    ))
+    console.log(
+      String(JSON.stringify(convertToRaw(textFromNotes.getCurrentContent()))),
+    );
     dispatch(
       setLocalDataForNotePrevStateModule({
         contnet: String(
@@ -87,7 +87,7 @@ const Notes: React.FC<any> = ({ ...props }) => {
   };
 
   const discard = () => {
-    console.log('fail ', props.prevText.contnet)
+    console.log('fail ', props.prevText.contnet);
     if (props.prevText.contnet !== undefined) {
       setTextFromNotes(
         EditorState.createWithContent(
@@ -102,9 +102,7 @@ const Notes: React.FC<any> = ({ ...props }) => {
     setTextFromNotes(textState);
     if (props.user !== undefined && props.notes !== undefined) {
       props.setLocalDataForNote({
-        content: JSON.stringify(
-          convertToRaw(textState.getCurrentContent()),
-        ),
+        content: JSON.stringify(convertToRaw(textState.getCurrentContent())),
         module: Number(Object.keys(props.notes)[0]),
         user: props.user.id,
       });

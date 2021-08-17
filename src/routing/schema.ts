@@ -28,6 +28,7 @@ import Task from '@app/view/Task';
 import Checkout from '@app/view/Journey/Checkout';
 import TipsInfo from '@app/view/Account/TipFolder/index';
 import ExpertHelp from '@app/view/Module/MenuSections/ExpertHelp/ExpertHelp';
+import Survey from '@app/view/Survey/index';
 
 // Interfaces
 export interface IRoute {
@@ -69,6 +70,7 @@ export type Pages =
   | 'expert-help'
   | 'note-details'
   | 'tip-list'
+  | 'survey'
   | 'notFound';
 
 class RoutingSchema {
@@ -90,6 +92,12 @@ class RoutingSchema {
       path: '/tip-list',
       isExact: true,
       component: ProtectedRoute(TipsInfo, 'ANONYMOUS_USERS'),
+    },
+    {
+      name: 'survey',
+      path: '/survey/:id',
+      isExact: true,
+      component: ProtectedRoute(Survey, 'ANONYMOUS_USERS'),
     },
     {
       name: 'schedule',
