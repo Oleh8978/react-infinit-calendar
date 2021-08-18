@@ -3,7 +3,6 @@ import { connect, useDispatch } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 
 // components
-import Link from '@app/routing/Link';
 import Loader from '@app/component/Loader';
 
 // Custom components
