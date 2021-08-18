@@ -141,7 +141,7 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
               <>
                 {' '}
                 {props.itemsCount !== undefined &&
-                props.itemsCount.counts === discoveryItems.length ? (
+                props.itemsCount.counts === discoveryItems.length && props.isLoading.status === false ? (
                   <AnswerNotFound />
                 ) : (
                   <Loader isSmall={true} />

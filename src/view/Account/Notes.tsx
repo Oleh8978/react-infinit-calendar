@@ -21,7 +21,7 @@ const Notes: React.FC<any> = ({ ...props }) => {
   const [numberOfNotes, setNumberOfNotes] = useState<number>(0);
   const dispatch = useDispatch();
   useEffect(() => {
-    if (props.countNotes === undefined) {
+    if (!props.countNotes) {
       dispatch(getNotesList.request({}));
     }
 

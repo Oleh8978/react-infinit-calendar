@@ -115,6 +115,7 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
   };
 
   const sendData = () => {
+    console.log('inn')
     if (props.noteData !== undefined) {
       dispatch(
         sendNoteAction.request({

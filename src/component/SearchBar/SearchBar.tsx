@@ -55,7 +55,7 @@ const SearchBar: React.FC<IProps> = ({ smallMenu, ...props }) => {
           </div>
         </>
       ) : (
-        <img src={searchIcon} className="searchbar-btn" alt="img" />
+        <img src={searchIcon} className="searchbar-btn" alt="img" style={{animation: 'unset'}}/>
       )}
     </div>
   );

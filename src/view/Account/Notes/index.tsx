@@ -14,7 +14,7 @@ import NotesList from './List';
 
 // actions
 import { getNotesList } from '@app/controller/notes/actions';
-import { getNoteByID } from '@app/controller/singleNote/actions';
+import { getNoteByID, setLoadingAction } from '@app/controller/singleNote/actions';
 
 // history
 import history from '@app/historyApi';
@@ -79,18 +79,19 @@ const Notes: React.FC<any> = ({ ...props }) => {
     dispatch(getNotesList.request({ ...searchParams, callback }));
   };
 
-  CustomReRenderHook();
+  // CustomReRenderHook();
 
   useEffect(() => {
-    if (props.count === undefined) {
+    if (!props.count && props.singleNoteLoader === false) {
       loadNotesData();
     }
+
     if (
       String(String(location.pathname).search(/\/note-details\/(.*)/g)) === '-1'
     ) {
       dispatch(getNoteByID.success(undefined));
     }
-  }, [props.count]);
+  }, [props.count, props.singleNoteLoader]);
 
   return (
     <Scrollbars
@@ -120,6 +121,7 @@ export default connect(
     storedSearchParams: state.notesListReducer.storedSearchParams,
     count: state.notesListReducer.state.counts,
     user: state.authState.user.id,
+    singleNoteLoader: state.singleNoteReducer.loaderState.status
   }),
-  { getNotesList, getNoteByID },
+  { getNotesList, getNoteByID, setLoadingAction },
 )(Notes);

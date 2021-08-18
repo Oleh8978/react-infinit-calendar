@@ -22,7 +22,6 @@ const JourneyFixedBottom: React.FC<any> = ({ ...props }) => {
     new Date(props.trialEndDate).getTime() - new Date().getTime(),
   );
   const days = Math.round(difference / (1000 * 3600 * 24));
-
   return (
     <>
       {props.isTrialPeriodStarted ? (
@@ -67,7 +66,7 @@ const JourneyFixedBottom: React.FC<any> = ({ ...props }) => {
                 Stop This Journey
               </span>
             </button>
-          ) : props.needToPay ? (
+          ) : !props.needToPay ? (
             <button
               className="jorneydiscoveymain-bottom-pink"
               onClick={() => props.setIsStartPopup(true)}>
