@@ -14,11 +14,8 @@ import uuid from '@app/utils/uuid';
 // types
 import { JourneyGetResponse } from '@ternala/frasier-types';
 import JourneyStatisticTable from '@app/view/Journey/JourneyStatisticTable';
-import parse from 'html-react-parser';
 import { generateContent } from '@app/view/Discovery/Article';
-import sectionsContent from '@app/component/sectionsContent';
 import SectionsContent from '@app/component/sectionsContent';
-import { RouteComponentProps } from 'react-router-dom';
 
 interface IProps {
   journey: JourneyGetResponse;
@@ -56,23 +53,14 @@ const JourneyDescription: React.FC<IProps> = ({
     },
   ];
 
+  const lineWidhtReturner = () => {
+    return `${
+      Math.round(statistic[id]?.statistic.maxTaskCount / 100) *
+      statistic[id]?.statistic.maxTaskCount
+    }%`;
+  };
+
   const dateReturner = () => {
-    // if (statistic[Object.keys(statistic)[0]] !== undefined && statistic[Object.keys(statistic)[0]].endDate ) {
-    //   if (
-    //     statistic[Object.keys(statistic)[0]].modules.length !==
-    //     statistic[Object.keys(statistic)[0]].modules.filter(
-    //       (item) => item.maxSpent !== undefined,
-    //     ).length
-    //   ) {
-    //     const hours: any =
-    //       statistic[Object.keys(statistic)[0]].statistic.spent / 60;
-    //     return (
-    //       <span className="journeyinfo-body-progress-numbers">
-    //         {Number.parseFloat(hours).toFixed(1)} hrs
-    //       </span>
-    //     );
-    //   }
-    // }
     if (
       statistic[Object.keys(statistic)[0]] &&
       statistic[Object.keys(statistic)[0]].statistic.endDate !== undefined
@@ -102,6 +90,18 @@ const JourneyDescription: React.FC<IProps> = ({
           {journey.title}
         </span>
       </div>
+      {isConnected &&
+      statistic[id]?.statistic?.spent !== undefined &&
+      statistic[id]?.statistic?.completedTaskCount !== undefined &&
+      statistic[id]?.statistic.maxTaskCount !== 0 ? (
+        <div className="journeyinfo-body-progressbar">
+          <div
+            className="journeyinfo-body-progressbar-active"
+            style={{ width: lineWidhtReturner() }}></div>
+        </div>
+      ) : (
+        <></>
+      )}
       {isConnected ? (
         <>
           <div className="journeyinfo-body-progress">
@@ -120,11 +120,11 @@ const JourneyDescription: React.FC<IProps> = ({
                     <span className="journeyinfo-body-progress-numbers">
                       &nbsp;/{' '}
                       {Math.round(
-                        (statistic[id]?.statistic.maxDaySpent / 60) * 10,
+                        (statistic[id]?.statistic.maxSpent / 60) * 10,
                       ) / 10}
                     </span>
                   ) : (
-                    <> </>
+                    <></>
                   )}
                   <span className="journeyinfo-body-progress-numbers-text">
                     hrs spent
@@ -135,7 +135,12 @@ const JourneyDescription: React.FC<IProps> = ({
                   <div className="journeyinfo-body-progress-numbers-item">
                     <span className="journeyinfo-body-progress-numbers">
                       {Math.round((statistic[id]?.statistic.spent / 60) * 10) /
-                        10}
+                        10 !==
+                      0
+                        ? Math.round(
+                            (statistic[id]?.statistic.spent / 60) * 10,
+                          ) / 10
+                        : 'N/A'}
                     </span>
                     <span className="journeyinfo-body-progress-numbers-text">
                       hrs spent
@@ -168,7 +173,9 @@ const JourneyDescription: React.FC<IProps> = ({
                 <>
                   <div className="journeyinfo-body-progress-numbers-item">
                     <span className="journeyinfo-body-progress-numbers">
-                      {statistic[id]?.statistic.completedTaskCount}
+                      {statistic[id]?.statistic.completedTaskCount !== 0
+                        ? statistic[id]?.statistic.completedTaskCount
+                        : 'N/A'}
                     </span>
                     <span className="journeyinfo-body-progress-numbers-text">
                       tasks

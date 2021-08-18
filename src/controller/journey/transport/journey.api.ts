@@ -60,7 +60,7 @@ class API {
     accessToken: string,
   ): Promise<JourneyUserConnectDeleteResponse | string> {
     const url = new URL(
-      Config.MAIN_SERVICE_ENDPOINT + `journey/delete/connect/${data.ids}`,
+      Config.MAIN_SERVICE_ENDPOINT + `journey/delete/connect`,
     );
     console.log('data: ', data);
 

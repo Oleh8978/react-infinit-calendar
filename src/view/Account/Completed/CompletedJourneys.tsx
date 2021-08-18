@@ -48,7 +48,7 @@ const CompletedJourneys: React.FC<IProps> = ({ ...props }) => {
     );
     moseMover(elementGenral);
   }, []);
-
+  // console.log('props.listData ', props.listData)
   return (
     <div className={'profile-myjourneys-completed'}>
       {props.listData && props.listData.length !== 0 && (

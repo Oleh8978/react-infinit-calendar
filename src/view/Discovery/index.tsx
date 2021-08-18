@@ -11,7 +11,10 @@ import SearchBar from '@app/component/SearchBar/SearchBar';
 import Loader from '@app/component/Loader';
 
 // actions
-import { getDiscoveryList } from '@app/controller/Discovery/actions';
+import {
+  getDiscoveryList,
+  setLoadingAction,
+} from '@app/controller/Discovery/actions';
 import { getArticlesCategoriesAction } from '@app/controller/articleCategory/actions';
 
 // interfaces
@@ -50,9 +53,10 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       getClientHeight() + getScrollTop() >= getScrollHeight() - 1 &&
       props.itemsCount &&
       props.itemsCount.counts !== 0 &&
-      discovery !== undefined &&
-      props.itemsCount !== discovery.length
+      props.discoveryList.items !== undefined &&
+      props.itemsCount.counts !== props.discoveryList.items.length
     ) {
+      console.log('innn', props.discoveryList.items, props.itemsCount);
       loadDiscoveries('more', searchQuery);
       setISmoreStated('more');
 
@@ -229,11 +233,26 @@ const Discovery: React.FC<any> = ({ ...props }) => {
     if (
       ids.filter((elem) => elem === id).length === 0 &&
       element !== 'Journey'
-      // articleCategories
-      //   .filter((elem: any) => elem.id === id)[0]
-      //   .title.toLowerCase() !== 'journeys'
     ) {
       setIds([id]);
+      dispatch(
+        props.successDiscoveryList({
+          response: {
+            items: [],
+            counts: 0,
+          },
+          searchParams: {
+            limit: '',
+            offset: '',
+            query: '',
+            sortType: '',
+            type: '',
+            categories: '',
+            ids: '',
+          },
+        }),
+      );
+      dispatch(props.setLoadingAction({ status: true }));
       dispatch(
         props.getDiscoveryList({
           limit: 10,
@@ -245,15 +264,28 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       );
       setDiscovery(undefined);
       setIsJourneyClicked(false);
-    } else if (
-      // articleCategories
-      //   .filter((elem: any) => elem.id === id)[0]
-      //   .title.toLowerCase() === 'journeys' &&
-      element === 'Journey' &&
-      isJourneyClicked === false
-    ) {
+    } else if (element === 'Journey' && isJourneyClicked === false) {
       setIds([]);
       setIsJourneyClicked(true);
+      setDiscovery(undefined);
+      dispatch(props.setLoadingAction({ status: true }));
+      dispatch(
+        props.successDiscoveryList({
+          response: {
+            items: [],
+            counts: 0,
+          },
+          searchParams: {
+            limit: '',
+            offset: '',
+            query: '',
+            sortType: '',
+            type: '',
+            categories: '',
+            ids: '',
+          },
+        }),
+      );
       dispatch(
         props.getDiscoveryList({
           limit: 10,
@@ -262,16 +294,27 @@ const Discovery: React.FC<any> = ({ ...props }) => {
           type: discoveryEntityTypeEnum.journey,
         }),
       );
-      setDiscovery(undefined);
-    } else if (
-      // articleCategories
-      //   .filter((elem: any) => elem.id === id)[0]
-      //   .title.toLowerCase() === 'journeys' &&
-      element === 'Journey' &&
-      isJourneyClicked === true
-    ) {
+    } else if (element === 'Journey' && isJourneyClicked === true) {
+      dispatch(props.setLoadingAction({ status: true }));
       setIds([]);
       setIsJourneyClicked(false);
+      dispatch(
+        props.successDiscoveryList({
+          response: {
+            items: [],
+            counts: 0,
+          },
+          searchParams: {
+            limit: '',
+            offset: '',
+            query: '',
+            sortType: '',
+            type: '',
+            categories: '',
+            ids: '',
+          },
+        }),
+      );
       dispatch(
         props.getDiscoveryList({
           limit: 10,
@@ -282,6 +325,24 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       setDiscovery(undefined);
     } else {
       setIds([]);
+      dispatch(props.setLoadingAction({ status: true }));
+      dispatch(
+        props.successDiscoveryList({
+          response: {
+            items: [],
+            counts: 0,
+          },
+          searchParams: {
+            limit: '',
+            offset: '',
+            query: '',
+            sortType: '',
+            type: '',
+            categories: '',
+            ids: '',
+          },
+        }),
+      );
       setForse(true);
       setIsJourneyClicked(false);
     }
@@ -289,10 +350,28 @@ const Discovery: React.FC<any> = ({ ...props }) => {
 
   const allSetter = () => {
     dispatch(
+      props.successDiscoveryList({
+        response: {
+          items: [],
+          counts: 0,
+        },
+        searchParams: {
+          limit: '',
+          offset: '',
+          query: '',
+          sortType: '',
+          type: '',
+          categories: '',
+          ids: '',
+        },
+      }),
+    );
+    dispatch(
       props.getDiscoveryList({
         limit: 10,
         offset: 0,
         query: searchQuery,
+        type: '',
       }),
     );
     setDiscovery(undefined);
@@ -360,6 +439,8 @@ export default connect(
   }),
   {
     getDiscoveryList: getDiscoveryList.request,
+    successDiscoveryList: getDiscoveryList.success,
     getCategoriesList: getArticlesCategoriesAction.request,
+    setLoadingAction: setLoadingAction,
   },
 )(Discovery);

@@ -26,9 +26,9 @@ export function* sendNoteSaga({
       { ...payload },
       getSavedAccess().accessToken,
     );
-    console.log('response ', resp);
+    // console.log('response ', resp);
     if (resp !== undefined) {
-      yield put(notesListActions.createNewNote.success({ ...resp }));
+      yield put(notesListActions.getNotesList.request({}));
     }
   } catch (error) {
     console.log('SEND NOTE ERROR: ', error);

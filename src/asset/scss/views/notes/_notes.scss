@@ -233,3 +233,11 @@
 .notes-list-item__left-body > .rdw-editor-wrapper > .rdw-editor-main {
   padding: 0px 0px 0px !important;
 }
+
+.rdw-editor-main span {
+  overflow-x: hidden;
+  overflow-y: hidden;
+  white-space: normal;
+  text-overflow: ellipsis;
+  height: 80px;
+}
