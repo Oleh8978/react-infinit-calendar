@@ -16,7 +16,6 @@ interface IProps {
 }
 
 const NotesListItem: React.FC<IProps> = ({ ...props }) => {
-  console.log(' data ', props.data);
   return (
     <Link
       className={'notes-list-item'}
