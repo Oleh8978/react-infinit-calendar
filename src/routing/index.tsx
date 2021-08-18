@@ -35,6 +35,7 @@ import RoutingSchema, { IRoute } from './schema';
 import Login from '@app/view/Login';
 import Menu from '@app/component/Menu';
 import Loader from '@app/component/Loader';
+import NoConnection from '@app/component/noNet/index';
 
 // Render all routes
 const generateRoutes = (routes: IRoute[]) => {
@@ -154,6 +155,10 @@ const Routing: React.FC<Props> = ({
   };
   // console.log('isNeededSecondStep @', isNeededSecondStep)
   // console.log('isNeeededSecondStepValue', isNeeededSecondStepValue, 'authStatus ', authStatus)
+  if (window.navigator.onLine === false) {
+    return <NoConnection />
+  }
+  
   if (
     (!authStatus && isNeeededSecondStepValue) ||
     (!authStatus && !isNeeededSecondStepValue) ||
@@ -189,7 +194,9 @@ const Routing: React.FC<Props> = ({
                 // style={style}
                 className="main"
                 id={'main'}>
-                <Scrollbars
+                  <>
+                  {/* window.navigator.onLine  */}
+                {false? <Scrollbars
                   style={{
                     width: '100%',
                     maxWidth: 639,
@@ -204,7 +211,8 @@ const Routing: React.FC<Props> = ({
                     {Routes}
                     <Redirect to={RoutingSchema.getLink('discovery')} />
                   </Switch>
-                </Scrollbars>
+                </Scrollbars> : <NoConnection />}
+                </>
               </div>
               {/*))}*/}
             </div>
