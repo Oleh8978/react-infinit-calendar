@@ -14,7 +14,10 @@ import NotesList from './List';
 
 // actions
 import { getNotesList } from '@app/controller/notes/actions';
-import { getNoteByID, setLoadingAction } from '@app/controller/singleNote/actions';
+import {
+  getNoteByID,
+  setLoadingAction,
+} from '@app/controller/singleNote/actions';
 
 // history
 import history from '@app/historyApi';
@@ -121,7 +124,7 @@ export default connect(
     storedSearchParams: state.notesListReducer.storedSearchParams,
     count: state.notesListReducer.state.counts,
     user: state.authState.user.id,
-    singleNoteLoader: state.singleNoteReducer.loaderState.status
+    singleNoteLoader: state.singleNoteReducer.loaderState.status,
   }),
   { getNotesList, getNoteByID, setLoadingAction },
 )(Notes);

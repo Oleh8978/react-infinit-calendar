@@ -98,9 +98,7 @@ const Notes: React.FC<any> = ({ ...props }) => {
     setTextFromNotes(textState);
     if (props.user !== undefined && props.notes !== undefined) {
       props.setLocalDataForNote({
-        content: JSON.stringify(
-          convertToRaw(textState.getCurrentContent()),
-        ),
+        content: JSON.stringify(convertToRaw(textState.getCurrentContent())),
         module: Number(Object.keys(props.notes)[0]),
         user: props.user.id,
       });

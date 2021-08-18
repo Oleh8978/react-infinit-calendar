@@ -54,8 +54,11 @@ const JourneyDescription: React.FC<IProps> = ({
   ];
 
   const lineWidhtReturner = () => {
-    return (`${Math.round(statistic[id]?.statistic.maxTaskCount / 100 ) * statistic[id]?.statistic.maxTaskCount}%`)
-  }
+    return `${
+      Math.round(statistic[id]?.statistic.maxTaskCount / 100) *
+      statistic[id]?.statistic.maxTaskCount
+    }%`;
+  };
 
   const dateReturner = () => {
     if (
@@ -87,9 +90,18 @@ const JourneyDescription: React.FC<IProps> = ({
           {journey.title}
         </span>
       </div>
-      {isConnected && statistic[id]?.statistic?.spent !== undefined && statistic[id]?.statistic?.completedTaskCount !== undefined && statistic[id]?.statistic.maxTaskCount !== 0? <div className="journeyinfo-body-progressbar">
-        <div className="journeyinfo-body-progressbar-active" style={{width: lineWidhtReturner()}}></div>
-      </div> : <></>}
+      {isConnected &&
+      statistic[id]?.statistic?.spent !== undefined &&
+      statistic[id]?.statistic?.completedTaskCount !== undefined &&
+      statistic[id]?.statistic.maxTaskCount !== 0 ? (
+        <div className="journeyinfo-body-progressbar">
+          <div
+            className="journeyinfo-body-progressbar-active"
+            style={{ width: lineWidhtReturner() }}></div>
+        </div>
+      ) : (
+        <></>
+      )}
       {isConnected ? (
         <>
           <div className="journeyinfo-body-progress">
@@ -123,8 +135,12 @@ const JourneyDescription: React.FC<IProps> = ({
                   <div className="journeyinfo-body-progress-numbers-item">
                     <span className="journeyinfo-body-progress-numbers">
                       {Math.round((statistic[id]?.statistic.spent / 60) * 10) /
-                        10 !== 0 ? Math.round((statistic[id]?.statistic.spent / 60) * 10) /
-                        10  : 'N/A'}
+                        10 !==
+                      0
+                        ? Math.round(
+                            (statistic[id]?.statistic.spent / 60) * 10,
+                          ) / 10
+                        : 'N/A'}
                     </span>
                     <span className="journeyinfo-body-progress-numbers-text">
                       hrs spent
@@ -157,7 +173,9 @@ const JourneyDescription: React.FC<IProps> = ({
                 <>
                   <div className="journeyinfo-body-progress-numbers-item">
                     <span className="journeyinfo-body-progress-numbers">
-                      {statistic[id]?.statistic.completedTaskCount !== 0 ? statistic[id]?.statistic.completedTaskCount : 'N/A'}
+                      {statistic[id]?.statistic.completedTaskCount !== 0
+                        ? statistic[id]?.statistic.completedTaskCount
+                        : 'N/A'}
                     </span>
                     <span className="journeyinfo-body-progress-numbers-text">
                       tasks
