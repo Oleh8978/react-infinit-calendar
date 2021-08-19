@@ -196,7 +196,7 @@ const Routing: React.FC<Props> = ({
                 id={'main'}>
                   <>
                   {/* window.navigator.onLine  */}
-                {false? <Scrollbars
+                {window.navigator.onLine ? <Scrollbars
                   style={{
                     width: '100%',
                     maxWidth: 639,

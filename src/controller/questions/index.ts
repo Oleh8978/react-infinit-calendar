@@ -16,7 +16,6 @@ export type SurveysActionType = ActionType<typeof actions>;
 
 /* Reducer */
 const initialState: ISurveyState = {
-  title: undefined,
   surveys: {
     items: [],
     counts: undefined,

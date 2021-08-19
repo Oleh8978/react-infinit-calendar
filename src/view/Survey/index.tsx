@@ -9,6 +9,7 @@ import {
   submitAnswerRequest,
   setLoadingAction,
 } from '@app/controller/questions/actions';
+import { getSurveyTitle } from '@app/controller/surveyTitle/actions';
 
 // components
 import NavigationBar from '@app/component/NavigationBar';
@@ -76,6 +77,7 @@ const Survey: React.FC<IProps> = ({ ...props }) => {
   useEffect(() => {
     if (!props.counts) {
       loadSurveys();
+      dispatch(getSurveyTitle.request(props.match.params.id))
     }
 
     if (props.questions !== undefined) {
@@ -152,12 +154,12 @@ const Survey: React.FC<IProps> = ({ ...props }) => {
       );
     }
   };
-
+  console.log('title ', props.title)
   return (
     <>
       {props.counts !== undefined ? (
         <div className="survey-main">
-          <NavigationBar rout={'account'} name={''} hasSaveButton={false} />
+          {props.title ? <NavigationBar rout={'account'} name={props.title} hasSaveButton={false} /> : <></>}
           <Scrollbars
             style={{
               width: '100%',
@@ -235,14 +237,15 @@ const Survey: React.FC<IProps> = ({ ...props }) => {
 
 export default connect(
   (state: IStore) => ({
-    title: state.surveyListReducer.title,
     loader: state.surveyListReducer.loaderState.status,
     questions: state.surveyListReducer.surveys.items,
     storedSearchParams: state.surveyListReducer.storedSearchParams,
     counts: state.surveyListReducer.surveys.counts,
+    title: state.surveyTitleReducer.surveyInfo.title
   }),
   {
     getSurveysRequest,
     submitAnswerRequest,
+    getSurveyTitle
   },
 )(Survey);

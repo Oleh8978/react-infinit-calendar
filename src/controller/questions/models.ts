@@ -21,7 +21,6 @@ export interface IGetListRequest {
 }
 
 export interface ISurveyState {
-  title: string;
   surveys: QuestionGetListResponse;
   storedSearchParams: ISurveySearchParams;
   loaderState: ISetLoadingAction;
