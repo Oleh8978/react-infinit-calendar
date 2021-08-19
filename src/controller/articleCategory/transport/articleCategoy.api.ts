@@ -14,6 +14,7 @@ class API {
     discoverySearchParams: IArticleListSearchParanms,
     accessToken: string,
   ): Promise<AuthUserLoginByTokenResponseDTO | string> {
+    // &sortField=orderNumber
     let url = new URL(Config.MAIN_SERVICE_ENDPOINT + 'article-category/list');
 
     url = appendSearchParams(url, discoverySearchParams);

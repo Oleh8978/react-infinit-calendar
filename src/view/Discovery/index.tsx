@@ -20,7 +20,8 @@ import { getArticlesCategoriesAction } from '@app/controller/articleCategory/act
 // interfaces
 import { IStore } from '@app/controller/model';
 import { ArticleDTO, DiscoveryDTO } from '@ternala/frasier-types';
-import { DiscoveryGetListRequest } from '@ternala/frasier-types';
+import { DiscoveryGetListRequest , ArticleCategoryGetListRequest} from '@ternala/frasier-types';
+import { articleCategorySortFieldEnum } from '@ternala/frasier-types/lib/constants/sortFields';
 
 // constants
 import { discoveryEntityTypeEnum } from '@ternala/frasier-types/lib/constants/main';
@@ -205,9 +206,11 @@ const Discovery: React.FC<any> = ({ ...props }) => {
   };
 
   const loadDiscovloadArticleCategoeries = (callback?: any) => {
-    const searchParams: DiscoveryGetListRequest = {
+    const searchParams: ArticleCategoryGetListRequest = {
       limit: 100,
       offset: 0,
+      onlyWithArticle: true,
+      sortField: articleCategorySortFieldEnum.orderNumber,
       query: searchQuery,
     };
 
@@ -378,7 +381,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
     setIds([]);
     setForse(true);
   };
-
+  // console.log('articleCategories ', articleCategories)
   return (
     <Scrollbars
       style={{

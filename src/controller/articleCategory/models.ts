@@ -6,6 +6,7 @@ import {
 
 import { createdAtSortFieldEnum } from '@ternala/frasier-types/lib/constants/sortFields';
 import { discoveryEntityTypeEnum } from '@ternala/frasier-types/lib/constants/main';
+import { moduleSortFieldEnum } from '@ternala/frasier-types/lib/constants/sortFields';
 
 export interface IAcrticleCategoryState {
   articleCategoriesObject: ArticleGetListResponse;
@@ -30,6 +31,7 @@ export interface IArticleListSearchParanms {
   sortType?: string;
   type?: string;
   categories?: string[] | string;
+  onlyWithArticle?: boolean;
   sortField?: createdAtSortFieldEnum;
   ids?: string[] | string;
 }
