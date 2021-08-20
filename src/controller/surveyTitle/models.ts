@@ -1,4 +1,3 @@
-
 export interface ISurveyTitle {
   title: string;
 }
@@ -9,5 +8,5 @@ export interface ISurveyTitleState {
 }
 
 export interface ISetLoadingAction {
-    status: boolean;
+  status: boolean;
 }

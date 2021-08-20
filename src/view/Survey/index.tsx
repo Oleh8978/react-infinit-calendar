@@ -77,7 +77,7 @@ const Survey: React.FC<IProps> = ({ ...props }) => {
   useEffect(() => {
     if (!props.counts) {
       loadSurveys();
-      dispatch(getSurveyTitle.request(props.match.params.id))
+      dispatch(getSurveyTitle.request(props.match.params.id));
     }
 
     if (props.questions !== undefined) {
@@ -154,12 +154,20 @@ const Survey: React.FC<IProps> = ({ ...props }) => {
       );
     }
   };
-  console.log('title ', props.title)
+  console.log('title ', props.title);
   return (
     <>
       {props.counts !== undefined ? (
         <div className="survey-main">
-          {props.title ? <NavigationBar rout={'account'} name={props.title} hasSaveButton={false} /> : <></>}
+          {props.title ? (
+            <NavigationBar
+              rout={'account'}
+              name={props.title}
+              hasSaveButton={false}
+            />
+          ) : (
+            <></>
+          )}
           <Scrollbars
             style={{
               width: '100%',
@@ -241,11 +249,11 @@ export default connect(
     questions: state.surveyListReducer.surveys.items,
     storedSearchParams: state.surveyListReducer.storedSearchParams,
     counts: state.surveyListReducer.surveys.counts,
-    title: state.surveyTitleReducer.surveyInfo.title
+    title: state.surveyTitleReducer.surveyInfo.title,
   }),
   {
     getSurveysRequest,
     submitAnswerRequest,
-    getSurveyTitle
+    getSurveyTitle,
   },
 )(Survey);
