@@ -17,6 +17,10 @@ import Tips from './Tips';
 // Actions
 import { getStatisticList } from '@app/controller/statisticList/actions';
 import { getStatisticToday } from '@app/controller/statistic/actions';
+import {
+  getTipsListRequest,
+  setReadedItems,
+} from '@app/controller/Tips/actions';
 
 import { IStore } from '@app/controller/model';
 
@@ -41,6 +45,18 @@ const Account: React.FC<any> = ({ ...props }) => {
     if (props.statisticToday.today === undefined) {
       dispatch(getStatisticToday.request({}));
     }
+
+    dispatch(
+      getTipsListRequest.success({
+        searchParams: null,
+        response: {
+          counts: undefined,
+          items: [],
+          countNew: undefined,
+        }
+      }),
+    );
+
   }, [props.statisticToday.today, props.listStatistic]);
   const bodySetter = () => {
     if (
@@ -94,6 +110,8 @@ export default connect(
     loader: state.tipsListReducer.loaderState.status,
     // notes
     countNotes: state.notesListReducer.state.counts,
+    //user id
+    userID: state.authState.user.id,
   }),
-  { getStatisticList, getStatisticToday },
+  { getStatisticList, getStatisticToday, getTipsListRequest, },
 )(Account);

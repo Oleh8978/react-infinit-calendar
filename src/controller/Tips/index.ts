@@ -21,13 +21,7 @@ const initialState: ITipsState = {
     items: [],
     newItemsCount: undefined,
   },
-  storedSearchParams: {
-    limit: '',
-    offset: '',
-    query: '',
-    sortType: '',
-    ids: '',
-  },
+  storedSearchParams: null,
   loaderState: {
     status: false,
     isAnyErrors: false,
@@ -59,7 +53,7 @@ export const tipsListReducer = createReducer<ITipsState, TipsListActionType>(
 
         payload.response.items.map((item) => {
           if (
-            state.tips.items.find((elem) => elem.id !== item.id) === undefined
+            state.tips.items.find((elem) => elem.id === item.id) === undefined
           ) {
             payloadResponseArray.push(item);
           }

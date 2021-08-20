@@ -68,7 +68,7 @@ const TipsInfo: React.FC<any> = ({ ...props }) => {
       dispatch(
         getTipsListRequest.request({
           searchParams: {
-            limit: 1000,
+            limit: 20,
             offset: 0,
           },
           userId: `${props.userID}`,
@@ -85,14 +85,16 @@ const TipsInfo: React.FC<any> = ({ ...props }) => {
             return elem.id;
           }),
       );
-      dispatch(
-        setReadedItems.request({
-          accessToken: getSavedAccess().accessToken,
-          readedIds: unreadedItems,
-        }),
-      );
+      if (unreadedItems.length !== 0) {
+        dispatch(
+          setReadedItems.request({
+            accessToken: getSavedAccess().accessToken,
+            readedIds: unreadedItems,
+          }),
+        );
+      }
     }
-  }, [props.counts]);
+  }, [props.counts, unreadedItems.length]);
   // console.log('unreadedItems ', unreadedItems);
   console.log('props.items', props.items);
   // console.log('props.userID ', props.userID);
