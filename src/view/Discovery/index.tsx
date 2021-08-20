@@ -20,7 +20,10 @@ import { getArticlesCategoriesAction } from '@app/controller/articleCategory/act
 // interfaces
 import { IStore } from '@app/controller/model';
 import { ArticleDTO, DiscoveryDTO } from '@ternala/frasier-types';
-import { DiscoveryGetListRequest , ArticleCategoryGetListRequest} from '@ternala/frasier-types';
+import {
+  DiscoveryGetListRequest,
+  ArticleCategoryGetListRequest,
+} from '@ternala/frasier-types';
 import { articleCategorySortFieldEnum } from '@ternala/frasier-types/lib/constants/sortFields';
 
 // constants

@@ -156,9 +156,9 @@ const Routing: React.FC<Props> = ({
   // console.log('isNeededSecondStep @', isNeededSecondStep)
   // console.log('isNeeededSecondStepValue', isNeeededSecondStepValue, 'authStatus ', authStatus)
   if (window.navigator.onLine === false) {
-    return <NoConnection />
+    return <NoConnection />;
   }
-  
+
   if (
     (!authStatus && isNeeededSecondStepValue) ||
     (!authStatus && !isNeeededSecondStepValue) ||
@@ -194,24 +194,28 @@ const Routing: React.FC<Props> = ({
                 // style={style}
                 className="main"
                 id={'main'}>
-                  <>
+                <>
                   {/* window.navigator.onLine  */}
-                {window.navigator.onLine ? <Scrollbars
-                  style={{
-                    width: '100%',
-                    maxWidth: 639,
-                    height: '100%',
-                    maxHeight: '100%',
-                    display: 'flex',
-                  }}
-                  renderView={(props) => (
-                    <div {...props} className={'main-wrapper'} />
-                  )}>
-                  <Switch>
-                    {Routes}
-                    <Redirect to={RoutingSchema.getLink('discovery')} />
-                  </Switch>
-                </Scrollbars> : <NoConnection />}
+                  {window.navigator.onLine ? (
+                    <Scrollbars
+                      style={{
+                        width: '100%',
+                        maxWidth: 639,
+                        height: '100%',
+                        maxHeight: '100%',
+                        display: 'flex',
+                      }}
+                      renderView={(props) => (
+                        <div {...props} className={'main-wrapper'} />
+                      )}>
+                      <Switch>
+                        {Routes}
+                        <Redirect to={RoutingSchema.getLink('discovery')} />
+                      </Switch>
+                    </Scrollbars>
+                  ) : (
+                    <NoConnection />
+                  )}
                 </>
               </div>
               {/*))}*/}

@@ -3,9 +3,7 @@ import { createAction, createAsyncAction } from 'typesafe-actions';
 import { appName } from '@app/config/index';
 
 // interfaces
-import {
-  ISetLoadingAction
-} from './models';
+import { ISetLoadingAction } from './models';
 
 // const for ath actions
 export const widgetName = 'SURVEYTITLE';

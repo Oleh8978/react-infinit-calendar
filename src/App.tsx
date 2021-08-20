@@ -51,7 +51,7 @@ export const App: React.FC = () => {
 
   return (
     <>
-      {splash && !localStorage.getItem('authorization')? (
+      {splash && !localStorage.getItem('authorization') ? (
         <SplashScreen />
       ) : (
         <Switch>

@@ -16,17 +16,18 @@ export type SurveysActionType = ActionType<typeof actions>;
 
 /* Reducer */
 const initialState: ISurveyTitleState = {
-    surveyInfo: {
-        title: undefined
-    },
-    loader: {
-        status: true,
-    }
+  surveyInfo: {
+    title: undefined,
+  },
+  loader: {
+    status: true,
+  },
 };
 
-export const surveyTitleReducer = createReducer<ISurveyTitleState, SurveysActionType>(
-  initialState,
-)
+export const surveyTitleReducer = createReducer<
+  ISurveyTitleState,
+  SurveysActionType
+>(initialState)
   .handleAction(actions.setLoadingAction, (store, { payload }) => ({
     ...store,
     loaderState: {
@@ -36,11 +37,11 @@ export const surveyTitleReducer = createReducer<ISurveyTitleState, SurveysAction
   .handleAction(
     [actions.getSurveyTitle.success],
     (state: ISurveyTitleState, { payload }): ISurveyTitleState => ({
-        surveyInfo: {
-            title: payload
-        },
-        loader: {
-            status: false,
-        }
-    })
-  )
+      surveyInfo: {
+        title: payload,
+      },
+      loader: {
+        status: false,
+      },
+    }),
+  );

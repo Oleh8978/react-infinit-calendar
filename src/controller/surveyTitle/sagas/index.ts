@@ -15,9 +15,7 @@ export function* getSurveyTitleSaga({
     }),
   );
   try {
-    const res = yield getSurveyInfoAPI.getSurveyTitle(
-      payload
-    );
+    const res = yield getSurveyInfoAPI.getSurveyTitle(payload);
     if (!res && res.code) {
       yield put(
         actions.setLoadingAction({
@@ -30,23 +28,18 @@ export function* getSurveyTitleSaga({
           status: false,
         }),
       );
-      yield put(
-        actions.getSurveyTitle.success(res.title
-        ),
-      );
+      yield put(actions.getSurveyTitle.success(res.title));
     }
   } catch (error) {
     console.log('ERORR SURVEYS', error);
     yield put(
-        actions.setLoadingAction({
-          status: false,
-        }),
-      );
+      actions.setLoadingAction({
+        status: false,
+      }),
+    );
   }
 }
 
 export function* surveyTitleSaga() {
-  yield all([
-    takeEvery(actions.getSurveyTitle.request, getSurveyTitleSaga),
-  ]);
+  yield all([takeEvery(actions.getSurveyTitle.request, getSurveyTitleSaga)]);
 }
