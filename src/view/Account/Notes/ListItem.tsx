@@ -53,7 +53,7 @@ const NotesListItem: React.FC<IProps> = ({ ...props }) => {
       </div>
       <div className={'notes-list-item__right'}>
         <span className={'notes-list-item__right-text'}>
-          {moment(new Date(props.data.createdAt)).format('MM/DD/YYYY')}
+          {moment(new Date(props.data.updatedAt)).format('MM/DD/YYYY')}
         </span>
       </div>
     </Link>

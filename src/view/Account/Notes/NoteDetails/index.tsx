@@ -91,7 +91,7 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
     }
     if (props.note !== undefined && props.note.id !== undefined) {
       setNoteData(props.note);
-      setDate(moment(new Date(props.note.createdAt)).format('MM/DD/YYYY'));
+      setDate(moment(new Date(props.note.updatedAt)).format('MM/DD/YYYY'));
       setText(
         EditorState.createWithContent(
           convertFromRaw(JSON.parse(props.note.content)),
@@ -103,7 +103,7 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
         }),
       );
     }
-  }, [props.note.id]);
+  }, [props.note.id, props.note.updatedAt]);
 
   const onEditorStateChange = (textState) => {
     setText(textState);
