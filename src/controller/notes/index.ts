@@ -121,7 +121,7 @@ export const GetNotesListReducer = createReducer<INotesState, NotesActionType>(
       return {
         ...state,
         state: {
-          counts: iNotesState.counts,
+          counts: iNotesState.counts ? iNotesState.counts : 0,
           items: newState,
         },
         storedSearchParams: state.storedSearchParams,
@@ -142,7 +142,7 @@ export const GetNotesListReducer = createReducer<INotesState, NotesActionType>(
       return {
         ...state,
         state: {
-          counts: newData.length,
+          counts: newData ? newData.length : 0,
           items: newData,
         },
         storedSearchParams: state.storedSearchParams,
