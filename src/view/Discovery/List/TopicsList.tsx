@@ -66,7 +66,6 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
                           <ImageL
                             className={'discovery-list-item-img__half'}
                             src={item.article.image}
-                            isNeededLoader={true}
                           />
                           <span className="card-text-wrapper-link">
                             <span>
@@ -96,7 +95,6 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
                           <ImageL
                             className={'discovery-list-item-img__fullarticle'}
                             src={item.article.image}
-                            isNeededLoader={true}
                           />
                         </Link>
                       );
@@ -116,7 +114,6 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
                             <ImageL
                               className={'discovery-list-item-img'}
                               src={item.journey.image}
-                              isNeededLoader={true}
                             />
                           </div>
 
@@ -141,7 +138,8 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
               <>
                 {' '}
                 {props.itemsCount !== undefined &&
-                props.itemsCount.counts === discoveryItems.length ? (
+                props.itemsCount.counts === discoveryItems.length &&
+                props.isLoading.status === false ? (
                   <AnswerNotFound />
                 ) : (
                   <Loader isSmall={true} />

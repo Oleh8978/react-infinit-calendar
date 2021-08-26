@@ -35,6 +35,7 @@ import RoutingSchema, { IRoute } from './schema';
 import Login from '@app/view/Login';
 import Menu from '@app/component/Menu';
 import Loader from '@app/component/Loader';
+import NoConnection from '@app/component/noNet/index';
 
 // Render all routes
 const generateRoutes = (routes: IRoute[]) => {
@@ -119,7 +120,7 @@ const Routing: React.FC<Props> = ({
     if (props.isSecondStepPassed === true) {
       setPageOpened();
     }
-    console.log('user data for test ', user)
+    console.log('user data for test ', user);
   }, [props.isSecondStepPassed, user, props.userData, isNeededSecondStep]);
 
   // useEffect(() => {
@@ -154,6 +155,10 @@ const Routing: React.FC<Props> = ({
   };
   // console.log('isNeededSecondStep @', isNeededSecondStep)
   // console.log('isNeeededSecondStepValue', isNeeededSecondStepValue, 'authStatus ', authStatus)
+  if (window.navigator.onLine === false) {
+    return <NoConnection />;
+  }
+
   if (
     (!authStatus && isNeeededSecondStepValue) ||
     (!authStatus && !isNeeededSecondStepValue) ||
@@ -189,22 +194,29 @@ const Routing: React.FC<Props> = ({
                 // style={style}
                 className="main"
                 id={'main'}>
-                <Scrollbars
-                  style={{
-                    width: '100%',
-                    maxWidth: 639,
-                    height: '100%',
-                    maxHeight: '100%',
-                    display: 'flex',
-                  }}
-                  renderView={(props) => (
-                    <div {...props} className={'main-wrapper'} />
-                  )}>
-                  <Switch>
-                    {Routes}
-                    <Redirect to={RoutingSchema.getLink('discovery')} />
-                  </Switch>
-                </Scrollbars>
+                <>
+                  {/* window.navigator.onLine  */}
+                  {window.navigator.onLine ? (
+                    <Scrollbars
+                      style={{
+                        width: '100%',
+                        maxWidth: 639,
+                        height: '100%',
+                        maxHeight: '100%',
+                        display: 'flex',
+                      }}
+                      renderView={(props) => (
+                        <div {...props} className={'main-wrapper'} />
+                      )}>
+                      <Switch>
+                        {Routes}
+                        <Redirect to={RoutingSchema.getLink('discovery')} />
+                      </Switch>
+                    </Scrollbars>
+                  ) : (
+                    <NoConnection />
+                  )}
+                </>
               </div>
               {/*))}*/}
             </div>

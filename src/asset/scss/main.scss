@@ -25,6 +25,7 @@
 @import "views/login/login";
 @import "views/addYourData/addYourData";
 @import "views/jorney/checkout";
+@import 'views/survey/survey';
 
 /* components */
 @import "components/menu";
@@ -41,6 +42,7 @@
 @import "components/text-typography";
 @import "components/errorPlate";
 @import "components/pwa";
+@import "components/noconnection";
 
 /* UI components */
 @import "components/buttons";

@@ -21,8 +21,8 @@ const JourneyFixedBottom: React.FC<any> = ({ ...props }) => {
   const difference = Math.abs(
     new Date(props.trialEndDate).getTime() - new Date().getTime(),
   );
+  console.log('props ', props);
   const days = Math.round(difference / (1000 * 3600 * 24));
-
   return (
     <>
       {props.isTrialPeriodStarted ? (
@@ -76,13 +76,25 @@ const JourneyFixedBottom: React.FC<any> = ({ ...props }) => {
               </span>
             </button>
           ) : (
-            <button
-              className="jorneydiscoveymain-bottom-pink"
-              onClick={() => props.setStartConnection(true)}>
-              <span className="jorneydiscoveymain-bottom-pink-text">
-                Start This Journey
-              </span>
-            </button>
+            <>
+              {!props.hasTrialPeriod ? (
+                <button
+                  className="jorneydiscoveymain-bottom-pink"
+                  onClick={() => props.setStartConnection(true)}>
+                  <span className="jorneydiscoveymain-bottom-pink-text">
+                    Start This Journey
+                  </span>
+                </button>
+              ) : (
+                <button
+                  className="jorneydiscoveymain-bottom-pink"
+                  onClick={() => props.setIsStartPopup(true)}>
+                  <span className="jorneydiscoveymain-bottom-pink-text">
+                    Start {props.trialPeriod}-Day Trial Version
+                  </span>
+                </button>
+              )}
+            </>
           )
         ) : (
           <></>

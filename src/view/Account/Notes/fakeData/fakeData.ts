@@ -21,4 +21,4 @@ export const data = [
   },
 ];
 
-export const datdDraft = `{'blocks':[{'key':'4dl86','text':'','type':'unstyled','depth':0,'inlineStyleRanges':[],'entityRanges':[],'data':{}}],'entityMap':{}}`;
+export const datdDraft = `{"blocks":[{"key":"4dl86","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}`;

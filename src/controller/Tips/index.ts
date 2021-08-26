@@ -21,13 +21,7 @@ const initialState: ITipsState = {
     items: [],
     newItemsCount: undefined,
   },
-  storedSearchParams: {
-    limit: '',
-    offset: '',
-    query: '',
-    sortType: '',
-    ids: '',
-  },
+  storedSearchParams: null,
   loaderState: {
     status: false,
     isAnyErrors: false,
@@ -58,46 +52,13 @@ export const tipsListReducer = createReducer<ITipsState, TipsListActionType>(
         const payloadResponseArray = [];
 
         payload.response.items.map((item) => {
-          if (state.tips.items.filter((elem) => elem.id !== item.id)) {
+          if (
+            state.tips.items.find((elem) => elem.id === item.id) === undefined
+          ) {
             payloadResponseArray.push(item);
           }
         });
-        //     const journeyState = state.discoveryList.items.filter(
-        //       (item) =>
-        //         Object.keys(item).filter((key) => key === 'journey').length !== 0,
-        //     );
-        //     const journeyPayloadState = payload.response.items.filter(
-        //       (item) =>
-        //         Object.keys(item).filter((key) => key === 'journey').length !== 0,
-        //     );
-        //     const articleState = state.discoveryList.items.filter(
-        //       (articleObject) =>
-        //         Object.keys(articleObject).filter((key) => key === 'article')
-        //           .length !== 0,
-        //     );
-        //     const articlePayload = payload.response.items.filter(
-        //       (articlepayloadObject) =>
-        //         Object.keys(articlepayloadObject).filter((key) => key === 'article')
-        //           .length !== 0,
-        //     );
-        //     journeyPayloadState.map((item) => {
-        //       if (
-        //         journeyState.find(
-        //           (element) => element.journey.id === item.journey.id,
-        //         ) === undefined
-        //       ) {
-        //         payloadResponseArray.push(item);
-        //       }
-        //     });
-        //     articlePayload.map((item) => {
-        //       if (
-        //         articleState.find(
-        //           (element) => element.article.id === item.article.id,
-        //         ) === undefined
-        //       ) {
-        //         payloadResponseArray.push(item);
-        //       }
-        //     });
+
         tipsList = concatWithUnique<TipSendDTO>(
           state.tips.items || [],
           payloadResponseArray,
@@ -108,6 +69,7 @@ export const tipsListReducer = createReducer<ITipsState, TipsListActionType>(
           payload.response.items.map((item) => item),
         );
       }
+
       return {
         ...state,
         storedSearchParams: searchParams,

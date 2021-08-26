@@ -1,13 +1,13 @@
 {
   "name": "frasier-web",
-  "version": "0.1.38",
+  "version": "0.1.49",
   "private": true,
   "dependencies": {
     "@craco/craco": "^6.2.0",
     "@fingerprintjs/fingerprintjs": "^3.0.0",
     "@material-ui/core": "4.4.2",
     "@material-ui/pickers": "^3.3.10",
-    "@ternala/frasier-types": "0.0.452",
+    "@ternala/frasier-types": "0.0.463",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -57,7 +57,19 @@
     "swiper": "^6.7.0",
     "typesafe-actions": "^5.1.0",
     "typescript": "4.1.2",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "workbox-background-sync": "^5.1.3",
+    "workbox-broadcast-update": "^5.1.3",
+    "workbox-cacheable-response": "^5.1.3",
+    "workbox-core": "^5.1.3",
+    "workbox-expiration": "^5.1.3",
+    "workbox-google-analytics": "^5.1.3",
+    "workbox-navigation-preload": "^5.1.3",
+    "workbox-precaching": "^5.1.3",
+    "workbox-range-requests": "^5.1.3",
+    "workbox-routing": "^5.1.3",
+    "workbox-strategies": "^5.1.3",
+    "workbox-streams": "^5.1.3"
   },
   "scripts": {
     "start": "craco start",

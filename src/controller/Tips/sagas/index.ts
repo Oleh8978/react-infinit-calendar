@@ -49,7 +49,7 @@ export function* getTipListSagas({
       );
     }
   } catch (error) {
-    console.log('ERORR DISCOVERY', error);
+    console.log('ERORR TIPS', error);
     yield put(
       actions.getTipsListRequest.failure({
         status: false,
@@ -93,7 +93,7 @@ export function* postReadedItemsSaga({
       );
     }
   } catch (error) {
-    console.log('ERORR DISCOVERY', error);
+    console.log('ERORR TIPS', error);
     yield put(
       actions.getTipsListRequest.failure({
         status: false,

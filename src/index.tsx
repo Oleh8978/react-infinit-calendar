@@ -4,6 +4,9 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import 'swiper/swiper.scss';
 
+//serviceWorker
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+
 // StartJS
 import { startJs } from './startJS';
 
@@ -23,7 +26,7 @@ import store from '@app/controller/store';
 import history from './historyApi';
 
 // Root view
-import Routing from '@app/routing';
+import RoutingSchema from './routing/schema';
 import App from './App';
 
 Config.init({
@@ -31,18 +34,6 @@ Config.init({
   AUTH_SERVICE_HOST: process.env.REACT_APP_AUTH_SERVICE_HOST || '',
   WS_API_HOST: process.env.REACT_APP_WS_API_HOST || '',
 });
-
-if ('serviceWorker' in navigator) {
-  console.log(' service worker inn ');
-  navigator.serviceWorker
-    .register('../firebase-messaging-sw.js')
-    .then(function (registration) {
-      console.log('Registration successful, scope is:', registration.scope);
-    })
-    .catch(function (err) {
-      console.log('Service worker registration failed, error:', err);
-    });
-}
 
 ReactDOM.render(
   <Provider store={store}>
@@ -56,6 +47,8 @@ ReactDOM.render(
 );
 
 startJs();
+
+serviceWorkerRegistration.register();
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

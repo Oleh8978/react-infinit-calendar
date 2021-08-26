@@ -17,22 +17,22 @@ import SplashScreen from '@app/pwa/SplashScreen';
 // }
 
 export const App: React.FC = () => {
-  const [spash, setSplash] = useState<boolean>(false);
+  const [splash, setSplash] = useState<boolean>(true);
   const [locationKeys, setLocationKeys] = useState([]);
   const history = useHistory();
 
   useEffect(() => {
     setTimeout(() => {
-      setSplash(true);
+      setSplash(false);
     }, 4000);
-  }, [spash]);
+  }, [splash]);
 
   useEffect(() => {
     return history.listen((location) => {
       if (history.action === 'PUSH') {
         setLocationKeys([location.key]);
         if (history.location.pathname === '/module') {
-          history.push('/schedule')
+          history.push('/schedule');
         }
       }
 
@@ -42,7 +42,7 @@ export const App: React.FC = () => {
         } else {
           setLocationKeys((keys) => [location.key, ...keys]);
           if (history.location.pathname === '/module') {
-            history.push('/schedule')
+            history.push('/schedule');
           }
         }
       }
@@ -51,7 +51,7 @@ export const App: React.FC = () => {
 
   return (
     <>
-      {spash === false && localStorage.getItem('authorization') === undefined ? (
+      {splash && !localStorage.getItem('authorization') ? (
         <SplashScreen />
       ) : (
         <Switch>

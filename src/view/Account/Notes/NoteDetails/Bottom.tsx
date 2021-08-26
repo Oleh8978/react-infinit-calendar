@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react';
 // components
 import LInk from '@app/routing/Link';
 
+// history
+import history from '@app/historyApi';
+
 interface IProps {
   title: string;
   subtitle: string;
@@ -20,9 +23,13 @@ const BottomComponent: React.FC<IProps> = ({ ...props }) => {
           {props.subtitle}
         </span>
       </div>
-      <LInk className="notes-details-wrapper-bottom-item-link" to={'module'}>
+      <div
+        className="notes-details-wrapper-bottom-item-link"
+        onClick={() => {
+          history.push(`/module/${props.moduleId}/task`);
+        }}>
         Open module
-      </LInk>
+      </div>
     </div>
   );
 };

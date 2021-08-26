@@ -5,6 +5,9 @@ import { connect, useDispatch } from 'react-redux';
 import Link from '@app/routing/Link';
 import Pen from './CustomButtons/Pen';
 
+// history
+import history from '@app/historyApi';
+
 // types
 import { Pages } from '@app/routing/schema';
 
@@ -18,7 +21,10 @@ import {
 } from '@app/controller/singleNote/actions';
 import { setLocalDataForNotePrevState } from '@app/controller/previouseNoteText/actions';
 import { setLocalDataForNotePrevStateModule } from '@app/controller/previouseNoteTextModule/actions';
-import { getNotesList, singleNoutesRemoveFromList } from '@app/controller/notes/actions';
+import {
+  getNotesList,
+  singleNoutesRemoveFromList,
+} from '@app/controller/notes/actions';
 // localy
 import { updateNoteByID } from '@app/controller/notes/actions';
 
@@ -58,7 +64,6 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
     ) {
       setIsNotes(true);
     } else {
-      console.log();
       dispatch(
         setLocalDataForNotePrevStateModule({
           contnet: String(menuConstats.defaultTXT),
@@ -74,14 +79,33 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
     }
   }, [props.rout, props.isBtnSaveActive]);
 
-  const emptyValueChecker = (text) => {
-    const matchedData = String(JSON.stringify(text)).match(
-      /\'(text)\'\:\'(.*?)\'/g,
+  const LinkForNotes = () => {
+    if (
+      String(String(location.pathname).search(/\/note-details\/(.*)/g)) !== '-1'
+    ) {
+      return (
+        <Link to="notes" className="module-menu-back">
+          <div className="module-menu-back__top" />
+          <div className="module-menu-back__bottom" />
+        </Link>
+      );
+    }
+
+    return (
+      <Link backFlag={true} className="module-menu-back">
+        <div className="module-menu-back__top" />
+        <div className="module-menu-back__bottom" />
+      </Link>
     );
+  };
+
+  const emptyValueChecker = (text) => {
+    const matchedData = String(text).match(/\"(text)\"\:\"(.*?)\"/g);
+
     if (
       matchedData !== null &&
       matchedData
-        .filter((item) => item.match(/:'(.*)'/g))
+        .filter((item) => item.match(/:"(.*)"/g))
         .map((item) => {
           if (item.length > 9) {
             return true;
@@ -96,6 +120,7 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
   };
 
   const sendData = () => {
+    console.log('inn');
     if (props.noteData !== undefined) {
       dispatch(
         sendNoteAction.request({
@@ -115,7 +140,6 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
   };
 
   const updateNoteData = () => {
-    console.log('props.textFromComponent');
     if (emptyValueChecker(props.noteData.content) === false) {
       dispatch(
         updateNoteById.request({
@@ -126,12 +150,14 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
         }),
       );
 
-      dispatch(updateNoteByID({
+      dispatch(
+        updateNoteByID({
           content: props.noteData.content,
           module: props.noteData.module,
           user: props.noteData.user,
           id: props.noteData.id,
-      }))
+        }),
+      );
       dispatch(
         setLocalDataForNotePrevState({
           content: props.noteData.content,
@@ -140,9 +166,12 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
       dispatch(setSaveBTNStatus({ isActive: false }));
     } else {
       dispatch(setSaveBTNStatus({ isActive: false }));
-      dispatch(setLocalDataForNotePrevState({content: datdDraft}))
-      dispatch(singleNoutesRemoveFromList({id:Number(props.note.id)}))
+      dispatch(
+        setLocalDataForNotePrevState({ content: JSON.stringify(datdDraft) }),
+      );
+      dispatch(singleNoutesRemoveFromList({ id: Number(props.note.id) }));
       dispatch(deleteNoteByID.request([Number(props.note.id)]));
+      history.push('/notes');
     }
   };
 
@@ -195,10 +224,11 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
                     <div className="module-menu-back__bottom" />
                   </div>
                 ) : (
-                  <Link backFlag={true} className="module-menu-back">
-                    <div className="module-menu-back__top" />
-                    <div className="module-menu-back__bottom" />
-                  </Link>
+                  <>{LinkForNotes()}</>
+                  // <Link backFlag={true} className="module-menu-back">
+                  //   <div className="module-menu-back__top" />
+                  //   <div className="module-menu-back__bottom" />
+                  // </Link>
                 )}
               </>
             ) : (
@@ -226,7 +256,7 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
                         props.isBtnSaveActive
                           ? /// here is will be our push method
                             () => updateNoteData()
-                          : () => console.log('inactive')
+                          : () => console.log('')
                       }>
                       Save
                     </span>
@@ -241,7 +271,7 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
                         props.isBtnSaveActive
                           ? /// here is will be our push method
                             () => sendData()
-                          : () => console.log('inactive')
+                          : () => console.log('')
                       }>
                       Save
                     </span>
@@ -262,7 +292,7 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
                     onClick={
                       props.isBtnSaveActive
                         ? () => props.saveBtnFunctionality()
-                        : () => console.log('inactive')
+                        : () => console.log('')
                     }>
                     Save
                   </span>

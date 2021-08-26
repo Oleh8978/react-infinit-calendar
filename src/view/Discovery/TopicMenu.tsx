@@ -117,15 +117,17 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
 
     if (props.articleCategories !== undefined) {
       const UpdatedArray = [];
-      const UpdatedArray1 =[{
+      const UpdatedArray1 = [
+        {
           color: '#747BC3',
           subColor: '',
           createdAt: '',
           icon: book,
           id: 999,
           orderNumber: 999,
-          title: "Journey",
-      }]
+          title: 'Journey',
+        },
+      ];
       props.articleCategories.map((item) => {
         UpdatedArray.push({
           color: item.color,
@@ -290,7 +292,12 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
             return (
               <div
                 className="discovery-menu-small-item"
-                style={{ backgroundColor: element.subColor.length !== 0 ? element.subColor : element.color }}
+                style={{
+                  backgroundColor:
+                    element.subColor.length !== 0
+                      ? element.subColor
+                      : element.color,
+                }}
                 onMouseUp={() => {
                   if (!disabled) {
                     props.arraySetter(element.id, element.title);

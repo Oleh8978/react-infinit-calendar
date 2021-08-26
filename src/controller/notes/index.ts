@@ -107,14 +107,14 @@ export const GetNotesListReducer = createReducer<INotesState, NotesActionType>(
       const newState = [];
       NewNotesState.map((item) => {
         if (item.id === Number(payload.id)) {
-          newState.push( {
+          newState.push({
             ...item,
             content: payload.content,
-          })
+          });
         } else {
-          newState.push( {
+          newState.push({
             ...item,
-          })
+          });
         }
       });
 

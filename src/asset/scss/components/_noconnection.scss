@@ -1,0 +1,80 @@
+.internet {
+    &-connection {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        align-items: center;
+
+        &_top {
+            display: flex;
+            flex-flow: column;
+            margin-top: auto;
+            margin-bottom: 0px;
+
+            &-header {
+                font-family: Noto Sans SC;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 18px;
+                line-height: 26px;
+                /* identical to box height */
+                text-transform: uppercase;
+                margin-bottom: 10px;
+                color: $text-color;
+                text-align: center;
+
+            }
+
+            &-subheader {
+                font-family: Spartan;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 18px;
+                /* identical to box height, or 129% */
+                color: $text-color;
+                text-align: center;
+
+            }
+            &-btn {
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 40px;
+                display: flex;
+                height: 38px;
+                width: 89px;
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: 30px;
+                margin-bottom: 40px;
+                border-radius: 4px;
+
+                font-family: Spartan;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 18px;
+
+                color: $white;
+                background-color: $primary-action-color;
+                cursor: pointer;
+            }
+        }
+
+        &_bottom {
+
+            &-img {
+                display: flex;
+                width: 100%;
+                max-width: 280px;
+                height: auto;
+                margin-left: auto;
+                margin-right: auto;
+                // margin-top: auto;
+                margin-bottom: 85px;
+            }
+        }
+    }
+}

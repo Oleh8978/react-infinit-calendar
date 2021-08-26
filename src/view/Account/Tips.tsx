@@ -23,8 +23,6 @@ interface IProps {
 
 const Tips: React.FC<any> = ({ ...props }) => {
   const images = [imgW, imgM];
-  const [number, setNumber] = useState<number>(undefined);
-  const [isNew, setIsNew] = useState<boolean>(true);
   const [img, setImg] = useState<string>(images[Math.floor(Math.random() * 2)]);
 
   const dispatch = useDispatch();
@@ -41,29 +39,9 @@ const Tips: React.FC<any> = ({ ...props }) => {
         }),
       );
     }
-
-    if (props.counts !== undefined) {
-      setNumber(
-        props.items.filter((item: TipSendShortDTO) => item.isRead === false)
-          .length,
-      );
-    }
-
-    if (
-      props.items &&
-      props.items.filter((item: TipSendShortDTO) => item.isRead === false)
-        .length === 0
-    ) {
-      setIsNew(false);
-    } else {
-      setIsNew(true);
-    }
   }, [props.items]);
 
-  if (
-    props.items.filter((item: TipSendShortDTO) => item.isRead === false)
-      .length === 0
-  ) {
+  if (props.counts === 0) {
     return <></>;
   }
   return (
@@ -72,8 +50,16 @@ const Tips: React.FC<any> = ({ ...props }) => {
         <div className={'tips'}>
           <span className={'tips-header'}>Tips from frasier</span>
           <Link to={'tip-list'} className={'tips-wrapper'}>
-            {number && <span className={'tips-number'}>{number}</span>}
-            {isNew ? <span className={'tips-new'}>new</span> : <> </>}
+            {props.newItemsCount !== 0 && props.counts !== 0 ? (
+              <span className={'tips-number'}>{props.newItemsCount}</span>
+            ) : (
+              <span className={'tips-number'}>{props.counts}</span>
+            )}
+            {props.newItemsCount !== 0 ? (
+              <span className={'tips-new'}>new</span>
+            ) : (
+              <> </>
+            )}
             <span className={'tips-tip'}>tips</span>
             <img
               src={img}
@@ -99,6 +85,7 @@ export default connect(
     loader: state.tipsListReducer.loaderState.status,
     items: state.tipsListReducer.tips.items,
     userID: state.authState.user.id,
+    newItemsCount: state.tipsListReducer.tips.newItemsCount,
   }),
   {
     getTipsListRequest: getTipsListRequest.request,

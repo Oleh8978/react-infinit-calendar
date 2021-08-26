@@ -45,7 +45,11 @@ import { ExpertSelectedStateReducer } from '@app/controller/selectedExpert/index
 import { SingleExpertReducer } from '@app/controller/expert/index';
 import { getExpert } from '@app/controller/expert/sagas/index';
 import { socketReducer, socketSaga } from './socket';
+import { surveyListReducer } from './questions/index';
+import { SurveyListSaga } from './questions/sagas/index';
 import { historyReducer } from './historyReducer/index';
+import { surveyTitleReducer } from './surveyTitle/index';
+import { surveyTitleSaga } from './surveyTitle/sagas/index';
 
 export const rootSaga = function* () {
   yield all([
@@ -73,6 +77,8 @@ export const rootSaga = function* () {
     ExpertsListSaga(),
     getExpert(),
     socketSaga(),
+    SurveyListSaga(),
+    surveyTitleSaga(),
   ]);
 };
 
@@ -109,4 +115,6 @@ export const rootReducer = (history: History): Reducer =>
     SingleExpertReducer: SingleExpertReducer,
     socketState: socketReducer,
     historyState: historyReducer,
+    surveyListReducer: surveyListReducer,
+    surveyTitleReducer: surveyTitleReducer,
   });

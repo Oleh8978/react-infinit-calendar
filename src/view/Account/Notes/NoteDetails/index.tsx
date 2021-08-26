@@ -8,6 +8,10 @@ import {
 } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import _ from 'lodash';
+import moment from 'moment';
+
+// history
+import history from '@app/historyApi';
 
 // components
 import NavigationBar from '@app/component/NavigationBar';
@@ -21,7 +25,10 @@ import {
   deleteNoteByID,
   updateNoteById,
 } from '@app/controller/singleNote/actions';
-import { updateNoteByID, singleNoutesRemoveFromList } from '@app/controller/notes/actions';
+import {
+  updateNoteByID,
+  singleNoutesRemoveFromList,
+} from '@app/controller/notes/actions';
 import { setSaveBTNStatus } from '@app/controller/saveBTN/actions';
 import { setLocalDataForNote } from '@app/controller/sendNoteReducer/actions';
 import { setModalWindowOpened } from '@app/controller/modalWindowReducer/actions';
@@ -46,27 +53,22 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
   const [text, setText] = useState<any | undefined>(undefined);
   const [isReadOnly, setIsReadOnly] = useState<boolean>(true);
   const [isSaveActive, setIsSaveActive] = useState<boolean>(false);
-  const [isBtnSaveActive, setIsBtnSaveActive] = useState<boolean>(false);
   const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
   const [isToolbarOpened, setIsToolbarOpened] = useState<boolean>(false);
   const [noteData, setNoteData] = useState<any>(undefined);
+  const [date, setDate] = useState<any>('');
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (
-      text !== undefined && props.prevText &&
+      text !== undefined &&
+      props.prevText &&
       props.prevText.content !== undefined &&
       _.isEqual(
-        String(props.prevText.content).replace(/"/g, "'"),
-        JSON.stringify(
-            convertToRaw(text.getCurrentContent()),
-          ).replace(/"/g, "'")
+        props.prevText.content,
+        JSON.stringify(convertToRaw(text.getCurrentContent())),
       ) === false
     ) {
-      // console.log("@@@@", String(props.prevText.content).replace(/"/g, "'"))
-      // console.log("####", JSON.stringify(
-      //   convertToRaw(text.getCurrentContent()),
-      // ).replace(/"/g, "'"))
       dispatch(setSaveBTNStatus({ isActive: true }));
     } else {
       dispatch(setSaveBTNStatus({ isActive: false }));
@@ -82,45 +84,32 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
   useEffect(() => {
     if (text === undefined) {
       dispatch(getNoteByID.request({ id: props.match.params.id }));
-      // setText(datdDraft);
+
       setText(
-      EditorState.createWithContent(
-          convertFromRaw(
-            JSON.parse(String(datdDraft).replace(/'/g, '"')),
-          ),
-        ),
+        EditorState.createWithContent(convertFromRaw(JSON.parse(datdDraft))),
       );
     }
     if (props.note !== undefined && props.note.id !== undefined) {
       setNoteData(props.note);
-      // setText(String(props.note.content).replace(/'/g, '"'))
+      setDate(moment(new Date(props.note.createdAt)).format('MM/DD/YYYY'));
       setText(
         EditorState.createWithContent(
-            convertFromRaw(
-              JSON.parse(String(props.note.content).replace(/'/g, '"')),
-            ),
-          ),
-        );
+          convertFromRaw(JSON.parse(props.note.content)),
+        ),
+      );
       dispatch(
         setLocalDataForNotePrevState({
-          content: String(props.note.content).replace(/'/g, '"'),
+          content: `${props.note.content}`,
         }),
       );
     }
   }, [props.note.id]);
 
   const onEditorStateChange = (textState) => {
-    // console.log('JSON.stringify(textState) ', JSON.parse(textState))
-    // console.log('textState.getCurrentContent() ', textState.getCurrentContent())
-    // setText(JSON.stringify(
-    //   convertToRaw(textState.getCurrentContent()),
-    // ).replace(/"/g, "'"));
-    setText(textState)
+    setText(textState);
     if (noteData !== undefined) {
       props.setLocalDataForNote({
-        content: JSON.stringify(
-          convertToRaw(textState.getCurrentContent()),
-        ).replace(/"/g, "'"),
+        content: JSON.stringify(convertToRaw(textState.getCurrentContent())),
         module: noteData.module.id,
         user: noteData.user.id,
         id: props.match.params.id,
@@ -154,34 +143,24 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
   const save = () => {
     setIsReadOnly(true);
     setIsSaveActive(false);
-    dispatch(
-      setLocalDataForNotePrevState({
-        content: JSON.stringify(convertToRaw(text.getCurrentContent())).replace(
-          /"/g,
-          "'",
+    if (props.current && props.current.content) {
+      dispatch(
+        setLocalDataForNotePrevState({
+          content: `${props.current.content}`,
+        }),
+      );
+
+      setText(
+        EditorState.createWithContent(
+          convertFromRaw(JSON.parse(`${props.current.content}`)),
         ),
-      }),
-    );
-    // dispatch(
-    //   updateNoteById.request({
-    //     content: String(
-    //       JSON.stringify(convertToRaw(text.getCurrentContent())).replace(
-    //         /"/g,
-    //         "'",
-    //       ),
-    //     ),
-    //     module: props.note.module.id,
-    //     user: props.user,
-    //     id: props.note.id,
-    //   }),
-    // );
+      );
+    }
+
     dispatch(setSaveBTNStatus({ isActive: false }));
-    saveBtnBackEndFunctionality(String(
-      JSON.stringify(convertToRaw(text.getCurrentContent())).replace(
-        /"/g,
-        "'",
-      ),
-    ));
+    saveBtnBackEndFunctionality(
+      JSON.stringify(convertToRaw(text.getCurrentContent())),
+    );
     dispatch(setModalWindowOpened({ status: false }));
   };
 
@@ -189,21 +168,11 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
     setIsReadOnly(true);
     setIsSaveActive(false);
     if (props.prevText.content !== undefined) {
-      // setText(
-        // EditorState.createWithContent(
-        //   convertFromRaw(
-        //     JSON.parse(String(props.prevText.contnet).replace(/'/g, '"')),
-        //   ),
-        // ),
-      // );
       setText(
         EditorState.createWithContent(
-            convertFromRaw(
-              JSON.parse(String(props.prevText.content).replace(/'/g, '"')),
-            ),
-          ),
-        );
-      // setText(props.prevText.contnet.replace(/"/g, "'"));
+          convertFromRaw(JSON.parse(`${props.prevText.content}`)),
+        ),
+      );
     }
     dispatch(setSaveBTNStatus({ isActive: false }));
     dispatch(setModalWindowOpened({ status: false }));
@@ -214,21 +183,10 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
   };
 
   const saveBtnBackEndFunctionality = (text) => {
-    // console.log('inn valuechecker ', emptyValueChecker(text));
-    // console.log('JSON  ', String(
-    //   JSON.stringify(convertToRaw(text.getCurrentContent())).replace(
-    //     /"/g,
-    //     "'",
-    //   ),
-    // ));
-
     if (emptyValueChecker(text) === false) {
       dispatch(
         updateNoteById.request({
-          content: String(text).replace(
-              /"/g,
-              "'",
-          ),
+          content: String(text),
           module: props.note.module.id,
           user: props.user,
           id: props.note.id,
@@ -236,12 +194,6 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
       );
       dispatch(
         updateNoteByID({
-          // content: String(
-          //   JSON.stringify(convertToRaw(text.getCurrentContent())).replace(
-          //     /"/g,
-          //     "'",
-          //   ),
-          // ),
           content: text,
           module: props.note.module.id,
           user: props.user,
@@ -249,46 +201,28 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
         }),
       );
     } else {
-      dispatch(singleNoutesRemoveFromList({id:Number(props.note.id)}))
+      dispatch(singleNoutesRemoveFromList({ id: Number(props.note.id) }));
       dispatch(deleteNoteByID.request([Number(props.note.id)]));
+      history.push('/notes');
     }
   };
 
   const saveBtnFunctionality = () => {
-    if (emptyValueChecker(text) === false ) {
-      // setText(EditorState.createWithContent(
-      //   convertFromRaw(
-      //     JSON.parse(datdDraft),
-      //   ),
-      // ),)
-      // setText(datdDraft.replace(
-      //   /"/g,
-      //   "'",
-      // ))
+    if (emptyValueChecker(text) === false) {
       setText(
-        EditorState.createWithContent(
-            convertFromRaw(
-              JSON.parse(String(datdDraft).replace(/'/g, '"')),
-            ),
-          ),
-        );
-      
-    }
-      dispatch(
-        setLocalDataForNotePrevState({
-          content: String(text).replace(
-            /"/g,
-            "'",
-        ),
-        }),
+        EditorState.createWithContent(convertFromRaw(JSON.parse(datdDraft))),
       );
-    // setPrevText(text);
+    }
+    dispatch(
+      setLocalDataForNotePrevState({
+        content: String(text),
+      }),
+    );
     setIsReadOnly(true);
     setIsSaveActive(false);
     emptyValueChecker(text);
     saveBtnBackEndFunctionality(text);
   };
-
   return (
     <>
       {text ? (
@@ -299,12 +233,11 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
             <> </>
           )}
           <NavigationBar
-            name={'date'}
+            name={`${date}`}
             isNotes={true}
             page={noteDetails}
             setIsEditable={setIsEditable}
             isSaveActive={isSaveActive}
-            isBtnSaveActive={isBtnSaveActive}
             modalToogle={modalToogle}
             saveBtnFunctionality={saveBtnFunctionality}
           />
@@ -313,30 +246,36 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
               isToolbarOpened ? '' : 'closed'
             }`}>
             <>
-              {text !== undefined ? <Editor
-                customStyleMap={styleMap}
-                defaultEditorState={text}
-                onEditorStateChange={onEditorStateChange}
-                toolbarOnFocus
-                readOnly={isReadOnly}
-                editorState={text}
-                toolbar={{
-                  options: ['inline', 'list'],
-                  inline: {
-                    options: ['bold', 'italic', 'underline', 'strikethrough'],
-                  },
-                  list: {
-                    inDropdown: false,
-                    options: ['unordered', 'ordered'],
-                  },
-                }}
-              /> : <></>}
-              <div className="notes-details-wrapper-bottom">
-                <BottomComponent
-                  title={'Customer Relationship Management'}
-                  subtitle={'Management | Create List of Calls for the Week '}
-                  moduleId={25}
+              {text !== undefined ? (
+                <Editor
+                  customStyleMap={styleMap}
+                  defaultEditorState={text}
+                  onEditorStateChange={onEditorStateChange}
+                  toolbarOnFocus
+                  readOnly={isReadOnly}
+                  editorState={text}
+                  toolbar={{
+                    options: ['inline', 'list'],
+                    inline: {
+                      options: ['bold', 'italic', 'underline', 'strikethrough'],
+                    },
+                    list: {
+                      inDropdown: false,
+                      options: ['unordered', 'ordered'],
+                    },
+                  }}
                 />
+              ) : (
+                <></>
+              )}
+              <div className="notes-details-wrapper-bottom">
+                {props.module && props.module.title && (
+                  <BottomComponent
+                    title={`${props.module.title}`}
+                    subtitle={''}
+                    moduleId={props.module.id}
+                  />
+                )}
               </div>
             </>
           </div>
@@ -353,12 +292,14 @@ const NoteDetails: React.FC<any> = ({ ...props }) => {
 export default connect(
   (state: IStore) => ({
     note: state.singleNoteReducer.state,
+    module: state.singleNoteReducer.state.module,
     loader: state.singleNoteReducer.loaderState.status,
     user: state.authState.user.id,
     notes: state.moduleState.moduleData,
     modalWindowState: state.ModalWindowReducer.status,
     prevText: state.notePrevStateReducer.state,
     saveBtnStatus: state.saveBtnReducer.isActive,
+    current: state.noteLocalDataCollectorReducer.state,
   }),
   {
     getNoteByID,
@@ -366,6 +307,6 @@ export default connect(
     setSaveBTNStatus,
     setLocalDataForNote,
     setLocalDataForNotePrevState,
-    singleNoutesRemoveFromList
+    singleNoutesRemoveFromList,
   },
 )(NoteDetails);
