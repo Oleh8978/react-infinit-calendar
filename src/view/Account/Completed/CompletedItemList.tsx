@@ -68,11 +68,7 @@ const JourneyCompletedItem: React.FC<IProps> = ({ ...props }) => {
           <span className={'journey-completed-item-body-description-days'}>
             <span
               className={'journey-completed-item-body-description-days__top'}>
-              {props.data.statistic.spent > 1440
-                ? Number.parseFloat(
-                    String(props.data.statistic.spent / 1440),
-                  ).toFixed(1)
-                : 0}
+              {props.data.statistic.durationDays}
             </span>
             <span
               className={

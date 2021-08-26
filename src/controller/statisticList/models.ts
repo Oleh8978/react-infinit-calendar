@@ -43,4 +43,5 @@ export interface IStatistic {
   endDate: string;
   isCompleted: boolean;
   startDate: string;
+  durationDays: string;
 }
