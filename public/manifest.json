@@ -4,7 +4,7 @@
   "description": "Progressive Web App that lists games submitted to the A-Frame category in the js13kGames 2017 competition.",
   "icons": [
     {
-      "src": "Splashscreen.ico",
+      "src": "Splashscreen.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     }
