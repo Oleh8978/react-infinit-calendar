@@ -52,7 +52,8 @@ export const App: React.FC = () => {
   return (
     <>
       {splash && !localStorage.getItem('authorization') ? (
-        <SplashScreen />
+        // <SplashScreen /> 
+        <></>
       ) : (
         <Switch>
           <Route exact path="/linkedin" component={LinkedInPopUp} />
