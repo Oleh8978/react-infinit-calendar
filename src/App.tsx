@@ -4,6 +4,7 @@ import { Route, Switch, useHistory } from 'react-router-dom';
 import { LinkedInPopUp } from 'react-linkedin-login-oauth2';
 import Terms from './component/Terms';
 import PrivacyPolicy from './component/PrivacyPolicy';
+import SplashScreen from '@app/pwa/SplashScreen';
 
 // window.addEventListener('DOMContentLoaded', (event) => {
 //   console.log('DOM fully loaded and parsed');
@@ -50,12 +51,16 @@ export const App: React.FC = () => {
 
   return (
     <>
+      {splash === true && localStorage.getItem('authorization') === null ? (
+        <SplashScreen />
+      ) : (
         <Switch>
           <Route exact path="/linkedin" component={LinkedInPopUp} />
           <Route exact path="/privacy-policy" component={PrivacyPolicy} />
           <Route exact path="/terms" component={Terms} />
           <Route path="*" component={Routing} />
         </Switch>
+      )}
     </>
   );
 };
