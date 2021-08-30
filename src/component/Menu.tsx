@@ -118,7 +118,7 @@ const Menu: React.FC<any> = ({ ...props }) => {
       props.isBtnSaveActive === true
     ) {
       return (
-        <li className={`${isActiveForNotes(name)}`}>
+        <li className={`${isActiveForNotes(name)}`} key={Math.random()}>
           <div
             className={'link-regular'}
             onClick={() => {
@@ -131,7 +131,7 @@ const Menu: React.FC<any> = ({ ...props }) => {
       );
     } else {
       return (
-        <li className={`${isActive(name, nameRoute)}`}>
+        <li className={`${isActive(name, nameRoute)}`} key={Math.random()}>
           <Link to={name}>
             <Icon />
             <span>{title}</span>
