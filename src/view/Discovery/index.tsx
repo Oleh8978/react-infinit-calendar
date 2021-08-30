@@ -47,6 +47,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
   const fieldRef = createRef() as RefObject<Scrollbars>;
   const [forse, setForse] = useState<boolean>(false);
   const [hiddenMenu, setHiddenMenu] = useState<boolean>(false);
+  const [typingTimeOut, setTypingTimeOut] = useState<any>(0);
 
   const loadMoreItems = () => {
     const { getClientHeight, getScrollHeight, getScrollTop, scrollToBottom } =
@@ -79,14 +80,28 @@ const Discovery: React.FC<any> = ({ ...props }) => {
     }
   };
 
+  const tracker = (text: string) => {
+    if (typingTimeOut) {
+      clearTimeout(typingTimeOut);
+    }
+    setTypingTimeOut( setTimeout(function () {
+          console.log('text ', text)
+          loadDiscoveries('start', text.trim())
+        }, 5000)
+   );
+
+  }
+
   const searchQueryProcessor = (text: string) => {
     setSearchQuery(text.trim().toLowerCase());
-    loadDiscoveries('start', searchQuery);
+    // loadDiscoveries('start', searchQuery);
     if (text.trim().length !== 0) {
-      loadDiscoveries('start', text.trim());
+      // loadDiscoveries('start', text.trim());
+      tracker(text)
       setHiddenMenu(true);
     } else {
-      loadDiscoveries('start', '');
+      // loadDiscoveries('start', '');
+      tracker('')
       setHiddenMenu(false);
     }
   };

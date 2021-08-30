@@ -55,12 +55,12 @@ const Schedule: React.FC<IProps> = () => {
   const loader = useSelector(getLoader);
   const exceptions = useSelector(getExceptions);
 
-  console.log('schedule ', schedule);
-  console.log('uncompletedSchedule ', uncompletedSchedule);
-  console.log('daysOff ', daysOff);
-  console.log('holidays ', holidays);
-  console.log('loader ', loader);
-  console.log(' exceptions ', exceptions);
+  // console.log('schedule ', schedule);
+  // console.log('uncompletedSchedule ', uncompletedSchedule);
+  // console.log('daysOff ', daysOff);
+  // console.log('holidays ', holidays);
+  // console.log('loader ', loader);
+  // console.log(' exceptions ', exceptions);
 
   const [selectedDay, setSelectedDay] = useState<Moment>(moment());
   const [timeSlots, setTimeSlots] = useState<TimeSlotDTO[]>([]);

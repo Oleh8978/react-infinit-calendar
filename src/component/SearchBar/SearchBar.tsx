@@ -39,6 +39,7 @@ const SearchBar: React.FC<IProps> = ({ smallMenu, ...props }) => {
             }}
           />
           <input
+            id="input"
             type="text"
             className="searchbar-input"
             autoFocus
