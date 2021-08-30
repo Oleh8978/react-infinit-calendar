@@ -80,11 +80,13 @@ const JourneyInfo: React.FC<IProps> = ({ ...props }) => {
   const today = moment().isoWeekday();
   const indexDayStartJourney = 1;
   let startDate;
-  if (today >= indexDayStartJourney) {
-    startDate = moment().isoWeekday(indexDayStartJourney).toDate();
+  if (today <= indexDayStartJourney) {
+    startDate = moment()
+      .isoWeekday(indexDayStartJourney)
+      .toDate();
   } else {
     startDate = moment()
-      .subtract(1, 'weeks')
+      .add(1, 'weeks')
       .isoWeekday(indexDayStartJourney)
       .toDate();
   }
