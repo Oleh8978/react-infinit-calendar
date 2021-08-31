@@ -160,7 +160,7 @@ const Article: React.FC<IProps> = (props) => {
             return 0;
           })
           .map((section) => generateContent(section))}
-        <AnswerNotFound />
+        <AnswerNotFound id={1}/>
       </div>
     </div>
   );

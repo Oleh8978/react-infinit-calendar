@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
 
 // components
-import Link from '@app/routing/Link';
+import { Link } from 'react-router-dom';
 
 // static images
 import imageAnswerNotFound from '../FakeData/notFound/answerNotFound.png';
 
-interface IProps {}
+// history 
+import history from '@app/historyApi';
 
-const AnswerNotFound: React.FC<IProps> = () => {
+interface IProps {
+  id: number;
+}
+
+const AnswerNotFound: React.FC<IProps> = ({...props}) => {
   return (
     <div className="answer-notfound">
       <h1 className="answer-notfound-header__top">
@@ -18,9 +23,9 @@ const AnswerNotFound: React.FC<IProps> = () => {
         Let us know! We will submit answer in the next post.
       </span>
       {/* <div > */}
-      <Link to={'ask-question'} className="answer-notfound-btn">
+      <div onClick={() => {history.push('/ask-question/'+props.id)}} className="answer-notfound-btn">
         <span className="answer-notfound-btn-text">Submit</span>
-      </Link>
+      </div>
       {/* </div> */}
       <img
         src={imageAnswerNotFound}

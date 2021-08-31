@@ -48,6 +48,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
   const [forse, setForse] = useState<boolean>(false);
   const [hiddenMenu, setHiddenMenu] = useState<boolean>(false);
   const [typingTimeOut, setTypingTimeOut] = useState<any>(0);
+  const [internalLoader, setInternalLoader] = useState<boolean>(false);
 
   const loadMoreItems = () => {
     const { getClientHeight, getScrollHeight, getScrollTop, scrollToBottom } =
@@ -85,7 +86,9 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       clearTimeout(typingTimeOut);
     }
     setTypingTimeOut( setTimeout(function () {
-          console.log('text ', text)
+          // console.log('text ', text)
+          setInternalLoader(false)
+          dispatch(setLoadingAction({status: false}))
           loadDiscoveries('start', text.trim())
         }, 5000)
    );
@@ -94,6 +97,25 @@ const Discovery: React.FC<any> = ({ ...props }) => {
 
   const searchQueryProcessor = (text: string) => {
     setSearchQuery(text.trim().toLowerCase());
+    dispatch(setLoadingAction({status: true}))
+    setInternalLoader(true);
+    dispatch(
+      props.successDiscoveryList({
+        response: {
+          items: [],
+          counts: 0,
+        },
+        searchParams: {
+          limit: '',
+          offset: '',
+          query: '',
+          sortType: '',
+          type: '',
+          categories: '',
+          ids: '',
+        },
+      }),
+    );
     // loadDiscoveries('start', searchQuery);
     if (text.trim().length !== 0) {
       // loadDiscoveries('start', text.trim());
@@ -400,6 +422,40 @@ const Discovery: React.FC<any> = ({ ...props }) => {
     setForse(true);
   };
   // console.log('articleCategories ', articleCategories)
+
+  const bodyProvider = () => {
+
+    if (internalLoader) {
+      return  <Loader isSmall={true} /> 
+    }
+
+    if (props.discoveryList && props.discoveryList.items !== undefined) {
+      return          <>
+      <div className={'discovery'}>
+        <Menu
+          marginAdder={marginAdder}
+          articleCategories={articleCategories}
+          loadDiscovloadArticleCategoeries={
+            loadDiscovloadArticleCategoeries
+          }
+          arraySetter={arraySetter}
+          allSetter={allSetter}
+          hiddenMenu={hiddenMenu}
+        />
+
+        <DiscoveryTopicList
+          margin={margin}
+          discoveryItems={discovery}
+          isLoading={props.isLoading}
+          itemsCount={props.itemsCount}
+          internalLoader={internalLoader}
+        />
+      </div>
+    </>
+    }
+
+    return  <Loader isSmall={true} /> 
+  }
   return (
     <Scrollbars
       style={{
@@ -414,35 +470,17 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       renderView={(props) => (
         <div {...props} className={'main-wrapper-discovery'} />
       )}>
+      <SearchBar
+            inputValueFromSearch={searchQueryProcessor}
+            onCloseHandler={onCloseHandler}
+          />
       {props.topicListLoader === true ||
       articleCategories === undefined ||
       (props.discoveryList && props.discoveryList.items === undefined) ? (
         <Loader isSmall={true} />
       ) : (
         <>
-          <SearchBar
-            inputValueFromSearch={searchQueryProcessor}
-            onCloseHandler={onCloseHandler}
-          />
-          <div className={'discovery'}>
-            <Menu
-              marginAdder={marginAdder}
-              articleCategories={articleCategories}
-              loadDiscovloadArticleCategoeries={
-                loadDiscovloadArticleCategoeries
-              }
-              arraySetter={arraySetter}
-              allSetter={allSetter}
-              hiddenMenu={hiddenMenu}
-            />
-
-            <DiscoveryTopicList
-              margin={margin}
-              discoveryItems={discovery}
-              isLoading={props.isLoading}
-              itemsCount={props.itemsCount}
-            />
-          </div>
+          {bodyProvider()}
         </>
       )}
     </Scrollbars>
