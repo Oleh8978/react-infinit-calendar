@@ -52,7 +52,7 @@ const Notes: React.FC<any> = ({ ...props }) => {
       props.count !== 0 &&
       props.count !== props.data.length
     ) {
-      loadNotesData('more');
+      loadNotesData('more', searchQuery);
     }
   };
 

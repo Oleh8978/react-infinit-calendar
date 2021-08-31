@@ -9,7 +9,7 @@ import history from '../../../../historyApi';
 import { getArticleListByModuleCqategory } from '@app/controller/articles/actions';
 
 //components
-import Link from '@app/routing/Link';
+import {Link} from 'react-router-dom';
 import AnswerNotFound from '../../../Discovery/AnswerNotFound/AnswerNotFound';
 import Loader from '@app/component/Loader';
 
@@ -51,8 +51,7 @@ const Questions: React.FC<any> = ({ ...props }) => {
           if (item.appearance === 'big') {
             return (
               <Link
-                to={'article'}
-                params={{ id: String(item.id) }}
+                to={'/article/' + String(item.id) + 'q'}
                 className="discovery-list-item-holder">
                 <div className="discovery-list-item-imgwrapper">
                   <img
@@ -78,8 +77,7 @@ const Questions: React.FC<any> = ({ ...props }) => {
           } else if (item.appearance === 'small') {
             return (
               <Link
-                to={'article'}
-                params={{ id: String(item.id) }}
+                to={'/article/' + String(item.id) + '/q'}
                 className="discovery-list-item-holder__half"
                 style={{ display: 'flex', flexFlow: 'row' }}>
                 <img
@@ -101,7 +99,7 @@ const Questions: React.FC<any> = ({ ...props }) => {
       </>
       {props.counts !== undefined &&
       props.articles.items.length === props.counts ? (
-        <AnswerNotFound />
+        <AnswerNotFound id={2}/>
       ) : (
         <>
           <Loader isSmall={true} />

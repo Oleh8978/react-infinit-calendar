@@ -13,15 +13,43 @@ import { menuItems, routsWhereShowMenu } from '../config';
 // actions
 import { setModalWindowOpened } from '@app/controller/modalWindowReducer/actions';
 
+// history 
+import history from '@app/historyApi';
+
 const Menu: React.FC<any> = ({ ...props }) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const nameRoute = schema.getName(location.pathname);
 
   const nestedRoutes = (name) => {
+
+    if (
+      String(name) === 'discovery' &&
+      String(String(location.pathname).search(/\/ask-question\/1/g)) !== '-1'
+    ) {
+      return 'active';
+    } else if (String(name) === 'schedule' &&
+      String(String(location.pathname).search(/\/ask-question\/2/g)) !== '-1') {
+      return 'active';
+    }
+
     if (
       String(name) === 'discovery' &&
       String(String(location.pathname).search(/\/journey\/(.*)/g)) !== '-1'
+    ) {
+      return 'active';
+    }
+
+    if (
+      String(name) === 'discovery' &&
+      String(String(location.pathname).search(/(?<=\/article\/).*(?=\/d)/g)) !== '-1'
+    ) {
+      return 'active';
+    }
+
+    if (
+      String(name) === 'schedule' &&
+      String(String(location.pathname).search(/(?<=\/article\/).*(?=\/q)/g)) !== '-1'
     ) {
       return 'active';
     }
@@ -78,6 +106,20 @@ const Menu: React.FC<any> = ({ ...props }) => {
     if (
       String(name) === 'account' &&
       String(String(location.pathname).search(/\/tip-list/g)) !== '-1'
+    ) {
+      return 'active';
+    }
+    
+    if (
+      String(name) === 'account' &&
+      String(String(location.pathname).search(/\/account-connected-socials/g)) !== '-1'
+    ) {
+      return 'active';
+    }
+
+    if (
+      String(name) === 'account' &&
+      String(String(location.pathname).search(/\/journey-info\/(.*)/g)) !== '-1'
     ) {
       return 'active';
     }
