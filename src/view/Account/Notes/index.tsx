@@ -39,7 +39,7 @@ const CustomReRenderHook = () => {
 const Notes: React.FC<any> = ({ ...props }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [typingTimeOut, setTypingTimeOut] = useState<any>(0);
-  const [searchQuery, setSearchQuery] = useState<string>('')
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
   const fieldRef = createRef() as RefObject<Scrollbars>;
   const dispatch = useDispatch();
@@ -105,40 +105,37 @@ const Notes: React.FC<any> = ({ ...props }) => {
     if (typingTimeOut) {
       clearTimeout(typingTimeOut);
     }
-    setTypingTimeOut( setTimeout(function () {
-          setIsLoading(false)
-          setSearchQuery(text)
-          loadNotesData('start', text)
-          console.log('text ', text)
-          // loadDiscoveries('start', text.trim())
-        }, 5000)
-   );
-
-  }
+    setTypingTimeOut(
+      setTimeout(function () {
+        setIsLoading(false);
+        setSearchQuery(text);
+        loadNotesData('start', text);
+        console.log('text ', text);
+        // loadDiscoveries('start', text.trim())
+      }, 5000),
+    );
+  };
 
   const searchQueryProcessor = (text: string) => {
-    setIsLoading(true)
-    tracker(text)
-  }
+    setIsLoading(true);
+    tracker(text);
+  };
 
   const onCloseHandler = () => {
-    console.log('close')
-  }
+    console.log('close');
+  };
 
-const bodyOfNotes = () => {
+  const bodyOfNotes = () => {
+    if (isLoading === true) {
+      return <Loader isSmall={false} />;
+    }
 
-  if (isLoading === true ) {
-    return <Loader isSmall={false} />
-  }
+    if (props.data !== undefined) {
+      return <NotesList data={props.data} counts={props.count} />;
+    }
 
-  if (props.data !== undefined ) {
-    return <NotesList data={props.data} counts={props.count} />
-  }
-
-  return <Loader isSmall={false} />
-
-}
- 
+    return <Loader isSmall={false} />;
+  };
 
   return (
     <Scrollbars
@@ -153,10 +150,10 @@ const bodyOfNotes = () => {
       ref={fieldRef}
       renderView={(props) => <div {...props} className={'notes'} />}>
       <SearchBar
-            textHead={'Notes'}
-            inputValueFromSearch={searchQueryProcessor}
-            onCloseHandler={onCloseHandler}
-            />
+        textHead={'Notes'}
+        inputValueFromSearch={searchQueryProcessor}
+        onCloseHandler={onCloseHandler}
+      />
       {bodyOfNotes()}
     </Scrollbars>
   );

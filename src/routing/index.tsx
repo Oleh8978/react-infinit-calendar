@@ -37,7 +37,7 @@ import Menu from '@app/component/Menu';
 import Loader from '@app/component/Loader';
 import NoConnection from '@app/component/noNet/index';
 
-// history 
+// history
 import history from '@app/historyApi';
 
 // Render all routes
@@ -158,14 +158,17 @@ const Routing: React.FC<Props> = ({
   };
   // console.log('isNeededSecondStep @', isNeededSecondStep)
   // console.log('isNeeededSecondStepValue', isNeeededSecondStepValue, 'authStatus ', authStatus)
-  if (window.navigator.onLine === false && localStorage.getItem('authorization') === null) {
+  if (
+    window.navigator.onLine === false &&
+    localStorage.getItem('authorization') === null
+  ) {
     return <NoConnection />;
   }
 
   // if ( String(String(location.pathname).search(/\/ask-question\/1/g)) === '-1' || String(String(location.pathname).search(/\/ask-question\/2/g)) === '-1' )
   //  {
   //   history.push('/')
-  // } 
+  // }
 
   if (
     (!authStatus && isNeeededSecondStepValue) ||

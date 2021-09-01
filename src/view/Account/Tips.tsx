@@ -17,7 +17,7 @@ import imgW from './static/messageW.png';
 import imgM from './static/messageM.png';
 import oldTip from './static/oldtips.png';
 
-const CustomReRenderHook = ({...props}) => {
+const CustomReRenderHook = ({ ...props }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
@@ -56,7 +56,7 @@ const Tips: React.FC<any> = ({ ...props }) => {
           userId: `${props.userID}`,
         }),
       );
-    } 
+    }
   }, [props.items]);
 
   if (props.counts === 0) {

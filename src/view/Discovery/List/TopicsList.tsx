@@ -41,8 +41,7 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
         <Loader />
       ) : (
         <div className={'discovery-list'} ref={fieldRef}>
-          {props.isLoading.status === false &&
-          props.discoveryItems !== undefined && props.discoveryItems.length !== 0 ? (
+          {props.discoveryItems && props.discoveryItems.length !== 0 ? (
             <span className="discovery-list-title">Full list</span>
           ) : (
             <></>
@@ -106,8 +105,7 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
                     return (
                       <Link
                         to={'journey/' + String(item.journey.id)}
-                        key={uuid()}
-                        >
+                        key={uuid()}>
                         <div className="discovery-list-item-holder">
                           <div className="discovery-list-item-imgwrapper">
                             <ImageL
@@ -137,9 +135,8 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
               <>
                 {' '}
                 {props.itemsCount !== undefined &&
-                props.itemsCount.counts === discoveryItems.length &&
-                props.isLoading.status === false && props.internalLoader === false ? (
-                  <AnswerNotFound id={1}/>
+                props.itemsCount.counts === discoveryItems.length ? (
+                  <AnswerNotFound id={1} />
                 ) : (
                   <Loader isSmall={true} />
                 )}

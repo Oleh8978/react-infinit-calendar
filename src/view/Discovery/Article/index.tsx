@@ -145,12 +145,16 @@ const Article: React.FC<IProps> = (props) => {
         rout={'/'}
       />
       <div className={'jorneydiscovey-header'}>
-        <span className={'jorneydiscovey-header-txt'}>
-          Thinking About Plans for the Week
-        </span>
-        <div className={'jorneydiscovey-header-btn'}>
-          <span className={'jorneydiscovey-header-btn-txt'}>Podcasts</span>
-        </div>
+        <span className={'jorneydiscovey-header-txt'}>{article.title}</span>
+        {article.categories.map((item) => {
+          return (
+            <div className={'jorneydiscovey-header-btn'}>
+              <span key={item.id} className={'jorneydiscovey-header-btn-txt'}>
+                {item.title}
+              </span>
+            </div>
+          );
+        })}
       </div>
       <div className={'jorneydiscovey-body'}>
         {myData
@@ -160,7 +164,7 @@ const Article: React.FC<IProps> = (props) => {
             return 0;
           })
           .map((section) => generateContent(section))}
-        <AnswerNotFound id={1}/>
+        <AnswerNotFound id={1} />
       </div>
     </div>
   );

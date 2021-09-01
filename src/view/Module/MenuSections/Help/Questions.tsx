@@ -9,7 +9,7 @@ import history from '../../../../historyApi';
 import { getArticleListByModuleCqategory } from '@app/controller/articles/actions';
 
 //components
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import AnswerNotFound from '../../../Discovery/AnswerNotFound/AnswerNotFound';
 import Loader from '@app/component/Loader';
 
@@ -99,7 +99,7 @@ const Questions: React.FC<any> = ({ ...props }) => {
       </>
       {props.counts !== undefined &&
       props.articles.items.length === props.counts ? (
-        <AnswerNotFound id={2}/>
+        <AnswerNotFound id={2} />
       ) : (
         <>
           <Loader isSmall={true} />
