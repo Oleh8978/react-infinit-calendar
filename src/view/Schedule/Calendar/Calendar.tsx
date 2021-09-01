@@ -332,7 +332,9 @@ const Calendar: React.FC<IProps> = ({
         </div>
       </div>
       <div className="calendar-days scrollbar__hidden">
-        <Swiper {...swiperOptions} key={Math.random()}>{dates}</Swiper>
+        <Swiper {...swiperOptions} key={Math.random()}>
+          {dates}
+        </Swiper>
       </div>
     </div>
   );

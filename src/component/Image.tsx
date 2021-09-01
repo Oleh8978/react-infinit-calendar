@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-//loader 
+//loader
 import Loader from './Loader';
 
 interface IProps {
@@ -12,7 +12,6 @@ interface IProps {
 }
 
 const ImgLoader: React.FC<IProps> = ({ ...props }) => {
-
   const [loader, setLoader] = useState(false);
 
   // const  toDataURL = (url, callback) => {
@@ -38,15 +37,15 @@ const ImgLoader: React.FC<IProps> = ({ ...props }) => {
   //   const blob = await data.blob();
   //   return new Promise((resolve) => {
   //     const reader = new FileReader();
-  //     reader.readAsDataURL(blob); 
+  //     reader.readAsDataURL(blob);
   //     reader.onloadend = () => {
-  //       const base64data = reader.result; 
+  //       const base64data = reader.result;
   //       resolve(base64data);
   //     }
   //   });
   // }
 
-  // let src:any = '' 
+  // let src:any = ''
   // getBase64FromUrl(props.src).then(url => {
   //   src = url,
   //   setLoader(false)
@@ -59,7 +58,11 @@ const ImgLoader: React.FC<IProps> = ({ ...props }) => {
 
   return (
     <>
-        {loader ? <Loader isSmall={true}/> :<img className={props.className} alt={'img'} src={props.src} />}
+      {loader ? (
+        <Loader isSmall={true} />
+      ) : (
+        <img className={props.className} alt={'img'} src={props.src} />
+      )}
     </>
   );
 };

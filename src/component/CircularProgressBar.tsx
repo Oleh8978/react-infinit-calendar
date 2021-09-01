@@ -1,71 +1,72 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
-interface IProps {
-  sqSize: number;
-  percentage: number;
-  strokeColor: string;
+export interface IProps {
+  size?: number;
+  progress?: number;
+  strokeWidth?: number;
+  strokeColor?: string;
+  circleOneStroke?: string;
+  circleTwoStroke?: string;
 }
 
-const CircularProgressBar: React.FC<IProps> = ({ ...props }) => {
-  const sqSize = props.sqSize;
-  const radius = (props.sqSize - 10) / 2;
-  const viewBox = `0 0 ${sqSize} ${sqSize}`;
-  const dashArray = radius * Math.PI * 2;
-  let dashOffset;
+const CircularProgressBar: React.FC<IProps> = (props) => {
+  const [offset, setOffset] = useState(0);
+  const circleRef = useRef(null);
+  const {
+    size = 110,
+    progress = 1,
+    strokeWidth = 10,
+    strokeColor,
+    circleOneStroke = 'green',
+    circleTwoStroke = 'white',
+  } = props;
+
+  const center = size / 2;
+  const radius = size / 2 - strokeWidth / 2;
+  const circumference = 2 * Math.PI * radius;
 
   useEffect(() => {
-    const progressBar = document.getElementById(
-      `progressbar${props.percentage}`,
-    );
-    let percent = 0;
-    const interval = setInterval(function () {
-      percent++;
-      dashOffset = dashArray - (dashArray * percent) / 100;
-      progressBar.style.strokeDashoffset = dashOffset;
-      if (percent === props.percentage) {
-        clearInterval(interval);
-      }
-
-      return dashOffset;
-    }, 30);
-  }, []);
-  //const dashOffset = dashArray - dashArray * props.percentage / 100;
+    const progressOffset = ((100 - progress) / 100) * circumference;
+    setOffset(progressOffset);
+    circleRef.current.style =
+      'transition: stroke-dashoffset 850ms ease-in-out;';
+  }, [setOffset, circumference, progress, offset]);
 
   return (
     <>
-      <div className="circular-chart">
-        <svg width={props.sqSize} height={props.sqSize} viewBox={viewBox}>
-          <circle
-            className="circle-background"
-            cx={props.sqSize / 2}
-            cy={props.sqSize / 2}
-            r={radius}
-            strokeWidth={`10px`}
-          />
-          <circle
-            className="circle-progress"
-            id={`progressbar${props.percentage}`}
-            cx={props.sqSize / 2}
-            cy={props.sqSize / 2}
-            r={radius}
-            strokeWidth={`10px`}
-            // Start progress marker at 12 O'Clock
-            transform={`rotate(-90 ${props.sqSize / 2} ${props.sqSize / 2})`}
-            style={{
-              strokeDasharray: dashArray,
-              stroke: props.strokeColor,
-            }}
-          />
-          <text
-            className="circle-text"
-            x="50%"
-            y="50%"
-            dy=".3em"
-            textAnchor="middle">
-            {`${props.percentage}%`}
-          </text>
-        </svg>
-      </div>
+      <svg
+        className="circular-chart"
+        width={size}
+        height={size}
+        viewBox={`0 0 116 116`}>
+        <circle
+          className="circle-background"
+          stroke={circleOneStroke}
+          cx={center}
+          cy={center}
+          r={radius}
+          strokeWidth={strokeWidth}
+        />
+        <circle
+          className="circle-progress"
+          ref={circleRef}
+          stroke={strokeColor}
+          cx={center}
+          cy={center}
+          r={radius}
+          strokeWidth={strokeWidth}
+          strokeDasharray={circumference}
+          strokeDashoffset={offset}
+        />
+        <text
+          x="50%"
+          y="50%"
+          dy=".3em"
+          textAnchor="middle"
+          className="circle-text">
+          {progress}%
+        </text>
+      </svg>
     </>
   );
 };

@@ -53,10 +53,9 @@ const Account: React.FC<any> = ({ ...props }) => {
           counts: undefined,
           items: [],
           countNew: undefined,
-        }
+        },
       }),
     );
-
   }, [props.statisticToday.today, props.listStatistic]);
   const bodySetter = () => {
     if (
@@ -113,5 +112,5 @@ export default connect(
     //user id
     userID: state.authState.user.id,
   }),
-  { getStatisticList, getStatisticToday, getTipsListRequest, },
+  { getStatisticList, getStatisticToday, getTipsListRequest },
 )(Account);

@@ -119,6 +119,14 @@ const EdditBodyElementItem: React.FC<IProps> = ({ ...props }) => {
     }
   };
 
+  const dispatcher = () => {
+    const element: any = document.getElementById('time');
+    if (element !== null) {
+      console.log('element', element);
+      element.click();
+    }
+  };
+
   const fieldReturner = () => {
     if (props.data.subname === 'phone') {
       return (
@@ -147,6 +155,17 @@ const EdditBodyElementItem: React.FC<IProps> = ({ ...props }) => {
     } else if (props.data.subname === 'startTime') {
       return (
         <div className="clock-input-wrapper">
+          <div
+            style={{
+              position: 'absolute',
+              backgroundColor: 'red',
+              width: '95%',
+              left: '15px',
+              height: '35px',
+            }}
+            onClick={() => dispatcher()}>
+            hello
+          </div>
           <TextField
             id="time"
             type="time"

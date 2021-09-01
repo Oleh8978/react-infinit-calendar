@@ -29,12 +29,23 @@ const SearchBar: React.FC<IProps> = ({ smallMenu, ...props }) => {
       //   position: 'fixed',
       // }}
     >
-      {props.textHead && !isOpened ? <>
-        <Link to="account" className="module-menu-back">
-          <div className="module-menu-back__top" />
-          <div className="module-menu-back__bottom" />
-        </Link></> : <></>}
-      {isOpened ? '' : <span className="searchbar__top-text">{props.textHead ? props.textHead : 'Discovery'}</span>}
+      {props.textHead && !isOpened ? (
+        <>
+          <Link to="account" className="module-menu-back">
+            <div className="module-menu-back__top" />
+            <div className="module-menu-back__bottom" />
+          </Link>
+        </>
+      ) : (
+        <></>
+      )}
+      {isOpened ? (
+        ''
+      ) : (
+        <span className="searchbar__top-text">
+          {props.textHead ? props.textHead : 'Discovery'}
+        </span>
+      )}
       {isOpened ? (
         <>
           <img

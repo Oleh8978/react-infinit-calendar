@@ -13,7 +13,7 @@ import { menuItems, routsWhereShowMenu } from '../config';
 // actions
 import { setModalWindowOpened } from '@app/controller/modalWindowReducer/actions';
 
-// history 
+// history
 import history from '@app/historyApi';
 
 const Menu: React.FC<any> = ({ ...props }) => {
@@ -22,14 +22,15 @@ const Menu: React.FC<any> = ({ ...props }) => {
   const nameRoute = schema.getName(location.pathname);
 
   const nestedRoutes = (name) => {
-
     if (
       String(name) === 'discovery' &&
       String(String(location.pathname).search(/\/ask-question\/1/g)) !== '-1'
     ) {
       return 'active';
-    } else if (String(name) === 'schedule' &&
-      String(String(location.pathname).search(/\/ask-question\/2/g)) !== '-1') {
+    } else if (
+      String(name) === 'schedule' &&
+      String(String(location.pathname).search(/\/ask-question\/2/g)) !== '-1'
+    ) {
       return 'active';
     }
 
@@ -41,15 +42,24 @@ const Menu: React.FC<any> = ({ ...props }) => {
     }
 
     if (
+      String(name) === 'schedule' &&
+      String(String(location.pathname).search(/\/task\/(.*)/g)) !== '-1'
+    ) {
+      return 'active';
+    }
+
+    if (
       String(name) === 'discovery' &&
-      String(String(location.pathname).search(/(?<=\/article\/).*(?=\/d)/g)) !== '-1'
+      String(String(location.pathname).search(/(?<=\/article\/).*(?=\/d)/g)) !==
+        '-1'
     ) {
       return 'active';
     }
 
     if (
       String(name) === 'schedule' &&
-      String(String(location.pathname).search(/(?<=\/article\/).*(?=\/q)/g)) !== '-1'
+      String(String(location.pathname).search(/(?<=\/article\/).*(?=\/q)/g)) !==
+        '-1'
     ) {
       return 'active';
     }
@@ -109,10 +119,12 @@ const Menu: React.FC<any> = ({ ...props }) => {
     ) {
       return 'active';
     }
-    
+
     if (
       String(name) === 'account' &&
-      String(String(location.pathname).search(/\/account-connected-socials/g)) !== '-1'
+      String(
+        String(location.pathname).search(/\/account-connected-socials/g),
+      ) !== '-1'
     ) {
       return 'active';
     }

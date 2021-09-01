@@ -6,14 +6,14 @@ import { Link } from 'react-router-dom';
 // static images
 import imageAnswerNotFound from '../FakeData/notFound/answerNotFound.png';
 
-// history 
+// history
 import history from '@app/historyApi';
 
 interface IProps {
   id: number;
 }
 
-const AnswerNotFound: React.FC<IProps> = ({...props}) => {
+const AnswerNotFound: React.FC<IProps> = ({ ...props }) => {
   return (
     <div className="answer-notfound">
       <h1 className="answer-notfound-header__top">
@@ -23,7 +23,11 @@ const AnswerNotFound: React.FC<IProps> = ({...props}) => {
         Let us know! We will submit answer in the next post.
       </span>
       {/* <div > */}
-      <div onClick={() => {history.push('/ask-question/'+props.id)}} className="answer-notfound-btn">
+      <div
+        onClick={() => {
+          history.push('/ask-question/' + props.id);
+        }}
+        className="answer-notfound-btn">
         <span className="answer-notfound-btn-text">Submit</span>
       </div>
       {/* </div> */}
