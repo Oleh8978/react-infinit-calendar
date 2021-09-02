@@ -148,6 +148,7 @@ const JourneyInfo: React.FC<IProps> = ({ ...props }) => {
                 journey?.status?.isConnected && journey?.status?.isTrial
               }
               trialEndDate={journey.status?.trialEndDate}
+              startDate={journey.status?.startDate}
               isPaid={journey?.status?.isPaid}
               isConnected={journey?.status?.isConnected}
               needToPay={journey?.isNeedPaid}
