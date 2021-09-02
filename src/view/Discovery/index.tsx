@@ -62,10 +62,9 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       props.discoveryList.items !== undefined &&
       props.itemsCount.counts !== props.discoveryList.items.length
     ) {
-
-    //  console.log('fieldRef.current ', fieldRef.current.container)
-    //  let scroller:any = fieldRef.current.scrollTop()
-    //  scroller = getScrollTop() - 200
+      //  console.log('fieldRef.current ', fieldRef.current.container)
+      //  let scroller:any = fieldRef.current.scrollTop()
+      //  scroller = getScrollTop() - 200
       loadDiscoveries('more', searchQuery);
       setISmoreStated('more');
 
