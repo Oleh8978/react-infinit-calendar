@@ -19,8 +19,6 @@ interface IProps {
 }
 
 const JorneyComponent: React.FC<IProps> = ({ ...props }) => {
-  console.log(props.data.statistic);
-  console.log('color ', props.data);
   return (
     <>
       {props.data.statistic.endDate ? (

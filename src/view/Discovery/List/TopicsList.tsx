@@ -48,8 +48,8 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
           )}
           <>
             <div className="discovery-list-holder">
-              {discoveryItems.length > 0 &&
-                discoveryItems.map((item: any): DiscoveryDTO => {
+              {props.discoveryItems.length > 0 &&
+                props.discoveryItems.map((item: any): DiscoveryDTO => {
                   if (
                     Object.keys(item).find(
                       (element) => String(element) === 'article',

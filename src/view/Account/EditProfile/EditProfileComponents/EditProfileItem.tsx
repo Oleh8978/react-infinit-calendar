@@ -36,6 +36,11 @@ const useStyles = makeStyles({
   },
   input: {
     padding: '0px',
+    marginTop: '10px',
+    width: '80px',
+    marginLeft: 'auto',
+    marginRight: '0px',
+    cursor: 'pointer'
   },
 });
 
@@ -46,6 +51,17 @@ const EdditBodyElementItem: React.FC<IProps> = ({ ...props }) => {
   const [valueSelect, setValueSelect] = useState<TimezoneTypeEnum>(
     timeZoneReturner(props.user.userData.timezone),
   );
+  const timer:any = React.createRef();
+
+  const focusSetter = () => {
+    const foc: any  = document.querySelector('.MuiInputBase-input')
+
+    if (foc !== null ) {
+      console.log(foc.clientWidth, foc.clientHeight)
+      foc.focus()
+    }
+    // timer.current.focus();
+  }
 
   useEffect(() => {
     if (props.user) {
@@ -119,14 +135,6 @@ const EdditBodyElementItem: React.FC<IProps> = ({ ...props }) => {
     }
   };
 
-  const dispatcher = () => {
-    const element: any = document.getElementById('time');
-    if (element !== null) {
-      console.log('element', element);
-      element.click();
-    }
-  };
-
   const fieldReturner = () => {
     if (props.data.subname === 'phone') {
       return (
@@ -154,18 +162,8 @@ const EdditBodyElementItem: React.FC<IProps> = ({ ...props }) => {
       );
     } else if (props.data.subname === 'startTime') {
       return (
-        <div className="clock-input-wrapper">
-          <div
-            style={{
-              position: 'absolute',
-              backgroundColor: 'red',
-              width: '95%',
-              left: '15px',
-              height: '35px',
-            }}
-            onClick={() => dispatcher()}>
-            hello
-          </div>
+        <div className="clock-input-wrapper" style={{ width: '140%', height: 
+         '45px', marginTop: '-10px', marginBottom: '-10px', justifyContent: 'center'}} onClick={() => {focusSetter()}}>
           <TextField
             id="time"
             type="time"
@@ -181,6 +179,7 @@ const EdditBodyElementItem: React.FC<IProps> = ({ ...props }) => {
             InputProps={{
               classes,
             }}
+            inputRef={timer}
           />
         </div>
       );
