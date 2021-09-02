@@ -62,7 +62,10 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       props.discoveryList.items !== undefined &&
       props.itemsCount.counts !== props.discoveryList.items.length
     ) {
-      console.log('innn', props.discoveryList.items, props.itemsCount);
+
+    //  console.log('fieldRef.current ', fieldRef.current.container)
+    //  let scroller:any = fieldRef.current.scrollTop()
+    //  scroller = getScrollTop() - 200
       loadDiscoveries('more', searchQuery);
       setISmoreStated('more');
 
@@ -275,7 +278,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
   const arraySetter = (id: number, element?: string) => {
     if (
       ids.filter((elem) => elem === id).length === 0 &&
-      element !== 'Journey'
+      element !== 'Journeys'
     ) {
       setIds([id]);
       dispatch(
@@ -307,7 +310,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       );
       setDiscovery(undefined);
       setIsJourneyClicked(false);
-    } else if (element === 'Journey' && isJourneyClicked === false) {
+    } else if (element === 'Journeys' && isJourneyClicked === false) {
       setIds([]);
       setIsJourneyClicked(true);
       setDiscovery(undefined);
@@ -337,7 +340,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
           type: discoveryEntityTypeEnum.journey,
         }),
       );
-    } else if (element === 'Journey' && isJourneyClicked === true) {
+    } else if (element === 'Journeys' && isJourneyClicked === true) {
       dispatch(props.setLoadingAction({ status: true }));
       setIds([]);
       setIsJourneyClicked(false);

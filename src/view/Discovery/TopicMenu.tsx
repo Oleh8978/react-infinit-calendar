@@ -125,7 +125,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
           icon: book,
           id: 999,
           orderNumber: 999,
-          title: 'Journey',
+          title: 'Journeys',
         },
       ];
       props.articleCategories.map((item) => {
@@ -273,7 +273,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
           style={{
             backgroundColor:
               items.filter((item) => item.subColor === '#373737').length > 0
-                ? 'white'
+                ? '#373737'
                 : '#373737',
           }}>
           <span
@@ -281,7 +281,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
             style={{
               color:
                 items.filter((item) => item.subColor === '#373737').length > 0
-                  ? '#373737'
+                  ? 'white'
                   : 'white',
             }}>
             All
@@ -307,7 +307,7 @@ const TopicMenu: React.FC<IProps> = ({ marginAdder, ...props }) => {
                 <span
                   className="discovery-menu-small-item-txt"
                   style={{
-                    color: element.subColor.length !== 0 ? 'white' : '#373737',
+                    color: element.subColor.length !== 0 ? 'white' : 'white',
                   }}>
                   {element.title}
                 </span>
