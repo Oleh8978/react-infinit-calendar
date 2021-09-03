@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 interface IProps {
   price?: number;
@@ -12,23 +13,23 @@ interface IProps {
   hasTrialPeriod: boolean;
   id: number;
   trialEndDate?: Date;
+  startDate?: Date;
   isPaid: boolean;
   isConnected: boolean;
   needToPay?: boolean;
 }
 
 const JourneyFixedBottom: React.FC<any> = ({ ...props }) => {
-  const difference = Math.abs(
-    new Date(props.trialEndDate).getTime() - new Date().getTime(),
-  );
-  console.log('props ', props);
-  const days = Math.round(difference / (1000 * 3600 * 24));
+  const startDate = moment(props.startDate);
+  const today = moment();
+  const endTrial = moment(props.trialEndDate);
+  const diff = endTrial.diff(today > startDate ? today : startDate, 'days');
   return (
     <>
       {props.isTrialPeriodStarted ? (
-        days > 0 ? (
+        diff > 0 ? (
           <span className="trial-info">
-            {`Your Trial Ends in ${days} Days`}
+            {`Your Trial Ends in ${diff} Days`}
           </span>
         ) : (
           <span className="trial-info trial-info-error">

@@ -88,11 +88,11 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
   const today = moment().isoWeekday();
   const indexDayStartJourney = 1;
   let startDate;
-  if (today >= indexDayStartJourney) {
+  if (today <= indexDayStartJourney) {
     startDate = moment().isoWeekday(indexDayStartJourney).toDate();
   } else {
     startDate = moment()
-      .subtract(1, 'weeks')
+      .add(1, 'weeks')
       .isoWeekday(indexDayStartJourney)
       .toDate();
   }
@@ -169,6 +169,7 @@ const Journey: React.FC<IProps> = ({ ...props }) => {
                 journey?.status?.isConnected && journey?.status?.isTrial
               }
               trialEndDate={journey.status?.trialEndDate}
+              startDate={journey.status?.startDate}
               isPaid={journey?.status?.isPaid}
               isConnected={journey?.status?.isConnected}
               needToPay={journey?.isNeedPaid}
