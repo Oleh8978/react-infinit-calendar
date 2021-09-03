@@ -72,7 +72,7 @@ const EdditProfile: React.FC<any> = ({ ...props }) => {
       if (item.name === 'phone') {
         if (
           validationObjectUpdate[validationState.indexOf(item)].value.trim()
-            .length === 14
+            .length >= 12
         ) {
           validationObjectUpdate[validationState.indexOf(item)].isValid = true;
         } else {

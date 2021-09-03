@@ -126,6 +126,15 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
                               </h1>
                               {parse(item.journey.subTitle)}
                             </span>
+                            {/* start link  */}
+                            <div
+                                className="card-text-start-btn"
+                                onClick={() => {
+                                  console.log('')
+                                }}> 
+                                Start
+                            </div>
+                            {/* end start link  */}
                           </div>
                         </div>
                       </Link>

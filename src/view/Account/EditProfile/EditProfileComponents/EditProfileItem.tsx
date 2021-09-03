@@ -140,7 +140,7 @@ const EdditBodyElementItem: React.FC<IProps> = ({ ...props }) => {
       return (
         <InputMask
           maskChar={null}
-          mask={'+9-999-999-9999999999'}
+          mask={'9-(999)-99999999999'}
           placeholder={'232-131-2312'}
           onChange={handleChange}
           value={value || props.data.default}
