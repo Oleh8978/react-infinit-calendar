@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Link from '@app/routing/Link';
+import { Link } from 'react-router-dom';
 
 // components
 import Loader from '@app/component/Loader';
@@ -18,6 +18,7 @@ interface IProps {
   margin: number;
   discoveryItems: DiscoveryDTO[];
   isLoading?: ISetLoadingAction;
+  internalLoader: boolean;
   itemsCount?: {
     counts: number;
   };
@@ -36,20 +37,19 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
 
   return (
     <>
-      {props.isLoading.status === true && props.discoveryItems === undefined ? (
+      {props.discoveryItems === undefined ? (
         <Loader />
       ) : (
         <div className={'discovery-list'} ref={fieldRef}>
-          {props.isLoading.status === true &&
-          props.discoveryItems === undefined ? (
+          {props.discoveryItems && props.discoveryItems.length !== 0 ? (
             <span className="discovery-list-title">Full list</span>
           ) : (
             <></>
           )}
           <>
             <div className="discovery-list-holder">
-              {discoveryItems.length > 0 &&
-                discoveryItems.map((item: any): DiscoveryDTO => {
+              {props.discoveryItems.length > 0 &&
+                props.discoveryItems.map((item: any): DiscoveryDTO => {
                   if (
                     Object.keys(item).find(
                       (element) => String(element) === 'article',
@@ -58,8 +58,7 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
                     if (item.article.appearance === 'small') {
                       return (
                         <Link
-                          to={'article'}
-                          params={{ id: String(item.article.id) }}
+                          to={'article/' + String(item.article.id) + '/d'}
                           key={uuid()}
                           className="discovery-list-item-holder__half"
                           style={{ display: 'flex', flexFlow: 'row' }}>
@@ -81,8 +80,7 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
                       // for large article will needt ocreate a case where this article will have large card
                       return (
                         <Link
-                          to={'article'}
-                          params={{ id: String(item.article.id) }}
+                          to={'article/' + String(item.article.id) + '/d'}
                           key={uuid()}
                           className="discovery-list-item-fullarticle"
                           style={{ display: 'flex', flexFlow: 'column' }}>
@@ -106,9 +104,8 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
                   ) {
                     return (
                       <Link
-                        to={'journey'}
-                        key={uuid()}
-                        params={{ id: String(item.journey.id) }}>
+                        to={'journey/' + String(item.journey.id)}
+                        key={uuid()}>
                         <div className="discovery-list-item-holder">
                           <div className="discovery-list-item-imgwrapper">
                             <ImageL
@@ -138,9 +135,8 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
               <>
                 {' '}
                 {props.itemsCount !== undefined &&
-                props.itemsCount.counts === discoveryItems.length &&
-                props.isLoading.status === false ? (
-                  <AnswerNotFound />
+                props.itemsCount.counts === discoveryItems.length ? (
+                  <AnswerNotFound id={1} />
                 ) : (
                   <Loader isSmall={true} />
                 )}

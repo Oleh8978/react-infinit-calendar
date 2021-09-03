@@ -9,6 +9,7 @@ import { omit } from 'lodash';
 
 // components
 import NavigationBar from '@app/component/NavigationBar';
+import SearchBar from '@app/component/SearchBar/SearchBar';
 import Loader from '@app/component/Loader';
 import NotesList from './List';
 
@@ -36,6 +37,10 @@ const CustomReRenderHook = () => {
 };
 
 const Notes: React.FC<any> = ({ ...props }) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [typingTimeOut, setTypingTimeOut] = useState<any>(0);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+
   const fieldRef = createRef() as RefObject<Scrollbars>;
   const dispatch = useDispatch();
 
@@ -47,7 +52,7 @@ const Notes: React.FC<any> = ({ ...props }) => {
       props.count !== 0 &&
       props.count !== props.data.length
     ) {
-      loadNotesData('more');
+      loadNotesData('more', searchQuery);
     }
   };
 
@@ -96,6 +101,42 @@ const Notes: React.FC<any> = ({ ...props }) => {
     }
   }, [props.count, props.singleNoteLoader]);
 
+  const tracker = (text: string) => {
+    if (typingTimeOut) {
+      clearTimeout(typingTimeOut);
+    }
+    setTypingTimeOut(
+      setTimeout(function () {
+        setIsLoading(false);
+        setSearchQuery(text);
+        loadNotesData('start', text);
+        console.log('text ', text);
+        // loadDiscoveries('start', text.trim())
+      }, 5000),
+    );
+  };
+
+  const searchQueryProcessor = (text: string) => {
+    setIsLoading(true);
+    tracker(text);
+  };
+
+  const onCloseHandler = () => {
+    console.log('close');
+  };
+
+  const bodyOfNotes = () => {
+    if (isLoading === true) {
+      return <Loader isSmall={false} />;
+    }
+
+    if (props.data !== undefined) {
+      return <NotesList data={props.data} counts={props.count} />;
+    }
+
+    return <Loader isSmall={false} />;
+  };
+
   return (
     <Scrollbars
       style={{
@@ -108,12 +149,12 @@ const Notes: React.FC<any> = ({ ...props }) => {
       onScroll={loadMoreItems}
       ref={fieldRef}
       renderView={(props) => <div {...props} className={'notes'} />}>
-      <NavigationBar rout={'account'} name={'My Notes'} hasSaveButton={false} />
-      {props.data !== undefined ? (
-        <NotesList data={props.data} counts={props.count} />
-      ) : (
-        <Loader isSmall={false} />
-      )}
+      <SearchBar
+        textHead={'Notes'}
+        inputValueFromSearch={searchQueryProcessor}
+        onCloseHandler={onCloseHandler}
+      />
+      {bodyOfNotes()}
     </Scrollbars>
   );
 };

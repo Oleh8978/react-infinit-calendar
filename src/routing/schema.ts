@@ -65,6 +65,7 @@ export type Pages =
   | 'terms'
   | 'settings'
   | 'ask-question'
+  | 'ask-question2'
   | 'notes'
   | 'read-more'
   | 'expert-help'
@@ -175,13 +176,19 @@ class RoutingSchema {
     },
     {
       name: 'ask-question',
-      path: '/ask-question',
+      path: '/ask-question/1',
+      isExact: true,
+      component: ProtectedRoute(SubmitQuestion, 'ANONYMOUS_USERS'),
+    },
+    {
+      name: 'ask-question2',
+      path: '/ask-question/2',
       isExact: true,
       component: ProtectedRoute(SubmitQuestion, 'ANONYMOUS_USERS'),
     },
     {
       name: 'article',
-      path: '/article/:id',
+      path: '/article/:id/:nameRoute',
       isExact: true,
       component: ProtectedRoute(Article, 'ANONYMOUS_USERS'),
     },

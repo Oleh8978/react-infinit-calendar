@@ -190,7 +190,7 @@
       width: 100%;
       min-height: 212px;
       // margin-top: 28px;
-      margin-left: 15px;
+      // margin-left: 15px;
       margin-right: 15px;
       border-radius: 14px;
       border: 1px solid $divider-color;
@@ -698,7 +698,12 @@
       margin-top: 10px;
       margin-left: 20px;
       border-radius: 16px;
-      max-width: 80px;
+      // max-width: 80px;
+      width: fit-content;
+      padding-left: 15px;
+      padding-right: 15px;
+      padding-top: 4px;
+      padding-bottom: 5px;
       min-height: 25px;
       background-color: $success-color-brighter;
       margin-right: auto;

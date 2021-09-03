@@ -47,6 +47,8 @@ const Discovery: React.FC<any> = ({ ...props }) => {
   const fieldRef = createRef() as RefObject<Scrollbars>;
   const [forse, setForse] = useState<boolean>(false);
   const [hiddenMenu, setHiddenMenu] = useState<boolean>(false);
+  const [typingTimeOut, setTypingTimeOut] = useState<any>(0);
+  const [internalLoader, setInternalLoader] = useState<boolean>(false);
 
   const loadMoreItems = () => {
     const { getClientHeight, getScrollHeight, getScrollTop, scrollToBottom } =
@@ -60,7 +62,9 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       props.discoveryList.items !== undefined &&
       props.itemsCount.counts !== props.discoveryList.items.length
     ) {
-      console.log('innn', props.discoveryList.items, props.itemsCount);
+      //  console.log('fieldRef.current ', fieldRef.current.container)
+      //  let scroller:any = fieldRef.current.scrollTop()
+      //  scroller = getScrollTop() - 200
       loadDiscoveries('more', searchQuery);
       setISmoreStated('more');
 
@@ -79,14 +83,49 @@ const Discovery: React.FC<any> = ({ ...props }) => {
     }
   };
 
+  const tracker = (text: string) => {
+    if (typingTimeOut) {
+      clearTimeout(typingTimeOut);
+    }
+    setTypingTimeOut(
+      setTimeout(function () {
+        // console.log('text ', text)
+        setInternalLoader(false);
+        dispatch(setLoadingAction({ status: false }));
+        loadDiscoveries('start', text.trim());
+      }, 5000),
+    );
+  };
+
   const searchQueryProcessor = (text: string) => {
     setSearchQuery(text.trim().toLowerCase());
-    loadDiscoveries('start', searchQuery);
+    dispatch(setLoadingAction({ status: true }));
+    setInternalLoader(true);
+    dispatch(
+      props.successDiscoveryList({
+        response: {
+          items: [],
+          counts: 0,
+        },
+        searchParams: {
+          limit: '',
+          offset: '',
+          query: '',
+          sortType: '',
+          type: '',
+          categories: '',
+          ids: '',
+        },
+      }),
+    );
+    // loadDiscoveries('start', searchQuery);
     if (text.trim().length !== 0) {
-      loadDiscoveries('start', text.trim());
+      // loadDiscoveries('start', text.trim());
+      tracker(text);
       setHiddenMenu(true);
     } else {
-      loadDiscoveries('start', '');
+      // loadDiscoveries('start', '');
+      tracker('');
       setHiddenMenu(false);
     }
   };
@@ -238,7 +277,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
   const arraySetter = (id: number, element?: string) => {
     if (
       ids.filter((elem) => elem === id).length === 0 &&
-      element !== 'Journey'
+      element !== 'Journeys'
     ) {
       setIds([id]);
       dispatch(
@@ -270,7 +309,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
       );
       setDiscovery(undefined);
       setIsJourneyClicked(false);
-    } else if (element === 'Journey' && isJourneyClicked === false) {
+    } else if (element === 'Journeys' && isJourneyClicked === false) {
       setIds([]);
       setIsJourneyClicked(true);
       setDiscovery(undefined);
@@ -300,7 +339,7 @@ const Discovery: React.FC<any> = ({ ...props }) => {
           type: discoveryEntityTypeEnum.journey,
         }),
       );
-    } else if (element === 'Journey' && isJourneyClicked === true) {
+    } else if (element === 'Journeys' && isJourneyClicked === true) {
       dispatch(props.setLoadingAction({ status: true }));
       setIds([]);
       setIsJourneyClicked(false);
@@ -385,30 +424,15 @@ const Discovery: React.FC<any> = ({ ...props }) => {
     setForse(true);
   };
   // console.log('articleCategories ', articleCategories)
-  return (
-    <Scrollbars
-      style={{
-        width: '100%',
-        maxWidth: 639,
-        height: '100%',
-        maxHeight: '100%',
-        display: 'flex',
-      }}
-      onScroll={loadMoreItems}
-      ref={fieldRef}
-      renderView={(props) => (
-        <div {...props} className={'main-wrapper-discovery'} />
-      )}>
-      {props.topicListLoader === true ||
-      articleCategories === undefined ||
-      (props.discoveryList && props.discoveryList.items === undefined) ? (
-        <Loader isSmall={true} />
-      ) : (
+
+  const bodyProvider = () => {
+    if (internalLoader) {
+      return <Loader isSmall={true} />;
+    }
+
+    if (props.discoveryList && props.discoveryList.items !== undefined) {
+      return (
         <>
-          <SearchBar
-            inputValueFromSearch={searchQueryProcessor}
-            onCloseHandler={onCloseHandler}
-          />
           <div className={'discovery'}>
             <Menu
               marginAdder={marginAdder}
@@ -426,9 +450,39 @@ const Discovery: React.FC<any> = ({ ...props }) => {
               discoveryItems={discovery}
               isLoading={props.isLoading}
               itemsCount={props.itemsCount}
+              internalLoader={internalLoader}
             />
           </div>
         </>
+      );
+    }
+
+    return <Loader isSmall={true} />;
+  };
+  return (
+    <Scrollbars
+      style={{
+        width: '100%',
+        maxWidth: 639,
+        height: '100%',
+        maxHeight: '100%',
+        display: 'flex',
+      }}
+      onScroll={loadMoreItems}
+      ref={fieldRef}
+      renderView={(props) => (
+        <div {...props} className={'main-wrapper-discovery'} />
+      )}>
+      <SearchBar
+        inputValueFromSearch={searchQueryProcessor}
+        onCloseHandler={onCloseHandler}
+      />
+      {props.topicListLoader === true ||
+      articleCategories === undefined ||
+      (props.discoveryList && props.discoveryList.items === undefined) ? (
+        <Loader isSmall={true} />
+      ) : (
+        <>{bodyProvider()}</>
       )}
     </Scrollbars>
   );

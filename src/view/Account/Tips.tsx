@@ -17,6 +17,21 @@ import imgW from './static/messageW.png';
 import imgM from './static/messageM.png';
 import oldTip from './static/oldtips.png';
 
+const CustomReRenderHook = ({ ...props }) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(
+      getTipsListRequest.request({
+        searchParams: {
+          limit: 20,
+          offset: 0,
+        },
+        userId: `${props.userID}`,
+      }),
+    );
+  }, []);
+};
+
 interface IProps {
   counts: number;
 }
@@ -26,6 +41,9 @@ const Tips: React.FC<any> = ({ ...props }) => {
   const [img, setImg] = useState<string>(images[Math.floor(Math.random() * 2)]);
 
   const dispatch = useDispatch();
+  if (props.userID !== undefined) {
+    CustomReRenderHook(props.userID);
+  }
 
   useEffect(() => {
     if (props.counts === undefined) {

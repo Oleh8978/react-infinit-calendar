@@ -79,8 +79,7 @@ const JorneyComponent: React.FC<IProps> = ({ ...props }) => {
               </div>
               <div className={'single-jorney-component__column-body__right'}>
                 <CircularProgressBar
-                  sqSize={110}
-                  percentage={
+                  progress={
                     props.data.statistic.spent > 0 &&
                     props.data.statistic.maxSpent > 0
                       ? Math.round(
@@ -90,7 +89,9 @@ const JorneyComponent: React.FC<IProps> = ({ ...props }) => {
                         )
                       : 1
                   }
-                  strokeColor={props.data.accentColor || '#83DCBC'}
+                  strokeColor={
+                    props.data.accentColor ? props.data.accentColor : 'red'
+                  }
                 />
               </div>
             </div>
