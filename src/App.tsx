@@ -49,6 +49,8 @@ export const App: React.FC = () => {
     });
   }, [locationKeys]);
 
+  console.log('Test check ')
+
   return (
     <>
       {splash === true && localStorage.getItem('authorization') === null ? (
