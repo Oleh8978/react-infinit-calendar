@@ -128,11 +128,11 @@ const DiscoveryTopicList: React.FC<IProps> = ({ ...props }) => {
                             </span>
                             {/* start link  */}
                             <div
-                                className="card-text-start-btn"
-                                onClick={() => {
-                                  console.log('')
-                                }}> 
-                                Start
+                              className="card-text-start-btn"
+                              onClick={() => {
+                                console.log('');
+                              }}>
+                              Start
                             </div>
                             {/* end start link  */}
                           </div>

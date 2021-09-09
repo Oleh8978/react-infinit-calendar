@@ -1,7 +1,9 @@
-import Routing from '@app/routing';
 import React, { useEffect, useState } from 'react';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import { LinkedInPopUp } from 'react-linkedin-login-oauth2';
+
+import Routing from '@app/routing';
+
 import Terms from './component/Terms';
 import PrivacyPolicy from './component/PrivacyPolicy';
 import SplashScreen from '@app/pwa/SplashScreen';
@@ -21,7 +23,15 @@ export const App: React.FC = () => {
   const [locationKeys, setLocationKeys] = useState([]);
   const history = useHistory();
 
+  const menu = document.getElementById('menu');
+  const modal = document.getElementById('modal');
+
   useEffect(() => {
+
+    // if () {
+
+    // }
+
     setTimeout(() => {
       setSplash(false);
     }, 4000);
@@ -49,7 +59,7 @@ export const App: React.FC = () => {
     });
   }, [locationKeys]);
 
-  console.log('Test check ')
+  console.log('Test check ');
 
   return (
     <>

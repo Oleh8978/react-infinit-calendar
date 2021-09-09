@@ -177,3 +177,36 @@
     }
   }
 }
+
+.abcRioButton, .abcRioButtonLightBlue {
+  border-radius: 4px !important;
+}
+
+.abcRioButton:hover .abcRioButtonLightBlue:hover {
+  border-radius: 4px !important;
+  box-shadow: transparent !important;
+}
+
+.abcRioButtonContentWrapper {
+  border-radius: 4px !important;
+  display: flex;
+  flex-flow: row;
+  color: $text-color;
+}
+
+.abcRioButtonContentWrapper:hover {
+  border-radius: 4px;
+  display: flex;
+  flex-flow: row;
+  color: $text-color;
+  box-shadow: none;
+}
+
+.abcRioButtonContents {
+  display: none;
+}
+
+.abcRioButtonContents::before {
+  display: flex;
+  content: 'hi';
+}

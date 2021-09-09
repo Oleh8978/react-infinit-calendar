@@ -50,7 +50,7 @@ const Menu: React.FC<any> = ({ ...props }) => {
 
     if (
       String(name) === 'discovery' &&
-      String(String(location.pathname).search(/(?<=\/article\/).*(?=\/d)/g)) !==
+      String(String(location.pathname).search(/\/article\/(.*?)\/d/g)) !==
         '-1'
     ) {
       return 'active';
@@ -58,7 +58,7 @@ const Menu: React.FC<any> = ({ ...props }) => {
 
     if (
       String(name) === 'schedule' &&
-      String(String(location.pathname).search(/(?<=\/article\/).*(?=\/q)/g)) !==
+      String(String(location.pathname).search(/\/article\/(.*?)\/q/g)) !==
         '-1'
     ) {
       return 'active';
@@ -197,6 +197,7 @@ const Menu: React.FC<any> = ({ ...props }) => {
 
   return (
     <div
+      id={'menu'}
       className={
         'main-menu' +
         (nameRoute && routsWhereShowMenu.indexOf(nameRoute) !== -1

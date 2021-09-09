@@ -12,7 +12,7 @@ interface IProps {
 
 const NavigationMenu: React.FC<IProps> = ({ menuOptions, tabName, id }) => {
   return (
-    <div className="module-menucontainer">
+    <div className="module-menucontainer" id={'menu'}>
       <div className={'module-menu-navigation'}>
         {menuOptions.map((menuItem) => {
           return (

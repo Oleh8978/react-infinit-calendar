@@ -19,6 +19,10 @@ import * as dateObject from './utils';
 import { IDayWithTimeSlots } from '@ternala/frasier-types';
 import { HolidayDTO } from '@ternala/frasier-types/lib/modules/holiday/holiday.dto';
 
+//utils
+import modalWindowTracker from '@app/utils/menuSmallScreensObserver';
+import useWindowDimensions from '@app/customHooks/windowDimensionsHook';
+
 export interface IHeaderDate {
   month: string;
   year: string;
@@ -280,12 +284,14 @@ const Calendar: React.FC<IProps> = ({
   //     }
   //   });
   // }
-
+const width = useWindowDimensions().width;
   const setModalOpened = () => {
     if (!isModalOpened) {
       setIsModalOpened(true);
+      modalWindowTracker(width, 'open');
     } else {
       setIsModalOpened(false);
+      modalWindowTracker(width, 'close');
     }
   };
 

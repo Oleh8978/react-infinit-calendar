@@ -11,7 +11,7 @@ interface IProps {
 
 const ConfirmationWindow: React.FC<IProps> = ({ ...props }) => {
   return (
-    <div className="modalwindow-container">
+    <div className="modalwindow-container" id="modal">
       <div className="modalwindow-wrapper">
         <div className="modalwindow">
           <span className="modalwindow-question">{props.text}</span>

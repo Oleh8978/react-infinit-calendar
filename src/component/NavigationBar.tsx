@@ -32,6 +32,10 @@ import { updateNoteByID } from '@app/controller/notes/actions';
 import * as menuConstats from '@app/view/Module/constants';
 import { datdDraft } from '@app/view/Account/Notes/fakeData/fakeData';
 
+//utils
+import modalWindowTracker from '@app/utils/menuSmallScreensObserver';
+import useWindowDimensions from '@app/customHooks/windowDimensionsHook';
+
 // interfaces
 import { IStore } from '@app/controller/model';
 
@@ -56,6 +60,9 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
   const dispatch = useDispatch();
   const [isNotes, setIsNotes] = useState<boolean>(false);
   const [isNotesID, setIsNotesID] = useState<boolean>(false);
+
+  const width = useWindowDimensions().width;
+
   useEffect(() => {
     if (
       String(props.rout.pathname).match(/note/) !== null &&
@@ -78,6 +85,11 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
       setIsNotesID(false);
     }
   }, [props.rout, props.isBtnSaveActive]);
+
+  useEffect(() => {
+    !props.modalOpened ? modalWindowTracker(width, 'close') : modalWindowTracker(width, 'open')
+
+  },[props.modalOpened]);
 
   const LinkForNotes = () => {
     if (
@@ -120,7 +132,6 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
   };
 
   const sendData = () => {
-    console.log('inn');
     if (props.noteData !== undefined) {
       dispatch(
         sendNoteAction.request({
@@ -219,6 +230,7 @@ const NavigationBar: React.FC<any> = ({ ...props }) => {
                       dispatch(
                         setModalWindowOpened({ status: !props.modalOpened }),
                       );
+
                     }}>
                     <div className="module-menu-back__top" />
                     <div className="module-menu-back__bottom" />

@@ -30,8 +30,9 @@ const ModalWindow: React.FC<IProps> = ({ date, setModalOpened }) => {
     moment(date).isSame(day.date, 'day'),
   );
 
+
   return (
-    <div className="modal-wrapper" style={{ width: windowSize.width }}>
+    <div className="modal-wrapper" style={{ width: windowSize.width }} id={'modal'}>
       <div className="modal">
         <div className="modal-btn-wrapper">
           <div
