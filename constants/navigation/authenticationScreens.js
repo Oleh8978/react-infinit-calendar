@@ -1,0 +1,10 @@
+export const MAIN = 'MAIN';
+export const SIGN_TYPE = 'SIGN_TYPE';
+export const CREATE_USER_EMAIL = 'CREATE_USER_EMAIL';
+export const CONFIRM_EMAIL_ADDRESS = 'CONFIRM_EMAIL_ADDRESS';
+export const SIGN_IN_USER_EMAIL = 'SIGN_IN_USER_EMAIL';
+export const FORGOT_PASSWORD = 'FORGOT_PASSWORD';
+export const RESET_PASSWORD_CODE = 'RESET_PASSWORD_CODE';
+export const BIOMETRIC = 'BIOMETRIC';
+export const WELL_DONE = 'WELL_DONE';
+export const PASSCODE = 'PASSCODE';
