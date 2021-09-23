@@ -1,20 +1,19 @@
 import * as React from 'react';
-import Svg, { Path } from 'react-native-svg';
+import Svg, {
+ Path, Rect, ClipPath, Defs, G,
+} from 'react-native-svg';
 
 function Facebook(props) {
   return (
-    <Svg
-      width={15}
-      height={28}
-      viewBox="0 0 15 28"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
-      <Path
-        d="M14.017 15.631l.777-5.03H9.932V7.34c0-1.376.678-2.719 2.856-2.719H15V.34S12.993 0 11.075 0C7.07 0 4.452 2.41 4.452 6.769v3.833H0v5.03h4.452v12.157c.894.14 1.808.211 2.74.211.931 0 1.846-.071 2.74-.21V15.63h4.085z"
-        fill="#5580EA"
-      />
+    <Svg width={30} height={30} viewBox="0 0 30 30" {...props} fill="none" xmlns="http://www.w3.org/2000/svg">
+      <G clip-path="url(#clip0)">
+        <Path fill-rule="evenodd" clip-rule="evenodd" d="M25.5 15.0619C25.5 9.22871 20.799 4.5 15 4.5C9.20101 4.5 4.5 9.22871 4.5 15.0619C4.5 20.3336 8.3397 24.7031 13.3594 25.4955V18.1149H10.6934V15.0619H13.3594V12.735C13.3594 10.0879 14.927 8.62574 17.3254 8.62574C18.4742 8.62574 19.6758 8.83202 19.6758 8.83202V11.4312H18.3518C17.0474 11.4312 16.6406 12.2454 16.6406 13.0806V15.0619H19.5527L19.0872 18.1149H16.6406V25.4955C21.6603 24.7031 25.5 20.3336 25.5 15.0619Z" fill="#1877F2" />
+      </G>
+      <Defs>
+        <ClipPath id="clip0">
+          <Rect width="21" height="21" fill="white" transform="translate(4.5 4.5)" />
+        </ClipPath>
+      </Defs>
     </Svg>
   );
 }

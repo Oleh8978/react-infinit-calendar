@@ -1,42 +1,10 @@
 import * as React from 'react';
-import Svg, {
-  Path, Mask, G,
-} from 'react-native-svg';
+import Svg, { Path } from 'react-native-svg';
 
 function ChevronLeftWhite(props) {
   return (
-    <Svg
-      width={24}
-      height={24}
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
-      <Path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M15.707 17.293a1 1 0 01-1.414 1.414l-6-6a1 1 0 010-1.414l6-6a1 1 0 111.414 1.414L10.414 12l5.293 5.293z"
-        fill="#fff"
-      />
-      <Mask
-        id="prefix__a"
-        maskUnits="userSpaceOnUse"
-        x={8}
-        y={5}
-        width={8}
-        height={14}
-      >
-        <Path
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M15.707 17.293a1 1 0 01-1.414 1.414l-6-6a1 1 0 010-1.414l6-6a1 1 0 111.414 1.414L10.414 12l5.293 5.293z"
-          fill="#fff"
-        />
-      </Mask>
-      <G mask="url(#prefix__a)">
-        <Path fill="#fff" d="M0 0h24v24H0z" />
-      </G>
+    <Svg width={40} height={40} viewBox="0 0 40 40" {...props} fill="none" xmlns="http://www.w3.org/2000/svg">
+      <Path d="M6.66669 20L5.95958 19.2929L5.25247 20L5.95958 20.7071L6.66669 20ZM31.6667 21C32.219 21 32.6667 20.5523 32.6667 20C32.6667 19.4477 32.219 19 31.6667 19V21ZM15.9596 9.29289L5.95958 19.2929L7.37379 20.7071L17.3738 10.7071L15.9596 9.29289ZM5.95958 20.7071L15.9596 30.7071L17.3738 29.2929L7.37379 19.2929L5.95958 20.7071ZM6.66669 21H31.6667V19H6.66669V21Z" fill="white" />
     </Svg>
   );
 }

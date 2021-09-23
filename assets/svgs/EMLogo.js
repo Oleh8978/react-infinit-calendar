@@ -10,8 +10,8 @@ import Svg, {
 function EMLogo(props) {
   return (
     <Svg
-      width={295}
-      height={296}
+      width={100}
+      height={100}
       viewBox="0 0 295 296"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

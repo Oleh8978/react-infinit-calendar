@@ -7,6 +7,9 @@ import {
 
 import Loader from '../Loader/Loader';
 
+import ArrowNext from '../../../assets/svgs/ArrovNext';
+import EmailImage from '../../../assets/svgs/EmailImage';
+
 import colors from '../../../styles/colors';
 import styles from './DefaultButton.styles';
 
@@ -19,35 +22,68 @@ export default function DefaultButton({
   disabled,
   customStyles,
   textStyles,
+  isArrowNext = false,
   showLoader = false,
   isSmall = false,
+  isEmail = false,
 }) {
   const press = async () => {
     if (onPress && !showLoader) {
       await onPress();
     }
   };
-  const buttonColor = disabled
-    ? colors.grey
-    : isLight
-      ? colors.white
-      : colors.purple;
-  const textColor = disabled || !isLight ? colors.white : colors.purple;
-  const borderColor = disabled ? colors.grey : colors.purple;
+
+  const buttonColor = () => {
+    if (disabled) {
+      return colors.lightGreen;
+    }
+
+    if (!disabled && isLight === true) {
+      return colors.white;
+    }
+
+    if (!disabled && isLight === false) {
+      return colors.darkGreen;
+    }
+  };
+
+  const leftBodyProvider = () => {
+    if (isArrowNext && showLoader === false) {
+      return (<ArrowNext />);
+    }
+
+    if (showLoader) {
+      return (
+        <View style={styles.loader}>
+          <Loader />
+        </View>
+);
+    }
+
+    return <></>;
+  };
+
+  const rightBodyProvider = () => {
+    if (isEmail) {
+      return <EmailImage style={{ marginTop: 1, marginRight: 5 }} />;
+    }
+    return <></>;
+  };
+
+  const textColor = disabled ? colors.lightBlue : colors.darkBlue;
 
   return (
     <TouchableOpacity
       style={{
         ...styles.button,
-        width:
-          DEVICE_WIDTH <= 360 ? (isSmall ? 125 : 290) : isSmall ? 160 : 340,
-        borderColor,
-        backgroundColor: buttonColor,
+        width: '100%',
+        backgroundColor: buttonColor(),
         ...customStyles,
       }}
       onPress={press}
       disabled={disabled}
     >
+      {rightBodyProvider()}
       <Text
         allowFontScaling={false}
         style={{
@@ -55,15 +91,12 @@ export default function DefaultButton({
           fontSize:
             DEVICE_WIDTH <= 375 ? (isSmall ? 12 : 16) : isSmall ? 16 : 18,
           ...textStyles,
+          marginRight: isArrowNext ? 10 : 0,
         }}
       >
         {title}
       </Text>
-      {showLoader && (
-        <View style={styles.loader}>
-          <Loader />
-        </View>
-      )}
+      {leftBodyProvider()}
     </TouchableOpacity>
   );
 }
@@ -76,4 +109,5 @@ DefaultButton.propTypes = {
   textStyles: PropTypes.object,
   showLoader: PropTypes.bool,
   isSmall: PropTypes.bool,
+  ArrowNext: PropTypes.bool,
 };
